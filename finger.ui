@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Dialog</class>
- <widget class="QDialog" name="Dialog">
+ <class>LoginWindow</class>
+ <widget class="QDialog" name="LoginWindow">
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -11,10 +14,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Login</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">QPushButton {padding: 20px}</string>
+   <string notr="true">QWidget {background-color: white}
+QPushButton {padding: 20px}</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
