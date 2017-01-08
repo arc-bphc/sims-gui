@@ -19,4 +19,6 @@ HEADERS  += mainwindow.h
 
 FORMS    += mainwindow.ui \
     home.ui \
-    finger.ui
+    finger.ui \
+    inventory.ui \
+    userprofile.ui
