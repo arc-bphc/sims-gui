@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>842</width>
-    <height>560</height>
+    <height>569</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -160,7 +160,15 @@ QWidget {background-color: rgb(255, 255, 255)}
         <string>Purchase Request</string>
        </property>
        <property name="icon">
-        <iconset theme="save"/>
+        <iconset theme="save">
+         <normaloff>.</normaloff>.</iconset>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="2" alignment="Qt::AlignRight">
+      <widget class="QPushButton" name="pushButton_6">
+       <property name="text">
+        <string>🔒 Lock</string>
        </property>
       </widget>
      </item>

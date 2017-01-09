@@ -11,7 +11,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
-        Dialog.resize(842, 560)
+        Dialog.resize(842, 569)
         Dialog.setStyleSheet("QPushButton {padding: 10px}\n"
 "QWidget {background-color: rgb(255, 255, 255)}\n"
 "")
@@ -78,8 +78,13 @@ class Ui_Dialog(object):
         self.pushButton.setObjectName("pushButton")
         self.gridLayout.addWidget(self.pushButton, 6, 1, 1, 1, QtCore.Qt.AlignTop)
         self.pushButton_5 = QtWidgets.QPushButton(Dialog)
+        icon = QtGui.QIcon.fromTheme("save")
+        self.pushButton_5.setIcon(icon)
         self.pushButton_5.setObjectName("pushButton_5")
         self.gridLayout.addWidget(self.pushButton_5, 5, 1, 1, 1, QtCore.Qt.AlignTop)
+        self.pushButton_6 = QtWidgets.QPushButton(Dialog)
+        self.pushButton_6.setObjectName("pushButton_6")
+        self.gridLayout.addWidget(self.pushButton_6, 7, 2, 1, 1, QtCore.Qt.AlignRight)
         self.gridLayout_2.addLayout(self.gridLayout, 0, 0, 1, 1)
         spacerItem1 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.gridLayout_2.addItem(spacerItem1, 1, 0, 1, 1)
@@ -98,6 +103,7 @@ class Ui_Dialog(object):
         self.pushButton_3.setText(_translate("Dialog", "Reset PIN"))
         self.pushButton.setText(_translate("Dialog", "Edit Details"))
         self.pushButton_5.setText(_translate("Dialog", "Purchase Request"))
+        self.pushButton_6.setText(_translate("Dialog", "🔒 Lock"))
 
 
 if __name__ == "__main__":

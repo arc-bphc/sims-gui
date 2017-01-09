@@ -22,4 +22,5 @@ FORMS    += mainwindow.ui \
     finger.ui \
     inventory.ui \
     userprofile.ui \
-    editdetails.ui
+    editdetails.ui \
+    scratchpad.ui
