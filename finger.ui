@@ -24,7 +24,7 @@ QPushButton {padding: 20px}</string>
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>130</y>
+     <y>360</y>
      <width>791</width>
      <height>211</height>
     </rect>
@@ -39,8 +39,8 @@ QPushButton {padding: 20px}</string>
   <widget class="QLabel" name="tickLabel_2">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>360</y>
+     <x>20</x>
+     <y>140</y>
      <width>801</width>
      <height>211</height>
     </rect>
@@ -55,8 +55,8 @@ QPushButton {padding: 20px}</string>
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>7</x>
-     <y>7</y>
+     <x>130</x>
+     <y>30</y>
      <width>618</width>
      <height>40</height>
     </rect>
