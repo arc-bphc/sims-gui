@@ -11,7 +11,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
-        Form.resize(786, 420)
+        Form.resize(980, 433)
         Form.setStyleSheet("QWidget {background-color: white}\n"
 "")
         self.gridLayout_3 = QtWidgets.QGridLayout(Form)
@@ -34,6 +34,11 @@ class Ui_Form(object):
         self.horizontalLayout.addWidget(self.label_9)
         spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout.addItem(spacerItem)
+        self.label_10 = QtWidgets.QLabel(Form)
+        self.label_10.setObjectName("label_10")
+        self.horizontalLayout.addWidget(self.label_10)
+        spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout.addItem(spacerItem1)
         self.comboBox_2 = QtWidgets.QComboBox(Form)
         self.comboBox_2.setMinimumSize(QtCore.QSize(200, 0))
         self.comboBox_2.setObjectName("comboBox_2")
@@ -114,8 +119,8 @@ class Ui_Form(object):
         self.buttonBox.setObjectName("buttonBox")
         self.gridLayout_2.addWidget(self.buttonBox, 6, 1, 1, 1)
         self.verticalLayout.addLayout(self.gridLayout_2)
-        spacerItem1 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.verticalLayout.addItem(spacerItem1)
+        spacerItem2 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout.addItem(spacerItem2)
         self.gridLayout_3.addLayout(self.verticalLayout, 0, 0, 1, 1)
 
         self.retranslateUi(Form)
@@ -124,6 +129,7 @@ class Ui_Form(object):
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Form"))
+        self.label_10.setText(_translate("Form", "<html><head/><body><p><span style=\" font-size:18pt; font-weight:600;\">Edit User Details</span></p></body></html>"))
         self.comboBox_2.setItemText(0, _translate("Form", "ARCUser"))
         self.label_5.setText(_translate("Form", "Email"))
         self.label.setText(_translate("Form", "Name"))
