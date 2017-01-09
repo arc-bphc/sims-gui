@@ -15,23 +15,26 @@
   </property>
   <property name="styleSheet">
    <string notr="true">QPushButton {padding: 10px}
-QWidget {background-color: white}
+QWidget {background-color: rgb(255, 255, 255)}
 </string>
   </property>
   <layout class="QGridLayout" name="gridLayout_2">
    <item row="0" column="0">
     <layout class="QGridLayout" name="gridLayout">
-     <item row="2" column="1" alignment="Qt::AlignTop">
+     <property name="verticalSpacing">
+      <number>12</number>
+     </property>
+     <item row="3" column="1" alignment="Qt::AlignTop">
       <widget class="QPushButton" name="pushButton_4">
        <property name="text">
         <string>Inventory</string>
        </property>
       </widget>
      </item>
-     <item row="0" column="2" alignment="Qt::AlignRight|Qt::AlignTop">
+     <item row="0" column="2" alignment="Qt::AlignRight|Qt::AlignVCenter">
       <widget class="QComboBox" name="comboBox">
        <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
@@ -54,7 +57,7 @@ QWidget {background-color: white}
        </item>
       </widget>
      </item>
-     <item row="0" column="1" alignment="Qt::AlignHCenter|Qt::AlignTop">
+     <item row="0" column="1" alignment="Qt::AlignHCenter|Qt::AlignVCenter">
       <widget class="QLabel" name="label">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -67,7 +70,7 @@ QWidget {background-color: white}
        </property>
       </widget>
      </item>
-     <item row="3" column="1" alignment="Qt::AlignTop">
+     <item row="4" column="1" alignment="Qt::AlignTop">
       <widget class="QPushButton" name="pushButton_2">
        <property name="text">
         <string>View My Items</string>
@@ -84,8 +87,8 @@ QWidget {background-color: white}
        </property>
        <property name="maximumSize">
         <size>
-         <width>100</width>
-         <height>100</height>
+         <width>130</width>
+         <height>130</height>
         </size>
        </property>
        <property name="text">
@@ -99,7 +102,7 @@ QWidget {background-color: white}
        </property>
       </widget>
      </item>
-     <item row="6" column="1" alignment="Qt::AlignTop">
+     <item row="7" column="1" alignment="Qt::AlignTop">
       <widget class="QPushButton" name="pushButton_3">
        <property name="text">
         <string>Reset PIN</string>
@@ -131,14 +134,27 @@ QWidget {background-color: white}
        </property>
       </widget>
      </item>
-     <item row="5" column="1" alignment="Qt::AlignTop">
+     <item row="2" column="1">
+      <spacer name="verticalSpacer_2">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item row="6" column="1" alignment="Qt::AlignTop">
       <widget class="QPushButton" name="pushButton">
        <property name="text">
         <string>Edit Details</string>
        </property>
       </widget>
      </item>
-     <item row="4" column="1" alignment="Qt::AlignTop">
+     <item row="5" column="1" alignment="Qt::AlignTop">
       <widget class="QPushButton" name="pushButton_5">
        <property name="text">
         <string>Purchase Request</string>
