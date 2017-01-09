@@ -21,4 +21,5 @@ FORMS    += mainwindow.ui \
     home.ui \
     finger.ui \
     inventory.ui \
-    userprofile.ui
+    userprofile.ui \
+    editdetails.ui

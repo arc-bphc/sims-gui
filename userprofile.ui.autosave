@@ -159,6 +159,9 @@ QWidget {background-color: rgb(255, 255, 255)}
        <property name="text">
         <string>Purchase Request</string>
        </property>
+       <property name="icon">
+        <iconset theme="save"/>
+       </property>
       </widget>
      </item>
     </layout>
