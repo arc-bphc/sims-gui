@@ -37,14 +37,14 @@ class Ui_inventoryWindow(object):
         self.listView = QtGui.QListView(self.centralwidget)
         self.listView.setObjectName(_fromUtf8("listView"))
         self.gridLayout.addWidget(self.listView, 2, 2, 1, 2)
-        self.pushButton_2 = QtGui.QPushButton(self.centralwidget)
+        self.cartButton = QtGui.QPushButton(self.centralwidget)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.pushButton_2.sizePolicy().hasHeightForWidth())
-        self.pushButton_2.setSizePolicy(sizePolicy)
-        self.pushButton_2.setObjectName(_fromUtf8("pushButton_2"))
-        self.gridLayout.addWidget(self.pushButton_2, 0, 1, 1, 2, QtCore.Qt.AlignHCenter)
+        sizePolicy.setHeightForWidth(self.cartButton.sizePolicy().hasHeightForWidth())
+        self.cartButton.setSizePolicy(sizePolicy)
+        self.cartButton.setObjectName(_fromUtf8("cartButton"))
+        self.gridLayout.addWidget(self.cartButton, 0, 1, 1, 2, QtCore.Qt.AlignHCenter)
         self.treeView = QtGui.QTreeView(self.centralwidget)
         self.treeView.setObjectName(_fromUtf8("treeView"))
         self.gridLayout.addWidget(self.treeView, 2, 0, 1, 2)
@@ -76,7 +76,7 @@ class Ui_inventoryWindow(object):
 
     def retranslateUi(self, inventoryWindow):
         inventoryWindow.setWindowTitle(_translate("inventoryWindow", "MainWindow", None))
-        self.pushButton_2.setText(_translate("inventoryWindow", "Cart: #", None))
+        self.cartButton.setText(_translate("inventoryWindow", "Cart: #", None))
         self.comboBox.setItemText(0, _translate("inventoryWindow", "ARCUser0", None))
         self.label_2.setText(_translate("inventoryWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">Inventory</span></p></body></html>", None))
 
