@@ -14,7 +14,8 @@
    <string>MainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">QWidget {background-color: white}
+   <string notr="true">QPushButton {padding: 10px}
+QWidget {background-color: white}
 </string>
   </property>
   <widget class="QWidget" name="centralwidget">
@@ -84,6 +85,10 @@
       </item>
       <item row="1" column="0" alignment="Qt::AlignLeft|Qt::AlignTop">
        <widget class="QPushButton" name="pushButton_2">
+        <property name="styleSheet">
+         <string notr="true">QPushButton {padding: 10px}
+</string>
+        </property>
         <property name="text">
          <string>Back</string>
         </property>

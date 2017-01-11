@@ -25,9 +25,10 @@ except AttributeError:
 class Ui_editDetailsWindow(object):
     def setupUi(self, editDetailsWindow):
         editDetailsWindow.setObjectName(_fromUtf8("editDetailsWindow"))
-        editDetailsWindow.resize(866, 433)
+        editDetailsWindow.resize(907, 508)
         editDetailsWindow.setMaximumSize(QtCore.QSize(16777215, 16777215))
-        editDetailsWindow.setStyleSheet(_fromUtf8("QWidget {background-color: white}\n"
+        editDetailsWindow.setStyleSheet(_fromUtf8("QPushButton {padding: 10px}\n"
+"QWidget {background-color: white}\n"
 ""))
         self.gridLayout_3 = QtGui.QGridLayout(editDetailsWindow)
         self.gridLayout_3.setObjectName(_fromUtf8("gridLayout_3"))
@@ -54,12 +55,18 @@ class Ui_editDetailsWindow(object):
         self.horizontalLayout.addWidget(self.label_10)
         spacerItem1 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         self.horizontalLayout.addItem(spacerItem1)
-        self.comboBox_2 = QtGui.QComboBox(editDetailsWindow)
-        self.comboBox_2.setMinimumSize(QtCore.QSize(200, 0))
-        self.comboBox_2.setObjectName(_fromUtf8("comboBox_2"))
-        self.comboBox_2.addItem(_fromUtf8(""))
-        self.horizontalLayout.addWidget(self.comboBox_2)
+        self.pushButton = QtGui.QPushButton(editDetailsWindow)
+        icon = QtGui.QIcon.fromTheme(_fromUtf8("system-shutdown"))
+        self.pushButton.setIcon(icon)
+        self.pushButton.setObjectName(_fromUtf8("pushButton"))
+        self.horizontalLayout.addWidget(self.pushButton, QtCore.Qt.AlignRight|QtCore.Qt.AlignTop)
         self.verticalLayout.addLayout(self.horizontalLayout)
+        self.pushButton_2 = QtGui.QPushButton(editDetailsWindow)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(_fromUtf8("ChevronLeft-128.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.pushButton_2.setIcon(icon)
+        self.pushButton_2.setObjectName(_fromUtf8("pushButton_2"))
+        self.verticalLayout.addWidget(self.pushButton_2, QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
         self.gridLayout_2 = QtGui.QGridLayout()
         self.gridLayout_2.setContentsMargins(250, -1, 250, -1)
         self.gridLayout_2.setObjectName(_fromUtf8("gridLayout_2"))
@@ -144,7 +151,8 @@ class Ui_editDetailsWindow(object):
     def retranslateUi(self, editDetailsWindow):
         editDetailsWindow.setWindowTitle(_translate("editDetailsWindow", "Form", None))
         self.label_10.setText(_translate("editDetailsWindow", "<html><head/><body><p><span style=\" font-size:18pt; font-weight:600;\">Edit User Details</span></p></body></html>", None))
-        self.comboBox_2.setItemText(0, _translate("editDetailsWindow", "ARCUser", None))
+        self.pushButton.setText(_translate("editDetailsWindow", "Logout", None))
+        self.pushButton_2.setText(_translate("editDetailsWindow", "Back", None))
         self.label_5.setText(_translate("editDetailsWindow", "Email", None))
         self.label.setText(_translate("editDetailsWindow", "Name", None))
         self.label_4.setText(_translate("editDetailsWindow", "Room Number", None))

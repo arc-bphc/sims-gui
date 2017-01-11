@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>866</width>
-    <height>433</height>
+    <width>907</width>
+    <height>508</height>
    </rect>
   </property>
   <property name="maximumSize">
@@ -20,7 +20,8 @@
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">QWidget {background-color: white}
+   <string notr="true">QPushButton {padding: 10px}
+QWidget {background-color: white}
 </string>
   </property>
   <layout class="QGridLayout" name="gridLayout_3">
@@ -86,22 +87,28 @@
          </property>
         </spacer>
        </item>
-       <item>
-        <widget class="QComboBox" name="comboBox_2">
-         <property name="minimumSize">
-          <size>
-           <width>200</width>
-           <height>0</height>
-          </size>
+       <item alignment="Qt::AlignRight|Qt::AlignTop">
+        <widget class="QPushButton" name="pushButton">
+         <property name="text">
+          <string>Logout</string>
          </property>
-         <item>
-          <property name="text">
-           <string>ARCUser</string>
-          </property>
-         </item>
+         <property name="icon">
+          <iconset theme="system-shutdown"/>
+         </property>
         </widget>
        </item>
       </layout>
+     </item>
+     <item alignment="Qt::AlignLeft|Qt::AlignTop">
+      <widget class="QPushButton" name="pushButton_2">
+       <property name="text">
+        <string>Back</string>
+       </property>
+       <property name="icon">
+        <iconset>
+         <normaloff>ChevronLeft-128.png</normaloff>ChevronLeft-128.png</iconset>
+       </property>
+      </widget>
      </item>
      <item>
       <layout class="QGridLayout" name="gridLayout_2">

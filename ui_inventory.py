@@ -26,7 +26,8 @@ class Ui_inventoryWindow(object):
     def setupUi(self, inventoryWindow):
         inventoryWindow.setObjectName(_fromUtf8("inventoryWindow"))
         inventoryWindow.resize(691, 477)
-        inventoryWindow.setStyleSheet(_fromUtf8("QWidget {background-color: white}\n"
+        inventoryWindow.setStyleSheet(_fromUtf8("QPushButton {padding: 10px}\n"
+"QWidget {background-color: white}\n"
 ""))
         self.centralwidget = QtGui.QWidget(inventoryWindow)
         self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
@@ -69,6 +70,8 @@ class Ui_inventoryWindow(object):
         self.pushButton.setObjectName(_fromUtf8("pushButton"))
         self.gridLayout.addWidget(self.pushButton, 0, 3, 1, 1, QtCore.Qt.AlignRight|QtCore.Qt.AlignTop)
         self.pushButton_2 = QtGui.QPushButton(self.centralwidget)
+        self.pushButton_2.setStyleSheet(_fromUtf8("QPushButton {padding: 10px}\n"
+""))
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(_fromUtf8("ChevronLeft-128.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.pushButton_2.setIcon(icon)
