@@ -8,11 +8,11 @@ class splashScreen(Ui_splashScreen):
         Ui_splashScreen.__init__(self)
         self.setupUi(window)
         self.pushButton.clicked.connect(self.launchWindow)
-        self.widget = None
+        self.f = QtGui.QDialog()
 
     def launchWindow(self):
-        self.widget = userProfile(self)
-        self.widget.show()
+        j = userProfile(self.f)
+        self.f.show()
 
 if __name__ == '__main__':
     app = QtGui.QApplication(sys.argv)
