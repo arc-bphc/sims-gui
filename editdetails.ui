@@ -6,9 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>980</width>
+    <width>866</width>
     <height>433</height>
    </rect>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>16777215</width>
+    <height>16777215</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>Form</string>
@@ -32,8 +38,8 @@
          </property>
          <property name="maximumSize">
           <size>
-           <width>134</width>
-           <height>115</height>
+           <width>175</width>
+           <height>150</height>
           </size>
          </property>
          <property name="text">
@@ -234,6 +240,13 @@
          </property>
         </widget>
        </item>
+       <item row="6" column="1">
+        <widget class="QDialogButtonBox" name="buttonBox">
+         <property name="standardButtons">
+          <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+         </property>
+        </widget>
+       </item>
        <item row="0" column="1">
         <widget class="QTextEdit" name="textEdit">
          <property name="enabled">
@@ -250,13 +263,6 @@
            <width>16777215</width>
            <height>40</height>
           </size>
-         </property>
-        </widget>
-       </item>
-       <item row="6" column="1">
-        <widget class="QDialogButtonBox" name="buttonBox">
-         <property name="standardButtons">
-          <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
          </property>
         </widget>
        </item>

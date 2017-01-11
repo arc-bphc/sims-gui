@@ -32,7 +32,8 @@ class Ui_splashScreen(object):
         sizePolicy.setHeightForWidth(splashScreen.sizePolicy().hasHeightForWidth())
         splashScreen.setSizePolicy(sizePolicy)
         splashScreen.setMaximumSize(QtCore.QSize(1982, 1175))
-        splashScreen.setStyleSheet(_fromUtf8("background-color: white"))
+        splashScreen.setStyleSheet(_fromUtf8("background-color: white\n"
+""))
         self.centralWidget = QtGui.QWidget(splashScreen)
         self.centralWidget.setObjectName(_fromUtf8("centralWidget"))
         self.gridLayout_2 = QtGui.QGridLayout(self.centralWidget)

@@ -26,7 +26,8 @@
    <string>Welcome Screen</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: white</string>
+   <string notr="true">background-color: white
+</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout_2">

@@ -18,6 +18,6 @@ if __name__ == '__main__':
     app = QtGui.QApplication(sys.argv)
     winddowWidget = QtGui.QMainWindow()
     prog = splashScreen(winddowWidget)
-#    winddowWidget.showFullScreen()
+    winddowWidget.showFullScreen()
     winddowWidget.show()
     sys.exit(app.exec_())
