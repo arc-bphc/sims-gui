@@ -15,9 +15,9 @@ class userProfile(Ui_userWindow):
 
     def launchInventory(self, widget):
         prog = inventoryWindow(self.winddowWidget)
-        self.winddowWidget.show()
+        self.winddowWidget.showFullScreen()
         widget.close()
     def launchEditDetails(self, widget):
         prog = editDetailsWindow(self.childWidget)
-        self.childWidget.show()
+        self.childWidget.showFullScreen()
         widget.close()

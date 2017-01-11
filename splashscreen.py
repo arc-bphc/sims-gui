@@ -11,7 +11,7 @@ class splashScreen(Ui_splashScreen):
         self.profileWidget = QtGui.QDialog()
     def launchWindow(self, widget):
         prog = userProfile(self.profileWidget)
-        self.profileWidget.show()
+        self.profileWidget.showFullScreen()
         widget.close()
 
 if __name__ == '__main__':
@@ -19,5 +19,5 @@ if __name__ == '__main__':
     winddowWidget = QtGui.QMainWindow()
     prog = splashScreen(winddowWidget)
     winddowWidget.showFullScreen()
-    winddowWidget.show()
+#    winddowWidget.show()
     sys.exit(app.exec_())
