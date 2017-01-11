@@ -9,7 +9,6 @@ class splashScreen(Ui_splashScreen):
         self.setupUi(widget)
         self.pushButton.clicked.connect(lambda: self.launchWindow(widget))
         self.profileWidget = QtGui.QDialog()
-
     def launchWindow(self, widget):
         prog = userProfile(self.profileWidget)
         self.profileWidget.show()
