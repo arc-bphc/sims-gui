@@ -63,7 +63,13 @@ QWidget {background-color: rgb(255, 255, 255)}
       </spacer>
      </item>
      <item row="0" column="2" alignment="Qt::AlignRight|Qt::AlignTop">
-      <widget class="QWidget" name="" native="true">
+      <widget class="QWidget" name="userBox" native="true">
+       <property name="maximumSize">
+        <size>
+         <width>400</width>
+         <height>60</height>
+        </size>
+       </property>
        <layout class="QHBoxLayout" name="horizontalLayout">
         <item>
          <widget class="QLabel" name="label_2">
@@ -75,8 +81,8 @@ QWidget {background-color: rgb(255, 255, 255)}
           </property>
           <property name="maximumSize">
            <size>
-            <width>50</width>
-            <height>50</height>
+            <width>60</width>
+            <height>60</height>
            </size>
           </property>
           <property name="text">
@@ -138,8 +144,8 @@ QWidget {background-color: rgb(255, 255, 255)}
       <widget class="QPushButton" name="pushButton_2">
        <property name="maximumSize">
         <size>
-         <width>50</width>
-         <height>16777215</height>
+         <width>60</width>
+         <height>60</height>
         </size>
        </property>
        <property name="font">
