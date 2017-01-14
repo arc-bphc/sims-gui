@@ -84,6 +84,26 @@
     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Place your finger on the fingerprint sensor&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
   </widget>
+  <widget class="QComboBox" name="comboBox">
+   <property name="geometry">
+    <rect>
+     <x>70</x>
+     <y>160</y>
+     <width>90</width>
+     <height>36</height>
+    </rect>
+   </property>
+   <item>
+    <property name="text">
+     <string>lock</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>logout</string>
+    </property>
+   </item>
+  </widget>
  </widget>
  <resources/>
  <connections/>

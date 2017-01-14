@@ -23,6 +23,12 @@ QPushButton {padding: 20px}</string>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
     <layout class="QVBoxLayout" name="verticalLayout">
+     <property name="leftMargin">
+      <number>100</number>
+     </property>
+     <property name="rightMargin">
+      <number>100</number>
+     </property>
      <item>
       <spacer name="verticalSpacer_4">
        <property name="orientation">
