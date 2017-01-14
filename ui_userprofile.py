@@ -25,14 +25,12 @@ except AttributeError:
 class Ui_userWindow(object):
     def setupUi(self, userWindow):
         userWindow.setObjectName(_fromUtf8("userWindow"))
-        userWindow.resize(842, 569)
+        userWindow.resize(1082, 775)
         userWindow.setStyleSheet(_fromUtf8("QPushButton {padding: 10px}\n"
 "QWidget {background-color: rgb(255, 255, 255)}\n"
 ""))
         self.gridLayout_2 = QtGui.QGridLayout(userWindow)
         self.gridLayout_2.setObjectName(_fromUtf8("gridLayout_2"))
-        spacerItem = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
-        self.gridLayout_2.addItem(spacerItem, 1, 0, 1, 1)
         self.gridLayout = QtGui.QGridLayout()
         self.gridLayout.setVerticalSpacing(12)
         self.gridLayout.setObjectName(_fromUtf8("gridLayout"))
@@ -83,8 +81,8 @@ class Ui_userWindow(object):
         self.inventoryButton = QtGui.QPushButton(userWindow)
         self.inventoryButton.setObjectName(_fromUtf8("inventoryButton"))
         self.gridLayout.addWidget(self.inventoryButton, 3, 1, 1, 1, QtCore.Qt.AlignTop)
-        spacerItem1 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
-        self.gridLayout.addItem(spacerItem1, 2, 1, 1, 1)
+        spacerItem = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
+        self.gridLayout.addItem(spacerItem, 2, 1, 1, 1)
         self.pushButton = QtGui.QPushButton(userWindow)
         icon = QtGui.QIcon.fromTheme(_fromUtf8("system-shutdown"))
         self.pushButton.setIcon(icon)
@@ -105,10 +103,12 @@ class Ui_userWindow(object):
         self.viewItemsButton = QtGui.QPushButton(userWindow)
         self.viewItemsButton.setObjectName(_fromUtf8("viewItemsButton"))
         self.gridLayout.addWidget(self.viewItemsButton, 4, 1, 1, 1, QtCore.Qt.AlignTop)
+        self.gridLayout_2.addLayout(self.gridLayout, 1, 0, 1, 1)
         self.lockButton = QtGui.QPushButton(userWindow)
         self.lockButton.setObjectName(_fromUtf8("lockButton"))
-        self.gridLayout.addWidget(self.lockButton, 7, 2, 1, 1, QtCore.Qt.AlignRight)
-        self.gridLayout_2.addLayout(self.gridLayout, 0, 0, 1, 1)
+        self.gridLayout_2.addWidget(self.lockButton, 3, 0, 1, 1, QtCore.Qt.AlignRight|QtCore.Qt.AlignBottom)
+        spacerItem1 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
+        self.gridLayout_2.addItem(spacerItem1, 2, 0, 1, 1)
 
         self.retranslateUi(userWindow)
         QtCore.QMetaObject.connectSlotsByName(userWindow)

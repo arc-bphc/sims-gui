@@ -18,7 +18,6 @@ SOURCES += main.cpp\
 HEADERS  += mainwindow.h
 
 FORMS    += mainwindow.ui \
-    home.ui \
     finger.ui \
     inventory.ui \
     userprofile.ui \
