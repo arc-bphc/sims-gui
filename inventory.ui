@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>691</width>
-    <height>477</height>
+    <width>1026</width>
+    <height>677</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -22,7 +22,22 @@ QWidget {background-color: white}
    <layout class="QGridLayout" name="gridLayout_2">
     <item row="0" column="0">
      <layout class="QGridLayout" name="gridLayout">
-      <item row="0" column="0" alignment="Qt::AlignLeft|Qt::AlignTop">
+      <item row="0" column="0">
+       <widget class="QPushButton" name="pushButton_2">
+        <property name="styleSheet">
+         <string notr="true">QPushButton {padding: 10px}
+</string>
+        </property>
+        <property name="text">
+         <string>Back</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>ChevronLeft-128.png</normaloff>ChevronLeft-128.png</iconset>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1" colspan="2" alignment="Qt::AlignHCenter">
        <widget class="QLabel" name="label_5">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -47,13 +62,18 @@ QWidget {background-color: white}
         </property>
        </widget>
       </item>
-      <item row="3" column="2" colspan="2">
-       <widget class="QListView" name="listView"/>
+      <item row="0" column="3">
+       <widget class="QPushButton" name="pushButton">
+        <property name="text">
+         <string>Logout</string>
+        </property>
+        <property name="icon">
+         <iconset theme="system-shutdown">
+          <normaloff>.</normaloff>.</iconset>
+        </property>
+       </widget>
       </item>
-      <item row="3" column="0" colspan="2">
-       <widget class="QTreeView" name="treeView"/>
-      </item>
-      <item row="0" column="1" colspan="2" alignment="Qt::AlignHCenter">
+      <item row="1" column="1" colspan="2" alignment="Qt::AlignHCenter">
        <widget class="QPushButton" name="cartButton">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -66,37 +86,26 @@ QWidget {background-color: white}
         </property>
        </widget>
       </item>
-      <item row="2" column="0" colspan="4">
+      <item row="2" column="1" colspan="2">
        <widget class="QLabel" name="label_2">
+        <property name="font">
+         <font>
+          <pointsize>16</pointsize>
+          <weight>75</weight>
+          <italic>false</italic>
+          <bold>true</bold>
+         </font>
+        </property>
         <property name="text">
          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Inventory&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="3" alignment="Qt::AlignRight|Qt::AlignTop">
-       <widget class="QPushButton" name="pushButton">
-        <property name="text">
-         <string>Logout</string>
-        </property>
-        <property name="icon">
-         <iconset theme="system-shutdown"/>
-        </property>
-       </widget>
+      <item row="3" column="1">
+       <widget class="QTreeView" name="treeView"/>
       </item>
-      <item row="1" column="0" alignment="Qt::AlignLeft|Qt::AlignTop">
-       <widget class="QPushButton" name="pushButton_2">
-        <property name="styleSheet">
-         <string notr="true">QPushButton {padding: 10px}
-</string>
-        </property>
-        <property name="text">
-         <string>Back</string>
-        </property>
-        <property name="icon">
-         <iconset>
-          <normaloff>ChevronLeft-128.png</normaloff>ChevronLeft-128.png</iconset>
-        </property>
-       </widget>
+      <item row="3" column="2">
+       <widget class="QListView" name="listView"/>
       </item>
      </layout>
     </item>
