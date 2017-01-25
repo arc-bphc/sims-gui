@@ -36,13 +36,15 @@ class Ui_inventoryWindow(object):
         self.gridLayout = QtGui.QGridLayout()
         self.gridLayout.setObjectName(_fromUtf8("gridLayout"))
         self.pushButton_2 = QtGui.QPushButton(self.centralwidget)
+        self.pushButton_2.setMinimumSize(QtCore.QSize(50, 50))
         self.pushButton_2.setStyleSheet(_fromUtf8("QPushButton {padding: 10px}\n"
 ""))
+        self.pushButton_2.setText(_fromUtf8(""))
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(_fromUtf8("ChevronLeft-128.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.pushButton_2.setIcon(icon)
         self.pushButton_2.setObjectName(_fromUtf8("pushButton_2"))
-        self.gridLayout.addWidget(self.pushButton_2, 0, 0, 1, 1)
+        self.gridLayout.addWidget(self.pushButton_2, 0, 0, 1, 1, QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
         self.label_5 = QtGui.QLabel(self.centralwidget)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -59,7 +61,7 @@ class Ui_inventoryWindow(object):
         icon = QtGui.QIcon.fromTheme(_fromUtf8("system-shutdown"))
         self.pushButton.setIcon(icon)
         self.pushButton.setObjectName(_fromUtf8("pushButton"))
-        self.gridLayout.addWidget(self.pushButton, 0, 3, 1, 1)
+        self.gridLayout.addWidget(self.pushButton, 0, 3, 1, 1, QtCore.Qt.AlignRight|QtCore.Qt.AlignTop)
         self.cartButton = QtGui.QPushButton(self.centralwidget)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -91,7 +93,6 @@ class Ui_inventoryWindow(object):
 
     def retranslateUi(self, inventoryWindow):
         inventoryWindow.setWindowTitle(_translate("inventoryWindow", "MainWindow", None))
-        self.pushButton_2.setText(_translate("inventoryWindow", "Back", None))
         self.pushButton.setText(_translate("inventoryWindow", "Logout", None))
         self.cartButton.setText(_translate("inventoryWindow", "Cart: #", None))
         self.label_2.setText(_translate("inventoryWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">Inventory</span></p></body></html>", None))

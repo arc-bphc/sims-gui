@@ -32,6 +32,7 @@ class Ui_loginWindow(object):
         self.gridLayout = QtGui.QGridLayout(loginWindow)
         self.gridLayout.setObjectName(_fromUtf8("gridLayout"))
         self.verticalLayout = QtGui.QVBoxLayout()
+        self.verticalLayout.setContentsMargins(100, -1, 100, -1)
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
         spacerItem = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
         self.verticalLayout.addItem(spacerItem)
