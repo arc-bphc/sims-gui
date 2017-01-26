@@ -22,4 +22,5 @@ FORMS    += mainwindow.ui \
     inventory.ui \
     userprofile.ui \
     editdetails.ui \
-    scratchpad.ui
+    scratchpad.ui \
+    requestitem.ui

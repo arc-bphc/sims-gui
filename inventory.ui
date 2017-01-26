@@ -22,6 +22,27 @@ QWidget {background-color: white}
    <layout class="QGridLayout" name="gridLayout_2">
     <item row="0" column="0">
      <layout class="QGridLayout" name="gridLayout">
+      <property name="verticalSpacing">
+       <number>15</number>
+      </property>
+      <item row="1" column="1" colspan="2" alignment="Qt::AlignHCenter">
+       <widget class="QLabel" name="label_2">
+        <property name="font">
+         <font>
+          <pointsize>16</pointsize>
+          <weight>75</weight>
+          <italic>false</italic>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Inventory&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0" colspan="2">
+       <widget class="QTreeView" name="treeView"/>
+      </item>
       <item row="0" column="0" alignment="Qt::AlignLeft|Qt::AlignTop">
        <widget class="QPushButton" name="pushButton_2">
         <property name="minimumSize">
@@ -41,9 +62,31 @@ QWidget {background-color: white}
          <iconset>
           <normaloff>ChevronLeft-128.png</normaloff>ChevronLeft-128.png</iconset>
         </property>
+        <property name="iconSize">
+         <size>
+          <width>32</width>
+          <height>32</height>
+         </size>
+        </property>
+        <property name="flat">
+         <bool>true</bool>
+        </property>
        </widget>
       </item>
-      <item row="0" column="1" colspan="2" alignment="Qt::AlignHCenter">
+      <item row="1" column="3" alignment="Qt::AlignRight|Qt::AlignVCenter">
+       <widget class="QPushButton" name="cartButton">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>Cart: #</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1" colspan="2" alignment="Qt::AlignHCenter|Qt::AlignTop">
        <widget class="QLabel" name="label_5">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -69,51 +112,63 @@ QWidget {background-color: white}
        </widget>
       </item>
       <item row="0" column="3" alignment="Qt::AlignRight|Qt::AlignTop">
-       <widget class="QPushButton" name="pushButton">
-        <property name="text">
-         <string>Logout</string>
-        </property>
-        <property name="icon">
-         <iconset theme="system-shutdown">
-          <normaloff>.</normaloff>.</iconset>
-        </property>
+       <widget class="QWidget" name="" native="true">
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <widget class="QLabel" name="label_3">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>40</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>50</width>
+             <height>50</height>
+            </size>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="pixmap">
+            <pixmap>index.png</pixmap>
+           </property>
+           <property name="scaledContents">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="comboBox">
+           <property name="minimumSize">
+            <size>
+             <width>200</width>
+             <height>40</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>300</width>
+             <height>16777215</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </widget>
       </item>
-      <item row="1" column="1" colspan="2" alignment="Qt::AlignHCenter">
-       <widget class="QPushButton" name="cartButton">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="text">
-         <string>Cart: #</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1" colspan="2">
-       <widget class="QLabel" name="label_2">
-        <property name="font">
-         <font>
-          <pointsize>16</pointsize>
-          <weight>75</weight>
-          <italic>false</italic>
-          <bold>true</bold>
-         </font>
-        </property>
-        <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Inventory&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="1">
-       <widget class="QTreeView" name="treeView"/>
-      </item>
-      <item row="3" column="2">
+      <item row="2" column="2" colspan="2">
        <widget class="QListView" name="listView"/>
       </item>
      </layout>
+    </item>
+    <item row="1" column="0" alignment="Qt::AlignRight">
+     <widget class="QPushButton" name="pushButton">
+      <property name="text">
+       <string>Save</string>
+      </property>
+     </widget>
     </item>
    </layout>
   </widget>

@@ -59,8 +59,8 @@ QWidget {background-color: white}
          <widget class="QLabel" name="label_8">
           <property name="maximumSize">
            <size>
-            <width>60</width>
-            <height>60</height>
+            <width>50</width>
+            <height>40</height>
            </size>
           </property>
           <property name="text">

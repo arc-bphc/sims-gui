@@ -43,7 +43,7 @@ class Ui_editDetailsWindow(object):
         self.horizontalLayout = QtGui.QHBoxLayout(self.widget)
         self.horizontalLayout.setObjectName(_fromUtf8("horizontalLayout"))
         self.label_8 = QtGui.QLabel(self.widget)
-        self.label_8.setMaximumSize(QtCore.QSize(60, 60))
+        self.label_8.setMaximumSize(QtCore.QSize(50, 40))
         self.label_8.setText(_fromUtf8(""))
         self.label_8.setPixmap(QtGui.QPixmap(_fromUtf8("index.png")))
         self.label_8.setScaledContents(True)
