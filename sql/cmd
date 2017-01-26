@@ -1,0 +1,4 @@
+insert into arc_users values (002,'arcuser2',9876543211,1234567891,'V110','113@123.com');
+
+insert into inventory values(123,1,1,1,'raspi');
+insert into inventory values(124,1,2,3,'arduino');
