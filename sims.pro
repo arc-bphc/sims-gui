@@ -23,4 +23,5 @@ FORMS    += mainwindow.ui \
     userprofile.ui \
     editdetails.ui \
     scratchpad.ui \
-    requestitem.ui
+    requestitem.ui \
+    resetpin.ui
