@@ -14,16 +14,16 @@ class db:
     def __del__(self):
         self.conn.close()
 
-    def insertTuple(self, table, values, parameters = ''):
+    def insertTuple(self, table, values, parameters = []):
         placeholder = '(' + ','.join('?'*len(values)) + ')'
         #print placeholder
-        if parameters == '':
+        if len(parameters) == 0:
             query = 'insert into ' + table + ' values ' + placeholder
             self.conn.execute(query, values)
         else:
-            parameterPlaceholder = '(' + ','.join('?'*len(parameters)) + ')'
+            parameterPlaceholder = '(' + ','.join(parameters) + ')'
             query = 'insert into ' + table + parameterPlaceholder + ' values ' + placeholder
-            self.conn.execute(query, parameters, values)
+            self.conn.execute(query, values)
         self.conn.commit()
 
     def selectQuery(self, table, col, whereClause = []):
@@ -50,8 +50,7 @@ class db:
 
 def main():
     tempBase = db('arc.db')
-    tempBase.updateQuery('arc_users', ['user_id = 45', "name = 'arcuser0'"], ['user_id = 25'])
-    #v = [005, 'arcuser3',13123123, 123123123, 'v111', '213@12.com']
-
+#    tempBase.updateQuery('arc_users', ['user_id = 45', "name = 'arcuser0'"], ['user_id = 25'])
+#    tempBase.insertTuple('arc_users', [65, "arcuserX"], ['user_id', 'name'])
 if __name__ == '__main__':
     main()
