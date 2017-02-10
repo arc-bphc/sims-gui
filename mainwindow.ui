@@ -25,6 +25,10 @@
   <property name="windowTitle">
    <string>Welcome Screen</string>
   </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>13015184_719298964879056_6631447530178360880_n.png</normaloff>13015184_719298964879056_6631447530178360880_n.png</iconset>
+  </property>
   <property name="styleSheet">
    <string notr="true">background-color: white
 </string>
