@@ -3,6 +3,7 @@ from ui_userprofile import Ui_userWindow
 from inventorywindow import inventoryWindow
 from editdetailswindow import editDetailsWindow
 from requestitem import requestItemWindow
+from resetpin import resetPinWindow
 
 class userProfile(Ui_userWindow):
     def __init__(self, widget):
