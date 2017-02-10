@@ -50,7 +50,7 @@ QWidget {background-color: rgb(255, 255, 255)}
          </widget>
         </item>
         <item>
-         <widget class="QComboBox" name="comboBox_2">
+         <widget class="QComboBox" name="comboBox">
           <property name="minimumSize">
            <size>
             <width>200</width>
@@ -134,7 +134,7 @@ QWidget {background-color: rgb(255, 255, 255)}
       </widget>
      </item>
      <item row="0" column="0" alignment="Qt::AlignLeft|Qt::AlignTop">
-      <widget class="QPushButton" name="pushButton">
+      <widget class="QPushButton" name="backButton">
        <property name="minimumSize">
         <size>
          <width>50</width>

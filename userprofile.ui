@@ -87,6 +87,19 @@ QWidget {background-color: rgb(255, 255, 255)}
             <height>16777215</height>
            </size>
           </property>
+          <item>
+           <property name="text">
+            <string>ARCUser</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Logout</string>
+           </property>
+           <property name="icon">
+            <iconset theme="system-shutdown"/>
+           </property>
+          </item>
          </widget>
         </item>
        </layout>
@@ -126,7 +139,7 @@ QWidget {background-color: rgb(255, 255, 255)}
         </sizepolicy>
        </property>
        <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:18pt; font-weight:600;&quot;&gt;Welcome, ARCUser&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:28pt; font-weight:600;&quot;&gt;Welcome, ARCUser&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
       </widget>
      </item>
@@ -156,9 +169,15 @@ QWidget {background-color: rgb(255, 255, 255)}
      </item>
      <item row="0" column="0" alignment="Qt::AlignLeft|Qt::AlignTop">
       <widget class="QPushButton" name="pushButton_2">
-       <property name="maximumSize">
+       <property name="minimumSize">
         <size>
          <width>50</width>
+         <height>50</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
          <height>16777215</height>
         </size>
        </property>
