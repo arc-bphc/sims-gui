@@ -27,8 +27,8 @@ QWidget {background-color: white}
   <layout class="QGridLayout" name="gridLayout_3">
    <item row="0" column="0">
     <layout class="QGridLayout" name="gridLayout_2">
-     <item row="1" column="1">
-      <spacer name="verticalSpacer_2">
+     <item row="2" column="1">
+      <spacer name="verticalSpacer_3">
        <property name="orientation">
         <enum>Qt::Vertical</enum>
        </property>
@@ -40,54 +40,7 @@ QWidget {background-color: white}
        </property>
       </spacer>
      </item>
-     <item row="0" column="2" alignment="Qt::AlignRight|Qt::AlignTop">
-      <widget class="QWidget" name="widget" native="true">
-       <property name="minimumSize">
-        <size>
-         <width>250</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>400</width>
-         <height>16777215</height>
-        </size>
-       </property>
-       <layout class="QHBoxLayout" name="horizontalLayout">
-        <item>
-         <widget class="QLabel" name="label_8">
-          <property name="maximumSize">
-           <size>
-            <width>50</width>
-            <height>40</height>
-           </size>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-          <property name="pixmap">
-           <pixmap>index.png</pixmap>
-          </property>
-          <property name="scaledContents">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QComboBox" name="comboBox">
-          <property name="minimumSize">
-           <size>
-            <width>200</width>
-            <height>40</height>
-           </size>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-     </item>
-     <item row="4" column="0" colspan="3" alignment="Qt::AlignHCenter">
+     <item row="3" column="0" colspan="3" alignment="Qt::AlignHCenter">
       <widget class="QWidget" name="widget" native="true">
        <property name="minimumSize">
         <size>
@@ -100,8 +53,8 @@ QWidget {background-color: white}
          <rect>
           <x>1</x>
           <y>1</y>
-          <width>434</width>
-          <height>278</height>
+          <width>451</width>
+          <height>291</height>
          </rect>
         </property>
         <layout class="QGridLayout" name="gridLayout">
@@ -133,7 +86,7 @@ QWidget {background-color: white}
             </size>
            </property>
            <property name="text">
-            <string>Phone No. (WhatsApp)</string>
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;Phone No. (WhatsApp)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
           </widget>
          </item>
@@ -146,7 +99,7 @@ QWidget {background-color: white}
             </size>
            </property>
            <property name="text">
-            <string>Phone No. (Calling)</string>
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;Phone No. (Calling)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
           </widget>
          </item>
@@ -175,7 +128,7 @@ QWidget {background-color: white}
             </size>
            </property>
            <property name="text">
-            <string>Room Number</string>
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;Room Number&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
           </widget>
          </item>
@@ -188,7 +141,7 @@ QWidget {background-color: white}
             </size>
            </property>
            <property name="text">
-            <string>Email</string>
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;Personal Email&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
           </widget>
          </item>
@@ -217,7 +170,7 @@ QWidget {background-color: white}
             </size>
            </property>
            <property name="text">
-            <string>Name</string>
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;Name&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
           </widget>
          </item>
@@ -257,7 +210,7 @@ QWidget {background-color: white}
        </widget>
       </widget>
      </item>
-     <item row="2" column="1" alignment="Qt::AlignHCenter|Qt::AlignTop">
+     <item row="1" column="1" alignment="Qt::AlignHCenter|Qt::AlignTop">
       <widget class="QLabel" name="label_10">
        <property name="text">
         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:18pt; font-weight:600;&quot;&gt;Edit User Details&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -309,18 +262,52 @@ QWidget {background-color: white}
        </property>
       </widget>
      </item>
-     <item row="3" column="1">
-      <spacer name="verticalSpacer_3">
-       <property name="orientation">
-        <enum>Qt::Vertical</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
+     <item row="0" column="2" alignment="Qt::AlignRight|Qt::AlignTop">
+      <widget class="QWidget" name="widget" native="true">
+       <property name="minimumSize">
         <size>
-         <width>20</width>
-         <height>40</height>
+         <width>250</width>
+         <height>0</height>
         </size>
        </property>
-      </spacer>
+       <property name="maximumSize">
+        <size>
+         <width>400</width>
+         <height>16777215</height>
+        </size>
+       </property>
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <item>
+         <widget class="QLabel" name="label_8">
+          <property name="maximumSize">
+           <size>
+            <width>50</width>
+            <height>40</height>
+           </size>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="pixmap">
+           <pixmap>index.png</pixmap>
+          </property>
+          <property name="scaledContents">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QComboBox" name="comboBox">
+          <property name="minimumSize">
+           <size>
+            <width>200</width>
+            <height>40</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
      </item>
     </layout>
    </item>
