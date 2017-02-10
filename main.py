@@ -76,9 +76,7 @@ class mainWindow(QtGui.QWidget):
     def setupFingerprint(self):
         Ui_loginWindow().setupUi(self.fingerprint)
 #        backButton = self.resetPin.findChild(QtGui.QPushButton, "backButton")
-
 #        backButton.clicked.connect(lambda: self.launchWindow(1))
-
 
     def setupRequestItem(self):
         Ui_requestItemWindow().setupUi(self.requestItem)
@@ -128,24 +126,10 @@ def main():
     app = QtGui.QApplication(sys.argv)
     app.setWindowIcon(QtGui.QIcon('13015184_719298964879056_6631447530178360880_n.png'))
     widget = QtGui.QWidget()
+    widget.setWindowTitle("Smart Inventory Management System")
     prog = mainWindow(widget)
     widget.show()
     sys.exit(app.exec_())
 
 if __name__ == '__main__':
     main()
-'''
-        self.StackedWidget = QtGui.QStackedWidget(self)
-        self.StackedWidget.addWidget(self.stack1)
-
-        self.StackedWidget.setCurrentIndex(0)
-
-            def stack1UI(self):
-                inst = Ui_resetPinWindow()
-                widg = QtGui.QWidget()
-                inst.setupUi(widg)
-                layout = QtGui.QHBoxLayout()
-                layout.addWidget(widg)
-                self.stack1.setLayout(layout)
-
-'''
