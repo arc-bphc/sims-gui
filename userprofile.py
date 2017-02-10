@@ -12,7 +12,7 @@ class userProfile(Ui_userWindow):
         self.inventoryButton.clicked.connect(lambda: self.launchInventory(widget))
         self.editDetailsButton.clicked.connect(lambda: self.launchEditDetails(widget))
         self.requestButton.clicked.connect(lambda: self.launchRequestItem(widget))
-        self.resetPinButton.clicked.connect(lambda: self.launchResetForm(widget))
+        self.resetPinButton.clicked.connect(lambda: self.launchResetPin(widget))
 
         self.winddowWidget = QtGui.QMainWindow()
         self.childWidget = QtGui.QWidget()
@@ -29,4 +29,7 @@ class userProfile(Ui_userWindow):
         prog = requestItemWindow(self.childWidget)
         self.childWidget.showFullScreen()
         widget.close()
-#    def launchResetForm(self, widget)
+    def launchResetPin(self, widget):
+        prog = resetPinWindow(self.childWidget)
+        self.childWidget.showFullScreen()
+        widget.close()
