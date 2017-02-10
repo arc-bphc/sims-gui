@@ -30,9 +30,6 @@ class mainWindow(QtGui.QWidget):
 
         self.StackWidget.setCurrentIndex(0)
 
-    def printString(self):
-        print "HellowORld"
-
     def createStackedPages(self):
         self.setupWindows()
         self.StackWidget.addWidget(self.splashScreen)
