@@ -67,7 +67,7 @@ QWidget {background-color: white}
        <widget class="QTreeView" name="treeView"/>
       </item>
       <item row="0" column="0" alignment="Qt::AlignLeft|Qt::AlignTop">
-       <widget class="QPushButton" name="pushButton_2">
+       <widget class="QPushButton" name="backButton">
         <property name="minimumSize">
          <size>
           <width>50</width>
@@ -204,7 +204,8 @@ QWidget {background-color: white}
          <string>Save</string>
         </property>
         <property name="icon">
-         <iconset theme="document-save"/>
+         <iconset theme="document-save">
+          <normaloff>.</normaloff>.</iconset>
         </property>
        </widget>
       </item>

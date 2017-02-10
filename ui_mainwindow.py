@@ -32,9 +32,6 @@ class Ui_splashScreen(object):
         sizePolicy.setHeightForWidth(splashScreen.sizePolicy().hasHeightForWidth())
         splashScreen.setSizePolicy(sizePolicy)
         splashScreen.setMaximumSize(QtCore.QSize(1982, 1175))
-        icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(_fromUtf8("13015184_719298964879056_6631447530178360880_n.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        splashScreen.setWindowIcon(icon)
         splashScreen.setStyleSheet(_fromUtf8("background-color: white\n"
 ""))
         self.centralWidget = QtGui.QWidget(splashScreen)
