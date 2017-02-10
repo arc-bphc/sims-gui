@@ -28,10 +28,7 @@ class mainWindow(QtGui.QWidget):
         print "HellowORld"
 
     def createStackedPages(self):
-        Ui_userWindow().setupUi(self.userProfile)
-
-        #f = self.splashScreen.gridLayout
-        #self.pushButton.clicked.connect(lambda: self.printString())
+        self.setupWindows()
         self.StackWidget.addWidget(self.splashScreen)
         self.StackWidget.addWidget(self.userProfile)
         self.StackWidget.addWidget(self.resetPin)
@@ -43,10 +40,17 @@ class mainWindow(QtGui.QWidget):
     def setupSplashScreen(self):
         Ui_splashScreen().setupUi(self.splashScreen)
         button = self.splashScreen.findChild(QtGui.QPushButton, "pushButton")
-        button.clicked.connect(lambda: self.launchUserProfile())
+        button.clicked.connect(lambda: self.launchWindow(1))
 
-    def launchUserProfile(self):
-        self.StackWidget.setCurrentIndex(1)
+    def setupUserProfile(self):
+        Ui_userWindow().setupUi(self.userProfile)
+
+    def launchWindow(self, value):
+        self.StackWidget.setCurrentIndex(value)
+
+    def setupWindows(self):
+        self.setupSplashScreen()
+        self.setupUserProfile()
 
 def main():
     app = QtGui.QApplication(sys.argv)
