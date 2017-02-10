@@ -25,6 +25,29 @@ QWidget {background-color: white}
       <property name="verticalSpacing">
        <number>15</number>
       </property>
+      <item row="5" column="1" alignment="Qt::AlignRight">
+       <widget class="QPushButton" name="pushButton">
+        <property name="maximumSize">
+         <size>
+          <width>50</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>28</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>+</string>
+        </property>
+        <property name="flat">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
       <item row="1" column="1" colspan="2" alignment="Qt::AlignHCenter">
        <widget class="QLabel" name="label_2">
         <property name="font">
@@ -175,30 +198,7 @@ QWidget {background-color: white}
         </property>
        </widget>
       </item>
-      <item row="4" column="1" alignment="Qt::AlignRight">
-       <widget class="QPushButton" name="pushButton">
-        <property name="maximumSize">
-         <size>
-          <width>50</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>28</pointsize>
-          <weight>75</weight>
-          <bold>true</bold>
-         </font>
-        </property>
-        <property name="text">
-         <string>+</string>
-        </property>
-        <property name="flat">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="2" alignment="Qt::AlignLeft">
+      <item row="5" column="2" alignment="Qt::AlignLeft">
        <widget class="QPushButton" name="pushButton_3">
         <property name="maximumSize">
          <size>
@@ -221,7 +221,7 @@ QWidget {background-color: white}
         </property>
        </widget>
       </item>
-      <item row="4" column="3" alignment="Qt::AlignRight">
+      <item row="5" column="3" alignment="Qt::AlignRight">
        <widget class="QPushButton" name="pushButton_4">
         <property name="text">
          <string>Save</string>
@@ -231,7 +231,33 @@ QWidget {background-color: white}
         </property>
        </widget>
       </item>
+      <item row="4" column="1">
+       <spacer name="verticalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
      </layout>
+    </item>
+    <item row="1" column="0">
+     <spacer name="verticalSpacer">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
     </item>
    </layout>
   </widget>
