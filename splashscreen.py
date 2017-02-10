@@ -5,7 +5,7 @@ from userprofile import userProfile
 
 class splashScreen(Ui_splashScreen):
     def __init__(self, widget):
-        Ui_splashScreen.__init__(self)
+        Ui_splashScreen.__init__(self) #super
         self.setupUi(widget)
         self.pushButton.clicked.connect(lambda: self.launchWindow(widget))
         self.profileWidget = QtGui.QDialog()
