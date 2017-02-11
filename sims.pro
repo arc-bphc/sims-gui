@@ -24,4 +24,5 @@ FORMS    += mainwindow.ui \
     editdetails.ui \
     scratchpad.ui \
     requestitem.ui \
-    resetpin.ui
+    resetpin.ui \
+    arc-header.ui
