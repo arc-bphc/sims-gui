@@ -10,7 +10,6 @@ from ui_requestitem import Ui_requestItemWindow
 from ui_editdetails import Ui_editDetailsWindow
 from ui_inventory import Ui_inventoryWindow
 from ui_cart import Ui_cartWindow
-#from ui_itemwidget import Ui_itemWidget
 
 class mainWindow(QtGui.QWidget):
     def __init__(self, widget):
@@ -27,7 +26,6 @@ class mainWindow(QtGui.QWidget):
         self.cart = QtGui.QWidget()
 
         self.username = "ARC-User-X"
-        #Ui_arcHeader().setupUi(self.arcHeader)
 
         self.setupHeaderWidget(self.arcHeader)
 

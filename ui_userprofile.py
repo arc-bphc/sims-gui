@@ -89,6 +89,13 @@ class Ui_userWindow(object):
         self.profilePic.setScaledContents(True)
         self.profilePic.setObjectName(_fromUtf8("profilePic"))
         self.gridLayout.addWidget(self.profilePic, 3, 1, 1, 1, QtCore.Qt.AlignHCenter)
+        self.pushButton = QtGui.QPushButton(userWindow)
+        self.pushButton.setMinimumSize(QtCore.QSize(75, 75))
+        self.pushButton.setMaximumSize(QtCore.QSize(150, 150))
+        self.pushButton.setText(_fromUtf8(""))
+        self.pushButton.setFlat(True)
+        self.pushButton.setObjectName(_fromUtf8("pushButton"))
+        self.gridLayout.addWidget(self.pushButton, 3, 2, 1, 1)
         self.gridLayout_2.addLayout(self.gridLayout, 0, 0, 1, 1)
 
         self.retranslateUi(userWindow)
