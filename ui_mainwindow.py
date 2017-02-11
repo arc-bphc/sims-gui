@@ -54,7 +54,7 @@ class Ui_splashScreen(object):
         self.label = QtGui.QLabel(self.centralWidget)
         self.label.setMaximumSize(QtCore.QSize(492, 192))
         self.label.setText(_fromUtf8(""))
-        self.label.setPixmap(QtGui.QPixmap(_fromUtf8("12967978_719298328212453_6846422403842474807_o.jpg")))
+        self.label.setPixmap(QtGui.QPixmap(_fromUtf8("images/12967978_719298328212453_6846422403842474807_o.jpg")))
         self.label.setScaledContents(True)
         self.label.setObjectName(_fromUtf8("label"))
         self.gridLayout.addWidget(self.label, 0, 0, 1, 1)

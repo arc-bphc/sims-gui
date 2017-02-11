@@ -232,7 +232,7 @@ QWidget {background-color: rgb(255, 255, 255)}
         <string/>
        </property>
        <property name="pixmap">
-        <pixmap>index.png</pixmap>
+        <pixmap>images/index.png</pixmap>
        </property>
        <property name="scaledContents">
         <bool>true</bool>

@@ -50,7 +50,7 @@ class mainWindow(QtGui.QWidget):
         hbox = QtGui.QHBoxLayout()
         #hbox.addWidget(QtGui.QRadioButton("Hello"))
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("ChevronLeft-128.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("images/back.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
 
         #setting up gui
         backButton = QtGui.QPushButton()
@@ -61,7 +61,7 @@ class mainWindow(QtGui.QWidget):
         arcLogo = QtGui.QLabel()
         arcLogo.setMinimumSize(QtCore.QSize(0, 0))
         arcLogo.setMaximumSize(QtCore.QSize(175, 150))
-        arcLogo.setPixmap(QtGui.QPixmap("13015184_719298964879056_6631447530178360880_n.png"))
+        arcLogo.setPixmap(QtGui.QPixmap("images/arclogo.png"))
         arcLogo.setScaledContents(True)
 
         userWidget = QtGui.QWidget()

@@ -78,7 +78,7 @@
          <string/>
         </property>
         <property name="pixmap">
-         <pixmap>12967978_719298328212453_6846422403842474807_o.jpg</pixmap>
+         <pixmap>images/12967978_719298328212453_6846422403842474807_o.jpg</pixmap>
         </property>
         <property name="scaledContents">
          <bool>true</bool>
