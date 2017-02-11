@@ -9,7 +9,8 @@ from ui_finger import Ui_loginWindow
 from ui_requestitem import Ui_requestItemWindow
 from ui_editdetails import Ui_editDetailsWindow
 from ui_inventory import Ui_inventoryWindow
-from ui_archeader import Ui_arcHeader
+
+from ui_itemwidget import Ui_itemWidget
 
 class mainWindow(QtGui.QWidget):
     def __init__(self, widget):
