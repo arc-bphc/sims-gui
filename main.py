@@ -25,6 +25,8 @@ class mainWindow(QtGui.QWidget):
         self.inventory = QtGui.QMainWindow()
         self.arcHeader = QtGui.QWidget()
         self.cart = QtGui.QWidget()
+
+        self.username = "ARC-User-X"
         #Ui_arcHeader().setupUi(self.arcHeader)
 
         self.setupHeaderWidget(self.arcHeader)
@@ -76,6 +78,9 @@ class mainWindow(QtGui.QWidget):
         comboBox.setMinimumSize(QtCore.QSize(200, 40))
         comboBox.setMaximumSize(QtCore.QSize(300, 16777215))
 
+        comboBox.addItem(self.username)
+        comboBox.addItem("Logout")
+
         userHBox.addWidget(userIcon)
         userHBox.addWidget(comboBox)
         userWidget.setLayout(userHBox)
@@ -119,12 +124,15 @@ class mainWindow(QtGui.QWidget):
         requestButton = self.userProfile.findChild(QtGui.QPushButton, "requestButton")
         resetPinButton = self.userProfile.findChild(QtGui.QPushButton, "resetPinButton")
         cartButton = self.userProfile.findChild(QtGui.QPushButton, "cartButton")
+        welcomeLabel = self.userProfile.findChild(QtGui.QLabel, "welcomeLabel")
 
         inventoryButton.clicked.connect(lambda: self.launchWindow(5))
         editDetailsButton.clicked.connect(lambda: self.launchWindow(4))
         requestButton.clicked.connect(lambda: self.launchWindow(3))
         resetPinButton.clicked.connect(lambda: self.launchWindow(1))
         cartButton.clicked.connect(lambda: self.launchWindow(6))
+
+        welcomeLabel.setText("Welcome, " + self.username)
 
     def setupResetPin(self):
         Ui_resetPinWindow().setupUi(self.resetPin)
