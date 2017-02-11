@@ -24,7 +24,7 @@ QWidget {background-color: rgb(255, 255, 255)}
      <property name="verticalSpacing">
       <number>16</number>
      </property>
-     <item row="3" column="1">
+     <item row="4" column="1">
       <widget class="QPushButton" name="inventoryButton">
        <property name="text">
         <string>Inventory</string>
@@ -35,13 +35,6 @@ QWidget {background-color: rgb(255, 255, 255)}
       <widget class="QPushButton" name="editDetailsButton">
        <property name="text">
         <string>Edit Details</string>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="1">
-      <widget class="QPushButton" name="viewItemsButton">
-       <property name="text">
-        <string>View My Items</string>
        </property>
       </widget>
      </item>
@@ -124,7 +117,7 @@ QWidget {background-color: rgb(255, 255, 255)}
        </property>
       </widget>
      </item>
-     <item row="1" column="1" alignment="Qt::AlignHCenter">
+     <item row="2" column="1" alignment="Qt::AlignHCenter">
       <widget class="QLabel" name="label">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -194,8 +187,21 @@ QWidget {background-color: rgb(255, 255, 255)}
        </property>
       </widget>
      </item>
-     <item row="2" column="1">
+     <item row="3" column="1">
       <spacer name="verticalSpacer_3">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item row="1" column="1">
+      <spacer name="verticalSpacer_2">
        <property name="orientation">
         <enum>Qt::Vertical</enum>
        </property>

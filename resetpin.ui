@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Form</class>
- <widget class="QWidget" name="Form">
+ <class>resetPinWindow</class>
+ <widget class="QWidget" name="resetPinWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -171,7 +171,7 @@ QWidget {background-color: rgb(255, 255, 255)}
        <property name="verticalSpacing">
         <number>20</number>
        </property>
-       <item row="1" column="0">
+       <item row="1" column="0" alignment="Qt::AlignHCenter">
         <widget class="QLabel" name="label_2">
          <property name="maximumSize">
           <size>
@@ -180,11 +180,11 @@ QWidget {background-color: rgb(255, 255, 255)}
           </size>
          </property>
          <property name="text">
-          <string>New PIN</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;New PIN&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
         </widget>
        </item>
-       <item row="0" column="0">
+       <item row="0" column="0" alignment="Qt::AlignHCenter">
         <widget class="QLabel" name="label">
          <property name="maximumSize">
           <size>
@@ -193,7 +193,7 @@ QWidget {background-color: rgb(255, 255, 255)}
           </size>
          </property>
          <property name="text">
-          <string>Current PIN</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;Current PIN&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
         </widget>
        </item>

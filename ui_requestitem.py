@@ -22,21 +22,22 @@ except AttributeError:
     def _translate(context, text, disambig):
         return QtGui.QApplication.translate(context, text, disambig)
 
-class Ui_Form(object):
-    def setupUi(self, Form):
-        Form.setObjectName(_fromUtf8("Form"))
-        Form.resize(985, 581)
-        Form.setStyleSheet(_fromUtf8("QPushButton {padding: 10px}\n"
+class Ui_requestItemWindow(object):
+    def setupUi(self, requestItemWindow):
+        requestItemWindow.setObjectName(_fromUtf8("requestItemWindow"))
+        requestItemWindow.resize(1119, 629)
+        requestItemWindow.setStyleSheet(_fromUtf8("QPushButton {padding: 10px}\n"
 "QWidget {background-color: rgb(255, 255, 255)}\n"
 ""))
-        self.gridLayout_2 = QtGui.QGridLayout(Form)
+        self.gridLayout_2 = QtGui.QGridLayout(requestItemWindow)
         self.gridLayout_2.setObjectName(_fromUtf8("gridLayout_2"))
         self.gridLayout = QtGui.QGridLayout()
         self.gridLayout.setObjectName(_fromUtf8("gridLayout"))
-        self.textEdit = QtGui.QTextEdit(Form)
+        self.textEdit = QtGui.QTextEdit(requestItemWindow)
+        self.textEdit.setMinimumSize(QtCore.QSize(1000, 0))
         self.textEdit.setObjectName(_fromUtf8("textEdit"))
-        self.gridLayout.addWidget(self.textEdit, 2, 0, 1, 3)
-        self.label = QtGui.QLabel(Form)
+        self.gridLayout.addWidget(self.textEdit, 3, 0, 1, 3, QtCore.Qt.AlignHCenter)
+        self.label = QtGui.QLabel(requestItemWindow)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -44,7 +45,7 @@ class Ui_Form(object):
         self.label.setSizePolicy(sizePolicy)
         self.label.setObjectName(_fromUtf8("label"))
         self.gridLayout.addWidget(self.label, 1, 1, 1, 1, QtCore.Qt.AlignHCenter|QtCore.Qt.AlignTop)
-        self.pushButton = QtGui.QPushButton(Form)
+        self.pushButton = QtGui.QPushButton(requestItemWindow)
         self.pushButton.setMinimumSize(QtCore.QSize(50, 50))
         self.pushButton.setText(_fromUtf8(""))
         icon = QtGui.QIcon()
@@ -54,7 +55,7 @@ class Ui_Form(object):
         self.pushButton.setFlat(True)
         self.pushButton.setObjectName(_fromUtf8("pushButton"))
         self.gridLayout.addWidget(self.pushButton, 0, 0, 1, 1, QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
-        self.widget = QtGui.QWidget(Form)
+        self.widget = QtGui.QWidget(requestItemWindow)
         self.widget.setObjectName(_fromUtf8("widget"))
         self.horizontalLayout = QtGui.QHBoxLayout(self.widget)
         self.horizontalLayout.setObjectName(_fromUtf8("horizontalLayout"))
@@ -72,7 +73,7 @@ class Ui_Form(object):
         self.comboBox_2.setObjectName(_fromUtf8("comboBox_2"))
         self.horizontalLayout.addWidget(self.comboBox_2)
         self.gridLayout.addWidget(self.widget, 0, 2, 1, 1, QtCore.Qt.AlignRight|QtCore.Qt.AlignTop)
-        self.label_3 = QtGui.QLabel(Form)
+        self.label_3 = QtGui.QLabel(requestItemWindow)
         self.label_3.setMinimumSize(QtCore.QSize(0, 0))
         self.label_3.setMaximumSize(QtCore.QSize(175, 150))
         self.label_3.setText(_fromUtf8(""))
@@ -80,20 +81,22 @@ class Ui_Form(object):
         self.label_3.setScaledContents(True)
         self.label_3.setObjectName(_fromUtf8("label_3"))
         self.gridLayout.addWidget(self.label_3, 0, 1, 1, 1, QtCore.Qt.AlignHCenter|QtCore.Qt.AlignTop)
-        self.buttonBox = QtGui.QDialogButtonBox(Form)
+        self.buttonBox = QtGui.QDialogButtonBox(requestItemWindow)
         self.buttonBox.setStandardButtons(QtGui.QDialogButtonBox.Cancel|QtGui.QDialogButtonBox.Ok)
         self.buttonBox.setObjectName(_fromUtf8("buttonBox"))
-        self.gridLayout.addWidget(self.buttonBox, 4, 1, 1, 1, QtCore.Qt.AlignHCenter|QtCore.Qt.AlignTop)
+        self.gridLayout.addWidget(self.buttonBox, 5, 1, 1, 1, QtCore.Qt.AlignHCenter|QtCore.Qt.AlignTop)
         spacerItem = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
-        self.gridLayout.addItem(spacerItem, 5, 1, 1, 1)
+        self.gridLayout.addItem(spacerItem, 6, 1, 1, 1)
         spacerItem1 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
-        self.gridLayout.addItem(spacerItem1, 3, 1, 1, 1)
+        self.gridLayout.addItem(spacerItem1, 4, 1, 1, 1)
+        spacerItem2 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
+        self.gridLayout.addItem(spacerItem2, 2, 1, 1, 1)
         self.gridLayout_2.addLayout(self.gridLayout, 0, 0, 1, 1)
 
-        self.retranslateUi(Form)
-        QtCore.QMetaObject.connectSlotsByName(Form)
+        self.retranslateUi(requestItemWindow)
+        QtCore.QMetaObject.connectSlotsByName(requestItemWindow)
 
-    def retranslateUi(self, Form):
-        Form.setWindowTitle(_translate("Form", "Form", None))
-        self.label.setText(_translate("Form", "<html><head/><body><p align=\"center\"><span style=\" font-size:18pt; font-weight:600;\">Purchase Request Form</span></p></body></html>", None))
+    def retranslateUi(self, requestItemWindow):
+        requestItemWindow.setWindowTitle(_translate("requestItemWindow", "Form", None))
+        self.label.setText(_translate("requestItemWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:18pt; font-weight:600;\">Purchase Request Form</span></p></body></html>", None))
 
