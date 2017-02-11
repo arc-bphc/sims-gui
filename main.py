@@ -9,8 +9,8 @@ from ui_finger import Ui_loginWindow
 from ui_requestitem import Ui_requestItemWindow
 from ui_editdetails import Ui_editDetailsWindow
 from ui_inventory import Ui_inventoryWindow
-
-from ui_itemwidget import Ui_itemWidget
+from ui_cart import Ui_cartWindow
+#from ui_itemwidget import Ui_itemWidget
 
 class mainWindow(QtGui.QWidget):
     def __init__(self, widget):
@@ -24,7 +24,7 @@ class mainWindow(QtGui.QWidget):
         self.editDetails = QtGui.QWidget()
         self.inventory = QtGui.QMainWindow()
         self.arcHeader = QtGui.QWidget()
-
+        self.cart = QtGui.QWidget()
         #Ui_arcHeader().setupUi(self.arcHeader)
 
         self.setupHeaderWidget(self.arcHeader)
@@ -101,6 +101,7 @@ class mainWindow(QtGui.QWidget):
         self.StackWidget.addWidget(self.requestItem)
         self.StackWidget.addWidget(self.editDetails)
         self.StackWidget.addWidget(self.inventory)
+        self.StackWidget.addWidget(self.cart)
 
         self.HomeWidget.addWidget(self.splashScreen)
         self.HomeWidget.addWidget(self.screenWidget)
@@ -117,11 +118,13 @@ class mainWindow(QtGui.QWidget):
         editDetailsButton = self.userProfile.findChild(QtGui.QPushButton, "editDetailsButton")
         requestButton = self.userProfile.findChild(QtGui.QPushButton, "requestButton")
         resetPinButton = self.userProfile.findChild(QtGui.QPushButton, "resetPinButton")
+        cartButton = self.userProfile.findChild(QtGui.QPushButton, "cartButton")
 
         inventoryButton.clicked.connect(lambda: self.launchWindow(5))
         editDetailsButton.clicked.connect(lambda: self.launchWindow(4))
         requestButton.clicked.connect(lambda: self.launchWindow(3))
         resetPinButton.clicked.connect(lambda: self.launchWindow(1))
+        cartButton.clicked.connect(lambda: self.launchWindow(6))
 
     def setupResetPin(self):
         Ui_resetPinWindow().setupUi(self.resetPin)
@@ -143,6 +146,15 @@ class mainWindow(QtGui.QWidget):
 
     def setupInventory(self):
         Ui_inventoryWindow().setupUi(self.inventory)
+        buttonBox = self.inventory.findChild(QtGui.QDialogButtonBox, "buttonBox")
+        cartButton = self.inventory.findChild(QtGui.QPushButton, "cartButton")
+
+        buttonBox.rejected.connect(lambda: self.launchWindow(0))
+        cartButton.clicked.connect(lambda: self.launchWindow(6))
+
+
+    def setupCart(self):
+        Ui_cartWindow().setupUi(self.cart)
 
     def comboAction(self, x):
         if (x == 1):
@@ -165,6 +177,7 @@ class mainWindow(QtGui.QWidget):
         self.setupRequestItem()
         self.setupEditDetails()
         self.setupInventory()
+        self.setupCart()
 
 def main():
     app = QtGui.QApplication(sys.argv)

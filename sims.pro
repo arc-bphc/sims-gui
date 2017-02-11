@@ -26,4 +26,5 @@ FORMS    += mainwindow.ui \
     requestitem.ui \
     resetpin.ui \
     arc-header.ui \
-    itemwidget.ui
+    itemwidget.ui \
+    cart.ui
