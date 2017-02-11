@@ -134,5 +134,5 @@ class Ui_editDetailsWindow(object):
         self.label_4.setText(_translate("editDetailsWindow", "<html><head/><body><p><span style=\" font-size:14pt; font-weight:600;\">Room Number</span></p></body></html>", None))
         self.label_5.setText(_translate("editDetailsWindow", "<html><head/><body><p><span style=\" font-size:14pt; font-weight:600;\">Personal Email</span></p></body></html>", None))
         self.label.setText(_translate("editDetailsWindow", "<html><head/><body><p><span style=\" font-size:14pt; font-weight:600;\">Name</span></p></body></html>", None))
-        self.label_10.setText(_translate("editDetailsWindow", "<html><head/><body><p><span style=\" font-size:18pt; font-weight:600;\">Edit User Details</span></p></body></html>", None))
+        self.label_10.setText(_translate("editDetailsWindow", "<html><head/><body><p><span style=\" font-size:22pt; font-weight:600;\">Edit User Details</span></p></body></html>", None))
 

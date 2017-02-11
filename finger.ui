@@ -42,7 +42,7 @@ QPushButton {padding: 20px}</string>
        </property>
       </spacer>
      </item>
-     <item alignment="Qt::AlignTop">
+     <item>
       <widget class="QLabel" name="label">
        <property name="font">
         <font>
@@ -69,7 +69,7 @@ QPushButton {padding: 20px}</string>
        </property>
       </spacer>
      </item>
-     <item alignment="Qt::AlignHCenter|Qt::AlignTop">
+     <item alignment="Qt::AlignHCenter">
       <widget class="QLabel" name="label_2">
        <property name="maximumSize">
         <size>
@@ -117,8 +117,8 @@ QPushButton {padding: 20px}</string>
      </property>
      <property name="sizeHint" stdset="0">
       <size>
-       <width>20</width>
-       <height>40</height>
+       <width>942</width>
+       <height>85</height>
       </size>
      </property>
     </spacer>

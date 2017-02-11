@@ -62,5 +62,5 @@ class Ui_requestItemWindow(object):
 
     def retranslateUi(self, requestItemWindow):
         requestItemWindow.setWindowTitle(_translate("requestItemWindow", "Form", None))
-        self.label.setText(_translate("requestItemWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:18pt; font-weight:600;\">Purchase Request Form</span></p></body></html>", None))
+        self.label.setText(_translate("requestItemWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:22pt; font-weight:600;\">Purchase Request Form</span></p></body></html>", None))
 

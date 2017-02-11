@@ -25,7 +25,8 @@ except AttributeError:
 class Ui_arcHeader(object):
     def setupUi(self, arcHeader):
         arcHeader.setObjectName(_fromUtf8("arcHeader"))
-        arcHeader.resize(1009, 397)
+        arcHeader.resize(983, 196)
+        arcHeader.setAutoFillBackground(False)
         arcHeader.setStyleSheet(_fromUtf8("QPushButton {padding: 10px}\n"
 "QWidget {background-color: white}\n"
 ""))

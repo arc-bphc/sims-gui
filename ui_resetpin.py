@@ -97,7 +97,7 @@ class Ui_resetPinWindow(object):
 
     def retranslateUi(self, resetPinWindow):
         resetPinWindow.setWindowTitle(_translate("resetPinWindow", "Form", None))
-        self.label_5.setText(_translate("resetPinWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:18pt; font-weight:600;\">Reset PIN</span></p></body></html>", None))
+        self.label_5.setText(_translate("resetPinWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:22pt; font-weight:600;\">Reset PIN</span></p></body></html>", None))
         self.label_6.setText(_translate("resetPinWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:18pt; font-weight:600; color:#aa0000;\">This operation cannot be reversed!</span></p></body></html>", None))
         self.label_2.setText(_translate("resetPinWindow", "<html><head/><body><p><span style=\" font-size:14pt; font-weight:600;\">New PIN</span></p></body></html>", None))
         self.label.setText(_translate("resetPinWindow", "<html><head/><body><p><span style=\" font-size:14pt; font-weight:600;\">Current PIN</span></p></body></html>", None))
