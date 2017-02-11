@@ -78,7 +78,7 @@ class db:
 def main():
     #add a new user into the users table
     new_user = db('test.db')
-    new_user.insertTuple('users', [1, "yashdeep","yashdeep97@gmail.com",1234,'9010712068','9665333384','BM036'])#, ['ID','NAME','EMAIL ID','PIN','PHONE_CALL','PHONE_WHATSAPP','ROOM_NO'])
+    new_user.insertTuple('users', [1, "yashdeep","yashdeep97@gmail.com",1234,'9010712068','9665333384','BM036'])#, ['ID','NAME','EMAIL_ID','PIN','PHONE_CALL','PHONE_WHATSAPP','ROOM_NO'])
     print new_user.selectQuery('users',['*'],['ID = 1'])
     print "\n"
     
@@ -102,8 +102,7 @@ def main():
     print new_user.selectQuery('transactions',['*'])
     print "\n"
     
-    
-#    tempBase.updateQuery('arc_users', ['user_id = 45', "name = 'arcuser0'"], ['user_id = 25'])
+
 
 if __name__ == '__main__':
     main()
