@@ -12,7 +12,9 @@ connection.execute('''create table users(
     EMAIL_ID        TEXT       NOT NULL,
     PHONE_CALL      CHAR(10)   NOT NULL,
     PHONE_WHATSAPP  CHAR(10)   NOT NULL,
-    ROOM_NO         TEXT       NOT NULL
+    ROOM_NO         TEXT       NOT NULL,
+    SALT            CHAR(5)    NULL,
+    HASHED_PASSWORD CHAR(64)   NULL
     );''')
 
 connection.execute('''create table transactions(
@@ -44,18 +46,12 @@ connection.execute('''create table inventory(
     QUANTITY		     INT	    NOT NULL
     );''')
 
-connection.execute('''create table password(
-    ID  INT PRIMARY KEY         NOT NULL, 
-    SALT            INT        NULL,
-    HASHED_PASSWORD INT        NULL
-    );''') 	 	  			
 
 connection.execute('''create table purchase(
     ID  INT PRIMARY KEY         NOT NULL, 
     NAME                TEXT    NOT NULL,
     ITEM                TEXT    NOT NULL,
-    CATAGORY            TEXT    NOT NULL,
-    QUANTITY            INT     NOT NULL
+    DATE                TEXT    NOT NULL
     );''')
 
 print "tables created successfully"
