@@ -1,6 +1,9 @@
 #!/usr/bin/python
 
 import sqlite3
+from Crypto.Hash import SHA256
+
+#-------------SQLite functions---------------------------------- 
 
 class db:
     def __init__(self, dbName):
@@ -71,14 +74,24 @@ class db:
     	whereClause = ','.join(whereClause)
     	query = 'insert into history select * from transactions where ' + whereClause
 	self.conn.execute(query)
-	self.conn.commit()    	
-    
-    
+	self.conn.commit()   
+	
+	 	
+#----------------------------Hashing and encrypting passwords-------------------------------
 
+def createNewPassword(text):
+	hash = SHA256.new(text).hexdigest()
+	return hash
+
+   
+    
+#-------------------------------------------------------------------------------------------
 def main():
     #add a new user into the users table
     new_user = db('test.db')
-    new_user.insertTuple('users', [1, "yashdeep","yashdeep97@gmail.com",1234,'9010712068','9665333384','BM036'])#, ['ID','NAME','EMAIL_ID','PIN','PHONE_CALL','PHONE_WHATSAPP','ROOM_NO'])
+    text = raw_input("enter new pin:	")
+    hash = createNewPassword(text)
+    new_user.insertTuple('users', [1, "yashdeep","yashdeep97@gmail.com",hash,'9010712068','9665333384','BM036'])#, ['ID','NAME','EMAIL_ID','PIN','PHONE_CALL','PHONE_WHATSAPP','ROOM_NO'])
     print new_user.selectQuery('users',['*'],['ID = 1'])
     print "\n"
     
