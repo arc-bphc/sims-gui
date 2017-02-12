@@ -102,6 +102,8 @@ def main():
     print new_user.selectQuery('transactions',['*'])
     print "\n"
     
+    #add item to inventory
+    new_user.insertTuple('inventory', [1, "arduino",900,123456789112,1,2,'microcontroller',5])
 
 
 if __name__ == '__main__':
