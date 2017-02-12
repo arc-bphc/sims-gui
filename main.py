@@ -72,7 +72,7 @@ class mainWindow(QtGui.QWidget):
 
         userIcon.setMinimumSize(QtCore.QSize(0, 40))
         userIcon.setMaximumSize(QtCore.QSize(50, 50))
-        userIcon.setPixmap(QtGui.QPixmap("index.png"))
+        userIcon.setPixmap(QtGui.QPixmap("images/index.png"))
         userIcon.setScaledContents(True)
         comboBox.setMinimumSize(QtCore.QSize(200, 40))
         comboBox.setMaximumSize(QtCore.QSize(300, 16777215))
@@ -158,10 +158,24 @@ class mainWindow(QtGui.QWidget):
 
         model = QtGui.QStandardItemModel()
         treeView.setModel(model)
-        category = QtGui.QStandardItem('Microcontrollers')
-        items = QtGui.QStandardItem('ATMega328')
-        category.appendRow(items)
-        model.appendRow(category)
+        category = []
+
+        category.append(QtGui.QStandardItem('Microcontrollers'))
+        category.append(QtGui.QStandardItem('ICs'))
+        category.append(QtGui.QStandardItem('Motors'))
+        category.append(QtGui.QStandardItem('Sensors'))
+        category.append(QtGui.QStandardItem('Cables'))
+        category.append(QtGui.QStandardItem('Stationery'))
+
+        uController = []
+        uController.append(QtGui.QStandardItem('ATMega328'))
+        uController.append(QtGui.QStandardItem('ATMega2560'))
+
+        for item in category:
+            model.appendRow(item)
+
+        for item in uController:
+            category[0].appendRow(item)
 
         buttonBox.rejected.connect(lambda: self.launchWindow(0))
         cartButton.clicked.connect(lambda: self.launchWindow(6))
