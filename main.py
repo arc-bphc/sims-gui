@@ -26,6 +26,8 @@ class mainWindow(QtGui.QWidget):
         self.cart = QtGui.QWidget()
 
         self.username = "ARC-User-X"
+        self.currentPage = 0
+        self.previousPage = 0
 
         self.setupHeaderWidget(self.arcHeader)
 
@@ -48,7 +50,6 @@ class mainWindow(QtGui.QWidget):
 
     def setupHeaderWidget(self, widget):
         hbox = QtGui.QHBoxLayout()
-        #hbox.addWidget(QtGui.QRadioButton("Hello"))
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("images/back.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
 
@@ -97,7 +98,6 @@ class mainWindow(QtGui.QWidget):
 
     def createStackedPages(self):
         self.setupWindows()
-        #self.StackWidget.addWidget(self.splashScreen)
         self.StackWidget.addWidget(self.userProfile)
         self.StackWidget.addWidget(self.resetPin)
         self.StackWidget.addWidget(self.fingerprint)
@@ -154,6 +154,14 @@ class mainWindow(QtGui.QWidget):
         Ui_inventoryWindow().setupUi(self.inventory)
         buttonBox = self.inventory.findChild(QtGui.QDialogButtonBox, "buttonBox")
         cartButton = self.inventory.findChild(QtGui.QPushButton, "cartButton")
+        treeView = self.inventory.findChild(QtGui.QTreeView, "treeView")
+
+        model = QtGui.QStandardItemModel()
+        treeView.setModel(model)
+        category = QtGui.QStandardItem('Microcontrollers')
+        items = QtGui.QStandardItem('ATMega328')
+        category.appendRow(items)
+        model.appendRow(category)
 
         buttonBox.rejected.connect(lambda: self.launchWindow(0))
         cartButton.clicked.connect(lambda: self.launchWindow(6))
@@ -167,10 +175,13 @@ class mainWindow(QtGui.QWidget):
             self.launchWindow(0)
 
     def launchWindow(self, value):
+        self.previousPage = self.currentPage
         self.StackWidget.setCurrentIndex(value)
+        self.currentPage = value
 
     def goBack(self):
         self.StackWidget.setCurrentIndex(0)
+        #have to build a history tree for proper back button
 
     def unlockScreen(self):
         self.HomeWidget.setCurrentIndex(1)
@@ -191,6 +202,7 @@ def main():
     widget = QtGui.QWidget()
     widget.setStyleSheet("QPushButton {padding: 10px}\nQWidget {background-color: white}\n")
     widget.setWindowTitle("Smart Inventory Management System")
+    widget.resize(1280, 800)
     prog = mainWindow(widget)
     widget.show()
     sys.exit(app.exec_())
