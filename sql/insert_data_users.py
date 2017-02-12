@@ -80,23 +80,21 @@ class db:
 	 	
 #----------------------------Hashing and encrypting passwords-------------------------------
 
-def createNewPassword(text,new_user):
-    salt = Crypto.Random.get_random_bytes(5)
-    print salt
-    text = text + salt
-    hash = SHA256.new(text).hexdigest()
-    new_user.insertTuple('password', [1, salt, hash])
-    return
-
-   
+def createNewPassword(text):
+    password = {}
+    password['salt'] = Crypto.Random.get_random_bytes(5)
+    # print salt
+    text = text + password['salt']
+    password['hash'] = SHA256.new(text).hexdigest()
+    return password
     
 #-------------------------------------------------------------------------------------------
 def main():
     #add a new user into the users table
     new_user = db('test.db')
     text = raw_input("enter new pin:	")
-    createNewPassword(text,new_user)
-    new_user.insertTuple('users', [1, "yashdeep","yashdeep97@gmail.com",'9010712068','9665333384','BM036'])#, ['ID','NAME','EMAIL_ID','PIN','PHONE_CALL','PHONE_WHATSAPP','ROOM_NO'])
+    password = createNewPassword(text)
+    new_user.insertTuple('users', [1, "yashdeep","yashdeep97@gmail.com",'9010712068','9665333384','BM036',password['salt'],password['hash']])#, ['ID','NAME','EMAIL_ID','PIN','PHONE_CALL','PHONE_WHATSAPP','ROOM_NO'])
     print new_user.selectQuery('users',['*'],['ID = 1'])
     print "\n"
     
