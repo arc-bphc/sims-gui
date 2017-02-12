@@ -2,6 +2,7 @@
 
 import sqlite3
 from Crypto.Hash import SHA256
+import Crypto.Random
 
 #-------------SQLite functions---------------------------------- 
 
@@ -79,9 +80,13 @@ class db:
 	 	
 #----------------------------Hashing and encrypting passwords-------------------------------
 
-def createNewPassword(text):
-	hash = SHA256.new(text).hexdigest()
-	return hash
+def createNewPassword(text,new_user):
+    salt = Crypto.Random.get_random_bytes(5)
+    print salt
+    text = text + salt
+    hash = SHA256.new(text).hexdigest()
+    new_user.insertTuple('password', [1, salt, hash])
+    return
 
    
     
@@ -90,8 +95,8 @@ def main():
     #add a new user into the users table
     new_user = db('test.db')
     text = raw_input("enter new pin:	")
-    hash = createNewPassword(text)
-    new_user.insertTuple('users', [1, "yashdeep","yashdeep97@gmail.com",hash,'9010712068','9665333384','BM036'])#, ['ID','NAME','EMAIL_ID','PIN','PHONE_CALL','PHONE_WHATSAPP','ROOM_NO'])
+    createNewPassword(text,new_user)
+    new_user.insertTuple('users', [1, "yashdeep","yashdeep97@gmail.com",'9010712068','9665333384','BM036'])#, ['ID','NAME','EMAIL_ID','PIN','PHONE_CALL','PHONE_WHATSAPP','ROOM_NO'])
     print new_user.selectQuery('users',['*'],['ID = 1'])
     print "\n"
     
