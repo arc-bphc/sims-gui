@@ -111,7 +111,7 @@ QWidget {background-color: rgb(255, 255, 255)}
        <property name="verticalSpacing">
         <number>20</number>
        </property>
-       <item row="1" column="0" alignment="Qt::AlignHCenter">
+       <item row="1" column="0">
         <widget class="QLabel" name="label_2">
          <property name="maximumSize">
           <size>
@@ -124,7 +124,7 @@ QWidget {background-color: rgb(255, 255, 255)}
          </property>
         </widget>
        </item>
-       <item row="0" column="0" alignment="Qt::AlignHCenter">
+       <item row="0" column="0">
         <widget class="QLabel" name="label">
          <property name="maximumSize">
           <size>
@@ -137,11 +137,11 @@ QWidget {background-color: rgb(255, 255, 255)}
          </property>
         </widget>
        </item>
-       <item row="0" column="1" alignment="Qt::AlignLeft">
+       <item row="0" column="2">
         <widget class="QLineEdit" name="lineEdit">
          <property name="minimumSize">
           <size>
-           <width>0</width>
+           <width>200</width>
            <height>40</height>
           </size>
          </property>
@@ -156,11 +156,11 @@ QWidget {background-color: rgb(255, 255, 255)}
          </property>
         </widget>
        </item>
-       <item row="1" column="1" alignment="Qt::AlignLeft">
+       <item row="1" column="2">
         <widget class="QLineEdit" name="lineEdit_2">
          <property name="minimumSize">
           <size>
-           <width>0</width>
+           <width>200</width>
            <height>40</height>
           </size>
          </property>
@@ -171,6 +171,19 @@ QWidget {background-color: rgb(255, 255, 255)}
           <enum>QLineEdit::Password</enum>
          </property>
         </widget>
+       </item>
+       <item row="0" column="1" rowspan="2">
+        <spacer name="horizontalSpacer_3">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
        </item>
       </layout>
      </item>

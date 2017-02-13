@@ -92,6 +92,32 @@ QWidget {background-color: white}
        </property>
       </widget>
      </item>
+     <item row="2" column="1">
+      <spacer name="horizontalSpacer_3">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item row="5" column="0" colspan="3">
+      <spacer name="verticalSpacer_3">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
      <item row="2" column="2">
       <layout class="QGridLayout" name="gridLayout">
        <item row="6" column="0">
@@ -109,7 +135,7 @@ QWidget {background-color: white}
         </widget>
        </item>
        <item row="8" column="0" colspan="2">
-        <widget class="QPushButton" name="pushButton">
+        <widget class="QPushButton" name="removeFromCartButton">
          <property name="text">
           <string>Remove From Cart</string>
          </property>
@@ -130,7 +156,7 @@ QWidget {background-color: white}
         </widget>
        </item>
        <item row="2" column="1">
-        <widget class="QLabel" name="label_7">
+        <widget class="QLabel" name="partID">
          <property name="font">
           <font>
            <pointsize>14</pointsize>
@@ -170,7 +196,7 @@ QWidget {background-color: white}
         </widget>
        </item>
        <item row="3" column="1">
-        <widget class="QLabel" name="label_8">
+        <widget class="QLabel" name="partRFID">
          <property name="font">
           <font>
            <pointsize>14</pointsize>
@@ -182,7 +208,7 @@ QWidget {background-color: white}
         </widget>
        </item>
        <item row="4" column="1">
-        <widget class="QLabel" name="label_6">
+        <widget class="QLabel" name="partShelf">
          <property name="font">
           <font>
            <pointsize>14</pointsize>
@@ -194,7 +220,7 @@ QWidget {background-color: white}
         </widget>
        </item>
        <item row="6" column="1">
-        <widget class="QLabel" name="label_10">
+        <widget class="QLabel" name="partQty">
          <property name="font">
           <font>
            <pointsize>14</pointsize>
@@ -220,7 +246,7 @@ QWidget {background-color: white}
         </widget>
        </item>
        <item row="0" column="0" colspan="2">
-        <widget class="QLabel" name="label_13">
+        <widget class="QLabel" name="partName">
          <property name="minimumSize">
           <size>
            <width>400</width>
@@ -240,7 +266,7 @@ QWidget {background-color: white}
         </widget>
        </item>
        <item row="5" column="1">
-        <widget class="QLabel" name="label_9">
+        <widget class="QLabel" name="partBox">
          <property name="font">
           <font>
            <pointsize>14</pointsize>
@@ -252,7 +278,7 @@ QWidget {background-color: white}
         </widget>
        </item>
        <item row="1" column="0" colspan="2">
-        <widget class="QLabel" name="label_15">
+        <widget class="QLabel" name="partCategory">
          <property name="font">
           <font>
            <pointsize>14</pointsize>
@@ -265,7 +291,7 @@ QWidget {background-color: white}
          </property>
         </widget>
        </item>
-       <item row="7" column="0">
+       <item row="7" column="0" colspan="2">
         <spacer name="verticalSpacer_4">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
@@ -279,32 +305,6 @@ QWidget {background-color: white}
         </spacer>
        </item>
       </layout>
-     </item>
-     <item row="2" column="1">
-      <spacer name="horizontalSpacer_3">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item row="5" column="0" colspan="3">
-      <spacer name="verticalSpacer_3">
-       <property name="orientation">
-        <enum>Qt::Vertical</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>20</width>
-         <height>40</height>
-        </size>
-       </property>
-      </spacer>
      </item>
     </layout>
    </item>

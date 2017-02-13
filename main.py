@@ -183,7 +183,8 @@ class mainWindow(QtGui.QWidget):
         email = self.editDetails.findChild(QtGui.QTextEdit, "email")
 
         userInfo = user_info()
-        userInfo.update_user_info([str(name.toPlainText()), str(phoneCall.toPlainText()), str(phoneWhatsApp.toPlainText()), str(roomNumber.toPlainText()), str(email.toPlainText())], userId)
+        userInfo.update_user_info([str(name.toPlainText()), str(phoneCall.toPlainText()), \
+        str(phoneWhatsApp.toPlainText()), str(roomNumber.toPlainText()), str(email.toPlainText())], userId)
 
 
     def setupInventory(self):
@@ -220,6 +221,10 @@ class mainWindow(QtGui.QWidget):
     def setupCart(self):
         Ui_cartWindow().setupUi(self.cart)
 
+        buttonBox = self.cart.findChild(QtGui.QDialogButtonBox, "buttonBox")
+        buttonBox.rejected.connect(lambda: self.launchWindow(0))
+
+
     def comboAction(self, x):
         if (x == 1):
             self.launchWindow(0)
@@ -248,9 +253,7 @@ class mainWindow(QtGui.QWidget):
 
 def main():
     app = QtGui.QApplication(sys.argv)
-    app.setWindowIcon(QtGui.QIcon('13015184_719298964879056_6631447530178360880_n.png'))
-
-
+    app.setWindowIcon(QtGui.QIcon('images/arclogo.png'))
 
     widget = QtGui.QWidget()
     widget.setStyleSheet("QPushButton {padding: 10px}\nQWidget {background-color: white}\n")
