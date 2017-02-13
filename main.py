@@ -11,6 +11,8 @@ from ui_editdetails import Ui_editDetailsWindow
 from ui_inventory import Ui_inventoryWindow
 from ui_cart import Ui_cartWindow
 
+from sql.user_details import user_info
+
 class mainWindow(QtGui.QWidget):
     def __init__(self, widget):
         super(mainWindow, self).__init__()
@@ -215,12 +217,16 @@ class mainWindow(QtGui.QWidget):
 def main():
     app = QtGui.QApplication(sys.argv)
     app.setWindowIcon(QtGui.QIcon('13015184_719298964879056_6631447530178360880_n.png'))
+
+    f = user_info()
+    print f.get_user_info(1)
+
     widget = QtGui.QWidget()
     widget.setStyleSheet("QPushButton {padding: 10px}\nQWidget {background-color: white}\n")
     widget.setWindowTitle("Smart Inventory Management System")
     widget.resize(1280, 800)
     prog = mainWindow(widget)
-    widget.showFullScreen()
+    widget.show()
     sys.exit(app.exec_())
 
 if __name__ == '__main__':
