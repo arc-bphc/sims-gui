@@ -20,12 +20,12 @@ class user_info:
 
 
 
-def main():
-	obj = user_info()
-	user_info_list = obj.get_user_info(1)
-	print user_info_list
-	# obj.update_user_info([1, "yashdeep","yashdeep97@gmail.com",'9010712068','9665333384','BM036',password['salt'],password['hash']],1)
+# def main():
+# 	obj = user_info()
+# 	user_info_list = obj.get_user_info(1)
+# 	print user_info_list
+# 	# obj.update_user_info([1, "yashdeep","yashdeep97@gmail.com",'9010712068','9665333384','BM036',password['salt'],password['hash']],1)
 
-if __name__ == '__main__':
-    main()
+# if __name__ == '__main__':
+#     main()
     
