@@ -7,7 +7,7 @@ class user_info:
 
 	def get_user_info(self, id):
 		user_list = self.user.selectQuery('users',['*'],['ID = ' + str(id)])
-		user_info_list = [user_list[1],user_list[3],user_list[4],user_list[5],user_list[2]]
+		user_info_list = [user_list[0][1],user_list[0][3],user_list[0][4],user_list[0][5],user_list[0][2]]
 		return user_info_list
 
 	def update_user_info(self, values, id):
@@ -20,12 +20,12 @@ class user_info:
 
 
 
-# def main():
-# 	obj = user_info()
-# 	user_info_list = obj.get_user_info(1)
-# 	print user_info_list
+def main():
+	obj = user_info()
+	user_info_list = obj.get_user_info(1)
+	print user_info_list
 # 	# obj.update_user_info([1, "yashdeep","yashdeep97@gmail.com",'9010712068','9665333384','BM036',password['salt'],password['hash']],1)
 
-# if __name__ == '__main__':
-#     main()
+if __name__ == '__main__':
+    main()
     
