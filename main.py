@@ -151,8 +151,40 @@ class mainWindow(QtGui.QWidget):
 
     def setupEditDetails(self):
         Ui_editDetailsWindow().setupUi(self.editDetails)
+
         buttonBox = self.editDetails.findChild(QtGui.QDialogButtonBox, "buttonBox")
         buttonBox.rejected.connect(lambda: self.launchWindow(0))
+        buttonBox.accepted.connect(lambda: self.saveUserDetails(userId))
+
+        userId = 1
+        userInfo = user_info()
+        userData = userInfo.get_user_info(userId)
+
+        buttonBox.accepted.connect(lambda: self.saveUserDetails(userId))
+
+        name = self.editDetails.findChild(QtGui.QTextEdit, "name")
+        phoneCall = self.editDetails.findChild(QtGui.QTextEdit, "phoneCall")
+        phoneWhatsApp = self.editDetails.findChild(QtGui.QTextEdit, "phoneWhatsApp")
+        roomNumber = self.editDetails.findChild(QtGui.QTextEdit, "roomNumber")
+        email = self.editDetails.findChild(QtGui.QTextEdit, "email")
+
+        name.setText(userData[0])
+
+        phoneCall.setText(userData[1])
+        phoneWhatsApp.setText(userData[2])
+        roomNumber.setText(userData[3])
+        email.setText(userData[4])
+
+    def saveUserDetails(self, userId):
+        name = self.editDetails.findChild(QtGui.QTextEdit, "name")
+        phoneCall = self.editDetails.findChild(QtGui.QTextEdit, "phoneCall")
+        phoneWhatsApp = self.editDetails.findChild(QtGui.QTextEdit, "phoneWhatsApp")
+        roomNumber = self.editDetails.findChild(QtGui.QTextEdit, "roomNumber")
+        email = self.editDetails.findChild(QtGui.QTextEdit, "email")
+
+        userInfo = user_info()
+        userInfo.update_user_info([str(name.toPlainText()), str(phoneCall.toPlainText()), str(phoneWhatsApp.toPlainText()), str(roomNumber.toPlainText()), str(email.toPlainText())], userId)
+
 
     def setupInventory(self):
         Ui_inventoryWindow().setupUi(self.inventory)
@@ -218,8 +250,7 @@ def main():
     app = QtGui.QApplication(sys.argv)
     app.setWindowIcon(QtGui.QIcon('13015184_719298964879056_6631447530178360880_n.png'))
 
-    f = user_info()
-    print f.get_user_info(1)
+
 
     widget = QtGui.QWidget()
     widget.setStyleSheet("QPushButton {padding: 10px}\nQWidget {background-color: white}\n")
