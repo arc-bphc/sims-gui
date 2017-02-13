@@ -26,6 +26,8 @@ class mainWindow(QtGui.QWidget):
         self.cart = QtGui.QWidget()
 
         self.username = "ARC-User-X"
+        self.userid = 4616261
+
         self.currentPage = 0
         self.previousPage = 0
 
@@ -218,7 +220,7 @@ def main():
     widget.setWindowTitle("Smart Inventory Management System")
     widget.resize(1280, 800)
     prog = mainWindow(widget)
-    widget.show()
+    widget.showFullScreen()
     sys.exit(app.exec_())
 
 if __name__ == '__main__':

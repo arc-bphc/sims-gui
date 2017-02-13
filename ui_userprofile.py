@@ -49,6 +49,7 @@ class Ui_userWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.welcomeLabel.sizePolicy().hasHeightForWidth())
         self.welcomeLabel.setSizePolicy(sizePolicy)
+        self.welcomeLabel.setStyleSheet(_fromUtf8("*{font: 75 26pt \"Noto Sans\"}"))
         self.welcomeLabel.setObjectName(_fromUtf8("welcomeLabel"))
         self.gridLayout.addWidget(self.welcomeLabel, 1, 1, 1, 1, QtCore.Qt.AlignHCenter)
         spacerItem2 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
@@ -97,7 +98,7 @@ class Ui_userWindow(object):
     def retranslateUi(self, userWindow):
         userWindow.setWindowTitle(_translate("userWindow", "Dialog", None))
         self.resetPinButton.setText(_translate("userWindow", "Reset PIN", None))
-        self.welcomeLabel.setText(_translate("userWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:28pt; font-weight:600;\">Welcome, ARCUser</span></p></body></html>", None))
+        self.welcomeLabel.setText(_translate("userWindow", "Welcome, ARCUser", None))
         self.inventoryButton.setText(_translate("userWindow", "Inventory", None))
         self.requestButton.setText(_translate("userWindow", "Purchase Request", None))
         self.editDetailsButton.setText(_translate("userWindow", "Edit Details", None))
