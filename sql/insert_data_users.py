@@ -100,7 +100,7 @@ def createNewPassword(text):
 #     password = createNewPassword(text)
 #     with open('cover.jpg', 'rb') as input_file:
 #         image = input_file.read()
-#     new_user.insertTuple('users', [1, "yashdeep","yashdeep97@gmail.com",'9010712068','9665333384','BM036',password['salt'],password['hash'],image])#, ['ID','NAME','EMAIL_ID','PIN','PHONE_CALL','PHONE_WHATSAPP','ROOM_NO'])
+    # new_user.insertTuple('users', [1, "yashdeep","yashdeep97@gmail.com",'9010712068','9665333384','BM036',password['salt'],password['hash'],image])#, ['ID','NAME','EMAIL_ID','PIN','PHONE_CALL','PHONE_WHATSAPP','ROOM_NO'])
 #     print new_user.selectQuery('users',['*'],['ID = 1'])
 #     print "\n"
     
@@ -110,7 +110,7 @@ def createNewPassword(text):
 #     print "\n"
     
 #     #on return of item
-#     new_user.updateQuery('transactions',["RETURN_DATETIME = '2017-02-21 14:50:13'"],['ID = 1'])
+    # new_user.updateQuery('transactions',["RETURN_DATETIME = '2017-02-21 14:50:13'"],['ID = 1'])
 #     print new_user.selectQuery('transactions',['*'],['ID = 1'])
 #     print "\n"
     

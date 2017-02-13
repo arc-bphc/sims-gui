@@ -14,7 +14,8 @@ connection.execute('''create table users(
     PHONE_WHATSAPP  CHAR(10)   NOT NULL,
     ROOM_NO         TEXT       NOT NULL,
     SALT            CHAR(5)    NULL,
-    HASHED_PASSWORD CHAR(64)   NULL
+    HASHED_PASSWORD CHAR(64)   NULL,
+    IMAGE           BLOB       NULL,
     );''')
 
 connection.execute('''create table transactions(
