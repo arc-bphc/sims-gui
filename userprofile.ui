@@ -77,8 +77,11 @@ QWidget {background-color: rgb(255, 255, 255)}
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
+       <property name="styleSheet">
+        <string notr="true">*{font: 75 26pt &quot;Noto Sans&quot;}</string>
+       </property>
        <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:28pt; font-weight:600;&quot;&gt;Welcome, ARCUser&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>Welcome, ARCUser</string>
        </property>
       </widget>
      </item>
