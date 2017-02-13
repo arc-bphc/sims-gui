@@ -86,7 +86,7 @@ class Ui_resetPinWindow(object):
         self.lineEdit_2.setObjectName(_fromUtf8("lineEdit_2"))
         self.gridLayout.addWidget(self.lineEdit_2, 1, 2, 1, 1)
         spacerItem4 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
-        self.gridLayout.addItem(spacerItem4, 0, 1, 1, 1)
+        self.gridLayout.addItem(spacerItem4, 0, 1, 2, 1)
         self.gridLayout_2.addLayout(self.gridLayout, 2, 1, 1, 1)
         spacerItem5 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         self.gridLayout_2.addItem(spacerItem5, 0, 2, 1, 1)
