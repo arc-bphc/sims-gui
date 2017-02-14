@@ -46,11 +46,14 @@ class Ui_splashScreen(object):
         self.gridLayout.setObjectName(_fromUtf8("gridLayout"))
         spacerItem = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
         self.gridLayout.addItem(spacerItem, 4, 0, 1, 1)
+        spacerItem1 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
+        self.gridLayout.addItem(spacerItem1, 6, 0, 1, 1)
         self.label_2 = QtGui.QLabel(self.centralWidget)
+        self.label_2.setStyleSheet(_fromUtf8("font: 75 100pt \"Noto Sans\";"))
         self.label_2.setObjectName(_fromUtf8("label_2"))
         self.gridLayout.addWidget(self.label_2, 2, 0, 1, 1, QtCore.Qt.AlignHCenter)
-        spacerItem1 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
-        self.gridLayout.addItem(spacerItem1, 1, 0, 1, 1)
+        spacerItem2 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
+        self.gridLayout.addItem(spacerItem2, 1, 0, 1, 1)
         self.label = QtGui.QLabel(self.centralWidget)
         self.label.setMaximumSize(QtCore.QSize(492, 192))
         self.label.setText(_fromUtf8(""))
@@ -63,7 +66,11 @@ class Ui_splashScreen(object):
         self.pushButton.setStyleSheet(_fromUtf8("padding: 10px\n"
 ""))
         self.pushButton.setObjectName(_fromUtf8("pushButton"))
-        self.gridLayout.addWidget(self.pushButton, 3, 0, 1, 1, QtCore.Qt.AlignHCenter)
+        self.gridLayout.addWidget(self.pushButton, 5, 0, 1, 1, QtCore.Qt.AlignHCenter)
+        self.label_3 = QtGui.QLabel(self.centralWidget)
+        self.label_3.setStyleSheet(_fromUtf8("font: 75 italic 24pt \"Noto Sans\";"))
+        self.label_3.setObjectName(_fromUtf8("label_3"))
+        self.gridLayout.addWidget(self.label_3, 3, 0, 1, 1, QtCore.Qt.AlignHCenter)
         self.gridLayout_2.addLayout(self.gridLayout, 0, 0, 1, 1)
         splashScreen.setCentralWidget(self.centralWidget)
 
@@ -72,6 +79,7 @@ class Ui_splashScreen(object):
 
     def retranslateUi(self, splashScreen):
         splashScreen.setWindowTitle(_translate("splashScreen", "Welcome Screen", None))
-        self.label_2.setText(_translate("splashScreen", "<html><head/><body><p align=\"center\"><span style=\" font-size:90pt; font-weight:600;\">S I M S</span></p><p align=\"center\"><span style=\" font-size:14pt; font-weight:600; font-style:italic;\">Smart Inventory Management System</span></p><p align=\"center\"><br/></p><p align=\"center\"><br/></p><p align=\"center\"><br/></p></body></html>", None))
+        self.label_2.setText(_translate("splashScreen", "S I M S", None))
         self.pushButton.setText(_translate("splashScreen", "Continue", None))
+        self.label_3.setText(_translate("splashScreen", "Smart Inventory Management System", None))
 
