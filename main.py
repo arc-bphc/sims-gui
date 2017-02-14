@@ -162,11 +162,11 @@ class mainWindow(QtGui.QWidget):
 
         buttonBox.accepted.connect(lambda: self.saveUserDetails(userId))
 
-        name = self.editDetails.findChild(QtGui.QTextEdit, "name")
-        phoneCall = self.editDetails.findChild(QtGui.QTextEdit, "phoneCall")
-        phoneWhatsApp = self.editDetails.findChild(QtGui.QTextEdit, "phoneWhatsApp")
-        roomNumber = self.editDetails.findChild(QtGui.QTextEdit, "roomNumber")
-        email = self.editDetails.findChild(QtGui.QTextEdit, "email")
+        name = self.editDetails.findChild(QtGui.QLineEdit, "name")
+        phoneCall = self.editDetails.findChild(QtGui.QLineEdit, "phoneCall")
+        phoneWhatsApp = self.editDetails.findChild(QtGui.QLineEdit, "phoneWhatsApp")
+        roomNumber = self.editDetails.findChild(QtGui.QLineEdit, "roomNumber")
+        email = self.editDetails.findChild(QtGui.QLineEdit, "email")
 
         name.setText(userData[0])
 
@@ -176,11 +176,11 @@ class mainWindow(QtGui.QWidget):
         email.setText(userData[4])
 
     def saveUserDetails(self, userId):
-        name = self.editDetails.findChild(QtGui.QTextEdit, "name")
-        phoneCall = self.editDetails.findChild(QtGui.QTextEdit, "phoneCall")
-        phoneWhatsApp = self.editDetails.findChild(QtGui.QTextEdit, "phoneWhatsApp")
-        roomNumber = self.editDetails.findChild(QtGui.QTextEdit, "roomNumber")
-        email = self.editDetails.findChild(QtGui.QTextEdit, "email")
+        name = self.editDetails.findChild(QtGui.QLineEdit, "name")
+        phoneCall = self.editDetails.findChild(QtGui.QLineEdit, "phoneCall")
+        phoneWhatsApp = self.editDetails.findChild(QtGui.QLineEdit, "phoneWhatsApp")
+        roomNumber = self.editDetails.findChild(QtGui.QLineEdit, "roomNumber")
+        email = self.editDetails.findChild(QtGui.QLineEdit, "email")
 
         userInfo = user_info()
         userInfo.update_user_info([str(name.toPlainText()), str(phoneCall.toPlainText()), \

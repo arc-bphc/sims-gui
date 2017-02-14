@@ -60,7 +60,7 @@ QWidget {background-color: white}
        </property>
       </spacer>
      </item>
-     <item row="0" column="0" colspan="3">
+     <item row="0" column="0" colspan="3" alignment="Qt::AlignHCenter">
       <widget class="QLabel" name="label_2">
        <property name="font">
         <font>
@@ -75,7 +75,7 @@ QWidget {background-color: white}
         <string notr="true">font: 24pt &quot;Noto Sans&quot;;</string>
        </property>
        <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:22pt;&quot;&gt;Cart&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>Cart</string>
        </property>
       </widget>
      </item>
@@ -129,12 +129,12 @@ QWidget {background-color: white}
          <property name="font">
           <font>
            <pointsize>14</pointsize>
-           <weight>75</weight>
-           <bold>true</bold>
+           <weight>50</weight>
+           <bold>false</bold>
           </font>
          </property>
          <property name="text">
-          <string>Quantity:</string>
+          <string>Quantity</string>
          </property>
         </widget>
        </item>
@@ -150,12 +150,12 @@ QWidget {background-color: white}
          <property name="font">
           <font>
            <pointsize>14</pointsize>
-           <weight>75</weight>
-           <bold>true</bold>
+           <weight>50</weight>
+           <bold>false</bold>
           </font>
          </property>
          <property name="text">
-          <string>ID:</string>
+          <string>ID</string>
          </property>
         </widget>
        </item>
@@ -176,12 +176,12 @@ QWidget {background-color: white}
          <property name="font">
           <font>
            <pointsize>14</pointsize>
-           <weight>75</weight>
-           <bold>true</bold>
+           <weight>50</weight>
+           <bold>false</bold>
           </font>
          </property>
          <property name="text">
-          <string>RFID:</string>
+          <string>RFID</string>
          </property>
         </widget>
        </item>
@@ -190,12 +190,12 @@ QWidget {background-color: white}
          <property name="font">
           <font>
            <pointsize>14</pointsize>
-           <weight>75</weight>
-           <bold>true</bold>
+           <weight>50</weight>
+           <bold>false</bold>
           </font>
          </property>
          <property name="text">
-          <string>Box:</string>
+          <string>Box</string>
          </property>
         </widget>
        </item>
@@ -240,12 +240,12 @@ QWidget {background-color: white}
          <property name="font">
           <font>
            <pointsize>14</pointsize>
-           <weight>75</weight>
-           <bold>true</bold>
+           <weight>50</weight>
+           <bold>false</bold>
           </font>
          </property>
          <property name="text">
-          <string>Shelf:</string>
+          <string>Shelf</string>
          </property>
         </widget>
        </item>
@@ -259,10 +259,15 @@ QWidget {background-color: white}
          </property>
          <property name="font">
           <font>
+           <family>Noto Sans</family>
            <pointsize>20</pointsize>
-           <weight>75</weight>
-           <bold>true</bold>
+           <weight>50</weight>
+           <italic>false</italic>
+           <bold>false</bold>
           </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">font: 20pt &quot;Noto Sans&quot;;</string>
          </property>
          <property name="text">
           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;ATMega328&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -285,10 +290,15 @@ QWidget {background-color: white}
         <widget class="QLabel" name="partCategory">
          <property name="font">
           <font>
-           <pointsize>14</pointsize>
-           <weight>75</weight>
-           <bold>true</bold>
+           <family>Noto Sans</family>
+           <pointsize>16</pointsize>
+           <weight>50</weight>
+           <italic>true</italic>
+           <bold>false</bold>
           </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">font: italic 16pt &quot;Noto Sans&quot;;</string>
          </property>
          <property name="text">
           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Microcontroller&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
