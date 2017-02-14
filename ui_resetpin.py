@@ -47,6 +47,7 @@ class Ui_resetPinWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.label_5.sizePolicy().hasHeightForWidth())
         self.label_5.setSizePolicy(sizePolicy)
+        self.label_5.setStyleSheet(_fromUtf8("font: 24pt \"Noto Sans\";"))
         self.label_5.setObjectName(_fromUtf8("label_5"))
         self.gridLayout_2.addWidget(self.label_5, 0, 1, 1, 1, QtCore.Qt.AlignHCenter|QtCore.Qt.AlignTop)
         self.label_6 = QtGui.QLabel(resetPinWindow)
@@ -55,6 +56,7 @@ class Ui_resetPinWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.label_6.sizePolicy().hasHeightForWidth())
         self.label_6.setSizePolicy(sizePolicy)
+        self.label_6.setStyleSheet(_fromUtf8("font: 75 18pt \"Noto Sans\";"))
         self.label_6.setObjectName(_fromUtf8("label_6"))
         self.gridLayout_2.addWidget(self.label_6, 4, 1, 1, 1, QtCore.Qt.AlignHCenter|QtCore.Qt.AlignTop)
         self.buttonBox = QtGui.QDialogButtonBox(resetPinWindow)
@@ -71,7 +73,7 @@ class Ui_resetPinWindow(object):
         self.label = QtGui.QLabel(resetPinWindow)
         self.label.setMaximumSize(QtCore.QSize(16777215, 40))
         self.label.setObjectName(_fromUtf8("label"))
-        self.gridLayout.addWidget(self.label, 0, 0, 1, 1)
+        self.gridLayout.addWidget(self.label, 0, 0, 1, 1, QtCore.Qt.AlignHCenter)
         self.lineEdit = QtGui.QLineEdit(resetPinWindow)
         self.lineEdit.setMinimumSize(QtCore.QSize(200, 40))
         self.lineEdit.setText(_fromUtf8(""))
@@ -99,8 +101,8 @@ class Ui_resetPinWindow(object):
 
     def retranslateUi(self, resetPinWindow):
         resetPinWindow.setWindowTitle(_translate("resetPinWindow", "Form", None))
-        self.label_5.setText(_translate("resetPinWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:22pt; font-weight:600;\">Reset PIN</span></p></body></html>", None))
-        self.label_6.setText(_translate("resetPinWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:18pt; font-weight:600; color:#aa0000;\">This operation cannot be reversed!</span></p></body></html>", None))
-        self.label_2.setText(_translate("resetPinWindow", "<html><head/><body><p><span style=\" font-size:14pt; font-weight:600;\">New PIN</span></p></body></html>", None))
-        self.label.setText(_translate("resetPinWindow", "<html><head/><body><p><span style=\" font-size:14pt; font-weight:600;\">Current PIN</span></p></body></html>", None))
+        self.label_5.setText(_translate("resetPinWindow", "Reset PIN", None))
+        self.label_6.setText(_translate("resetPinWindow", "This operation cannot be reversed!", None))
+        self.label_2.setText(_translate("resetPinWindow", "New PIN", None))
+        self.label.setText(_translate("resetPinWindow", "Current PIN", None))
 

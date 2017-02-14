@@ -39,6 +39,14 @@ class Ui_requestItemWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.label.sizePolicy().hasHeightForWidth())
         self.label.setSizePolicy(sizePolicy)
+        font = QtGui.QFont()
+        font.setFamily(_fromUtf8("Noto Sans"))
+        font.setPointSize(24)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label.setFont(font)
+        self.label.setStyleSheet(_fromUtf8("font: 75 24pt \"Noto Sans\";"))
         self.label.setObjectName(_fromUtf8("label"))
         self.gridLayout.addWidget(self.label, 0, 1, 1, 1, QtCore.Qt.AlignHCenter|QtCore.Qt.AlignTop)
         spacerItem = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
@@ -66,5 +74,5 @@ class Ui_requestItemWindow(object):
 
     def retranslateUi(self, requestItemWindow):
         requestItemWindow.setWindowTitle(_translate("requestItemWindow", "Form", None))
-        self.label.setText(_translate("requestItemWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:22pt; font-weight:600;\">Purchase Request Form</span></p></body></html>", None))
+        self.label.setText(_translate("requestItemWindow", "Purchase Request Form", None))
 

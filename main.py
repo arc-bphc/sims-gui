@@ -256,7 +256,7 @@ def main():
     app.setWindowIcon(QtGui.QIcon('images/arclogo.png'))
 
     widget = QtGui.QWidget()
-    widget.setStyleSheet("QPushButton {padding: 10px}\nQWidget {background-color: white}\n")
+    widget.setStyleSheet("QPushButton {padding: 10px}\nQWidget {background-color: white}\n* {font: 16pt}\n")
     widget.setWindowTitle("Smart Inventory Management System")
     widget.resize(1280, 800)
     prog = mainWindow(widget)

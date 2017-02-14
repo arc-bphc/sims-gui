@@ -73,20 +73,21 @@ QWidget {background-color: white}
             </size>
            </property>
            <property name="text">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;Phone No. (WhatsApp)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            <string>Phone No. (WhatsApp)</string>
            </property>
           </widget>
          </item>
-         <item row="1" column="0">
+         <item row="1" column="0" alignment="Qt::AlignVCenter">
           <widget class="QLabel" name="label_2">
            <property name="maximumSize">
             <size>
              <width>16777215</width>
-             <height>40</height>
+             <height>16777215</height>
             </size>
            </property>
            <property name="text">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;Phone No. (Calling)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            <string>Phone No. (Calling)
+</string>
            </property>
           </widget>
          </item>
@@ -115,7 +116,8 @@ QWidget {background-color: white}
             </size>
            </property>
            <property name="text">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;Room Number&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            <string>Room Number
+</string>
            </property>
           </widget>
          </item>
@@ -128,7 +130,7 @@ QWidget {background-color: white}
             </size>
            </property>
            <property name="text">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;Personal Email&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            <string>Personal Email</string>
            </property>
           </widget>
          </item>
@@ -148,16 +150,16 @@ QWidget {background-color: white}
            </property>
           </widget>
          </item>
-         <item row="0" column="0">
+         <item row="0" column="0" alignment="Qt::AlignVCenter">
           <widget class="QLabel" name="label">
            <property name="maximumSize">
             <size>
              <width>16777215</width>
-             <height>40</height>
+             <height>16777215</height>
             </size>
            </property>
            <property name="text">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;Name&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            <string>Name</string>
            </property>
           </widget>
          </item>
@@ -199,8 +201,11 @@ QWidget {background-color: white}
      </item>
      <item row="0" column="1" alignment="Qt::AlignHCenter|Qt::AlignTop">
       <widget class="QLabel" name="label_10">
+       <property name="styleSheet">
+        <string notr="true">font: 24pt &quot;Noto Sans&quot;;</string>
+       </property>
        <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:22pt; font-weight:600;&quot;&gt;Edit User Details&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>Edit User Details</string>
        </property>
       </widget>
      </item>
