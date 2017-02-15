@@ -124,7 +124,7 @@ QWidget {background-color: white}
      </item>
      <item row="2" column="2">
       <layout class="QGridLayout" name="gridLayout">
-       <item row="6" column="0">
+       <item row="7" column="0">
         <widget class="QLabel" name="label_12">
          <property name="font">
           <font>
@@ -138,14 +138,14 @@ QWidget {background-color: white}
          </property>
         </widget>
        </item>
-       <item row="8" column="0" colspan="2">
+       <item row="9" column="0" colspan="2">
         <widget class="QPushButton" name="removeFromCartButton">
          <property name="text">
           <string>Remove From Cart</string>
          </property>
         </widget>
        </item>
-       <item row="2" column="0">
+       <item row="3" column="0">
         <widget class="QLabel" name="label_3">
          <property name="font">
           <font>
@@ -159,7 +159,7 @@ QWidget {background-color: white}
          </property>
         </widget>
        </item>
-       <item row="2" column="1">
+       <item row="3" column="1">
         <widget class="QLabel" name="partID">
          <property name="font">
           <font>
@@ -171,7 +171,7 @@ QWidget {background-color: white}
          </property>
         </widget>
        </item>
-       <item row="3" column="0">
+       <item row="4" column="0">
         <widget class="QLabel" name="label_11">
          <property name="font">
           <font>
@@ -185,7 +185,7 @@ QWidget {background-color: white}
          </property>
         </widget>
        </item>
-       <item row="5" column="0">
+       <item row="6" column="0">
         <widget class="QLabel" name="label_5">
          <property name="font">
           <font>
@@ -199,7 +199,7 @@ QWidget {background-color: white}
          </property>
         </widget>
        </item>
-       <item row="3" column="1">
+       <item row="4" column="1">
         <widget class="QLabel" name="partRFID">
          <property name="font">
           <font>
@@ -211,7 +211,7 @@ QWidget {background-color: white}
          </property>
         </widget>
        </item>
-       <item row="4" column="1">
+       <item row="5" column="1">
         <widget class="QLabel" name="partShelf">
          <property name="font">
           <font>
@@ -223,7 +223,7 @@ QWidget {background-color: white}
          </property>
         </widget>
        </item>
-       <item row="6" column="1">
+       <item row="7" column="1">
         <widget class="QLabel" name="partQty">
          <property name="font">
           <font>
@@ -235,7 +235,7 @@ QWidget {background-color: white}
          </property>
         </widget>
        </item>
-       <item row="4" column="0">
+       <item row="5" column="0">
         <widget class="QLabel" name="label_4">
          <property name="font">
           <font>
@@ -246,6 +246,18 @@ QWidget {background-color: white}
          </property>
          <property name="text">
           <string>Shelf</string>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="1">
+        <widget class="QLabel" name="partBox">
+         <property name="font">
+          <font>
+           <pointsize>14</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>5</string>
          </property>
         </widget>
        </item>
@@ -274,18 +286,6 @@ QWidget {background-color: white}
          </property>
         </widget>
        </item>
-       <item row="5" column="1">
-        <widget class="QLabel" name="partBox">
-         <property name="font">
-          <font>
-           <pointsize>14</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>5</string>
-         </property>
-        </widget>
-       </item>
        <item row="1" column="0" colspan="2">
         <widget class="QLabel" name="partCategory">
          <property name="font">
@@ -305,7 +305,7 @@ QWidget {background-color: white}
          </property>
         </widget>
        </item>
-       <item row="7" column="0" colspan="2">
+       <item row="8" column="0" colspan="2">
         <spacer name="verticalSpacer_4">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
@@ -317,6 +317,25 @@ QWidget {background-color: white}
           </size>
          </property>
         </spacer>
+       </item>
+       <item row="2" column="0" colspan="2" alignment="Qt::AlignHCenter">
+        <widget class="QLabel" name="label">
+         <property name="maximumSize">
+          <size>
+           <width>130</width>
+           <height>130</height>
+          </size>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="pixmap">
+          <pixmap>images/atmega328.jpg</pixmap>
+         </property>
+         <property name="scaledContents">
+          <bool>true</bool>
+         </property>
+        </widget>
        </item>
       </layout>
      </item>

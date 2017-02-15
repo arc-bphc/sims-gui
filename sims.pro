@@ -29,6 +29,7 @@ FORMS    += mainwindow.ui \
     itemwidget.ui \
     cart.ui \
     form.ui \
-    adminpanel.ui
+    adminpanel.ui \
+    itemdetails.ui
 
 RESOURCES +=
