@@ -1,3 +1,10 @@
+''' Use getItemList function to get all the items 
+	issued by an user to display the list in the 
+	cart. on clicking an item call getItemInfo which
+	returns a list containing information about a 
+	single item'''
+	
+
 from insert_data_users import *
 
 item_list = []
