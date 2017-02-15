@@ -92,6 +92,8 @@ class mainWindow(QtGui.QWidget):
             comboBox.addItem("Admin Panel")
         comboBox.addItem("Logout")
 
+        comboBox.activated.connect(self.handleComboBox)
+
         userHBox.addWidget(userIcon)
         userHBox.addWidget(comboBox)
         userWidget.setLayout(userHBox)
@@ -107,6 +109,11 @@ class mainWindow(QtGui.QWidget):
 
         backButton.clicked.connect(self.goBack)
 
+    def handleComboBox(self, val):
+        print val
+        if string == 1:
+            self.HomeWidget.setCurrentIndex(0)
+            self.user = userDetails() #for resetting things
 
     def createStackedPages(self):
         self.setupWindows()
