@@ -3,7 +3,7 @@
 	cart. on clicking an item call getItemInfo which
 	returns a list containing information about a 
 	single item'''
-	
+
 
 from insert_data_users import *
 
