@@ -93,28 +93,28 @@ def createNewPassword(text):
     return password
     
 #-------------------------------------------------------------------------------------------
-# def main():
-#     add a new user into the users table
-#     new_user = db('test.db')
-#     text = raw_input("enter new pin:	")
-#     password = createNewPassword(text)
-#     with open('cover.jpg', 'rb') as input_file:
-#         image = input_file.read()
-    # new_user.insertTuple('users', [1, "yashdeep","yashdeep97@gmail.com",'9010712068','9665333384','BM036',password['salt'],password['hash'],image])#, ['ID','NAME','EMAIL_ID','PIN','PHONE_CALL','PHONE_WHATSAPP','ROOM_NO'])
-#     print new_user.selectQuery('users',['*'],['ID = 1'])
-#     print "\n"
+def main():
+    add a new user into the users table
+    new_user = db('test.db')
+    text = raw_input("enter new pin:	")
+    password = createNewPassword(text)
+    with open('cover.jpg', 'rb') as input_file:
+        image = input_file.read()
+    new_user.insertTuple('users', [1, "yashdeep","yashdeep97@gmail.com",'9010712068','9665333384','BM036',password['salt'],password['hash'],image])#, ['ID','NAME','EMAIL_ID','PIN','PHONE_CALL','PHONE_WHATSAPP','ROOM_NO'])
+    # print new_user.selectQuery('users',['*'],['ID = 1'])
+    print "\n"
     
-#     #add withdrawn item to transaction database
-#     new_user.insertTuple('transactions', [1, "yashdeep","RASPI","2017-02-21 12:30:12","2017-02-21 12:33:13"], ['ID','NAME','ITEM','ISSUE_DATETIME','WITHDRAW_DATETIME'])
-#     print new_user.selectQuery('transactions',['*'],['ID = 1'])
-#     print "\n"
+    #add withdrawn item to transaction database
+    new_user.insertTuple('transactions', [1, "yashdeep",1,3,"2017-02-21 12:30:12","2017-02-21 12:33:13"], ['ID','NAME','ITEM_ID','QUANTITY','ISSUE_DATETIME',git 'WITHDRAW_DATETIME'])
+    print new_user.selectQuery('transactions',['*'],['ID = 1'])
+    print "\n"
     
 #     #on return of item
     # new_user.updateQuery('transactions',["RETURN_DATETIME = '2017-02-21 14:50:13'"],['ID = 1'])
 #     print new_user.selectQuery('transactions',['*'],['ID = 1'])
 #     print "\n"
     
-#     #To-do copy row with returned item to history table
+#     #To-docopy row with returned item to history table
 #     new_user.copyToHistory(['ID = 1'])
 #     print new_user.selectQuery('history',['*'],['ID = 1'])
 #     print "\n"
@@ -124,12 +124,12 @@ def createNewPassword(text):
 #     print new_user.selectQuery('transactions',['*'])
 #     print "\n"
     
-#     #add item to inventory
-#     new_user.insertTuple('inventory', [1, "arduino",900,123456789112,1,2,'microcontroller',5])
+    #add item to inventory
+    new_user.insertTuple('inventory', [1, "arduino",900,123456789112,1,2,'microcontroller',5])
 
 
-# if __name__ == '__main__':
-#     main()
+if __name__ == '__main__':
+    main()
     
     
     
