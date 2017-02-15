@@ -72,7 +72,7 @@ QWidget {background-color: rgb(255, 255, 255)}
         </sizepolicy>
        </property>
        <property name="styleSheet">
-        <string notr="true">font: 75 18pt &quot;Noto Sans&quot;;</string>
+        <string notr="true">font: 75 20pt &quot;Noto Sans&quot;;</string>
        </property>
        <property name="text">
         <string>This operation cannot be reversed!</string>
@@ -85,6 +85,9 @@ QWidget {background-color: rgb(255, 255, 255)}
         <widget class="QLineEdit" name="lineEdit">
          <property name="maxLength">
           <number>4</number>
+         </property>
+         <property name="echoMode">
+          <enum>QLineEdit::Password</enum>
          </property>
         </widget>
        </item>
@@ -107,9 +110,12 @@ QWidget {background-color: rgb(255, 255, 255)}
          <property name="maxLength">
           <number>4</number>
          </property>
+         <property name="echoMode">
+          <enum>QLineEdit::Password</enum>
+         </property>
         </widget>
        </item>
-       <item row="1" column="1">
+       <item row="0" column="1" rowspan="2">
         <spacer name="horizontalSpacer_3">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>

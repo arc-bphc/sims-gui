@@ -29,6 +29,7 @@ class mainWindow(QtGui.QWidget):
 
         self.username = "ARC-User-X"
         self.userid = 4616261
+        self.isAdmin = False
 
         self.currentPage = 0
         self.previousPage = 0
@@ -155,6 +156,7 @@ class mainWindow(QtGui.QWidget):
         buttonBox = self.editDetails.findChild(QtGui.QDialogButtonBox, "buttonBox")
         buttonBox.rejected.connect(lambda: self.launchWindow(0))
         buttonBox.accepted.connect(lambda: self.saveUserDetails(userId))
+        buttonBox.accepted.connect(self.showSuccessDialog)
         buttonBox.accepted.connect(lambda: self.launchWindow(0))
 
         userId = 1
@@ -183,7 +185,6 @@ class mainWindow(QtGui.QWidget):
         userInfo = user_info()
         userInfo.update_user_info([str(name.text()), str(phoneCall.text()), \
         str(phoneWhatsApp.text()), str(roomNumber.text()), str(email.text())], userId)
-
 
     def setupInventory(self):
         Ui_inventoryWindow().setupUi(self.inventory)
@@ -248,6 +249,15 @@ class mainWindow(QtGui.QWidget):
         self.setupEditDetails()
         self.setupInventory()
         self.setupCart()
+
+    def showSuccessDialog(self):
+        msg = QtGui.QMessageBox()
+        msg.setIcon(QtGui.QMessageBox.Information)
+
+        msg.setText("Database successfully updated!")
+        msg.setWindowTitle("Success")
+        msg.setStandardButtons(QtGui.QMessageBox.Ok)
+        msg.exec_()
 
 def main():
     app = QtGui.QApplication(sys.argv)
