@@ -155,12 +155,11 @@ class mainWindow(QtGui.QWidget):
         buttonBox = self.editDetails.findChild(QtGui.QDialogButtonBox, "buttonBox")
         buttonBox.rejected.connect(lambda: self.launchWindow(0))
         buttonBox.accepted.connect(lambda: self.saveUserDetails(userId))
+        buttonBox.accepted.connect(lambda: self.launchWindow(0))
 
         userId = 1
         userInfo = user_info()
         userData = userInfo.get_user_info(userId)
-
-        buttonBox.accepted.connect(lambda: self.saveUserDetails(userId))
 
         name = self.editDetails.findChild(QtGui.QLineEdit, "name")
         phoneCall = self.editDetails.findChild(QtGui.QLineEdit, "phoneCall")
@@ -169,7 +168,6 @@ class mainWindow(QtGui.QWidget):
         email = self.editDetails.findChild(QtGui.QLineEdit, "email")
 
         name.setText(userData[0])
-
         phoneCall.setText(userData[1])
         phoneWhatsApp.setText(userData[2])
         roomNumber.setText(userData[3])
@@ -183,8 +181,8 @@ class mainWindow(QtGui.QWidget):
         email = self.editDetails.findChild(QtGui.QLineEdit, "email")
 
         userInfo = user_info()
-        userInfo.update_user_info([str(name.toPlainText()), str(phoneCall.toPlainText()), \
-        str(phoneWhatsApp.toPlainText()), str(roomNumber.toPlainText()), str(email.toPlainText())], userId)
+        userInfo.update_user_info([str(name.text()), str(phoneCall.text()), \
+        str(phoneWhatsApp.text()), str(roomNumber.text()), str(email.text())], userId)
 
 
     def setupInventory(self):
