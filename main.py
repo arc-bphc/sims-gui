@@ -13,6 +13,12 @@ from ui_cart import Ui_cartWindow
 
 from sql.user_details import user_info
 
+class userDetails():
+    def __init__(self, _name = "ARC-User-X", _userId = 1, _isAdmin = True):
+        self.name = _name
+        self.userId = _userId
+        self.isAdmin = _isAdmin
+
 class mainWindow(QtGui.QWidget):
     def __init__(self, widget):
         super(mainWindow, self).__init__()
@@ -27,8 +33,7 @@ class mainWindow(QtGui.QWidget):
         self.arcHeader = QtGui.QWidget()
         self.cart = QtGui.QWidget()
 
-        self.username = "ARC-User-X"
-        self.userid = 4616261
+        self.user = userDetails()
 
         self.currentPage = 0
         self.previousPage = 0
@@ -81,8 +86,12 @@ class mainWindow(QtGui.QWidget):
         comboBox.setMinimumSize(QtCore.QSize(200, 40))
         comboBox.setMaximumSize(QtCore.QSize(300, 16777215))
 
-        comboBox.addItem(self.username)
-        comboBox.addItem("Logout")
+        comboBox.addItem(self.user.name)
+
+        if self.user.isAdmin == True:
+            comboBox.addItem("Admin Panel")
+
+        comboBox.activated.connect(self.handleComboBox)
 
         userHBox.addWidget(userIcon)
         userHBox.addWidget(comboBox)
@@ -99,6 +108,11 @@ class mainWindow(QtGui.QWidget):
 
         backButton.clicked.connect(self.goBack)
 
+    def handleComboBox(self, val):
+        print val
+        if val == 1:
+            self.HomeWidget.setCurrentIndex(0)
+            self.user = userDetails() #for resetting things
 
     def createStackedPages(self):
         self.setupWindows()
@@ -126,7 +140,10 @@ class mainWindow(QtGui.QWidget):
         requestButton = self.userProfile.findChild(QtGui.QPushButton, "requestButton")
         resetPinButton = self.userProfile.findChild(QtGui.QPushButton, "resetPinButton")
         cartButton = self.userProfile.findChild(QtGui.QPushButton, "cartButton")
+        lockButton = self.userProfile.findChild(QtGui.QPushButton, "lockButton")
+        logoutButton = self.userProfile.findChild(QtGui.QPushButton, "logoutButton")
         welcomeLabel = self.userProfile.findChild(QtGui.QLabel, "welcomeLabel")
+
 
         inventoryButton.clicked.connect(lambda: self.launchWindow(5))
         editDetailsButton.clicked.connect(lambda: self.launchWindow(4))
@@ -134,7 +151,9 @@ class mainWindow(QtGui.QWidget):
         resetPinButton.clicked.connect(lambda: self.launchWindow(1))
         cartButton.clicked.connect(lambda: self.launchWindow(6))
 
-        welcomeLabel.setText("Welcome, " + self.username)
+        logoutButton.clicked.connect(lambda: self.HomeWidget.setCurrentIndex(0))
+
+        welcomeLabel.setText("Welcome, " + self.user.name)
 
     def setupResetPin(self):
         Ui_resetPinWindow().setupUi(self.resetPin)
@@ -155,12 +174,11 @@ class mainWindow(QtGui.QWidget):
         buttonBox = self.editDetails.findChild(QtGui.QDialogButtonBox, "buttonBox")
         buttonBox.rejected.connect(lambda: self.launchWindow(0))
         buttonBox.accepted.connect(lambda: self.saveUserDetails(userId))
+        buttonBox.accepted.connect(self.showSuccessDialog)
+        buttonBox.accepted.connect(lambda: self.launchWindow(0))
 
-        userId = 1
         userInfo = user_info()
-        userData = userInfo.get_user_info(userId)
-
-        buttonBox.accepted.connect(lambda: self.saveUserDetails(userId))
+        userData = userInfo.get_user_info(self.user.userId)
 
         name = self.editDetails.findChild(QtGui.QLineEdit, "name")
         phoneCall = self.editDetails.findChild(QtGui.QLineEdit, "phoneCall")
@@ -169,7 +187,6 @@ class mainWindow(QtGui.QWidget):
         email = self.editDetails.findChild(QtGui.QLineEdit, "email")
 
         name.setText(userData[0])
-
         phoneCall.setText(userData[1])
         phoneWhatsApp.setText(userData[2])
         roomNumber.setText(userData[3])
@@ -183,9 +200,8 @@ class mainWindow(QtGui.QWidget):
         email = self.editDetails.findChild(QtGui.QLineEdit, "email")
 
         userInfo = user_info()
-        userInfo.update_user_info([str(name.toPlainText()), str(phoneCall.toPlainText()), \
-        str(phoneWhatsApp.toPlainText()), str(roomNumber.toPlainText()), str(email.toPlainText())], userId)
-
+        userInfo.update_user_info([str(name.text()), str(phoneCall.text()), \
+        str(phoneWhatsApp.text()), str(roomNumber.text()), str(email.text())], userId)
 
     def setupInventory(self):
         Ui_inventoryWindow().setupUi(self.inventory)
@@ -216,7 +232,6 @@ class mainWindow(QtGui.QWidget):
 
         buttonBox.rejected.connect(lambda: self.launchWindow(0))
         cartButton.clicked.connect(lambda: self.launchWindow(6))
-
 
     def setupCart(self):
         Ui_cartWindow().setupUi(self.cart)
@@ -251,6 +266,15 @@ class mainWindow(QtGui.QWidget):
         self.setupInventory()
         self.setupCart()
 
+    def showSuccessDialog(self):
+        msg = QtGui.QMessageBox()
+        msg.setIcon(QtGui.QMessageBox.Information)
+
+        msg.setText("Database successfully updated!")
+        msg.setWindowTitle("Success")
+        msg.setStandardButtons(QtGui.QMessageBox.Ok)
+        msg.exec_()
+
 def main():
     app = QtGui.QApplication(sys.argv)
     app.setWindowIcon(QtGui.QIcon('images/arclogo.png'))
@@ -260,7 +284,7 @@ def main():
     widget.setWindowTitle("Smart Inventory Management System")
     widget.resize(1280, 800)
     prog = mainWindow(widget)
-    widget.show()
+    widget.showFullScreen()
     sys.exit(app.exec_())
 
 if __name__ == '__main__':

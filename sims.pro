@@ -27,4 +27,8 @@ FORMS    += mainwindow.ui \
     resetpin.ui \
     arc-header.ui \
     itemwidget.ui \
-    cart.ui
+    cart.ui \
+    form.ui \
+    adminpanel.ui
+
+RESOURCES +=

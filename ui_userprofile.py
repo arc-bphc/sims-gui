@@ -90,6 +90,16 @@ class Ui_userWindow(object):
         self.profilePic.setScaledContents(True)
         self.profilePic.setObjectName(_fromUtf8("profilePic"))
         self.gridLayout.addWidget(self.profilePic, 3, 1, 1, 1, QtCore.Qt.AlignHCenter)
+        self.lockButton = QtGui.QPushButton(userWindow)
+        icon = QtGui.QIcon.fromTheme(_fromUtf8("system-lock-screen"))
+        self.lockButton.setIcon(icon)
+        self.lockButton.setObjectName(_fromUtf8("lockButton"))
+        self.gridLayout.addWidget(self.lockButton, 11, 0, 1, 1, QtCore.Qt.AlignLeft)
+        self.logoutButton = QtGui.QPushButton(userWindow)
+        icon = QtGui.QIcon.fromTheme(_fromUtf8("system-log-out"))
+        self.logoutButton.setIcon(icon)
+        self.logoutButton.setObjectName(_fromUtf8("logoutButton"))
+        self.gridLayout.addWidget(self.logoutButton, 11, 2, 1, 1, QtCore.Qt.AlignRight)
         self.gridLayout_2.addLayout(self.gridLayout, 0, 0, 1, 1)
 
         self.retranslateUi(userWindow)
@@ -103,4 +113,6 @@ class Ui_userWindow(object):
         self.requestButton.setText(_translate("userWindow", "Purchase Request", None))
         self.editDetailsButton.setText(_translate("userWindow", "Edit Details", None))
         self.cartButton.setText(_translate("userWindow", "View Cart", None))
+        self.lockButton.setText(_translate("userWindow", "Lock", None))
+        self.logoutButton.setText(_translate("userWindow", "Logout", None))
 
