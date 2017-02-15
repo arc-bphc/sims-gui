@@ -14,7 +14,7 @@ from ui_cart import Ui_cartWindow
 from sql.user_details import user_info
 
 class userDetails():
-    def __init__(self, _name = "ARC-User-X", _userId = 206, _isAdmin = False):
+    def __init__(self, _name = "ARC-User-X", _userId = 1, _isAdmin = False):
         self.name = _name
         self.userId = _userId
         self.isAdmin = _isAdmin
@@ -166,9 +166,8 @@ class mainWindow(QtGui.QWidget):
         buttonBox.accepted.connect(self.showSuccessDialog)
         buttonBox.accepted.connect(lambda: self.launchWindow(0))
 
-        userId = 1
         userInfo = user_info()
-        userData = userInfo.get_user_info(userId)
+        userData = userInfo.get_user_info(self.user.userId)
 
         name = self.editDetails.findChild(QtGui.QLineEdit, "name")
         phoneCall = self.editDetails.findChild(QtGui.QLineEdit, "phoneCall")
