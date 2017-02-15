@@ -1,15 +1,16 @@
 from insert_data_users import *
 
 class view_cart:
+	item_list,quantity
 
-	def __init__():
+	def __init__(self):
 		self.user = db('test.db')
 
 	def getItemList(self, id):
 		item_list = self.user.selectQuery('transactions',['*'],['ID = ' + str(id)])
 		for i in item_list:
 			items_issued.insert(i,item_list[i][2])
-			self.quantity.insert(i,item_list[i][3])
+			quantity.insert(i,item_list[i][3])
 		print items_issued
 		for j in items_issued:
 			self.item_info_list.insert(j,self.user.selectQuery('inventory',['*'],['ITEM_ID = ' + str(items_issued[j])]))
