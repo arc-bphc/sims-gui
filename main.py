@@ -14,7 +14,7 @@ from ui_cart import Ui_cartWindow
 from sql.user_details import user_info
 
 class userDetails():
-    def __init__(self, _name = "ARC-User-X", _userId = 1, _isAdmin = False):
+    def __init__(self, _name = "ARC-User-X", _userId = 1, _isAdmin = True):
         self.name = _name
         self.userId = _userId
         self.isAdmin = _isAdmin
@@ -90,7 +90,6 @@ class mainWindow(QtGui.QWidget):
 
         if self.user.isAdmin == True:
             comboBox.addItem("Admin Panel")
-        comboBox.addItem("Logout")
 
         comboBox.activated.connect(self.handleComboBox)
 
@@ -111,7 +110,7 @@ class mainWindow(QtGui.QWidget):
 
     def handleComboBox(self, val):
         print val
-        if string == 1:
+        if val == 1:
             self.HomeWidget.setCurrentIndex(0)
             self.user = userDetails() #for resetting things
 
@@ -141,13 +140,18 @@ class mainWindow(QtGui.QWidget):
         requestButton = self.userProfile.findChild(QtGui.QPushButton, "requestButton")
         resetPinButton = self.userProfile.findChild(QtGui.QPushButton, "resetPinButton")
         cartButton = self.userProfile.findChild(QtGui.QPushButton, "cartButton")
+        lockButton = self.userProfile.findChild(QtGui.QPushButton, "lockButton")
+        logoutButton = self.userProfile.findChild(QtGui.QPushButton, "logoutButton")
         welcomeLabel = self.userProfile.findChild(QtGui.QLabel, "welcomeLabel")
+
 
         inventoryButton.clicked.connect(lambda: self.launchWindow(5))
         editDetailsButton.clicked.connect(lambda: self.launchWindow(4))
         requestButton.clicked.connect(lambda: self.launchWindow(3))
         resetPinButton.clicked.connect(lambda: self.launchWindow(1))
         cartButton.clicked.connect(lambda: self.launchWindow(6))
+
+        logoutButton.clicked.connect(lambda: self.HomeWidget.setCurrentIndex(0))
 
         welcomeLabel.setText("Welcome, " + self.user.name)
 
@@ -229,7 +233,6 @@ class mainWindow(QtGui.QWidget):
         buttonBox.rejected.connect(lambda: self.launchWindow(0))
         cartButton.clicked.connect(lambda: self.launchWindow(6))
 
-
     def setupCart(self):
         Ui_cartWindow().setupUi(self.cart)
 
@@ -281,7 +284,7 @@ def main():
     widget.setWindowTitle("Smart Inventory Management System")
     widget.resize(1280, 800)
     prog = mainWindow(widget)
-    widget.show()
+    widget.showFullScreen()
     sys.exit(app.exec_())
 
 if __name__ == '__main__':
