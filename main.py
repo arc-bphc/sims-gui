@@ -13,6 +13,12 @@ from ui_cart import Ui_cartWindow
 
 from sql.user_details import user_info
 
+class userDetails():
+    def __init__(self, _name = "ARC-User-X", _userId = 206, _isAdmin = False):
+        self.name = _name
+        self.userId = _userId
+        self.isAdmin = _isAdmin
+
 class mainWindow(QtGui.QWidget):
     def __init__(self, widget):
         super(mainWindow, self).__init__()
@@ -27,9 +33,7 @@ class mainWindow(QtGui.QWidget):
         self.arcHeader = QtGui.QWidget()
         self.cart = QtGui.QWidget()
 
-        self.username = "ARC-User-X"
-        self.userid = 4616261
-        self.isAdmin = False
+        self.user = userDetails()
 
         self.currentPage = 0
         self.previousPage = 0
@@ -82,7 +86,10 @@ class mainWindow(QtGui.QWidget):
         comboBox.setMinimumSize(QtCore.QSize(200, 40))
         comboBox.setMaximumSize(QtCore.QSize(300, 16777215))
 
-        comboBox.addItem(self.username)
+        comboBox.addItem(self.user.name)
+
+        if self.user.isAdmin == True:
+            comboBox.addItem("Admin Panel")
         comboBox.addItem("Logout")
 
         userHBox.addWidget(userIcon)
@@ -135,7 +142,7 @@ class mainWindow(QtGui.QWidget):
         resetPinButton.clicked.connect(lambda: self.launchWindow(1))
         cartButton.clicked.connect(lambda: self.launchWindow(6))
 
-        welcomeLabel.setText("Welcome, " + self.username)
+        welcomeLabel.setText("Welcome, " + self.user.name)
 
     def setupResetPin(self):
         Ui_resetPinWindow().setupUi(self.resetPin)
