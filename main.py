@@ -13,6 +13,7 @@ from ui_cart import Ui_cartWindow
 
 from sql.user_details import user_info
 from sql.reset_pin import resetPin
+from sql.view_cart import view_cart
 
 class userDetails():
     def __init__(self, _name = "ARC-User-X", _userId = 1, _isAdmin = True):
@@ -243,6 +244,8 @@ class mainWindow(QtGui.QWidget):
     def setupCart(self):
         Ui_cartWindow().setupUi(self.cart)
 
+        viewCart = view_cart()
+        print viewCart.getItemList(self.user.userId)
         buttonBox = self.cart.findChild(QtGui.QDialogButtonBox, "buttonBox")
         buttonBox.rejected.connect(lambda: self.launchWindow(0))
 
