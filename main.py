@@ -173,7 +173,7 @@ class mainWindow(QtGui.QWidget):
 
         buttonBox = self.editDetails.findChild(QtGui.QDialogButtonBox, "buttonBox")
         buttonBox.rejected.connect(lambda: self.launchWindow(0))
-        buttonBox.accepted.connect(lambda: self.saveUserDetails(userId))
+        buttonBox.accepted.connect(lambda: self.saveUserDetails(self.user.userId))
         buttonBox.accepted.connect(self.showSuccessDialog)
         buttonBox.accepted.connect(lambda: self.launchWindow(0))
 
