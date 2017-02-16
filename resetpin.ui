@@ -84,10 +84,10 @@ QWidget {background-color: rgb(255, 255, 255)}
        <item row="0" column="2">
         <widget class="QLineEdit" name="currentPwd">
          <property name="maxLength">
-          <number>5</number>
+          <number>4</number>
          </property>
          <property name="echoMode">
-          <enum>QLineEdit::Password</enum>
+          <enum>QLineEdit::Normal</enum>
          </property>
         </widget>
        </item>
@@ -111,7 +111,7 @@ QWidget {background-color: rgb(255, 255, 255)}
           <number>4</number>
          </property>
          <property name="echoMode">
-          <enum>QLineEdit::Password</enum>
+          <enum>QLineEdit::Normal</enum>
          </property>
         </widget>
        </item>

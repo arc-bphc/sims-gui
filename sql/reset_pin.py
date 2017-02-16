@@ -6,27 +6,29 @@ class resetPin:
 		self.user = db('sql/test.db')
 
 	def compareEnteredPin(self,id,pin,newPin):
+		print 'old pin ' + pin + ' new pin ' + newPin
 		newPin = comparePin(self,id,pin,newPin)
-		# print newPin
+
 		if self.flag == 1:
 			self.user.updateQuery('users',["HASHED_PASSWORD = '" + newPin + "'"],['ID = ' + str(id)])
-		print self.flag
+		return self.flag
 
 def comparePin(obj,id,pin,newPin):
-	print pin
+	#print pin
 	user_list = obj.user.selectQuery('users',['*'],['ID = ' + str(id)])
 	salt = user_list[0][6]
-	# print salt
+	#print salt
 	hashed_pin = user_list[0][7]
-	print "hashed_pin from database:  " + hashed_pin
+	#print "hashed_pin from database:  " + hashed_pin
 	pin = pin + salt
+	newPin = newPin + salt
 	# print pin
 	entered_pin = SHA256.new(pin).hexdigest()
 	newPin = SHA256.new(newPin).hexdigest()
-	print "entered_pin:	" + entered_pin
+	#print "entered_pin:	" + entered_pin
 	if hashed_pin == entered_pin:
 		obj.flag = 1
-		print "newPin:	" + newPin
+		#print "newPin:	" + newPin
 		return newPin
 	else:
 		obj.flag = 0
