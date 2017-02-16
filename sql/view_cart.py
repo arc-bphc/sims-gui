@@ -11,6 +11,7 @@ item_list = []
 items_issued = []
 quantity = []
 final_list = []
+itemID_issued = []
 
 class view_cart:
 
@@ -21,12 +22,13 @@ class view_cart:
 		item_list = self.user.selectQuery('transactions',['*'],['ID = ' + str(id)])
 		# print item_list
 		for i in range(len(item_list)):
-			items_issued.append(item_list[i][2])
+			itemID_issued.append(item_list[i][2])
+			items_issued.append(item_list[i][1])
 			quantity.insert(i,item_list[i][3])
 		# print items_issued
 		# print quantity
 		for j in range(len(items_issued)):
-			self.item_info_list = self.user.selectQuery('inventory',['*'],['ITEM_ID = ' + str(items_issued[j])])
+			self.item_info_list = self.user.selectQuery('inventory',['*'],['ITEM_ID = ' + str(itemID_issued[j])])
 		return items_issued
 
 	def getItemInfo(self,item_no):
