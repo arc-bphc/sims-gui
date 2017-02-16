@@ -12,6 +12,7 @@ from ui_inventory import Ui_inventoryWindow
 from ui_cart import Ui_cartWindow
 
 from sql.user_details import user_info
+from sql.reset_pin import resetPin
 
 class userDetails():
     def __init__(self, _name = "ARC-User-X", _userId = 1, _isAdmin = True):
@@ -158,6 +159,12 @@ class mainWindow(QtGui.QWidget):
     def setupResetPin(self):
         Ui_resetPinWindow().setupUi(self.resetPin)
         buttonBox = self.resetPin.findChild(QtGui.QDialogButtonBox, "buttonBox")
+        currentPwd = self.resetPin.findChild(QtGui.QLineEdit, "currentPwd")
+        newPwd = self.resetPin.findChild(QtGui.QLineEdit, "newPwd")
+
+        resetPinObject = resetPin()
+
+        buttonBox.accepted.connect(lambda: resetPinObject.compareEnteredPin(self.user.userId, currentPwd.text(), newPwd.text()))
         buttonBox.rejected.connect(lambda: self.launchWindow(0))
 
     def setupFingerprint(self):
@@ -284,7 +291,7 @@ def main():
     widget.setWindowTitle("Smart Inventory Management System")
     widget.resize(1280, 800)
     prog = mainWindow(widget)
-    widget.showFullScreen()
+    widget.show()
     sys.exit(app.exec_())
 
 if __name__ == '__main__':
