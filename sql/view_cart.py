@@ -15,7 +15,7 @@ final_list = []
 class view_cart:
 
 	def __init__(self):
-		self.user = db('test.db')
+		self.user = db('sql/test.db')
 
 	def getItemList(self, id):
 		item_list = self.user.selectQuery('transactions',['*'],['ID = ' + str(id)])

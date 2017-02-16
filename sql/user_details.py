@@ -3,7 +3,7 @@ from insert_data_users import *
 class user_info:
 
 	def __init__(self):
-		self.user = db('test.db')
+		self.user = db('sql/test.db')
 
 	def get_user_info(self, id):
 		user_list = self.user.selectQuery('users',['*'],['ID = ' + str(id)])

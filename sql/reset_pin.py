@@ -4,13 +4,16 @@ from Crypto.Hash import SHA256
 class resetPin:
 
 	def __init__(self):
-		self.user = db('test.db')
+		self.user = db('sql/test.db')
 
-	def compareEnteredPin(self,id,pin):
-		return comparePin(self,id,pin)
+	def compareEnteredPin(self,id,pin,newPin):
+		newPin = comparePin(self,id,pin,newPin)
+		# print newPin
+		if self.flag == 1:
+			self.user.updateQuery('users',["HASHED_PASSWORD = '" + newPin + "'"],['ID = ' + str(id)])
 
 
-def comparePin(obj,id, pin):
+def comparePin(obj,id,pin,newPin):
 	print pin
 	user_list = obj.user.selectQuery('users',['*'],['ID = ' + str(id)])
 	salt = user_list[0][6]
@@ -20,16 +23,21 @@ def comparePin(obj,id, pin):
 	pin = pin + salt
 	# print pin
 	entered_pin = SHA256.new(pin).hexdigest()
+	newPin = SHA256.new(newPin).hexdigest()
 	print "entered_pin:	" + entered_pin
 	if hashed_pin == entered_pin:
-		return 1
+		obj.flag = 1
+		print "newPin:	" + newPin
+		return newPin
 	else:
-		return 0
+		obj.flag = 0
+		return '0'
+
 
 
 def main():
 	obj = resetPin()
-	print obj.compareEnteredPin(1,'1234')	
+	print obj.compareEnteredPin(1,'1234','hello')	
 
 if __name__ == '__main__':
     main()
