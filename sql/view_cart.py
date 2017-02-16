@@ -23,12 +23,12 @@ class view_cart:
 		# print item_list
 		for i in range(len(item_list)):
 			itemID_issued.append(item_list[i][2])
-			items_issued.append(item_list[i][1])
 			quantity.insert(i,item_list[i][3])
 		# print items_issued
 		# print quantity
 		for j in range(len(items_issued)):
 			self.item_info_list = self.user.selectQuery('inventory',['*'],['ITEM_ID = ' + str(itemID_issued[j])])
+			items_issued.append(item_info_list[j][1])
 		return items_issued
 
 	def getItemInfo(self,item_no):
