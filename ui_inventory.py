@@ -58,6 +58,8 @@ class Ui_inventoryWindow(object):
         self.gridLayout_2.addWidget(self.treeView, 4, 0, 2, 1)
         self.gridLayout = QtGui.QGridLayout()
         self.gridLayout.setContentsMargins(0, -1, 0, -1)
+        self.gridLayout.setHorizontalSpacing(14)
+        self.gridLayout.setVerticalSpacing(6)
         self.gridLayout.setObjectName(_fromUtf8("gridLayout"))
         self.partBox = QtGui.QLabel(self.centralwidget)
         font = QtGui.QFont()
