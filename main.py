@@ -164,8 +164,9 @@ class mainWindow(QtGui.QWidget):
         newPwd = self.resetPin.findChild(QtGui.QLineEdit, "newPwd")
 
         resetPinObject = resetPin()
-
-        buttonBox.accepted.connect(lambda: resetPinObject.compareEnteredPin(self.user.userId, currentPwd.text(), newPwd.text()))
+        buttonBox.accepted.connect(lambda: resetPinObject.compareEnteredPin(self.user.userId, currentPwd.text(), newPwd.text(), resetStatus))
+        buttonBox.accepted.connect(lambda: self.showSuccessDialog('PIN successfully updated!')) #fix this behavior
+        buttonBox.accepted.connect(lambda: self.launchWindow(0))
         buttonBox.rejected.connect(lambda: self.launchWindow(0))
 
     def setupFingerprint(self):
@@ -182,7 +183,7 @@ class mainWindow(QtGui.QWidget):
         buttonBox = self.editDetails.findChild(QtGui.QDialogButtonBox, "buttonBox")
         buttonBox.rejected.connect(lambda: self.launchWindow(0))
         buttonBox.accepted.connect(lambda: self.saveUserDetails(self.user.userId))
-        buttonBox.accepted.connect(self.showSuccessDialog)
+        buttonBox.accepted.connect(lambda: self.showSuccessDialog('Database successfully updated!'))
         buttonBox.accepted.connect(lambda: self.launchWindow(0))
 
         userInfo = user_info()
@@ -245,7 +246,7 @@ class mainWindow(QtGui.QWidget):
         Ui_cartWindow().setupUi(self.cart)
 
         viewCart = view_cart()
-        print viewCart.getItemList(self.user.userId)
+        #print viewCart.getItemList(self.user.userId)
         buttonBox = self.cart.findChild(QtGui.QDialogButtonBox, "buttonBox")
         buttonBox.rejected.connect(lambda: self.launchWindow(0))
 
@@ -276,11 +277,11 @@ class mainWindow(QtGui.QWidget):
         self.setupInventory()
         self.setupCart()
 
-    def showSuccessDialog(self):
+    def showSuccessDialog(self, text):
         msg = QtGui.QMessageBox()
         msg.setIcon(QtGui.QMessageBox.Information)
 
-        msg.setText("Database successfully updated!")
+        msg.setText(text)
         msg.setWindowTitle("Success")
         msg.setStandardButtons(QtGui.QMessageBox.Ok)
         msg.exec_()

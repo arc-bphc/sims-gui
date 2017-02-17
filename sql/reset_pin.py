@@ -5,13 +5,14 @@ class resetPin:
 	def __init__(self):
 		self.user = db('sql/test.db')
 
-	def compareEnteredPin(self,id,pin,newPin):
+	def compareEnteredPin(self,id,pin,newPin,staus):
 		print 'old pin ' + pin + ' new pin ' + newPin
 		newPin = comparePin(self,id,pin,newPin)
 
 		if self.flag == 1:
 			self.user.updateQuery('users',["HASHED_PASSWORD = '" + newPin + "'"],['ID = ' + str(id)])
-		return self.flag
+		print self.flag
+		status = self.flag
 
 def comparePin(obj,id,pin,newPin):
 	#print pin
