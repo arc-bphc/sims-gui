@@ -172,6 +172,6 @@ class Ui_cartWindow(object):
         self.label_4.setText(_translate("cartWindow", "Shelf", None))
         self.partBox.setText(_translate("cartWindow", "5", None))
         self.partCategory.setText(_translate("cartWindow", "<html><head/><body><p align=\"center\"><span style=\" font-style:italic;\">Microcontroller</span></p></body></html>", None))
-        self.openInventory.setText(_translate("cartWindow", "Add Items to Cart", None))
+        self.openInventory.setText(_translate("cartWindow", "Inventory", None))
         self.label_2.setText(_translate("cartWindow", "Cart", None))
 

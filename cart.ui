@@ -237,7 +237,7 @@ QWidget {background-color: white}
        <item row="9" column="0" colspan="2">
         <widget class="QPushButton" name="openInventory">
          <property name="text">
-          <string>Add Items to Cart</string>
+          <string>Inventory</string>
          </property>
         </widget>
        </item>
