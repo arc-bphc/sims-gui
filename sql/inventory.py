@@ -1,7 +1,8 @@
 from insert_data_users import *
 
 catagoryList = []
-itemList = []
+items = []
+itemInfo = []
 
 class selectFromInventrory:
 
@@ -16,15 +17,24 @@ class selectFromInventrory:
 		return self.catagories
 
 	def getItems(self,catagoryNo):
-		itemList = self.user.selectQuery('inventory',['*'],['CATAGORY = ' + self.catagories[catagoryNo]])
-		return itemList
+		print self.catagories[catagoryNo]
+		self.itemList = []
+		self.itemList = self.user.selectQuery('inventory',['*'],["CATAGORY = '" + self.catagories[catagoryNo] + "'"])
+		print self.itemList
+		for j in range(len(self.itemList)):
+			items.append(self.itemList[j][1])
+		return items
 
+	def getItemInfo(self,itemNO):
+		itemInfo = self.itemList[itemNO]
+		return itemInfo
 
 
 def main():
 	obj = selectFromInventrory()
 	print obj.getCatagories()
-	print getItems(0)
+	print obj.getItems(0)
+	print obj.getItemInfo(1)
 
 
 if __name__ == '__main__':
