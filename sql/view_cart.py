@@ -1,7 +1,7 @@
-''' Use getItemList function to get all the items 
-	issued by an user to display the list in the 
+''' Use getItemList function to get all the items
+	issued by an user to display the list in the
 	cart. on clicking an item call getItemInfo which
-	returns a list containing information about a 
+	returns a list containing information about a
 	single item'''
 
 
@@ -24,28 +24,35 @@ class view_cart:
 		for i in range(len(item_list)):
 			itemID_issued.append(item_list[i][2])
 			quantity.insert(i,item_list[i][3])
-		
+
 		self.item_info_list = []
 		for j in range(len(itemID_issued)):
 			self.item_info_list.append(self.user.selectQuery('inventory',['*'],['ITEM_ID = ' + str(itemID_issued[j])]))
-		print self.item_info_list
+		#print self.item_info_list
 		for k in range(len(self.item_info_list)):
 			items_issued.append(self.item_info_list[k][0][1])
+<<<<<<< HEAD
 		# print items_issued
+=======
+
+>>>>>>> 0c018012bdc99da58e5e433ddf57285f2d958ba3
 		return items_issued
 
 	def getItemInfo(self,item_no):
 		# print self.item_info_list[0][0][0]
 		final_list = [self.item_info_list[item_no][0][0],self.item_info_list[item_no][0][1],self.item_info_list[item_no][0][2],self.item_info_list[item_no][0][3],self.item_info_list[item_no][0][4],self.item_info_list[item_no][0][5],quantity[item_no]]
+<<<<<<< HEAD
 		# print final_list
+=======
+
+>>>>>>> 0c018012bdc99da58e5e433ddf57285f2d958ba3
 		return final_list
 
 def main():
 	obj = view_cart()
 	obj.getItemList(1)
 	print '\n'
-	obj.getItemInfo(1)	
+	obj.getItemInfo(1)
 
 if __name__ == '__main__':
     main()
-		
