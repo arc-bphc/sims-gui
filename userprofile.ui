@@ -248,7 +248,8 @@ QWidget {background-color: rgb(255, 255, 255)}
         <string>Lock</string>
        </property>
        <property name="icon">
-        <iconset theme="system-lock-screen"/>
+        <iconset>
+         <normaloff>images/lock.svg</normaloff>images/lock.svg</iconset>
        </property>
       </widget>
      </item>
@@ -258,7 +259,8 @@ QWidget {background-color: rgb(255, 255, 255)}
         <string>Logout</string>
        </property>
        <property name="icon">
-        <iconset theme="system-log-out"/>
+        <iconset>
+         <normaloff>images/back.png</normaloff>images/back.png</iconset>
        </property>
       </widget>
      </item>

@@ -382,6 +382,58 @@
     <string>Reset PIN</string>
    </property>
   </widget>
+  <widget class="QToolButton" name="toolButton">
+   <property name="geometry">
+    <rect>
+     <x>340</x>
+     <y>280</y>
+     <width>29</width>
+     <height>29</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Tool</string>
+   </property>
+  </widget>
+  <widget class="QToolBox" name="toolBox">
+   <property name="geometry">
+    <rect>
+     <x>140</x>
+     <y>220</y>
+     <width>68</width>
+     <height>140</height>
+    </rect>
+   </property>
+   <property name="currentIndex">
+    <number>0</number>
+   </property>
+   <widget class="QWidget" name="page">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>68</width>
+      <height>68</height>
+     </rect>
+    </property>
+    <attribute name="label">
+     <string>Page 1</string>
+    </attribute>
+   </widget>
+   <widget class="QWidget" name="page_2">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>68</width>
+      <height>68</height>
+     </rect>
+    </property>
+    <attribute name="label">
+     <string>Page 2</string>
+    </attribute>
+   </widget>
+  </widget>
  </widget>
  <resources/>
  <connections/>
