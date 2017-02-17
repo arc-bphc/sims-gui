@@ -16,7 +16,7 @@ itemID_issued = []
 class view_cart:
 
 	def __init__(self):
-		self.user = db('test.db')
+		self.user = db('sql/test.db')
 
 	def getItemList(self, id):
 		item_list = self.user.selectQuery('transactions',['*'],['ID = ' + str(id)])
@@ -24,14 +24,14 @@ class view_cart:
 		for i in range(len(item_list)):
 			itemID_issued.append(item_list[i][2])
 			quantity.insert(i,item_list[i][3])
-		print itemID_issued
-		print quantity
-		print itemID_issued[0]
-		print itemID_issued[1]
+		
 		self.item_info_list = []
 		for j in range(len(itemID_issued)):
 			self.item_info_list.append(self.user.selectQuery('inventory',['*'],['ITEM_ID = ' + str(itemID_issued[j])]))
 		print self.item_info_list
+		for k in range(len(self.item_info_list)):
+			items_issued.append(self.item_info_list[k][0][1])
+		print items_issued
 		return items_issued
 
 	def getItemInfo(self,item_no):
