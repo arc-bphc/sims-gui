@@ -47,6 +47,17 @@ class db:
         self.cursor.execute(query)
         return self.cursor.fetchall()
 
+    def selectDistinctQuery(self, table, col, whereClause = []):
+        placeholder = ','.join(col)
+        if len(whereClause) == 0:
+            query = 'select distinct ' + placeholder + ' from ' + table
+        else:
+            whereClause = ','.join(whereClause)
+            query = 'select distinct ' + placeholder + ' from ' + table + ' where ' + whereClause
+        #print query
+        self.cursor.execute(query)
+        return self.cursor.fetchall()
+
     def updateQuery(self, table, values, whereClause = []):
         values = ','.join(values)
         if len(whereClause) == 0:
@@ -61,7 +72,7 @@ class db:
     def deleteQuery(self, table, whereClause = []):
     	if len(whereClause) == 0:
     		query = 'delete from ' + table
-    		print query
+    		# print query
     		ans = raw_input("Are you sure you want to delete all the records from the table? (y/n):")
     		if ans == 'y':
     			self.conn.execute(query)
