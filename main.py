@@ -246,19 +246,20 @@ class mainWindow(QtGui.QWidget):
         Ui_cartWindow().setupUi(self.cart)
 
         self.viewCart = view_cart()
-        itemList = self.viewCart.getItemList(self.user.userId)
-        #print viewCart.getItemInfo(1)
-
-        listView = self.cart.findChild(QtGui.QListView, "listView")
         self.model = QtGui.QStandardItemModel()
+
+        itemList = self.viewCart.getItemList(self.user.userId)
+        listView = self.cart.findChild(QtGui.QListView, "listView")
+        buttonBox = self.cart.findChild(QtGui.QDialogButtonBox, "buttonBox")
+        openInventory = self.cart.findChild(QtGui.QPushButton, "openInventory")
+
         listView.setModel(self.model)
-        #items = []
 
         for item in itemList:
             self.model.appendRow(QtGui.QStandardItem(item))
 
         listView.clicked.connect(self.displayCartItem)
-        buttonBox = self.cart.findChild(QtGui.QDialogButtonBox, "buttonBox")
+        openInventory.clicked.connect(lambda: self.launchWindow(5))
         buttonBox.rejected.connect(lambda: self.launchWindow(0))
 
     def displayCartItem(self, itemId):

@@ -124,6 +124,9 @@ class Ui_cartWindow(object):
         self.label.setScaledContents(True)
         self.label.setObjectName(_fromUtf8("label"))
         self.gridLayout.addWidget(self.label, 2, 0, 1, 2, QtCore.Qt.AlignHCenter)
+        self.openInventory = QtGui.QPushButton(cartWindow)
+        self.openInventory.setObjectName(_fromUtf8("openInventory"))
+        self.gridLayout.addWidget(self.openInventory, 9, 0, 1, 2)
         self.gridLayout_2.addLayout(self.gridLayout, 2, 3, 1, 1)
         self.label_2 = QtGui.QLabel(cartWindow)
         font = QtGui.QFont()
@@ -169,5 +172,6 @@ class Ui_cartWindow(object):
         self.label_4.setText(_translate("cartWindow", "Shelf", None))
         self.partBox.setText(_translate("cartWindow", "5", None))
         self.partCategory.setText(_translate("cartWindow", "<html><head/><body><p align=\"center\"><span style=\" font-style:italic;\">Microcontroller</span></p></body></html>", None))
+        self.openInventory.setText(_translate("cartWindow", "Add Items to Cart", None))
         self.label_2.setText(_translate("cartWindow", "Cart", None))
 
