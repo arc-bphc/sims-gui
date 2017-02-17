@@ -245,11 +245,37 @@ class mainWindow(QtGui.QWidget):
     def setupCart(self):
         Ui_cartWindow().setupUi(self.cart)
 
-        viewCart = view_cart()
-        #print viewCart.getItemList(self.user.userId)
+        self.viewCart = view_cart()
+        itemList = self.viewCart.getItemList(self.user.userId)
+        #print viewCart.getItemInfo(1)
+
+        listView = self.cart.findChild(QtGui.QListView, "listView")
+        self.model = QtGui.QStandardItemModel()
+        listView.setModel(self.model)
+        #items = []
+
+        for item in itemList:
+            self.model.appendRow(QtGui.QStandardItem(item))
+
+        listView.clicked.connect(self.displayCartItem)
         buttonBox = self.cart.findChild(QtGui.QDialogButtonBox, "buttonBox")
         buttonBox.rejected.connect(lambda: self.launchWindow(0))
 
+    def displayCartItem(self, itemId):
+        partName = self.cart.findChild(QtGui.QLabel, "partName")
+        partCategory = self.cart.findChild(QtGui.QLabel, "partCategory")
+        partID = self.cart.findChild(QtGui.QLabel, "partID")
+        partShelf = self.cart.findChild(QtGui.QLabel, "partShelf")
+        partBox = self.cart.findChild(QtGui.QLabel, "partBox")
+        partQty = self.cart.findChild(QtGui.QLabel, "partQty")
+
+        itemDetails = self.viewCart.getItemInfo(itemId.row())
+        partName.setText(itemDetails[1])
+        partCategory.setText(itemDetails[5])
+        partID.setText(str(itemDetails[0]))
+        partShelf.setText(str(itemDetails[3]))
+        partBox.setText(str(itemDetails[4]))
+        partQty.setText(str(itemDetails[6]))
 
     def comboAction(self, x):
         if (x == 1):
