@@ -31,21 +31,14 @@ class view_cart:
 		#print self.item_info_list
 		for k in range(len(self.item_info_list)):
 			items_issued.append(self.item_info_list[k][0][1])
-<<<<<<< HEAD
-		# print items_issued
-=======
 
->>>>>>> 0c018012bdc99da58e5e433ddf57285f2d958ba3
+
 		return items_issued
 
 	def getItemInfo(self,item_no):
 		# print self.item_info_list[0][0][0]
 		final_list = [self.item_info_list[item_no][0][0],self.item_info_list[item_no][0][1],self.item_info_list[item_no][0][2],self.item_info_list[item_no][0][3],self.item_info_list[item_no][0][4],self.item_info_list[item_no][0][5],quantity[item_no]]
-<<<<<<< HEAD
-		# print final_list
-=======
 
->>>>>>> 0c018012bdc99da58e5e433ddf57285f2d958ba3
 		return final_list
 
 def main():
