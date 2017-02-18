@@ -7,7 +7,7 @@ itemInfo = []
 class selectFromInventrory:
 
 	def __init__(self):
-		self.user = db('test.db')
+		self.user = db('sql/test.db')
 
 	def getCatagories(self):
 		catagoryList = self.user.selectDistinctQuery('inventory',['CATAGORY'])
@@ -36,7 +36,7 @@ class selectFromInventrory:
 		print postQuantity
 		if postQuantity < 0:
 			return 0
-			#returns 0 if quantity demanded is more tha that in inventory.
+			#returns 0 if quantity demanded is more than that in inventory.
 		else:
 			self.user.insertTuple('transactions', [userID,userName,itemID,quantity,issueTime], ['ID','NAME','ITEM_ID','QUANTITY','ISSUE_DATETIME'])
 			self.user.updateQuery('inventory',['QUANTITY = ' + str(postQuantity)],['ITEM_ID = ' + str(itemID)])
