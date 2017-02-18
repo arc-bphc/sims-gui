@@ -36,10 +36,12 @@ class selectFromInventrory:
 		print postQuantity
 		if postQuantity < 0:
 			return 0
+			#returns 0 if quantity demanded is more tha that in inventory.
 		else:
 			self.user.insertTuple('transactions', [userID,userName,itemID,quantity,issueTime], ['ID','NAME','ITEM_ID','QUANTITY','ISSUE_DATETIME'])
 			self.user.updateQuery('inventory',['QUANTITY = ' + str(postQuantity)],['ITEM_ID = ' + str(itemID)])
 			return 1
+			#returns 1 if demanded quantity is valid and changes are made to the database.
 
 def main():
 	obj = selectFromInventrory()
