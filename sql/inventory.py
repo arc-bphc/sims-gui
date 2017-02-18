@@ -4,8 +4,7 @@ catagoryList = []
 items = []
 itemInfo = []
 
-class selectFromInventrory:
-
+class selectFromInventory:
 	def __init__(self):
 		self.user = db('sql/test.db')
 

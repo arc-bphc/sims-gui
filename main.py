@@ -14,6 +14,7 @@ from ui_cart import Ui_cartWindow
 from sql.user_details import user_info
 from sql.reset_pin import resetPin
 from sql.view_cart import view_cart
+from sql.inventory import selectFromInventory
 
 class userDetails():
     def __init__(self, _name = "ARC-User-X", _userId = 1, _isAdmin = True):
@@ -214,33 +215,32 @@ class mainWindow(QtGui.QWidget):
 
     def setupInventory(self):
         Ui_inventoryWindow().setupUi(self.inventory)
+
+        self.inventoryDb = selectFromInventory()
+        self.categoryList = self.inventoryDb.getCatagories()
+        self.categoryModel = QtGui.QStandardItemModel()
+        self.itemListModel = QtGui.QStandardItemModel()
+
         buttonBox = self.inventory.findChild(QtGui.QDialogButtonBox, "buttonBox")
         cartButton = self.inventory.findChild(QtGui.QPushButton, "cartButton")
-        treeView = self.inventory.findChild(QtGui.QTreeView, "treeView")
+        categoryView = self.inventory.findChild(QtGui.QListView, "categoryView")
+        itemView = self.inventory.findChild(QtGui.QListView, "itemListView")
 
-        model = QtGui.QStandardItemModel()
-        treeView.setModel(model)
-        category = []
+        categoryView.setModel(self.categoryModel)
+        itemView.setModel(self.itemListModel)
 
-        category.append(QtGui.QStandardItem('Microcontrollers'))
-        category.append(QtGui.QStandardItem('ICs'))
-        category.append(QtGui.QStandardItem('Motors'))
-        category.append(QtGui.QStandardItem('Sensors'))
-        category.append(QtGui.QStandardItem('Cables'))
-        category.append(QtGui.QStandardItem('Stationery'))
+        for item in self.categoryList:
+            self.categoryModel.appendRow(QtGui.QStandardItem(item))
 
-        uController = []
-        uController.append(QtGui.QStandardItem('ATMega328'))
-        uController.append(QtGui.QStandardItem('ATMega2560'))
-
-        for item in category:
-            model.appendRow(item)
-
-        for item in uController:
-            category[0].appendRow(item)
-
+        categoryView.clicked.connect(self.updateInventoryItemList)
         buttonBox.rejected.connect(lambda: self.launchWindow(0))
         cartButton.clicked.connect(lambda: self.launchWindow(6))
+
+    def updateInventoryItemList(self, id):
+        itemList = self.inventoryDb.getItems(id.row())
+        self.itemListModel.clear()
+        for item in itemList:
+            self.itemListModel.appendRow(QtGui.QStandardItem(item))
 
     def setupCart(self):
         Ui_cartWindow().setupUi(self.cart)
