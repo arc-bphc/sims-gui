@@ -53,7 +53,7 @@ connection.execute('''create table purchase(
     ID  INT PRIMARY KEY         NOT NULL, 
     NAME                TEXT    NOT NULL,
     ITEM                TEXT    NOT NULL,
-    DATE                TEXT    NOT NULL
+    DATE                TEXT    NOT NULL,
     );''')
 
 print "tables created successfully"
