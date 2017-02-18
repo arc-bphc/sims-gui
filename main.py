@@ -233,14 +233,31 @@ class mainWindow(QtGui.QWidget):
             self.categoryModel.appendRow(QtGui.QStandardItem(item))
 
         categoryView.clicked.connect(self.updateInventoryItemList)
+        itemView.clicked.connect(self.updateInventoryItemInfo)
         buttonBox.rejected.connect(lambda: self.launchWindow(0))
         cartButton.clicked.connect(lambda: self.launchWindow(6))
 
     def updateInventoryItemList(self, id):
-        itemList = self.inventoryDb.getItems(id.row())
         self.itemListModel.clear()
+        itemList = self.inventoryDb.getItems(id.row())
         for item in itemList:
             self.itemListModel.appendRow(QtGui.QStandardItem(item))
+
+    def updateInventoryItemInfo(self, id):
+        partName = self.inventory.findChild(QtGui.QLabel, "partName")
+        partCategory = self.inventory.findChild(QtGui.QLabel, "partCategory")
+        partID = self.inventory.findChild(QtGui.QLabel, "partID")
+        partShelf = self.inventory.findChild(QtGui.QLabel, "partShelf")
+        partBox = self.inventory.findChild(QtGui.QLabel, "partBox")
+        partQty = self.inventory.findChild(QtGui.QLabel, "partQty")
+
+        itemDetails = self.inventoryDb.getItemInfo(id.row())
+        partName.setText(itemDetails[1])
+        partCategory.setText(itemDetails[5])
+        partID.setText(str(itemDetails[0]))
+        partShelf.setText(str(itemDetails[3]))
+        partBox.setText(str(itemDetails[4]))
+        partQty.setText(str(itemDetails[6]))
 
     def setupCart(self):
         Ui_cartWindow().setupUi(self.cart)
