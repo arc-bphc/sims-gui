@@ -225,6 +225,8 @@ class mainWindow(QtGui.QWidget):
         cartButton = self.inventory.findChild(QtGui.QPushButton, "cartButton")
         categoryView = self.inventory.findChild(QtGui.QListView, "categoryView")
         itemView = self.inventory.findChild(QtGui.QListView, "itemListView")
+        addToCartButton = self.inventory.findChild(QtGui.QPushButton, "addToCartButton")
+        qtySpinBox = self.inventory.findChild(QtGui.QSpinBox, "qtySpinBox")
 
         categoryView.setModel(self.categoryModel)
         itemView.setModel(self.itemListModel)
@@ -236,6 +238,7 @@ class mainWindow(QtGui.QWidget):
         itemView.clicked.connect(self.updateInventoryItemInfo)
         buttonBox.rejected.connect(lambda: self.launchWindow(0))
         cartButton.clicked.connect(lambda: self.launchWindow(6))
+        addToCartButton.clicked.connect(lambda: self.inventoryDb.addToCart(self.user.userId, self.user.name, itemView.selectedIndexes()[0], qtySpinBox.value(), '123'))
 
     def updateInventoryItemList(self, id):
         self.itemListModel.clear()
