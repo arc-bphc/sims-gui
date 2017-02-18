@@ -148,7 +148,7 @@ class Ui_cartWindow(object):
         spacerItem5 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
         self.gridLayout_2.addItem(spacerItem5, 5, 0, 1, 4)
         self.listView = QtGui.QListView(cartWindow)
-        self.listView.setMinimumSize(QtCore.QSize(400, 0))
+        self.listView.setMinimumSize(QtCore.QSize(350, 0))
         self.listView.setEditTriggers(QtGui.QAbstractItemView.NoEditTriggers)
         self.listView.setObjectName(_fromUtf8("listView"))
         self.gridLayout_2.addWidget(self.listView, 2, 1, 1, 1)

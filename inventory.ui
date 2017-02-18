@@ -294,7 +294,7 @@ QWidget {background-color: white}
         <property name="minimumSize">
          <size>
           <width>350</width>
-          <height>400</height>
+          <height>0</height>
          </size>
         </property>
         <property name="maximumSize">
@@ -305,6 +305,9 @@ QWidget {background-color: white}
         </property>
         <property name="editTriggers">
          <set>QAbstractItemView::NoEditTriggers</set>
+        </property>
+        <property name="alternatingRowColors">
+         <bool>true</bool>
         </property>
        </widget>
       </item>
