@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1110</width>
+    <width>1164</width>
     <height>672</height>
    </rect>
   </property>
@@ -63,45 +63,6 @@ QWidget {background-color: white}
          </size>
         </property>
        </spacer>
-      </item>
-      <item row="4" column="0" rowspan="2">
-       <widget class="QTreeView" name="treeView">
-        <property name="minimumSize">
-         <size>
-          <width>350</width>
-          <height>400</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>16777215</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>14</pointsize>
-         </font>
-        </property>
-        <property name="mouseTracking">
-         <bool>false</bool>
-        </property>
-        <property name="frameShape">
-         <enum>QFrame::StyledPanel</enum>
-        </property>
-        <property name="frameShadow">
-         <enum>QFrame::Sunken</enum>
-        </property>
-        <property name="editTriggers">
-         <set>QAbstractItemView::NoEditTriggers</set>
-        </property>
-        <property name="alternatingRowColors">
-         <bool>true</bool>
-        </property>
-        <property name="headerHidden">
-         <bool>true</bool>
-        </property>
-       </widget>
       </item>
       <item row="4" column="2">
        <layout class="QGridLayout" name="gridLayout">
@@ -344,7 +305,7 @@ QWidget {background-color: white}
        </widget>
       </item>
       <item row="4" column="1" rowspan="2">
-       <widget class="QListView" name="listView">
+       <widget class="QListView" name="itemListView">
         <property name="minimumSize">
          <size>
           <width>350</width>
@@ -366,6 +327,16 @@ QWidget {background-color: white}
         </property>
         <property name="text">
          <string>Inventory Browser</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="0">
+       <widget class="QListView" name="categoryView">
+        <property name="minimumSize">
+         <size>
+          <width>350</width>
+          <height>0</height>
+         </size>
         </property>
        </widget>
       </item>
