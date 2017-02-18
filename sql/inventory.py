@@ -27,14 +27,26 @@ class selectFromInventrory:
 
 	def getItemInfo(self,itemNO):
 		itemInfo = self.itemList[itemNO]
+		self.preQuantity = itemInfo[6]
+		print self.preQuantity
 		return itemInfo
 
+	def addToCart(self,userID,userName,itemID,quantity,issueTime):
+		postQuantity = self.preQuantity - quantity
+		print postQuantity
+		if postQuantity < 0:
+			return 0
+		else:
+			self.user.insertTuple('transactions', [userID,userName,itemID,quantity,issueTime], ['ID','NAME','ITEM_ID','QUANTITY','ISSUE_DATETIME'])
+			self.user.updateQuery('inventory',['QUANTITY = ' + str(postQuantity)],['ITEM_ID = ' + str(itemID)])
+			return 1
 
 def main():
 	obj = selectFromInventrory()
 	print obj.getCatagories()
-	print obj.getItems(0)
-	print obj.getItemInfo(1)
+	print obj.getItems(1)
+	print obj.getItemInfo(0)
+	print obj.addToCart(1,'yashdeep',3,20,'now')
 
 
 if __name__ == '__main__':
