@@ -165,7 +165,7 @@ class mainWindow(QtGui.QWidget):
         newPwd = self.resetPin.findChild(QtGui.QLineEdit, "newPwd")
 
         resetPinObject = resetPin()
-        buttonBox.accepted.connect(lambda: resetPinObject.compareEnteredPin(self.user.userId, currentPwd.text(), newPwd.text(), resetStatus))
+        buttonBox.accepted.connect(lambda: resetPinObject.compareEnteredPin(self.user.userId, currentPwd.text(), newPwd.text()))
         buttonBox.accepted.connect(lambda: self.showSuccessDialog('PIN successfully updated!')) #fix this behavior
         buttonBox.accepted.connect(lambda: self.launchWindow(0))
         buttonBox.rejected.connect(lambda: self.launchWindow(0))

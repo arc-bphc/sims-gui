@@ -30,6 +30,7 @@ FORMS    += mainwindow.ui \
     cart.ui \
     form.ui \
     adminpanel.ui \
-    itemdetails.ui
+    itemdetails.ui \
+    about.ui
 
 RESOURCES +=

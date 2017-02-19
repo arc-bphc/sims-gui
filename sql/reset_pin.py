@@ -5,7 +5,7 @@ class resetPin:
 	def __init__(self):
 		self.user = db('sql/test.db')
 
-	def compareEnteredPin(self,id,pin,newPin,staus):
+	def compareEnteredPin(self,id,pin,newPin):
 		print 'old pin ' + pin + ' new pin ' + newPin
 		newPin = comparePin(self,id,pin,newPin)
 
