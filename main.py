@@ -239,7 +239,9 @@ class mainWindow(QtGui.QWidget):
         buttonBox.rejected.connect(lambda: self.launchWindow(0))
         cartButton.clicked.connect(lambda: self.launchWindow(6))
 
-        addToCartButton.clicked.connect(lambda: self.inventoryDb.addToCart(self.user.userId, self.user.name, itemView.selectedIndexes()[0].row(), qtySpinBox.value(), '123'))
+        addToCartButton.clicked.connect(lambda: self.inventoryDb.addToCart(self.user.userId, self.user.name, \
+                                                                            itemView.selectedIndexes()[0].row(), \
+                                                                            qtySpinBox.value(), '123'))
 #        addToCartButton.clicked.connect(lambda: self.testVal(itemView, qtySpinBox))
 
     def testVal(self, itemView, qtySpinBox):
