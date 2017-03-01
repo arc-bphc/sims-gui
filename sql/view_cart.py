@@ -40,7 +40,7 @@ class view_cart:
 		#print items_issued
 		return items_issued
 
-	def getItemInfo(self,item_no):
+	def getItemInfo(self,item_no): #this doesn't work?
 		# print self.item_info_list[0][0][0]
 		final_list = [self.item_info_list[item_no][0][0],self.item_info_list[item_no][0][1],self.item_info_list[item_no][0][2],self.item_info_list[item_no][0][3],self.item_info_list[item_no][0][4],self.item_info_list[item_no][0][5],quantity[item_no]]
 
