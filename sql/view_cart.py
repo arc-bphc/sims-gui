@@ -20,14 +20,16 @@ class view_cart:
 
 	def getItemList(self, id):
 		item_list = self.user.selectQuery('transactions',['*'],['ID = ' + str(id)])
-		# print item_list
+		#print item_list
 		for i in range(len(item_list)):
 			itemID_issued.append(item_list[i][2])
 			quantity.insert(i,item_list[i][3])
 
 		self.item_info_list = []
 		for j in range(len(itemID_issued)):
-			self.item_info_list.append(self.user.selectQuery('inventory',['*'],['ITEM_ID = ' + str(itemID_issued[j])]))
+			itemInfo = self.user.selectQuery('inventory',['*'],['ITEM_ID = ' + str(itemID_issued[j])])
+			if len(itemInfo) > 0: #not sure why [] is inserted in the first place
+				self.item_info_list.append(itemInfo)
 		#print self.item_info_list
 		for k in range(len(self.item_info_list)):
 			items_issued.append(self.item_info_list[k][0][1])
@@ -43,9 +45,10 @@ class view_cart:
 
 def main():
 	obj = view_cart()
-	obj.getItemList(1)
+	#obj.getItemList(1)
 	print '\n'
-	obj.getItemInfo(1)
+	#obj.getItemInfo(1)
+	#obj.getItemId('\'raspi\'')
 
 if __name__ == '__main__':
     main()

@@ -239,16 +239,18 @@ class mainWindow(QtGui.QWidget):
         buttonBox.rejected.connect(lambda: self.launchWindow(0))
         cartButton.clicked.connect(lambda: self.launchWindow(6))
 
-        addToCartButton.clicked.connect(lambda: self.inventoryDb.addToCart(self.user.userId, self.user.name, \
-                                                                            itemView.selectedIndexes()[0].row(), \
-                                                                            qtySpinBox.value(), '123'))
-#        addToCartButton.clicked.connect(lambda: self.testVal(itemView, qtySpinBox))
+#        addToCartButton.clicked.connect(lambda: self.inventoryDb.addToCart(self.user.userId, self.user.name, \
+#                                                                            itemView.selectedIndexes()[0].row()+1, \
+#                                                                            qtySpinBox.value(), '123'))
+        addToCartButton.clicked.connect(lambda: self.addToCartAction(itemView, qtySpinBox))
 
-    def testVal(self, itemView, qtySpinBox):
-        print self.user.userId
-        print self.user.name
-        print itemView.selectedIndexes()[0].row()
-        qtySpinBox.value()
+    def addToCartAction(self, itemView, qtySpinBox):
+        #print self.user.userId
+        #print self.user.name
+        itemName = '\'' + itemView.selectedIndexes()[0].data().toString() + '\''
+        itemId = self.inventoryDb.getItemId(itemName)
+        #print itemId
+        self.inventoryDb.addToCart(self.user.userId, self.user.name, itemId, qtySpinBox.value(), '123')
 
     def updateInventoryItemList(self, id):
         self.itemListModel.clear()

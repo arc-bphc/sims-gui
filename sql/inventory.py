@@ -31,9 +31,13 @@ class selectFromInventory:
 		print self.preQuantity
 		return itemInfo
 
+	def getItemId(self, name):
+		itemId = self.user.selectQuery('inventory', ['ITEM_ID'], ['NAME = ' + str(name)])
+		return itemId[0][0]
+
 	def addToCart(self,userID,userName,itemID,quantity,issueTime):
 		postQuantity = self.preQuantity - quantity
-		print postQuantity
+		#print postQuantity
 		if postQuantity < 0:
 			return 0
 			#returns 0 if quantity demanded is more than that in inventory.
