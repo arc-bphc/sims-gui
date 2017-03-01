@@ -23,9 +23,9 @@ connection.execute('''create table transactions(
     NAME               TEXT    NOT NULL,
     ITEM_ID            INT     NOT NULL,
     QUANTITY           INT     NOT NULL,
-    ISSUE_DATETIME     TEXT    NOT NULL,
-    WITHDRAW_DATETIME  TEXT    NULL,
-    RETURN_DATETIME    TEXT    NULL
+    ISSUE_DATETIME     INT     NOT NULL,
+    WITHDRAW_DATETIME  INT     NULL,
+    RETURN_DATETIME    INT     NULL
     );''')
 
 connection.execute('''create table history(
@@ -33,9 +33,9 @@ connection.execute('''create table history(
     NAME               TEXT    NOT NULL,
     ITEM_ID            INT     NOT NULL,
     QUANTITY           INT     NOT NULL,
-    ISSUE_DATETIME     TEXT    NOT NULL,
-    WITHDRAW_DATETIME  TEXT    NOT NULL,
-    RETURN_DATETIME    TEXT    NOT NULL
+    ISSUE_DATETIME     INT     NOT NULL,
+    WITHDRAW_DATETIME  INT     NOT NULL,
+    RETURN_DATETIME    INT     NOT NULL
     );''')
     
 connection.execute('''create table inventory(
@@ -50,10 +50,11 @@ connection.execute('''create table inventory(
 
 
 connection.execute('''create table purchase(
-    ID  INT PRIMARY KEY         NOT NULL, 
-    NAME                TEXT    NOT NULL,
+    ID  INT PRIMARY KEY         NOT NULL,
+    PROJECT             TEXT    NOT NULL,
+    PRICE               INT     NOT NULL, 
     ITEM                TEXT    NOT NULL,
-    DATE                TEXT    NOT NULL,
+    DATE                INT     NOT NULL
     );''')
 
 print "tables created successfully"
