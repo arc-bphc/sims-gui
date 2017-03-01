@@ -301,7 +301,7 @@ class mainWindow(QtGui.QWidget):
         itemName = '\'' + itemId.data().toString() + '\''
         itemId = self.inventoryDb.getItemId(itemName)
         print itemId
-        '''
+    
         itemDetails = self.viewCart.getItemInfo(itemId)
         partName.setText(itemDetails[1])
         partCategory.setText(itemDetails[5])
@@ -309,7 +309,7 @@ class mainWindow(QtGui.QWidget):
         partShelf.setText(str(itemDetails[3]))
         partBox.setText(str(itemDetails[4]))
         partQty.setText(str(itemDetails[6]))
-        '''
+        
     def comboAction(self, x):
         if (x == 1):
             self.launchWindow(0)
