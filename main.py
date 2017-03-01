@@ -238,18 +238,11 @@ class mainWindow(QtGui.QWidget):
         itemView.clicked.connect(self.updateInventoryItemInfo)
         buttonBox.rejected.connect(lambda: self.launchWindow(0))
         cartButton.clicked.connect(lambda: self.launchWindow(6))
-
-#        addToCartButton.clicked.connect(lambda: self.inventoryDb.addToCart(self.user.userId, self.user.name, \
-#                                                                            itemView.selectedIndexes()[0].row()+1, \
-#                                                                            qtySpinBox.value(), '123'))
         addToCartButton.clicked.connect(lambda: self.addToCartAction(itemView, qtySpinBox))
 
     def addToCartAction(self, itemView, qtySpinBox):
-        #print self.user.userId
-        #print self.user.name
         itemName = '\'' + itemView.selectedIndexes()[0].data().toString() + '\''
         itemId = self.inventoryDb.getItemId(itemName)
-        #print itemId
         self.inventoryDb.addToCart(self.user.userId, self.user.name, itemId, qtySpinBox.value(), '123')
 
     def updateInventoryItemList(self, id):
@@ -280,19 +273,23 @@ class mainWindow(QtGui.QWidget):
         self.viewCart = view_cart()
         self.model = QtGui.QStandardItemModel()
 
-        itemList = self.viewCart.getItemList(self.user.userId)
         listView = self.cart.findChild(QtGui.QListView, "listView")
         buttonBox = self.cart.findChild(QtGui.QDialogButtonBox, "buttonBox")
         openInventory = self.cart.findChild(QtGui.QPushButton, "openInventory")
 
         listView.setModel(self.model)
-
-        for item in itemList:
-            self.model.appendRow(QtGui.QStandardItem(item))
-
+        self.updateViewCart()
         listView.clicked.connect(self.displayCartItem)
         openInventory.clicked.connect(lambda: self.launchWindow(5))
         buttonBox.rejected.connect(lambda: self.launchWindow(0))
+
+    def updateViewCart(self):
+        self.model.clear()
+        itemList = self.viewCart.getItemList(self.user.userId)
+        print itemList
+        for item in itemList:
+            self.model.appendRow(QtGui.QStandardItem(item))
+
 
     def displayCartItem(self, itemId):
         partName = self.cart.findChild(QtGui.QLabel, "partName")
@@ -318,6 +315,8 @@ class mainWindow(QtGui.QWidget):
         self.previousPage = self.currentPage
         self.StackWidget.setCurrentIndex(value)
         self.currentPage = value
+        self.updateViewCart()
+
 
     def goBack(self):
         self.StackWidget.setCurrentIndex(0)

@@ -18,9 +18,12 @@ class view_cart:
 	def __init__(self):
 		self.user = db('sql/test.db')
 
-	def getItemList(self, id):
+	def getItemList(self, id): #this has a very big problem! It copies the list repeatedly
 		item_list = self.user.selectQuery('transactions',['*'],['ID = ' + str(id)])
 		#print item_list
+		items_issued = []
+		itemID_issued = []
+		quantity = []
 		for i in range(len(item_list)):
 			itemID_issued.append(item_list[i][2])
 			quantity.insert(i,item_list[i][3])
@@ -30,11 +33,11 @@ class view_cart:
 			itemInfo = self.user.selectQuery('inventory',['*'],['ITEM_ID = ' + str(itemID_issued[j])])
 			if len(itemInfo) > 0: #not sure why [] is inserted in the first place
 				self.item_info_list.append(itemInfo)
-		#print self.item_info_list
+		print self.item_info_list
 		for k in range(len(self.item_info_list)):
 			items_issued.append(self.item_info_list[k][0][1])
 
-
+		#print items_issued
 		return items_issued
 
 	def getItemInfo(self,item_no):

@@ -33,8 +33,6 @@ class db:
         else:
             parameterPlaceholder = '(' + ','.join(parameters) + ')'
             query = 'insert into ' + table + parameterPlaceholder + ' values ' + placeholder
-            print query
-            print values
             self.conn.execute(query, values)
         self.conn.commit()
 
@@ -45,7 +43,6 @@ class db:
         else:
             whereClause = ','.join(whereClause)
             query = 'select ' + placeholder + ' from ' + table + ' where ' + whereClause
-        print query
         self.cursor.execute(query)
         return self.cursor.fetchall()
 
@@ -68,7 +65,6 @@ class db:
             whereClause = ','.join(whereClause)
             query = 'update ' + table + ' set ' + values + ' where ' + whereClause
             #print query
-        print query
         self.conn.execute(query)
         self.conn.commit()
 
