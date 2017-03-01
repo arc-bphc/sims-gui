@@ -290,7 +290,6 @@ class mainWindow(QtGui.QWidget):
         for item in itemList:
             self.model.appendRow(QtGui.QStandardItem(item))
 
-
     def displayCartItem(self, itemId):
         partName = self.cart.findChild(QtGui.QLabel, "partName")
         partCategory = self.cart.findChild(QtGui.QLabel, "partCategory")
@@ -299,14 +298,18 @@ class mainWindow(QtGui.QWidget):
         partBox = self.cart.findChild(QtGui.QLabel, "partBox")
         partQty = self.cart.findChild(QtGui.QLabel, "partQty")
 
-        itemDetails = self.viewCart.getItemInfo(itemId.row())
+        itemName = '\'' + itemId.data().toString() + '\''
+        itemId = self.inventoryDb.getItemId(itemName)
+        print itemId
+        '''
+        itemDetails = self.viewCart.getItemInfo(itemId)
         partName.setText(itemDetails[1])
         partCategory.setText(itemDetails[5])
         partID.setText(str(itemDetails[0]))
         partShelf.setText(str(itemDetails[3]))
         partBox.setText(str(itemDetails[4]))
         partQty.setText(str(itemDetails[6]))
-
+        '''
     def comboAction(self, x):
         if (x == 1):
             self.launchWindow(0)
