@@ -88,7 +88,7 @@ class db:
     	else:
     		whereClause = ' AND '.join(whereClause)
     		query = 'delete from ' + table + ' where ' + whereClause
-    		#print query
+    		# print query
     		self.conn.execute(query)
     		self.conn.commit()
 
