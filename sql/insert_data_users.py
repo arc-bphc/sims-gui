@@ -41,8 +41,10 @@ class db:
         if len(whereClause) == 0:
             query = 'select ' + placeholder + ' from ' + table
         else:
-            whereClause = ','.join(whereClause)
+            whereClause = ' AND '.join(whereClause)
             query = 'select ' + placeholder + ' from ' + table + ' where ' + whereClause
+        # print whereClause
+        # print query
         self.cursor.execute(query)
         return self.cursor.fetchall()
 
@@ -56,7 +58,7 @@ class db:
         if len(whereClause) == 0:
             query = 'select distinct ' + placeholder + ' from ' + table
         else:
-            whereClause = ','.join(whereClause)
+            whereClause = ' AND '.join(whereClause)
             query = 'select distinct ' + placeholder + ' from ' + table + ' where ' + whereClause
         #print query
         self.cursor.execute(query)
@@ -67,7 +69,7 @@ class db:
         if len(whereClause) == 0:
             query = 'update ' + table + ' set ' + values
         else:
-            whereClause = ','.join(whereClause)
+            whereClause = ' AND '.join(whereClause)
             query = 'update ' + table + ' set ' + values + ' where ' + whereClause
             #print query
         self.conn.execute(query)
@@ -84,14 +86,14 @@ class db:
     		else:
     			return
     	else:
-    		whereClause = ','.join(whereClause)
+    		whereClause = ' AND '.join(whereClause)
     		query = 'delete from ' + table + ' where ' + whereClause
     		#print query
     		self.conn.execute(query)
     		self.conn.commit()
 
     def copyToHistory(self, whereClause):
-    	whereClause = ','.join(whereClause)
+    	whereClause = ' AND '.join(whereClause)
     	query = 'insert into history select * from transactions where ' + whereClause
 	self.conn.execute(query)
 	self.conn.commit()
