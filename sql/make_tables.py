@@ -7,7 +7,7 @@ connection = sqlite3.connect('test.db')
 print "Opened database successfully"
 
 connection.execute('''create table users(
-    ID INT PRIMARY KEY         NOT NULL, 
+    ID INT PRIMARY KEY         NOT NULL,
     NAME            TEXT       NOT NULL,
     EMAIL_ID        TEXT       NOT NULL,
     PHONE_CALL      CHAR(10)   NOT NULL,
@@ -19,7 +19,7 @@ connection.execute('''create table users(
     );''')
 
 connection.execute('''create table transactions(
-    ID                 INT     NOT NULL, 
+    ID                 INT     NOT NULL,
     NAME               TEXT    NOT NULL,
     ITEM_ID            INT     NOT NULL,
     QUANTITY           INT     NOT NULL,
@@ -29,7 +29,7 @@ connection.execute('''create table transactions(
     );''')
 
 connection.execute('''create table history(
-    ID INT PRIMARY KEY         NOT NULL, 
+    ID INT PRIMARY KEY         NOT NULL,
     NAME               TEXT    NOT NULL,
     ITEM_ID            INT     NOT NULL,
     QUANTITY           INT     NOT NULL,
@@ -37,9 +37,9 @@ connection.execute('''create table history(
     WITHDRAW_DATETIME  INT     NOT NULL,
     RETURN_DATETIME    INT     NOT NULL
     );''')
-    
+
 connection.execute('''create table inventory(
-    ITEM_ID 	INT PRIMARY KEY     NOT NULL, 
+    ITEM_ID 	INT PRIMARY KEY     NOT NULL,
     NAME                 TEXT       NOT NULL,
     RFID	             CHAR(12)   NOT NULL,
     SHELF_NO	         INT        NOT NULL,
@@ -52,7 +52,7 @@ connection.execute('''create table inventory(
 connection.execute('''create table purchase(
     ID  INT PRIMARY KEY         NOT NULL,
     PROJECT             TEXT    NOT NULL,
-    PRICE               INT     NOT NULL, 
+    PRICE               INT     NOT NULL,
     ITEM                TEXT    NOT NULL,
     DATE                INT     NOT NULL
     );''')
@@ -60,4 +60,3 @@ connection.execute('''create table purchase(
 print "tables created successfully"
 
 connection.close()
-

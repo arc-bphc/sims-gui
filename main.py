@@ -140,8 +140,8 @@ class mainWindow(QtGui.QWidget):
 
         button.clicked.connect(lambda: self.unlockScreen())
 
-    def setupLoginWindow(self):
-
+    def setupFingerprint(self):
+        Ui_loginWindow.setupUi(self.finger)
 
     def setupUserProfile(self):
         Ui_userWindow().setupUi(self.userProfile)
@@ -318,14 +318,14 @@ class mainWindow(QtGui.QWidget):
         itemId = self.inventoryDb.getItemId(itemName)
         print itemId
 
-        itemDetails = self.viewCart.getItemInfo(itemId)
+        itemDetails = self.viewCart.getItemInfo(self.user.userId, itemId)
         print itemDetails
-        partName.setText(itemDetails[0][1])
-        partCategory.setText(itemDetails[0][5])
-        partID.setText(str(itemDetails[0][0]))
-        partShelf.setText(str(itemDetails[0][3]))
-        partBox.setText(str(itemDetails[0][4]))
-        partQty.setText(str(itemDetails[0][6]))
+        partName.setText(itemDetails[1])
+        partCategory.setText(itemDetails[5])
+        partID.setText(str(itemDetails[0]))
+        partShelf.setText(str(itemDetails[3]))
+        partBox.setText(str(itemDetails[4]))
+        partQty.setText(str(itemDetails[6]))
 
     def comboAction(self, x):
         if (x == 1):
@@ -350,7 +350,7 @@ class mainWindow(QtGui.QWidget):
         self.setupHeaderWidget(self.arcHeader)
         self.setupUserProfile()
         self.setupResetPin()
-        self.setupFingerprint()
+#        self.setupFingerprint()
         self.setupRequestItem()
         self.setupEditDetails()
         self.setupInventory()
