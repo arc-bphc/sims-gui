@@ -262,7 +262,10 @@ class mainWindow(QtGui.QWidget):
         listView.setModel(self.model)
         self.updateViewCart()
 
-        #removeCartButton.clicked.connect(lambda: self.viewCart.removeFromCart(self.user.userId, itemId, partQty))
+        removeCartButton.clicked.connect(
+                                        lambda: (
+                                        self.viewCart.removeFromCart(self.user.userId, int(str(partID.text())),
+                                        self.updateViewCart()))
         listView.clicked.connect(self.displayCartItem)
         openInventory.clicked.connect(lambda: self.launchWindow(5))
         buttonBox.rejected.connect(lambda: self.launchWindow(0))

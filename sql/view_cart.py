@@ -45,6 +45,7 @@ class view_cart:
 		return final_list
 
 	def removeFromCart(self, userId, itemId, quantity):
+		print 'removing from cart'
 		itemInfo = self.user.viewItemInfo(itemId)
 		preQuantity = itemInfo[0][6]
 		self.user.deleteQuery('transactions', ['ID = ' + str(userId), 'ITEM_ID = ' + str(itemId)])
