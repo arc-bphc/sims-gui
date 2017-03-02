@@ -7,7 +7,6 @@ class purchaseRequests:
 		self.user = db('sql/test.db')
 
 	def addToTable(self, userId, project, price, item, date):
-		print 'add2tablecaslled'
 		self.user.insertTuple('purchase', [userId,project,price,item,date])
 		return 1
 

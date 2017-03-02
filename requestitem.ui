@@ -21,6 +21,73 @@ QWidget {background-color: rgb(255, 255, 255)}
   <layout class="QGridLayout" name="gridLayout_3">
    <item row="0" column="1">
     <layout class="QGridLayout" name="gridLayout">
+     <item row="2" column="1">
+      <layout class="QGridLayout" name="gridLayout_2">
+       <item row="2" column="3">
+        <widget class="QLineEdit" name="price"/>
+       </item>
+       <item row="0" column="3">
+        <widget class="QLineEdit" name="project"/>
+       </item>
+       <item row="2" column="1">
+        <widget class="QLabel" name="label_7">
+         <property name="text">
+          <string>Price</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="3">
+        <widget class="QLineEdit" name="item"/>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLabel" name="label_5">
+         <property name="text">
+          <string>Project</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLabel" name="label_6">
+         <property name="text">
+          <string>Item</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0" colspan="5">
+        <spacer name="verticalSpacer_4">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="4" column="0" colspan="5">
+        <widget class="QPushButton" name="requestItemButton">
+         <property name="text">
+          <string>Request Item</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="2">
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </item>
      <item row="0" column="0" colspan="3" alignment="Qt::AlignHCenter">
       <widget class="QLabel" name="label">
        <property name="sizePolicy">
@@ -79,9 +146,6 @@ QWidget {background-color: rgb(255, 255, 255)}
        </property>
       </spacer>
      </item>
-     <item row="2" column="2">
-      <widget class="QTableView" name="tableView"/>
-     </item>
      <item row="3" column="0" colspan="3">
       <spacer name="verticalSpacer_2">
        <property name="orientation">
@@ -94,86 +158,6 @@ QWidget {background-color: rgb(255, 255, 255)}
         </size>
        </property>
       </spacer>
-     </item>
-     <item row="2" column="1">
-      <layout class="QGridLayout" name="gridLayout_2">
-       <item row="2" column="2">
-        <widget class="QLineEdit" name="price"/>
-       </item>
-       <item row="0" column="2">
-        <widget class="QLineEdit" name="project"/>
-       </item>
-       <item row="2" column="1">
-        <widget class="QLabel" name="label_7">
-         <property name="text">
-          <string>Price</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="2">
-        <widget class="QLineEdit" name="item"/>
-       </item>
-       <item row="2" column="3">
-        <spacer name="horizontalSpacer_2">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="0" column="1">
-        <widget class="QLabel" name="label_5">
-         <property name="text">
-          <string>Project</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="QLabel" name="label_6">
-         <property name="text">
-          <string>Item</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="0" colspan="4">
-        <spacer name="verticalSpacer_4">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>40</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="4" column="0" colspan="4" alignment="Qt::AlignHCenter">
-        <widget class="QPushButton" name="requestItemButton">
-         <property name="text">
-          <string>Request Item</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="0">
-        <spacer name="horizontalSpacer">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-      </layout>
      </item>
     </layout>
    </item>

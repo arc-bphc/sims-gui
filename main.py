@@ -255,9 +255,14 @@ class mainWindow(QtGui.QWidget):
         listView = self.cart.findChild(QtGui.QListView, "listView")
         buttonBox = self.cart.findChild(QtGui.QDialogButtonBox, "buttonBox")
         openInventory = self.cart.findChild(QtGui.QPushButton, "openInventory")
+        removeCartButton = self.cart.findChild(QtGui.QPushButton, "removeCartButton")
+        partID = self.cart.findChild(QtGui.QLabel, "partID")
+        partQty = self.cart.findChild(QtGui.QLabel, "partQty")
 
         listView.setModel(self.model)
         self.updateViewCart()
+
+        #removeCartButton.clicked.connect(lambda: self.viewCart.removeFromCart(self.user.userId, itemId, partQty))
         listView.clicked.connect(self.displayCartItem)
         openInventory.clicked.connect(lambda: self.launchWindow(5))
         buttonBox.rejected.connect(lambda: self.launchWindow(0))
