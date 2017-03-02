@@ -19,36 +19,32 @@ class view_cart:
 
 	def getItemList(self, id): #this has a very big problem! It copies the list repeatedly
 		item_list = self.user.selectQuery('transactions',['*'],['ID = ' + str(id)])
-		#print item_list
+		# print item_list
 		items_issued = []
 		itemID_issued = []
 		self.quantity = []
 		for i in range(len(item_list)):
 			itemID_issued.append(item_list[i][2])
 			self.quantity.insert(i,item_list[i][3])
-		self.item_info_list = []
+		# print itemID_issued
+		# print self.quantity
+		self.itemInfoList = []
 		for j in range(len(itemID_issued)):
-			itemInfo = self.user.selectQuery('inventory',['*'],['ITEM_ID = ' + str(itemID_issued[j])])
-			if len(itemInfo) > 0: #not sure why [] is inserted in the first place
-				self.item_info_list.append(itemInfo)
-		# print self.item_info_list
-		for k in range(len(self.item_info_list)):
-			items_issued.append(self.item_info_list[k][0][1])
-
-		# print items_issued
+			itemInfo = self.user.viewItemInfo(itemID_issued[j])
+			itemInfo = itemInfo[0]
+			items_issued.append(itemInfo[1])
+		print items_issued
 		return items_issued
 
-	def getItemInfo(self,item_no): 
-		# print self.quantity
-		final_list = [self.item_info_list[item_no][0][0],self.item_info_list[item_no][0][1],self.item_info_list[item_no][0][2],self.item_info_list[item_no][0][3],self.item_info_list[item_no][0][4],self.item_info_list[item_no][0][5],self.quantity[item_no]]
-		# print final_list
+	def getItemInfo(self,itemId): 
+		final_list = self.user.viewItemInfo(itemId)
 		return final_list
 
 def main():
 	obj = view_cart()
 	obj.getItemList(1)
 	print '\n'
-	obj.getItemInfo(1)
+	print obj.getItemInfo(1)
 	#obj.getItemId('\'raspi\'')
 
 if __name__ == '__main__':
