@@ -242,17 +242,6 @@ QWidget {background-color: rgb(255, 255, 255)}
        </property>
       </widget>
      </item>
-     <item row="11" column="0" alignment="Qt::AlignLeft">
-      <widget class="QPushButton" name="lockButton">
-       <property name="text">
-        <string>Lock</string>
-       </property>
-       <property name="icon">
-        <iconset>
-         <normaloff>images/lock.svg</normaloff>images/lock.svg</iconset>
-       </property>
-      </widget>
-     </item>
      <item row="11" column="2" alignment="Qt::AlignRight">
       <widget class="QPushButton" name="logoutButton">
        <property name="text">

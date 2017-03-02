@@ -36,7 +36,7 @@ class view_cart:
 		print items_issued
 		return items_issued
 
-	def getItemInfo(self,itemId): 
+	def getItemInfo(self,itemId):
 		final_list = self.user.viewItemInfo(itemId)
 		return final_list
 
