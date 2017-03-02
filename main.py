@@ -233,6 +233,7 @@ class mainWindow(QtGui.QWidget):
         itemView = self.inventory.findChild(QtGui.QListView, "itemListView")
         addToCartButton = self.inventory.findChild(QtGui.QPushButton, "addToCartButton")
         qtySpinBox = self.inventory.findChild(QtGui.QSpinBox, "qtySpinBox")
+        partQty = self.inventory.findChild(QtGui.QLabel, "partQty")
 
         categoryView.setModel(self.categoryModel)
         itemView.setModel(self.itemListModel)
@@ -244,7 +245,7 @@ class mainWindow(QtGui.QWidget):
         itemView.clicked.connect(self.updateInventoryItemInfo)
         buttonBox.rejected.connect(lambda: self.launchWindow(0))
         cartButton.clicked.connect(lambda: self.launchWindow(6))
-        addToCartButton.clicked.connect(lambda: self.addToCartAction(itemView, qtySpinBox))
+        addToCartButton.clicked.connect(lambda: self.addToCartAction(itemView, qtySpinBox, partQty))
 
     def setupCart(self):
         Ui_cartWindow().setupUi(self.cart)
@@ -264,7 +265,7 @@ class mainWindow(QtGui.QWidget):
 
         removeCartButton.clicked.connect(
                                         lambda: (
-                                        self.viewCart.removeFromCart(self.user.userId, int(str(partID.text())),
+                                        self.viewCart.removeFromCart(self.user.userId, int(str(partID.text()))),
                                         self.updateViewCart()))
         listView.clicked.connect(self.displayCartItem)
         openInventory.clicked.connect(lambda: self.launchWindow(5))
@@ -289,10 +290,14 @@ class mainWindow(QtGui.QWidget):
         userInfo.update_user_info([str(name.text()), str(phoneCall.text()), \
         str(phoneWhatsApp.text()), str(roomNumber.text()), str(email.text())], userId)
 
-    def addToCartAction(self, itemView, qtySpinBox):
+    def addToCartAction(self, itemView, qtySpinBox, partQty):
         itemName = '\'' + itemView.selectedIndexes()[0].data().toString() + '\''
         itemId = self.inventoryDb.getItemId(itemName)
         self.inventoryDb.addToCart(self.user.userId, self.user.name, itemId, qtySpinBox.value(), '123')
+        qty = int(str(partQty.text()))-qtySpinBox.value()
+        if qty < 0:
+            qty = 0
+        partQty.setText(str(qty))
 
     def updateInventoryItemList(self, id):
         self.itemListModel.clear()
