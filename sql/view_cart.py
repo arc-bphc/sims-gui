@@ -51,13 +51,13 @@ class view_cart:
 		self.user.updateQuery('inventory',['QUANTITY = ' + str(quantity + preQuantity)],['ITEM_ID = ' + str(itemId)])
 
 
-def main():
-	obj = view_cart()
-	# obj.getItemList(1)
-	# print '\n'
-	# print obj.getItemInfo(1,1)
-	# obj. removeFromCart(1,3,8)
-# 	#obj.getItemId('\'raspi\'')
+# def main():
+# 	obj = view_cart()
+# 	# obj.getItemList(1)
+# 	# print '\n'
+# 	# print obj.getItemInfo(1,1)
+# 	# obj. removeFromCart(1,3,8)
+# # 	#obj.getItemId('\'raspi\'')
 
-if __name__ == '__main__':
-    main()
+# if __name__ == '__main__':
+#     main()
