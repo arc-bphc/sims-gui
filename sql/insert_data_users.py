@@ -46,6 +46,11 @@ class db:
         self.cursor.execute(query)
         return self.cursor.fetchall()
 
+    def viewItemInfo(self, itemId):
+        itemInfo = []
+        itemInfo = self.selectQuery('inventory', ['*'], ['ITEM_ID = ' + str(itemId)])
+        return itemInfo
+
     def selectDistinctQuery(self, table, col, whereClause = []):
         placeholder = ','.join(col)
         if len(whereClause) == 0:
@@ -104,6 +109,7 @@ def createNewPassword(text):
 
 #-------------------------------------------------------------------------------------------
 # def main():
+
 #     #add a new user into the users table
 #     new_user = db('test.db')
 #     text = raw_input("enter new pin:	")
