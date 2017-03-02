@@ -171,7 +171,9 @@ class mainWindow(QtGui.QWidget):
         newPwd = self.resetPin.findChild(QtGui.QLineEdit, "newPwd")
 
         resetPinObject = resetPin()
-        buttonBox.accepted.connect(lambda: resetPinObject.compareEnteredPin(self.user.userId, currentPwd.text(), newPwd.text()))
+        buttonBox.accepted.connect(lambda: resetPinObject.compareEnteredPin(self.user.userId, \
+                                                                            currentPwd.text(), \
+                                                                            newPwd.text()))
         buttonBox.accepted.connect(lambda: self.showSuccessDialog('PIN successfully updated!')) #fix this behavior
         buttonBox.accepted.connect(lambda: self.launchWindow(0))
         buttonBox.rejected.connect(lambda: self.launchWindow(0))
@@ -182,8 +184,15 @@ class mainWindow(QtGui.QWidget):
     def setupRequestItem(self):
         Ui_requestItemWindow().setupUi(self.requestItem)
         buttonBox = self.requestItem.findChild(QtGui.QDialogButtonBox, "buttonBox")
+        project = self.requestItem.findChild(QtGui.QLineEdit, "project")
+        item = self.requestItem.findChild(QtGui.QLineEdit, "item")
+        price = self.requestItem.findChild(QtGui.QLineEdit, "price")
+        requestItemButton = self.requestItem.findChild(QtGui.QPushButton, "requestItemButton")
+
         purchaseRequest = purchaseRequests()
-#        buttonBox.accepted.connect(lambda: self.purchaseRequest.addToTable())
+        requestItemButton.clicked.connect(lambda: purchaseRequest.addToTable(self.user.userId, \
+                                    str(project.text()), str(price.text()), \
+                                    str(item.text()), 1000))
         buttonBox.rejected.connect(lambda: self.launchWindow(0))
 
     def setupEditDetails(self):

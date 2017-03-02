@@ -4,9 +4,10 @@ from insert_data_users import *
 class purchaseRequests:
 
 	def __init__(self):
-		self.user = db('test.db')
+		self.user = db('sql/test.db')
 
 	def addToTable(self, userId, project, price, item, date):
+		print 'add2tablecaslled'
 		self.user.insertTuple('purchase', [userId,project,price,item,date])
 		return 1
 
