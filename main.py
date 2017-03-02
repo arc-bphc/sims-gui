@@ -40,13 +40,10 @@ class mainWindow(QtGui.QWidget):
         self.inventory = QtGui.QMainWindow()
         self.arcHeader = QtGui.QWidget()
         self.cart = QtGui.QWidget()
-
-        self.user = userDetails()
+        self.finger = QtGui.QDialog()
 
         self.currentPage = 0
         self.previousPage = 0
-
-        self.setupHeaderWidget(self.arcHeader)
 
         self.StackWidget = QtGui.QStackedWidget(self)
         self.HomeWidget = QtGui.QStackedWidget(self)
@@ -143,6 +140,9 @@ class mainWindow(QtGui.QWidget):
 
         button.clicked.connect(lambda: self.unlockScreen())
 
+    def setupLoginWindow(self):
+
+
     def setupUserProfile(self):
         Ui_userWindow().setupUi(self.userProfile)
         inventoryButton = self.userProfile.findChild(QtGui.QPushButton, "inventoryButton")
@@ -153,7 +153,6 @@ class mainWindow(QtGui.QWidget):
         lockButton = self.userProfile.findChild(QtGui.QPushButton, "lockButton")
         logoutButton = self.userProfile.findChild(QtGui.QPushButton, "logoutButton")
         welcomeLabel = self.userProfile.findChild(QtGui.QLabel, "welcomeLabel")
-
 
         inventoryButton.clicked.connect(lambda: self.launchWindow(5))
         editDetailsButton.clicked.connect(lambda: self.launchWindow(4))
@@ -177,8 +176,8 @@ class mainWindow(QtGui.QWidget):
         buttonBox.accepted.connect(lambda: self.launchWindow(0))
         buttonBox.rejected.connect(lambda: self.launchWindow(0))
 
-    def setupFingerprint(self):
-        Ui_loginWindow().setupUi(self.fingerprint)
+    def setupFinger(self):
+        Ui_loginWindow().setupUi(self.finger)
 
     def setupRequestItem(self):
         Ui_requestItemWindow().setupUi(self.requestItem)
@@ -343,10 +342,12 @@ class mainWindow(QtGui.QWidget):
         #have to build a history tree for proper back button
 
     def unlockScreen(self):
+        self.user = userDetails()
         self.createStackedPages()
         self.HomeWidget.setCurrentIndex(1)
 
     def setupWindows(self):
+        self.setupHeaderWidget(self.arcHeader)
         self.setupUserProfile()
         self.setupResetPin()
         self.setupFingerprint()
