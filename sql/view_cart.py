@@ -34,6 +34,7 @@ class view_cart:
 		# print items_issued
 		return items_issued
 
+<<<<<<< HEAD
 	def getItemInfo(self,userId,itemId): 
 		final_list = self.user.viewItemInfo(itemId)
 		quantityList = self.user.selectQuery('transactions',['QUANTITY'],['ID = ' + str(userId), 'ITEM_ID = ' + str(itemId)])

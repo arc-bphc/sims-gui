@@ -15,6 +15,7 @@ from sql.user_details import user_info
 from sql.reset_pin import resetPin
 from sql.view_cart import view_cart
 from sql.inventory import selectFromInventory
+from sql.purchase import purchaseRequests
 
 class userDetails():
     def __init__(self, _name = "ARC-User-X", _userId = 1, _isAdmin = True):
@@ -39,18 +40,18 @@ class mainWindow(QtGui.QWidget):
         self.inventory = QtGui.QMainWindow()
         self.arcHeader = QtGui.QWidget()
         self.cart = QtGui.QWidget()
-
-        self.user = userDetails()
+        self.finger = QtGui.QDialog()
 
         self.currentPage = 0
         self.previousPage = 0
 
-        self.setupHeaderWidget(self.arcHeader)
-
         self.StackWidget = QtGui.QStackedWidget(self)
         self.HomeWidget = QtGui.QStackedWidget(self)
         self.screenWidget = QtGui.QWidget()
-        self.createStackedPages()
+
+        self.setupSplashScreen()
+        self.HomeWidget.addWidget(self.splashScreen)
+        self.HomeWidget.addWidget(self.screenWidget)
 
         vbox = QtGui.QVBoxLayout()
         vbox.addWidget(self.arcHeader)
@@ -133,14 +134,14 @@ class mainWindow(QtGui.QWidget):
         self.StackWidget.addWidget(self.inventory)
         self.StackWidget.addWidget(self.cart)
 
-        self.HomeWidget.addWidget(self.splashScreen)
-        self.HomeWidget.addWidget(self.screenWidget)
-
     def setupSplashScreen(self):
         Ui_splashScreen().setupUi(self.splashScreen)
         button = self.splashScreen.findChild(QtGui.QPushButton, "pushButton")
 
         button.clicked.connect(lambda: self.unlockScreen())
+
+    def setupLoginWindow(self):
+
 
     def setupUserProfile(self):
         Ui_userWindow().setupUi(self.userProfile)
@@ -152,7 +153,6 @@ class mainWindow(QtGui.QWidget):
         lockButton = self.userProfile.findChild(QtGui.QPushButton, "lockButton")
         logoutButton = self.userProfile.findChild(QtGui.QPushButton, "logoutButton")
         welcomeLabel = self.userProfile.findChild(QtGui.QLabel, "welcomeLabel")
-
 
         inventoryButton.clicked.connect(lambda: self.launchWindow(5))
         editDetailsButton.clicked.connect(lambda: self.launchWindow(4))
@@ -176,12 +176,14 @@ class mainWindow(QtGui.QWidget):
         buttonBox.accepted.connect(lambda: self.launchWindow(0))
         buttonBox.rejected.connect(lambda: self.launchWindow(0))
 
-    def setupFingerprint(self):
-        Ui_loginWindow().setupUi(self.fingerprint)
+    def setupFinger(self):
+        Ui_loginWindow().setupUi(self.finger)
 
     def setupRequestItem(self):
         Ui_requestItemWindow().setupUi(self.requestItem)
         buttonBox = self.requestItem.findChild(QtGui.QDialogButtonBox, "buttonBox")
+        purchaseRequest = purchaseRequests()
+#        buttonBox.accepted.connect(lambda: self.purchaseRequest.addToTable())
         buttonBox.rejected.connect(lambda: self.launchWindow(0))
 
     def setupEditDetails(self):
@@ -317,12 +319,13 @@ class mainWindow(QtGui.QWidget):
         print itemId
 
         itemDetails = self.viewCart.getItemInfo(itemId)
-        partName.setText(itemDetails[1])
-        partCategory.setText(itemDetails[5])
-        partID.setText(str(itemDetails[0]))
-        partShelf.setText(str(itemDetails[3]))
-        partBox.setText(str(itemDetails[4]))
-        partQty.setText(str(itemDetails[6]))
+        print itemDetails
+        partName.setText(itemDetails[0][1])
+        partCategory.setText(itemDetails[0][5])
+        partID.setText(str(itemDetails[0][0]))
+        partShelf.setText(str(itemDetails[0][3]))
+        partBox.setText(str(itemDetails[0][4]))
+        partQty.setText(str(itemDetails[0][6]))
 
     def comboAction(self, x):
         if (x == 1):
@@ -334,16 +337,17 @@ class mainWindow(QtGui.QWidget):
         self.currentPage = value
         self.updateViewCart()
 
-
     def goBack(self):
         self.StackWidget.setCurrentIndex(0)
         #have to build a history tree for proper back button
 
     def unlockScreen(self):
+        self.user = userDetails()
+        self.createStackedPages()
         self.HomeWidget.setCurrentIndex(1)
 
     def setupWindows(self):
-        self.setupSplashScreen()
+        self.setupHeaderWidget(self.arcHeader)
         self.setupUserProfile()
         self.setupResetPin()
         self.setupFingerprint()
