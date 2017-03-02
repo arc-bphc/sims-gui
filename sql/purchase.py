@@ -12,10 +12,10 @@ class purchaseRequests:
 
 
 
-def main():
-	obj = purchaseRequests()
-	obj.addToTable(1,'SIMS',3000,'Raspi',123)
+# def main():
+# 	obj = purchaseRequests()
+# 	obj.addToTable(1,'SIMS',3000,'Raspi',123)
 
 
-if __name__ == '__main__':
-    main()
+# if __name__ == '__main__':
+#     main()
