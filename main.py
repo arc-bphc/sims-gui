@@ -26,6 +26,10 @@ class mainWindow(QtGui.QWidget):
     def __init__(self, widget):
         super(mainWindow, self).__init__()
 
+        widget.setStyleSheet("QPushButton {padding: 10px}\nQWidget {background-color: white}\n* {font: 16pt}\n")
+        widget.setWindowTitle("Smart Inventory Management System")
+        widget.resize(1280, 800)
+
         self.splashScreen = QtGui.QMainWindow()
         self.userProfile = QtGui.QDialog()
         self.resetPin = QtGui.QWidget()
@@ -55,7 +59,9 @@ class mainWindow(QtGui.QWidget):
 
         windowVBox = QtGui.QVBoxLayout()
         windowVBox.addWidget(self.HomeWidget)
-        widget.setLayout(windowVBox)
+
+        self.windowWidget = widget
+        self.windowWidget.setLayout(windowVBox)
 
         self.HomeWidget.setCurrentIndex(0)
         self.StackWidget.setCurrentIndex(0)
@@ -154,7 +160,7 @@ class mainWindow(QtGui.QWidget):
         resetPinButton.clicked.connect(lambda: self.launchWindow(1))
         cartButton.clicked.connect(lambda: self.launchWindow(6))
 
-        logoutButton.clicked.connect(lambda: self.HomeWidget.setCurrentIndex(0))
+        logoutButton.clicked.connect(lambda: self.logoutUser())
 
         welcomeLabel.setText("Welcome, " + self.user.name)
 
@@ -202,17 +208,6 @@ class mainWindow(QtGui.QWidget):
         roomNumber.setText(userData[3])
         email.setText(userData[4])
 
-    def saveUserDetails(self, userId):
-        name = self.editDetails.findChild(QtGui.QLineEdit, "name")
-        phoneCall = self.editDetails.findChild(QtGui.QLineEdit, "phoneCall")
-        phoneWhatsApp = self.editDetails.findChild(QtGui.QLineEdit, "phoneWhatsApp")
-        roomNumber = self.editDetails.findChild(QtGui.QLineEdit, "roomNumber")
-        email = self.editDetails.findChild(QtGui.QLineEdit, "email")
-
-        userInfo = user_info()
-        userInfo.update_user_info([str(name.text()), str(phoneCall.text()), \
-        str(phoneWhatsApp.text()), str(roomNumber.text()), str(email.text())], userId)
-
     def setupInventory(self):
         Ui_inventoryWindow().setupUi(self.inventory)
 
@@ -239,6 +234,41 @@ class mainWindow(QtGui.QWidget):
         buttonBox.rejected.connect(lambda: self.launchWindow(0))
         cartButton.clicked.connect(lambda: self.launchWindow(6))
         addToCartButton.clicked.connect(lambda: self.addToCartAction(itemView, qtySpinBox))
+
+    def setupCart(self):
+        Ui_cartWindow().setupUi(self.cart)
+
+        self.viewCart = view_cart()
+        self.model = QtGui.QStandardItemModel()
+
+        listView = self.cart.findChild(QtGui.QListView, "listView")
+        buttonBox = self.cart.findChild(QtGui.QDialogButtonBox, "buttonBox")
+        openInventory = self.cart.findChild(QtGui.QPushButton, "openInventory")
+
+        listView.setModel(self.model)
+        self.updateViewCart()
+        listView.clicked.connect(self.displayCartItem)
+        openInventory.clicked.connect(lambda: self.launchWindow(5))
+        buttonBox.rejected.connect(lambda: self.launchWindow(0))
+
+    def logoutUser(self):
+        print 'logout'
+        self.windowWidget.close()
+        self.windowWidget = QtGui.QWidget()
+        mainWindow(self.windowWidget)
+        self.windowWidget.show()
+    #    self.windowWidget = mainWindow(self.windowWidget)
+
+    def saveUserDetails(self, userId):
+        name = self.editDetails.findChild(QtGui.QLineEdit, "name")
+        phoneCall = self.editDetails.findChild(QtGui.QLineEdit, "phoneCall")
+        phoneWhatsApp = self.editDetails.findChild(QtGui.QLineEdit, "phoneWhatsApp")
+        roomNumber = self.editDetails.findChild(QtGui.QLineEdit, "roomNumber")
+        email = self.editDetails.findChild(QtGui.QLineEdit, "email")
+
+        userInfo = user_info()
+        userInfo.update_user_info([str(name.text()), str(phoneCall.text()), \
+        str(phoneWhatsApp.text()), str(roomNumber.text()), str(email.text())], userId)
 
     def addToCartAction(self, itemView, qtySpinBox):
         itemName = '\'' + itemView.selectedIndexes()[0].data().toString() + '\''
@@ -267,22 +297,6 @@ class mainWindow(QtGui.QWidget):
         partBox.setText(str(itemDetails[4]))
         partQty.setText(str(itemDetails[6]))
 
-    def setupCart(self):
-        Ui_cartWindow().setupUi(self.cart)
-
-        self.viewCart = view_cart()
-        self.model = QtGui.QStandardItemModel()
-
-        listView = self.cart.findChild(QtGui.QListView, "listView")
-        buttonBox = self.cart.findChild(QtGui.QDialogButtonBox, "buttonBox")
-        openInventory = self.cart.findChild(QtGui.QPushButton, "openInventory")
-
-        listView.setModel(self.model)
-        self.updateViewCart()
-        listView.clicked.connect(self.displayCartItem)
-        openInventory.clicked.connect(lambda: self.launchWindow(5))
-        buttonBox.rejected.connect(lambda: self.launchWindow(0))
-
     def updateViewCart(self):
         self.model.clear()
         itemList = self.viewCart.getItemList(self.user.userId)
@@ -301,7 +315,7 @@ class mainWindow(QtGui.QWidget):
         itemName = '\'' + itemId.data().toString() + '\''
         itemId = self.inventoryDb.getItemId(itemName)
         print itemId
-    
+
         itemDetails = self.viewCart.getItemInfo(itemId)
         partName.setText(itemDetails[1])
         partCategory.setText(itemDetails[5])
@@ -309,7 +323,7 @@ class mainWindow(QtGui.QWidget):
         partShelf.setText(str(itemDetails[3]))
         partBox.setText(str(itemDetails[4]))
         partQty.setText(str(itemDetails[6]))
-        
+
     def comboAction(self, x):
         if (x == 1):
             self.launchWindow(0)
@@ -352,9 +366,6 @@ def main():
     app.setWindowIcon(QtGui.QIcon('images/arclogo.png'))
 
     widget = QtGui.QWidget()
-    widget.setStyleSheet("QPushButton {padding: 10px}\nQWidget {background-color: white}\n* {font: 16pt}\n")
-    widget.setWindowTitle("Smart Inventory Management System")
-    widget.resize(1280, 800)
     prog = mainWindow(widget)
     widget.show()
     sys.exit(app.exec_())
