@@ -44,20 +44,22 @@ class view_cart:
 		final_list[6] = quantity
 		return final_list
 
-	def removeFromCart(self, userId, itemId, quantity):
+	def removeFromCart(self, userId, itemId):
 		itemInfo = self.user.viewItemInfo(itemId)
 		preQuantity = itemInfo[0][6]
+		transactionQuantity = self.user.selectQuery('transactions',['QUANTITY'],['ID = ' + str(userId), 'ITEM_ID = ' + str(itemId)])
+		transQuantity = transactionQuantity[0][0]
+		# print transQuantity
 		self.user.deleteQuery('transactions', ['ID = ' + str(userId), 'ITEM_ID = ' + str(itemId)])
-		self.user.updateQuery('inventory',['QUANTITY = ' + str(quantity + preQuantity)],['ITEM_ID = ' + str(itemId)])
+		self.user.updateQuery('inventory',['QUANTITY = ' + str(transQuantity + preQuantity)],['ITEM_ID = ' + str(itemId)])
 
 
-# def main():
-# 	obj = view_cart()
-# 	# obj.getItemList(1)
-# 	# print '\n'
-# 	# print obj.getItemInfo(1,1)
-# 	# obj. removeFromCart(1,3,8)
-# # 	#obj.getItemId('\'raspi\'')
+def main():
+	obj = view_cart()
+	# obj.getItemList(1)
+	# print '\n'
+	# print obj.getItemInfo(1,1)
+	obj. removeFromCart(1,3)
 
-# if __name__ == '__main__':
-#     main()
+if __name__ == '__main__':
+    main()
