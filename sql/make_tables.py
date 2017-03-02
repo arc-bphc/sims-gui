@@ -1,5 +1,7 @@
 #!/usr/bin/python
 
+#everywhere with date, change type from int to string
+
 import sqlite3
 
 connection = sqlite3.connect('test.db')

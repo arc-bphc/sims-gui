@@ -6,7 +6,7 @@ itemInfo = []
 
 class selectFromInventory:
 	def __init__(self):
-		self.user = db('sql/test.db')
+		self.user = db('test.db')
 
 	def getCatagories(self):
 		catagoryList = self.user.selectDistinctQuery('inventory',['CATAGORY'])
