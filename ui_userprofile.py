@@ -95,7 +95,7 @@ class Ui_userWindow(object):
         icon.addPixmap(QtGui.QPixmap(_fromUtf8("images/back.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.logoutButton.setIcon(icon)
         self.logoutButton.setObjectName(_fromUtf8("logoutButton"))
-        self.gridLayout.addWidget(self.logoutButton, 11, 2, 1, 1, QtCore.Qt.AlignRight)
+        self.gridLayout.addWidget(self.logoutButton, 11, 0, 1, 1, QtCore.Qt.AlignLeft)
         self.gridLayout_2.addLayout(self.gridLayout, 0, 0, 1, 1)
 
         self.retranslateUi(userWindow)

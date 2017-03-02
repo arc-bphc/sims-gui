@@ -242,7 +242,7 @@ QWidget {background-color: rgb(255, 255, 255)}
        </property>
       </widget>
      </item>
-     <item row="11" column="2" alignment="Qt::AlignRight">
+     <item row="11" column="0" alignment="Qt::AlignLeft">
       <widget class="QPushButton" name="logoutButton">
        <property name="text">
         <string>Logout</string>
