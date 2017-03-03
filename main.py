@@ -123,7 +123,7 @@ class mainWindow(QtGui.QWidget):
             print 'This functionality is not added yet!'
             self.windowWidget.close()
 #            self.HomeWidget.setCurrentIndex(0)
-            self.user = userDetails() #for resetting things
+#            self.user = userDetails() #for resetting things
 
     def createStackedPages(self):
         self.setupWindows()

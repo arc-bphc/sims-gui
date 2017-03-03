@@ -49,7 +49,7 @@ class Ui_splashScreen(object):
         spacerItem1 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
         self.gridLayout.addItem(spacerItem1, 6, 0, 1, 1)
         self.label_2 = QtGui.QLabel(self.centralWidget)
-        self.label_2.setStyleSheet(_fromUtf8("font: 75 100pt \"Noto Sans\";"))
+        self.label_2.setStyleSheet(_fromUtf8("font: 75 150pt \"Noto Sans\";"))
         self.label_2.setObjectName(_fromUtf8("label_2"))
         self.gridLayout.addWidget(self.label_2, 2, 0, 1, 1, QtCore.Qt.AlignHCenter)
         spacerItem2 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
@@ -79,7 +79,7 @@ class Ui_splashScreen(object):
 
     def retranslateUi(self, splashScreen):
         splashScreen.setWindowTitle(_translate("splashScreen", "Welcome Screen", None))
-        self.label_2.setText(_translate("splashScreen", "S I M S", None))
+        self.label_2.setText(_translate("splashScreen", "SIMS", None))
         self.pushButton.setText(_translate("splashScreen", "Continue", None))
         self.label_3.setText(_translate("splashScreen", "Smart Inventory Management System", None))
 

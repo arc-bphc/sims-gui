@@ -11,7 +11,6 @@ class resetPin:
 
 		if self.flag == 1:
 			self.user.updateQuery('users',["HASHED_PASSWORD = '" + newPin + "'"],['ID = ' + str(id)])
-		print self.flag
 		status = self.flag
 		return self.flag
 

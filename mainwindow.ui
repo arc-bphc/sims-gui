@@ -62,10 +62,10 @@
       <item row="2" column="0" alignment="Qt::AlignHCenter">
        <widget class="QLabel" name="label_2">
         <property name="styleSheet">
-         <string notr="true">font: 75 100pt &quot;Noto Sans&quot;;</string>
+         <string notr="true">font: 75 150pt &quot;Noto Sans&quot;;</string>
         </property>
         <property name="text">
-         <string>S I M S</string>
+         <string>SIMS</string>
         </property>
        </widget>
       </item>
