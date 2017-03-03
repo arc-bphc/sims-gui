@@ -183,7 +183,6 @@ class mainWindow(QtGui.QWidget):
 
     def setupRequestItem(self):
         Ui_requestItemWindow().setupUi(self.requestItem)
-        buttonBox = self.requestItem.findChild(QtGui.QDialogButtonBox, "buttonBox")
         project = self.requestItem.findChild(QtGui.QLineEdit, "project")
         item = self.requestItem.findChild(QtGui.QLineEdit, "item")
         price = self.requestItem.findChild(QtGui.QLineEdit, "price")
@@ -193,7 +192,6 @@ class mainWindow(QtGui.QWidget):
         requestItemButton.clicked.connect(lambda: purchaseRequest.addToTable(self.user.userId, \
                                     str(project.text()), str(price.text()), \
                                     str(item.text()), 1000))
-        buttonBox.rejected.connect(lambda: self.launchWindow(0))
 
     def setupEditDetails(self):
         Ui_editDetailsWindow().setupUi(self.editDetails)
@@ -227,7 +225,6 @@ class mainWindow(QtGui.QWidget):
         self.categoryModel = QtGui.QStandardItemModel()
         self.itemListModel = QtGui.QStandardItemModel()
 
-        buttonBox = self.inventory.findChild(QtGui.QDialogButtonBox, "buttonBox")
         cartButton = self.inventory.findChild(QtGui.QPushButton, "cartButton")
         categoryView = self.inventory.findChild(QtGui.QListView, "categoryView")
         itemView = self.inventory.findChild(QtGui.QListView, "itemListView")
@@ -243,7 +240,6 @@ class mainWindow(QtGui.QWidget):
 
         categoryView.clicked.connect(self.updateInventoryItemList)
         itemView.clicked.connect(self.updateInventoryItemInfo)
-        buttonBox.rejected.connect(lambda: self.launchWindow(0))
         cartButton.clicked.connect(lambda: self.launchWindow(6))
         addToCartButton.clicked.connect(lambda: self.addToCartAction(itemView, qtySpinBox, partQty))
 
@@ -269,7 +265,6 @@ class mainWindow(QtGui.QWidget):
                                         self.updateViewCart()))
         listView.clicked.connect(self.displayCartItem)
         openInventory.clicked.connect(lambda: self.launchWindow(5))
-        buttonBox.rejected.connect(lambda: self.launchWindow(0))
 
     def logoutUser(self):
         print 'logout'
