@@ -1,5 +1,6 @@
 #write top layouts by hand
-from PyQt4 import QtCore, QtGui
+from PyQt4.QtGui import *
+from PyQt4.QtCore import *
 import sys
 
 from ui_mainwindow import Ui_splashScreen
@@ -23,7 +24,7 @@ class userDetails():
         self.userId = _userId
         self.isAdmin = _isAdmin
 
-class mainWindow(QtGui.QWidget):
+class mainWindow(QWidget):
     def __init__(self, widget):
         super(mainWindow, self).__init__()
 
@@ -32,34 +33,34 @@ class mainWindow(QtGui.QWidget):
         self.windowWidget.setWindowTitle("Smart Inventory Management System")
         self.windowWidget.resize(1280, 800)
 
-        self.splashScreen = QtGui.QMainWindow()
-        self.userProfile = QtGui.QDialog()
-        self.resetPin = QtGui.QWidget()
-        self.fingerprint = QtGui.QDialog()
-        self.requestItem = QtGui.QWidget()
-        self.editDetails = QtGui.QWidget()
-        self.inventory = QtGui.QMainWindow()
-        self.arcHeader = QtGui.QWidget()
-        self.cart = QtGui.QWidget()
-        self.finger = QtGui.QDialog()
+        self.splashScreen = QMainWindow()
+        self.userProfile = QDialog()
+        self.resetPin = QWidget()
+        self.fingerprint = QDialog()
+        self.requestItem = QWidget()
+        self.editDetails = QWidget()
+        self.inventory = QMainWindow()
+        self.arcHeader = QWidget()
+        self.cart = QWidget()
+        self.finger = QDialog()
 
         self.currentPage = 0
         self.previousPage = 0
 
-        self.StackWidget = QtGui.QStackedWidget(self)
-        self.HomeWidget = QtGui.QStackedWidget(self)
-        self.screenWidget = QtGui.QWidget()
+        self.StackWidget = QStackedWidget(self)
+        self.HomeWidget = QStackedWidget(self)
+        self.screenWidget = QWidget()
 
         self.setupSplashScreen()
         self.HomeWidget.addWidget(self.splashScreen)
         self.HomeWidget.addWidget(self.screenWidget)
 
-        vbox = QtGui.QVBoxLayout()
+        vbox = QVBoxLayout()
         vbox.addWidget(self.arcHeader)
         vbox.addWidget(self.StackWidget)
         self.screenWidget.setLayout(vbox)
 
-        windowVBox = QtGui.QVBoxLayout()
+        windowVBox = QVBoxLayout()
         windowVBox.addWidget(self.HomeWidget)
 
         self.windowWidget.setLayout(windowVBox)
@@ -68,33 +69,33 @@ class mainWindow(QtGui.QWidget):
         self.StackWidget.setCurrentIndex(0)
 
     def setupHeaderWidget(self, widget):
-        hbox = QtGui.QHBoxLayout()
-        icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("images/back.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        hbox = QHBoxLayout()
+        icon = QIcon()
+        icon.addPixmap(QPixmap("images/back.png"), QIcon.Normal, QIcon.Off)
 
         #setting up gui
-        backButton = QtGui.QPushButton()
+        backButton = QPushButton()
         backButton.setFlat(True)
         backButton.setIcon(icon)
-        backButton.setIconSize(QtCore.QSize(48, 48))
+        backButton.setIconSize(QSize(48, 48))
 
-        arcLogo = QtGui.QLabel()
-        arcLogo.setMinimumSize(QtCore.QSize(0, 0))
-        arcLogo.setMaximumSize(QtCore.QSize(175, 150))
-        arcLogo.setPixmap(QtGui.QPixmap("images/arclogo.png"))
+        arcLogo = QLabel()
+        arcLogo.setMinimumSize(QSize(0, 0))
+        arcLogo.setMaximumSize(QSize(175, 150))
+        arcLogo.setPixmap(QPixmap("images/arclogo.png"))
         arcLogo.setScaledContents(True)
 
-        userWidget = QtGui.QWidget()
-        userHBox = QtGui.QHBoxLayout()
-        userIcon = QtGui.QLabel()
-        comboBox = QtGui.QComboBox()
+        userWidget = QWidget()
+        userHBox = QHBoxLayout()
+        userIcon = QLabel()
+        comboBox = QComboBox()
 
-        userIcon.setMinimumSize(QtCore.QSize(0, 40))
-        userIcon.setMaximumSize(QtCore.QSize(50, 50))
-        userIcon.setPixmap(QtGui.QPixmap("images/index.png"))
+        userIcon.setMinimumSize(QSize(0, 40))
+        userIcon.setMaximumSize(QSize(50, 50))
+        userIcon.setPixmap(QPixmap("images/index.png"))
         userIcon.setScaledContents(True)
-        comboBox.setMinimumSize(QtCore.QSize(200, 40))
-        comboBox.setMaximumSize(QtCore.QSize(300, 16777215))
+        comboBox.setMinimumSize(QSize(200, 40))
+        comboBox.setMaximumSize(QSize(300, 16777215))
 
         comboBox.addItem(self.user.name)
 
@@ -110,9 +111,9 @@ class mainWindow(QtGui.QWidget):
         hbox.addWidget(backButton)
         hbox.addWidget(arcLogo)
         hbox.addWidget(userWidget)
-        hbox.setAlignment(backButton, QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
-        hbox.setAlignment(arcLogo, QtCore.Qt.AlignHCenter|QtCore.Qt.AlignTop)
-        hbox.setAlignment(userWidget, QtCore.Qt.AlignRight|QtCore.Qt.AlignTop)
+        hbox.setAlignment(backButton, Qt.AlignLeft|Qt.AlignTop)
+        hbox.setAlignment(arcLogo, Qt.AlignHCenter|Qt.AlignTop)
+        hbox.setAlignment(userWidget, Qt.AlignRight|Qt.AlignTop)
         widget.setLayout(hbox)
         widget.setStyleSheet("QPushButton {padding: 10px}\nQWidget {background-color: white}\n")
 
@@ -137,7 +138,7 @@ class mainWindow(QtGui.QWidget):
 
     def setupSplashScreen(self):
         Ui_splashScreen().setupUi(self.splashScreen)
-        button = self.splashScreen.findChild(QtGui.QPushButton, "pushButton")
+        button = self.splashScreen.findChild(QPushButton, "pushButton")
 
         button.clicked.connect(lambda: self.unlockScreen())
 
@@ -146,14 +147,14 @@ class mainWindow(QtGui.QWidget):
 
     def setupUserProfile(self):
         Ui_userWindow().setupUi(self.userProfile)
-        inventoryButton = self.userProfile.findChild(QtGui.QPushButton, "inventoryButton")
-        editDetailsButton = self.userProfile.findChild(QtGui.QPushButton, "editDetailsButton")
-        requestButton = self.userProfile.findChild(QtGui.QPushButton, "requestButton")
-        resetPinButton = self.userProfile.findChild(QtGui.QPushButton, "resetPinButton")
-        cartButton = self.userProfile.findChild(QtGui.QPushButton, "cartButton")
-        lockButton = self.userProfile.findChild(QtGui.QPushButton, "lockButton")
-        logoutButton = self.userProfile.findChild(QtGui.QPushButton, "logoutButton")
-        welcomeLabel = self.userProfile.findChild(QtGui.QLabel, "welcomeLabel")
+        inventoryButton = self.userProfile.findChild(QPushButton, "inventoryButton")
+        editDetailsButton = self.userProfile.findChild(QPushButton, "editDetailsButton")
+        requestButton = self.userProfile.findChild(QPushButton, "requestButton")
+        resetPinButton = self.userProfile.findChild(QPushButton, "resetPinButton")
+        cartButton = self.userProfile.findChild(QPushButton, "cartButton")
+        lockButton = self.userProfile.findChild(QPushButton, "lockButton")
+        logoutButton = self.userProfile.findChild(QPushButton, "logoutButton")
+        welcomeLabel = self.userProfile.findChild(QLabel, "welcomeLabel")
 
         inventoryButton.clicked.connect(lambda: self.launchWindow(5))
         editDetailsButton.clicked.connect(lambda: self.launchWindow(4))
@@ -167,9 +168,9 @@ class mainWindow(QtGui.QWidget):
 
     def setupResetPin(self):
         Ui_resetPinWindow().setupUi(self.resetPin)
-        buttonBox = self.resetPin.findChild(QtGui.QDialogButtonBox, "buttonBox")
-        currentPwd = self.resetPin.findChild(QtGui.QLineEdit, "currentPwd")
-        newPwd = self.resetPin.findChild(QtGui.QLineEdit, "newPwd")
+        buttonBox = self.resetPin.findChild(QDialogButtonBox, "buttonBox")
+        currentPwd = self.resetPin.findChild(QLineEdit, "currentPwd")
+        newPwd = self.resetPin.findChild(QLineEdit, "newPwd")
 
         buttonBox.accepted.connect(lambda: self.execResetPin(currentPwd.text(), newPwd.text()))
         buttonBox.rejected.connect(lambda: self.launchWindow(0))
@@ -188,10 +189,10 @@ class mainWindow(QtGui.QWidget):
 
     def setupRequestItem(self):
         Ui_requestItemWindow().setupUi(self.requestItem)
-        project = self.requestItem.findChild(QtGui.QLineEdit, "project")
-        item = self.requestItem.findChild(QtGui.QLineEdit, "item")
-        price = self.requestItem.findChild(QtGui.QLineEdit, "price")
-        requestItemButton = self.requestItem.findChild(QtGui.QPushButton, "requestItemButton")
+        project = self.requestItem.findChild(QLineEdit, "project")
+        item = self.requestItem.findChild(QLineEdit, "item")
+        price = self.requestItem.findChild(QLineEdit, "price")
+        requestItemButton = self.requestItem.findChild(QPushButton, "requestItemButton")
 
         purchaseRequest = purchaseRequests()
         requestItemButton.clicked.connect(lambda: purchaseRequest.addToTable(self.user.userId, \
@@ -201,7 +202,7 @@ class mainWindow(QtGui.QWidget):
     def setupEditDetails(self):
         Ui_editDetailsWindow().setupUi(self.editDetails)
 
-        buttonBox = self.editDetails.findChild(QtGui.QDialogButtonBox, "buttonBox")
+        buttonBox = self.editDetails.findChild(QDialogButtonBox, "buttonBox")
         buttonBox.rejected.connect(lambda: self.launchWindow(0))
         buttonBox.accepted.connect(lambda: self.saveUserDetails(self.user.userId))
         buttonBox.accepted.connect(lambda: self.showSuccessDialog('Database successfully updated!'))
@@ -210,11 +211,11 @@ class mainWindow(QtGui.QWidget):
         userInfo = user_info()
         userData = userInfo.get_user_info(self.user.userId)
 
-        name = self.editDetails.findChild(QtGui.QLineEdit, "name")
-        phoneCall = self.editDetails.findChild(QtGui.QLineEdit, "phoneCall")
-        phoneWhatsApp = self.editDetails.findChild(QtGui.QLineEdit, "phoneWhatsApp")
-        roomNumber = self.editDetails.findChild(QtGui.QLineEdit, "roomNumber")
-        email = self.editDetails.findChild(QtGui.QLineEdit, "email")
+        name = self.editDetails.findChild(QLineEdit, "name")
+        phoneCall = self.editDetails.findChild(QLineEdit, "phoneCall")
+        phoneWhatsApp = self.editDetails.findChild(QLineEdit, "phoneWhatsApp")
+        roomNumber = self.editDetails.findChild(QLineEdit, "roomNumber")
+        email = self.editDetails.findChild(QLineEdit, "email")
 
         name.setText(userData[0])
         phoneCall.setText(userData[1])
@@ -227,21 +228,21 @@ class mainWindow(QtGui.QWidget):
 
         self.inventoryDb = selectFromInventory()
         self.categoryList = self.inventoryDb.getCatagories()
-        self.categoryModel = QtGui.QStandardItemModel()
-        self.itemListModel = QtGui.QStandardItemModel()
+        self.categoryModel = QStandardItemModel()
+        self.itemListModel = QStandardItemModel()
 
-        cartButton = self.inventory.findChild(QtGui.QPushButton, "cartButton")
-        categoryView = self.inventory.findChild(QtGui.QListView, "categoryView")
-        itemView = self.inventory.findChild(QtGui.QListView, "itemListView")
-        addToCartButton = self.inventory.findChild(QtGui.QPushButton, "addToCartButton")
-        qtySpinBox = self.inventory.findChild(QtGui.QSpinBox, "qtySpinBox")
-        partQty = self.inventory.findChild(QtGui.QLabel, "partQty")
+        cartButton = self.inventory.findChild(QPushButton, "cartButton")
+        categoryView = self.inventory.findChild(QListView, "categoryView")
+        itemView = self.inventory.findChild(QListView, "itemListView")
+        addToCartButton = self.inventory.findChild(QPushButton, "addToCartButton")
+        qtySpinBox = self.inventory.findChild(QSpinBox, "qtySpinBox")
+        partQty = self.inventory.findChild(QLabel, "partQty")
 
         categoryView.setModel(self.categoryModel)
         itemView.setModel(self.itemListModel)
 
         for item in self.categoryList:
-            self.categoryModel.appendRow(QtGui.QStandardItem(item))
+            self.categoryModel.appendRow(QStandardItem(item))
 
         categoryView.clicked.connect(self.updateInventoryItemList)
         itemView.clicked.connect(self.updateInventoryItemInfo)
@@ -252,14 +253,14 @@ class mainWindow(QtGui.QWidget):
         Ui_cartWindow().setupUi(self.cart)
 
         self.viewCart = view_cart()
-        self.model = QtGui.QStandardItemModel()
+        self.model = QStandardItemModel()
 
-        listView = self.cart.findChild(QtGui.QListView, "listView")
-        buttonBox = self.cart.findChild(QtGui.QDialogButtonBox, "buttonBox")
-        openInventory = self.cart.findChild(QtGui.QPushButton, "openInventory")
-        removeCartButton = self.cart.findChild(QtGui.QPushButton, "removeCartButton")
-        partID = self.cart.findChild(QtGui.QLabel, "partID")
-        partQty = self.cart.findChild(QtGui.QLabel, "partQty")
+        listView = self.cart.findChild(QListView, "listView")
+        buttonBox = self.cart.findChild(QDialogButtonBox, "buttonBox")
+        openInventory = self.cart.findChild(QPushButton, "openInventory")
+        removeCartButton = self.cart.findChild(QPushButton, "removeCartButton")
+        partID = self.cart.findChild(QLabel, "partID")
+        partQty = self.cart.findChild(QLabel, "partQty")
 
         listView.setModel(self.model)
         self.updateViewCart()
@@ -273,16 +274,16 @@ class mainWindow(QtGui.QWidget):
 
     def logoutUser(self):
         self.windowWidget.close()
-        self.windowWidget = QtGui.QWidget()
+        self.windowWidget = QWidget()
         mainWindow(self.windowWidget)
         self.windowWidget.show()
 
     def saveUserDetails(self, userId):
-        name = self.editDetails.findChild(QtGui.QLineEdit, "name")
-        phoneCall = self.editDetails.findChild(QtGui.QLineEdit, "phoneCall")
-        phoneWhatsApp = self.editDetails.findChild(QtGui.QLineEdit, "phoneWhatsApp")
-        roomNumber = self.editDetails.findChild(QtGui.QLineEdit, "roomNumber")
-        email = self.editDetails.findChild(QtGui.QLineEdit, "email")
+        name = self.editDetails.findChild(QLineEdit, "name")
+        phoneCall = self.editDetails.findChild(QLineEdit, "phoneCall")
+        phoneWhatsApp = self.editDetails.findChild(QLineEdit, "phoneWhatsApp")
+        roomNumber = self.editDetails.findChild(QLineEdit, "roomNumber")
+        email = self.editDetails.findChild(QLineEdit, "email")
 
         userInfo = user_info()
         userInfo.update_user_info([str(name.text()), str(phoneCall.text()), \
@@ -302,15 +303,15 @@ class mainWindow(QtGui.QWidget):
         self.itemListModel.clear()
         itemList = self.inventoryDb.getItems(id.row())
         for item in itemList:
-            self.itemListModel.appendRow(QtGui.QStandardItem(item))
+            self.itemListModel.appendRow(QStandardItem(item))
 
     def updateInventoryItemInfo(self, id):
-        partName = self.inventory.findChild(QtGui.QLabel, "partName")
-        partCategory = self.inventory.findChild(QtGui.QLabel, "partCategory")
-        partID = self.inventory.findChild(QtGui.QLabel, "partID")
-        partShelf = self.inventory.findChild(QtGui.QLabel, "partShelf")
-        partBox = self.inventory.findChild(QtGui.QLabel, "partBox")
-        partQty = self.inventory.findChild(QtGui.QLabel, "partQty")
+        partName = self.inventory.findChild(QLabel, "partName")
+        partCategory = self.inventory.findChild(QLabel, "partCategory")
+        partID = self.inventory.findChild(QLabel, "partID")
+        partShelf = self.inventory.findChild(QLabel, "partShelf")
+        partBox = self.inventory.findChild(QLabel, "partBox")
+        partQty = self.inventory.findChild(QLabel, "partQty")
 
         itemDetails = self.inventoryDb.getItemInfo(id.row())
         partName.setText(itemDetails[1])
@@ -324,15 +325,15 @@ class mainWindow(QtGui.QWidget):
         self.model.clear()
         itemList = self.viewCart.getItemList(self.user.userId)
         for item in itemList:
-            self.model.appendRow(QtGui.QStandardItem(item))
+            self.model.appendRow(QStandardItem(item))
 
     def displayCartItem(self, itemId):
-        partName = self.cart.findChild(QtGui.QLabel, "partName")
-        partCategory = self.cart.findChild(QtGui.QLabel, "partCategory")
-        partID = self.cart.findChild(QtGui.QLabel, "partID")
-        partShelf = self.cart.findChild(QtGui.QLabel, "partShelf")
-        partBox = self.cart.findChild(QtGui.QLabel, "partBox")
-        partQty = self.cart.findChild(QtGui.QLabel, "partQty")
+        partName = self.cart.findChild(QLabel, "partName")
+        partCategory = self.cart.findChild(QLabel, "partCategory")
+        partID = self.cart.findChild(QLabel, "partID")
+        partShelf = self.cart.findChild(QLabel, "partShelf")
+        partBox = self.cart.findChild(QLabel, "partBox")
+        partQty = self.cart.findChild(QLabel, "partQty")
 
         itemName = '\'' + itemId.data().toString() + '\''
         itemId = self.inventoryDb.getItemId(itemName)
@@ -375,18 +376,18 @@ class mainWindow(QtGui.QWidget):
         self.setupCart()
 
     def showSuccessDialog(self, text):
-        msg = QtGui.QMessageBox()
-        msg.setIcon(QtGui.QMessageBox.Information)
+        msg = QMessageBox()
+        msg.setIcon(QMessageBox.Information)
         msg.setText(text)
         msg.setWindowTitle("Success")
-        msg.setStandardButtons(QtGui.QMessageBox.Ok)
+        msg.setStandardButtons(QMessageBox.Ok)
         msg.exec_()
 
 def main():
-    app = QtGui.QApplication(sys.argv)
-    app.setWindowIcon(QtGui.QIcon('images/arclogo.png'))
+    app = QApplication(sys.argv)
+    app.setWindowIcon(QIcon('images/arclogo.png'))
 
-    widget = QtGui.QWidget()
+    widget = QWidget()
     prog = mainWindow(widget)
     widget.show()
     sys.exit(app.exec_())
