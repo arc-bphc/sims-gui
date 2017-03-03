@@ -35,7 +35,7 @@ QWidget {background-color: white}
     </item>
     <item row="0" column="1">
      <layout class="QGridLayout" name="gridLayout_2">
-      <item row="2" column="2">
+      <item row="2" column="3">
        <layout class="QGridLayout" name="gridLayout">
         <property name="leftMargin">
          <number>0</number>
@@ -67,8 +67,8 @@ QWidget {background-color: white}
          <widget class="QLabel" name="label">
           <property name="maximumSize">
            <size>
-            <width>100</width>
-            <height>100</height>
+            <width>130</width>
+            <height>130</height>
            </size>
           </property>
           <property name="text">
@@ -235,9 +235,15 @@ QWidget {background-color: white}
           <height>0</height>
          </size>
         </property>
+        <property name="editTriggers">
+         <set>QAbstractItemView::NoEditTriggers</set>
+        </property>
+        <property name="alternatingRowColors">
+         <bool>true</bool>
+        </property>
        </widget>
       </item>
-      <item row="0" column="0" colspan="3" alignment="Qt::AlignHCenter">
+      <item row="0" column="0" colspan="4" alignment="Qt::AlignHCenter">
        <widget class="QLabel" name="label_2">
         <property name="styleSheet">
          <string notr="true">font: 24pt &quot;Noto Sans&quot;;</string>
@@ -269,7 +275,7 @@ QWidget {background-color: white}
         </property>
        </widget>
       </item>
-      <item row="1" column="0" colspan="3">
+      <item row="1" column="0" colspan="4">
        <spacer name="verticalSpacer">
         <property name="orientation">
          <enum>Qt::Vertical</enum>
@@ -282,15 +288,15 @@ QWidget {background-color: white}
         </property>
        </spacer>
       </item>
-      <item row="3" column="0" colspan="3">
-       <spacer name="verticalSpacer_3">
+      <item row="2" column="2">
+       <spacer name="horizontalSpacer_3">
         <property name="orientation">
-         <enum>Qt::Vertical</enum>
+         <enum>Qt::Horizontal</enum>
         </property>
         <property name="sizeHint" stdset="0">
          <size>
-          <width>20</width>
-          <height>40</height>
+          <width>40</width>
+          <height>20</height>
          </size>
         </property>
        </spacer>
@@ -306,6 +312,19 @@ QWidget {background-color: white}
        <size>
         <width>107</width>
         <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="1" column="1">
+     <spacer name="verticalSpacer_2">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>40</height>
        </size>
       </property>
      </spacer>

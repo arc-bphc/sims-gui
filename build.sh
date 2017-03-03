@@ -7,4 +7,5 @@ pyuic4 resetpin.ui -o ui_resetpin.py
 pyuic4 requestitem.ui -o ui_requestitem.py
 pyuic4 cart.ui -o ui_cart.py
 pyuic4 adminpanel.ui -o ui_adminpanel.py
+pyuic4 about.ui -o ui_about.py -x
 #pyuic4 arc-header.ui -o ui_archeader.py

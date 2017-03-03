@@ -119,7 +119,6 @@ class mainWindow(QtGui.QWidget):
         backButton.clicked.connect(self.goBack)
 
     def handleComboBox(self, val):
-        print val
         if val == 1:
             self.HomeWidget.setCurrentIndex(0)
             self.user = userDetails() #for resetting things
@@ -267,7 +266,6 @@ class mainWindow(QtGui.QWidget):
         openInventory.clicked.connect(lambda: self.launchWindow(5))
 
     def logoutUser(self):
-        print 'logout'
         self.windowWidget.close()
         self.windowWidget = QtGui.QWidget()
         mainWindow(self.windowWidget)
@@ -319,7 +317,6 @@ class mainWindow(QtGui.QWidget):
     def updateViewCart(self):
         self.model.clear()
         itemList = self.viewCart.getItemList(self.user.userId)
-        print itemList
         for item in itemList:
             self.model.appendRow(QtGui.QStandardItem(item))
 
@@ -333,10 +330,8 @@ class mainWindow(QtGui.QWidget):
 
         itemName = '\'' + itemId.data().toString() + '\''
         itemId = self.inventoryDb.getItemId(itemName)
-        print itemId
 
         itemDetails = self.viewCart.getItemInfo(self.user.userId, itemId)
-        print itemDetails
         partName.setText(itemDetails[1])
         partCategory.setText(itemDetails[5])
         partID.setText(str(itemDetails[0]))
