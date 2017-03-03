@@ -2,99 +2,85 @@
 
 # Form implementation generated from reading ui file 'userprofile.ui'
 #
-# Created by: PyQt4 UI code generator 4.11.4
+# Created by: PyQt5 UI code generator 5.7
 #
 # WARNING! All changes made in this file will be lost!
 
-from PyQt4 import QtCore, QtGui
-
-try:
-    _fromUtf8 = QtCore.QString.fromUtf8
-except AttributeError:
-    def _fromUtf8(s):
-        return s
-
-try:
-    _encoding = QtGui.QApplication.UnicodeUTF8
-    def _translate(context, text, disambig):
-        return QtGui.QApplication.translate(context, text, disambig, _encoding)
-except AttributeError:
-    def _translate(context, text, disambig):
-        return QtGui.QApplication.translate(context, text, disambig)
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 class Ui_userWindow(object):
     def setupUi(self, userWindow):
-        userWindow.setObjectName(_fromUtf8("userWindow"))
+        userWindow.setObjectName("userWindow")
         userWindow.resize(972, 733)
-        userWindow.setStyleSheet(_fromUtf8("QPushButton {padding: 10px}\n"
+        userWindow.setStyleSheet("QPushButton {padding: 10px}\n"
 "QWidget {background-color: rgb(255, 255, 255)}\n"
-""))
-        self.gridLayout_2 = QtGui.QGridLayout(userWindow)
-        self.gridLayout_2.setObjectName(_fromUtf8("gridLayout_2"))
-        self.gridLayout = QtGui.QGridLayout()
+"")
+        self.gridLayout_2 = QtWidgets.QGridLayout(userWindow)
+        self.gridLayout_2.setObjectName("gridLayout_2")
+        self.gridLayout = QtWidgets.QGridLayout()
         self.gridLayout.setVerticalSpacing(16)
-        self.gridLayout.setObjectName(_fromUtf8("gridLayout"))
-        spacerItem = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        self.gridLayout.setObjectName("gridLayout")
+        spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout.addItem(spacerItem, 1, 2, 1, 1)
-        self.resetPinButton = QtGui.QPushButton(userWindow)
+        self.resetPinButton = QtWidgets.QPushButton(userWindow)
         self.resetPinButton.setMinimumSize(QtCore.QSize(400, 0))
         self.resetPinButton.setMaximumSize(QtCore.QSize(400, 16777215))
-        self.resetPinButton.setObjectName(_fromUtf8("resetPinButton"))
+        self.resetPinButton.setObjectName("resetPinButton")
         self.gridLayout.addWidget(self.resetPinButton, 9, 1, 1, 1)
-        spacerItem1 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
+        spacerItem1 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.gridLayout.addItem(spacerItem1, 11, 1, 1, 1)
-        self.welcomeLabel = QtGui.QLabel(userWindow)
-        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
+        self.welcomeLabel = QtWidgets.QLabel(userWindow)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.welcomeLabel.sizePolicy().hasHeightForWidth())
         self.welcomeLabel.setSizePolicy(sizePolicy)
-        self.welcomeLabel.setStyleSheet(_fromUtf8("*{font: 75 26pt \"Noto Sans\"}"))
-        self.welcomeLabel.setObjectName(_fromUtf8("welcomeLabel"))
+        self.welcomeLabel.setStyleSheet("*{font: 75 26pt \"Noto Sans\"}")
+        self.welcomeLabel.setObjectName("welcomeLabel")
         self.gridLayout.addWidget(self.welcomeLabel, 1, 1, 1, 1, QtCore.Qt.AlignHCenter)
-        spacerItem2 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
+        spacerItem2 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.gridLayout.addItem(spacerItem2, 4, 1, 1, 1)
-        self.inventoryButton = QtGui.QPushButton(userWindow)
+        self.inventoryButton = QtWidgets.QPushButton(userWindow)
         self.inventoryButton.setMinimumSize(QtCore.QSize(400, 0))
         self.inventoryButton.setMaximumSize(QtCore.QSize(400, 16777215))
-        self.inventoryButton.setObjectName(_fromUtf8("inventoryButton"))
+        self.inventoryButton.setObjectName("inventoryButton")
         self.gridLayout.addWidget(self.inventoryButton, 5, 1, 1, 1)
-        self.requestButton = QtGui.QPushButton(userWindow)
+        self.requestButton = QtWidgets.QPushButton(userWindow)
         self.requestButton.setMinimumSize(QtCore.QSize(400, 0))
         self.requestButton.setMaximumSize(QtCore.QSize(400, 16777215))
-        icon = QtGui.QIcon.fromTheme(_fromUtf8("save"))
+        icon = QtGui.QIcon.fromTheme("save")
         self.requestButton.setIcon(icon)
-        self.requestButton.setObjectName(_fromUtf8("requestButton"))
+        self.requestButton.setObjectName("requestButton")
         self.gridLayout.addWidget(self.requestButton, 7, 1, 1, 1)
-        self.editDetailsButton = QtGui.QPushButton(userWindow)
+        self.editDetailsButton = QtWidgets.QPushButton(userWindow)
         self.editDetailsButton.setMinimumSize(QtCore.QSize(400, 0))
         self.editDetailsButton.setMaximumSize(QtCore.QSize(400, 16777215))
-        self.editDetailsButton.setObjectName(_fromUtf8("editDetailsButton"))
+        self.editDetailsButton.setObjectName("editDetailsButton")
         self.gridLayout.addWidget(self.editDetailsButton, 8, 1, 1, 1)
-        spacerItem3 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
+        spacerItem3 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.gridLayout.addItem(spacerItem3, 0, 1, 1, 1)
-        spacerItem4 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        spacerItem4 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout.addItem(spacerItem4, 1, 0, 1, 1)
-        self.cartButton = QtGui.QPushButton(userWindow)
+        self.cartButton = QtWidgets.QPushButton(userWindow)
         self.cartButton.setMinimumSize(QtCore.QSize(400, 0))
         self.cartButton.setMaximumSize(QtCore.QSize(400, 16777215))
-        self.cartButton.setObjectName(_fromUtf8("cartButton"))
+        self.cartButton.setObjectName("cartButton")
         self.gridLayout.addWidget(self.cartButton, 6, 1, 1, 1)
-        spacerItem5 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
+        spacerItem5 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.gridLayout.addItem(spacerItem5, 2, 1, 1, 1)
-        self.profilePic = QtGui.QLabel(userWindow)
+        self.profilePic = QtWidgets.QLabel(userWindow)
         self.profilePic.setMinimumSize(QtCore.QSize(75, 75))
         self.profilePic.setMaximumSize(QtCore.QSize(150, 150))
-        self.profilePic.setText(_fromUtf8(""))
-        self.profilePic.setPixmap(QtGui.QPixmap(_fromUtf8("images/index.png")))
+        self.profilePic.setText("")
+        self.profilePic.setPixmap(QtGui.QPixmap("images/index.png"))
         self.profilePic.setScaledContents(True)
-        self.profilePic.setObjectName(_fromUtf8("profilePic"))
+        self.profilePic.setObjectName("profilePic")
         self.gridLayout.addWidget(self.profilePic, 3, 1, 1, 1, QtCore.Qt.AlignHCenter)
-        self.logoutButton = QtGui.QPushButton(userWindow)
+        self.logoutButton = QtWidgets.QPushButton(userWindow)
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(_fromUtf8("images/back.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("images/back.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.logoutButton.setIcon(icon)
-        self.logoutButton.setObjectName(_fromUtf8("logoutButton"))
+        self.logoutButton.setObjectName("logoutButton")
         self.gridLayout.addWidget(self.logoutButton, 11, 0, 1, 1, QtCore.Qt.AlignLeft)
         self.gridLayout_2.addLayout(self.gridLayout, 0, 0, 1, 1)
 
@@ -102,12 +88,13 @@ class Ui_userWindow(object):
         QtCore.QMetaObject.connectSlotsByName(userWindow)
 
     def retranslateUi(self, userWindow):
-        userWindow.setWindowTitle(_translate("userWindow", "Dialog", None))
-        self.resetPinButton.setText(_translate("userWindow", "Reset PIN", None))
-        self.welcomeLabel.setText(_translate("userWindow", "Welcome, ARCUser", None))
-        self.inventoryButton.setText(_translate("userWindow", "Inventory", None))
-        self.requestButton.setText(_translate("userWindow", "Purchase Request", None))
-        self.editDetailsButton.setText(_translate("userWindow", "Edit Details", None))
-        self.cartButton.setText(_translate("userWindow", "View Cart", None))
-        self.logoutButton.setText(_translate("userWindow", "Logout", None))
+        _translate = QtCore.QCoreApplication.translate
+        userWindow.setWindowTitle(_translate("userWindow", "Dialog"))
+        self.resetPinButton.setText(_translate("userWindow", "Reset PIN"))
+        self.welcomeLabel.setText(_translate("userWindow", "Welcome, ARCUser"))
+        self.inventoryButton.setText(_translate("userWindow", "Inventory"))
+        self.requestButton.setText(_translate("userWindow", "Purchase Request"))
+        self.editDetailsButton.setText(_translate("userWindow", "Edit Details"))
+        self.cartButton.setText(_translate("userWindow", "View Cart"))
+        self.logoutButton.setText(_translate("userWindow", "Logout"))
 

@@ -2,89 +2,75 @@
 
 # Form implementation generated from reading ui file 'editdetails.ui'
 #
-# Created by: PyQt4 UI code generator 4.11.4
+# Created by: PyQt5 UI code generator 5.7
 #
 # WARNING! All changes made in this file will be lost!
 
-from PyQt4 import QtCore, QtGui
-
-try:
-    _fromUtf8 = QtCore.QString.fromUtf8
-except AttributeError:
-    def _fromUtf8(s):
-        return s
-
-try:
-    _encoding = QtGui.QApplication.UnicodeUTF8
-    def _translate(context, text, disambig):
-        return QtGui.QApplication.translate(context, text, disambig, _encoding)
-except AttributeError:
-    def _translate(context, text, disambig):
-        return QtGui.QApplication.translate(context, text, disambig)
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 class Ui_editDetailsWindow(object):
     def setupUi(self, editDetailsWindow):
-        editDetailsWindow.setObjectName(_fromUtf8("editDetailsWindow"))
+        editDetailsWindow.setObjectName("editDetailsWindow")
         editDetailsWindow.resize(1077, 788)
         editDetailsWindow.setMaximumSize(QtCore.QSize(16777215, 16777215))
-        editDetailsWindow.setStyleSheet(_fromUtf8("QPushButton {padding: 10px}\n"
+        editDetailsWindow.setStyleSheet("QPushButton {padding: 10px}\n"
 "QWidget {background-color: white}\n"
-""))
-        self.gridLayout_3 = QtGui.QGridLayout(editDetailsWindow)
-        self.gridLayout_3.setObjectName(_fromUtf8("gridLayout_3"))
-        self.gridLayout = QtGui.QGridLayout()
-        self.gridLayout.setObjectName(_fromUtf8("gridLayout"))
-        self.buttonBox = QtGui.QDialogButtonBox(editDetailsWindow)
-        self.buttonBox.setStandardButtons(QtGui.QDialogButtonBox.Cancel|QtGui.QDialogButtonBox.Ok)
-        self.buttonBox.setObjectName(_fromUtf8("buttonBox"))
+"")
+        self.gridLayout_3 = QtWidgets.QGridLayout(editDetailsWindow)
+        self.gridLayout_3.setObjectName("gridLayout_3")
+        self.gridLayout = QtWidgets.QGridLayout()
+        self.gridLayout.setObjectName("gridLayout")
+        self.buttonBox = QtWidgets.QDialogButtonBox(editDetailsWindow)
+        self.buttonBox.setStandardButtons(QtWidgets.QDialogButtonBox.Cancel|QtWidgets.QDialogButtonBox.Ok)
+        self.buttonBox.setObjectName("buttonBox")
         self.gridLayout.addWidget(self.buttonBox, 4, 0, 1, 1, QtCore.Qt.AlignHCenter)
-        spacerItem = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
+        spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.gridLayout.addItem(spacerItem, 3, 0, 1, 1)
-        self.gridLayout_2 = QtGui.QGridLayout()
-        self.gridLayout_2.setObjectName(_fromUtf8("gridLayout_2"))
-        self.label_7 = QtGui.QLabel(editDetailsWindow)
-        self.label_7.setObjectName(_fromUtf8("label_7"))
+        self.gridLayout_2 = QtWidgets.QGridLayout()
+        self.gridLayout_2.setObjectName("gridLayout_2")
+        self.label_7 = QtWidgets.QLabel(editDetailsWindow)
+        self.label_7.setObjectName("label_7")
         self.gridLayout_2.addWidget(self.label_7, 2, 1, 1, 1)
-        self.phoneCall = QtGui.QLineEdit(editDetailsWindow)
-        self.phoneCall.setObjectName(_fromUtf8("phoneCall"))
+        self.phoneCall = QtWidgets.QLineEdit(editDetailsWindow)
+        self.phoneCall.setObjectName("phoneCall")
         self.gridLayout_2.addWidget(self.phoneCall, 2, 2, 1, 1)
-        self.label_8 = QtGui.QLabel(editDetailsWindow)
-        self.label_8.setObjectName(_fromUtf8("label_8"))
+        self.label_8 = QtWidgets.QLabel(editDetailsWindow)
+        self.label_8.setObjectName("label_8")
         self.gridLayout_2.addWidget(self.label_8, 3, 1, 1, 1)
-        spacerItem1 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout_2.addItem(spacerItem1, 2, 0, 1, 1)
-        self.label_6 = QtGui.QLabel(editDetailsWindow)
-        self.label_6.setObjectName(_fromUtf8("label_6"))
+        self.label_6 = QtWidgets.QLabel(editDetailsWindow)
+        self.label_6.setObjectName("label_6")
         self.gridLayout_2.addWidget(self.label_6, 1, 1, 1, 1)
-        self.email = QtGui.QLineEdit(editDetailsWindow)
-        self.email.setObjectName(_fromUtf8("email"))
+        self.email = QtWidgets.QLineEdit(editDetailsWindow)
+        self.email.setObjectName("email")
         self.gridLayout_2.addWidget(self.email, 1, 2, 1, 1)
-        self.name = QtGui.QLineEdit(editDetailsWindow)
+        self.name = QtWidgets.QLineEdit(editDetailsWindow)
         self.name.setEnabled(False)
-        self.name.setObjectName(_fromUtf8("name"))
+        self.name.setObjectName("name")
         self.gridLayout_2.addWidget(self.name, 0, 2, 1, 1)
-        spacerItem2 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        spacerItem2 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout_2.addItem(spacerItem2, 3, 3, 1, 1)
-        self.label_5 = QtGui.QLabel(editDetailsWindow)
-        self.label_5.setObjectName(_fromUtf8("label_5"))
+        self.label_5 = QtWidgets.QLabel(editDetailsWindow)
+        self.label_5.setObjectName("label_5")
         self.gridLayout_2.addWidget(self.label_5, 0, 1, 1, 1)
-        self.phoneWhatsApp = QtGui.QLineEdit(editDetailsWindow)
-        self.phoneWhatsApp.setObjectName(_fromUtf8("phoneWhatsApp"))
+        self.phoneWhatsApp = QtWidgets.QLineEdit(editDetailsWindow)
+        self.phoneWhatsApp.setObjectName("phoneWhatsApp")
         self.gridLayout_2.addWidget(self.phoneWhatsApp, 3, 2, 1, 1)
-        self.label_9 = QtGui.QLabel(editDetailsWindow)
-        self.label_9.setObjectName(_fromUtf8("label_9"))
+        self.label_9 = QtWidgets.QLabel(editDetailsWindow)
+        self.label_9.setObjectName("label_9")
         self.gridLayout_2.addWidget(self.label_9, 4, 1, 1, 1)
-        self.roomNumber = QtGui.QLineEdit(editDetailsWindow)
-        self.roomNumber.setObjectName(_fromUtf8("roomNumber"))
+        self.roomNumber = QtWidgets.QLineEdit(editDetailsWindow)
+        self.roomNumber.setObjectName("roomNumber")
         self.gridLayout_2.addWidget(self.roomNumber, 4, 2, 1, 1)
         self.gridLayout.addLayout(self.gridLayout_2, 2, 0, 1, 1)
-        self.label_10 = QtGui.QLabel(editDetailsWindow)
-        self.label_10.setStyleSheet(_fromUtf8("font: 24pt \"Noto Sans\";"))
-        self.label_10.setObjectName(_fromUtf8("label_10"))
+        self.label_10 = QtWidgets.QLabel(editDetailsWindow)
+        self.label_10.setStyleSheet("font: 24pt \"Noto Sans\";")
+        self.label_10.setObjectName("label_10")
         self.gridLayout.addWidget(self.label_10, 0, 0, 1, 1, QtCore.Qt.AlignHCenter)
-        spacerItem3 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
+        spacerItem3 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.gridLayout.addItem(spacerItem3, 1, 0, 1, 1)
-        spacerItem4 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
+        spacerItem4 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.gridLayout.addItem(spacerItem4, 5, 0, 1, 1)
         self.gridLayout_3.addLayout(self.gridLayout, 0, 0, 1, 1)
 
@@ -92,11 +78,12 @@ class Ui_editDetailsWindow(object):
         QtCore.QMetaObject.connectSlotsByName(editDetailsWindow)
 
     def retranslateUi(self, editDetailsWindow):
-        editDetailsWindow.setWindowTitle(_translate("editDetailsWindow", "Form", None))
-        self.label_7.setText(_translate("editDetailsWindow", "Phone (Calling)", None))
-        self.label_8.setText(_translate("editDetailsWindow", "Phone (WhatsApp)", None))
-        self.label_6.setText(_translate("editDetailsWindow", "Email", None))
-        self.label_5.setText(_translate("editDetailsWindow", "Name", None))
-        self.label_9.setText(_translate("editDetailsWindow", "Room Number", None))
-        self.label_10.setText(_translate("editDetailsWindow", "Edit User Details", None))
+        _translate = QtCore.QCoreApplication.translate
+        editDetailsWindow.setWindowTitle(_translate("editDetailsWindow", "Form"))
+        self.label_7.setText(_translate("editDetailsWindow", "Phone (Calling)"))
+        self.label_8.setText(_translate("editDetailsWindow", "Phone (WhatsApp)"))
+        self.label_6.setText(_translate("editDetailsWindow", "Email"))
+        self.label_5.setText(_translate("editDetailsWindow", "Name"))
+        self.label_9.setText(_translate("editDetailsWindow", "Room Number"))
+        self.label_10.setText(_translate("editDetailsWindow", "Edit User Details"))
 
