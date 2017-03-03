@@ -13,6 +13,7 @@ class resetPin:
 			self.user.updateQuery('users',["HASHED_PASSWORD = '" + newPin + "'"],['ID = ' + str(id)])
 		print self.flag
 		status = self.flag
+		return self.flag
 
 def comparePin(obj,id,pin,newPin):
 	#print pin

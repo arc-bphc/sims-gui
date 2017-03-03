@@ -27,9 +27,10 @@ class mainWindow(QtGui.QWidget):
     def __init__(self, widget):
         super(mainWindow, self).__init__()
 
-        widget.setStyleSheet("QPushButton {padding: 10px}\nQWidget {background-color: white}\n* {font: 16pt}\n")
-        widget.setWindowTitle("Smart Inventory Management System")
-        widget.resize(1280, 800)
+        self.windowWidget = widget
+        self.windowWidget.setStyleSheet("QPushButton {padding: 10px}\nQWidget {background-color: white}\n* {font: 16pt}\n")
+        self.windowWidget.setWindowTitle("Smart Inventory Management System")
+        self.windowWidget.resize(1280, 800)
 
         self.splashScreen = QtGui.QMainWindow()
         self.userProfile = QtGui.QDialog()
@@ -61,7 +62,6 @@ class mainWindow(QtGui.QWidget):
         windowVBox = QtGui.QVBoxLayout()
         windowVBox.addWidget(self.HomeWidget)
 
-        self.windowWidget = widget
         self.windowWidget.setLayout(windowVBox)
 
         self.HomeWidget.setCurrentIndex(0)
@@ -121,6 +121,7 @@ class mainWindow(QtGui.QWidget):
     def handleComboBox(self, val):
         if val == 1:
             print 'This functionality is not added yet!'
+            self.windowWidget.close()
 #            self.HomeWidget.setCurrentIndex(0)
             self.user = userDetails() #for resetting things
 
@@ -170,13 +171,17 @@ class mainWindow(QtGui.QWidget):
         currentPwd = self.resetPin.findChild(QtGui.QLineEdit, "currentPwd")
         newPwd = self.resetPin.findChild(QtGui.QLineEdit, "newPwd")
 
-        resetPinObject = resetPin()
-        buttonBox.accepted.connect(lambda: resetPinObject.compareEnteredPin(self.user.userId, \
-                                                                            currentPwd.text(), \
-                                                                            newPwd.text()))
-        buttonBox.accepted.connect(lambda: self.showSuccessDialog('PIN successfully updated!')) #fix this behavior
-        buttonBox.accepted.connect(lambda: self.launchWindow(0))
+        buttonBox.accepted.connect(lambda: self.execResetPin(currentPwd.text(), newPwd.text()))
         buttonBox.rejected.connect(lambda: self.launchWindow(0))
+
+    def execResetPin(self, currentPwd, newPwd):
+        resetPinObject = resetPin()
+        result = resetPinObject.compareEnteredPin(self.user.userId, currentPwd, newPwd)
+        if result == 0:
+            self.showSuccessDialog('Wrong PIN!')
+        else:
+            self.showSuccessDialog('PIN successfully updated!')
+            self.launchWindow(0)
 
     def setupFinger(self):
         Ui_loginWindow().setupUi(self.finger)
@@ -271,7 +276,6 @@ class mainWindow(QtGui.QWidget):
         self.windowWidget = QtGui.QWidget()
         mainWindow(self.windowWidget)
         self.windowWidget.show()
-    #    self.windowWidget = mainWindow(self.windowWidget)
 
     def saveUserDetails(self, userId):
         name = self.editDetails.findChild(QtGui.QLineEdit, "name")
@@ -282,7 +286,8 @@ class mainWindow(QtGui.QWidget):
 
         userInfo = user_info()
         userInfo.update_user_info([str(name.text()), str(phoneCall.text()), \
-        str(phoneWhatsApp.text()), str(roomNumber.text()), str(email.text())], userId)
+                                str(phoneWhatsApp.text()), str(roomNumber.text()), \
+                                str(email.text())], userId)
 
     def addToCartAction(self, itemView, qtySpinBox, partQty):
         itemName = '\'' + itemView.selectedIndexes()[0].data().toString() + '\''
@@ -372,7 +377,6 @@ class mainWindow(QtGui.QWidget):
     def showSuccessDialog(self, text):
         msg = QtGui.QMessageBox()
         msg.setIcon(QtGui.QMessageBox.Information)
-
         msg.setText(text)
         msg.setWindowTitle("Success")
         msg.setStandardButtons(QtGui.QMessageBox.Ok)
