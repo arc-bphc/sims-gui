@@ -60,6 +60,7 @@ class Ui_editDetailsWindow(object):
         self.email.setObjectName(_fromUtf8("email"))
         self.gridLayout_2.addWidget(self.email, 1, 2, 1, 1)
         self.name = QtGui.QLineEdit(editDetailsWindow)
+        self.name.setEnabled(False)
         self.name.setObjectName(_fromUtf8("name"))
         self.gridLayout_2.addWidget(self.name, 0, 2, 1, 1)
         spacerItem2 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
