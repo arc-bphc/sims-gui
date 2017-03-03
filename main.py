@@ -76,7 +76,7 @@ class mainWindow(QtGui.QWidget):
         backButton = QtGui.QPushButton()
         backButton.setFlat(True)
         backButton.setIcon(icon)
-        backButton.setIconSize(QtCore.QSize(32, 32))
+        backButton.setIconSize(QtCore.QSize(48, 48))
 
         arcLogo = QtGui.QLabel()
         arcLogo.setMinimumSize(QtCore.QSize(0, 0))
@@ -120,7 +120,8 @@ class mainWindow(QtGui.QWidget):
 
     def handleComboBox(self, val):
         if val == 1:
-            self.HomeWidget.setCurrentIndex(0)
+            print 'This functionality is not added yet!'
+#            self.HomeWidget.setCurrentIndex(0)
             self.user = userDetails() #for resetting things
 
     def createStackedPages(self):
