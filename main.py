@@ -18,6 +18,8 @@ from sql.view_cart import view_cart
 from sql.inventory import selectFromInventory
 from sql.purchase import purchaseRequests
 
+from fingerprint_sensor.finger_download import *
+
 class userDetails():
     def __init__(self, _name = "ARC-User-X", _userId = 1, _isAdmin = True):
         self.name = _name
@@ -365,9 +367,16 @@ class mainWindow(QWidget):
         #have to build a history tree for proper back button
 
     def unlockScreen(self):
-        self.user = userDetails()
-        self.createStackedPages()
-        self.HomeWidget.setCurrentIndex(1)
+
+        button = self.splashScreen.findChild(QPushButton, "pushButton")
+        button.setText('Login failed. Try again.'),
+
+        get_finger()
+        f = Search()[0]
+        if f == 0:
+            self.user = userDetails()
+            self.createStackedPages()
+            self.HomeWidget.setCurrentIndex(1)
 
     def setupWindows(self):
         self.setupHeaderWidget(self.arcHeader)

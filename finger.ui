@@ -23,7 +23,7 @@ QPushButton {padding: 20px}</string>
   <layout class="QGridLayout" name="gridLayout_2">
    <item row="0" column="0">
     <layout class="QGridLayout" name="gridLayout">
-     <item row="0" column="0">
+     <item row="0" column="0" alignment="Qt::AlignHCenter">
       <widget class="QLabel" name="label_4">
        <property name="font">
         <font>

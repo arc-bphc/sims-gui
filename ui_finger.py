@@ -43,7 +43,7 @@ class Ui_loginWindow(object):
         self.label_4.setFont(font)
         self.label_4.setStyleSheet(_fromUtf8("font: 24pt \"Noto Sans\";"))
         self.label_4.setObjectName(_fromUtf8("label_4"))
-        self.gridLayout.addWidget(self.label_4, 0, 0, 1, 1)
+        self.gridLayout.addWidget(self.label_4, 0, 0, 1, 1, QtCore.Qt.AlignHCenter)
         self.label = QtGui.QLabel(loginWindow)
         self.label.setMaximumSize(QtCore.QSize(400, 300))
         self.label.setText(_fromUtf8(""))
