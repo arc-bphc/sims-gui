@@ -215,9 +215,11 @@ class mainWindow(QWidget):
         requestItemButton = self.requestItem.findChild(QPushButton, "requestItemButton")
 
         purchaseRequest = purchaseRequests()
-        requestItemButton.clicked.connect(lambda: purchaseRequest.addToTable(self.user.userId, \
+        requestItemButton.clicked.connect(lambda: (purchaseRequest.addToTable(self.user.userId, \
                                     str(project.text()), str(price.text()), \
-                                    str(item.text()), 1000))
+                                    str(item.text()), 1000),
+                                    self.showMsgBox('Request submitted!')))
+
 
     def setupEditDetails(self):
         Ui_editDetailsWindow().setupUi(self.editDetails)
