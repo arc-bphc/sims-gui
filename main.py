@@ -1,4 +1,4 @@
-#write top layouts by hand
+#!/usr/bin/env python
 from PyQt4.QtGui import *
 from PyQt4.QtCore import *
 import sys
@@ -312,6 +312,7 @@ class mainWindow(QWidget):
         partShelf = self.inventory.findChild(QLabel, "partShelf")
         partBox = self.inventory.findChild(QLabel, "partBox")
         partQty = self.inventory.findChild(QLabel, "partQty")
+        partImage = self.inventory.findChild(QLabel, "partImage")
 
         itemDetails = self.inventoryDb.getItemInfo(id.row())
         partName.setText(itemDetails[1])
@@ -320,6 +321,7 @@ class mainWindow(QWidget):
         partShelf.setText(str(itemDetails[3]))
         partBox.setText(str(itemDetails[4]))
         partQty.setText(str(itemDetails[6]))
+        partImage.setPixmap(QPixmap('images/'+str(itemDetails[0])+'.png'))
 
     def updateViewCart(self):
         self.model.clear()
@@ -334,6 +336,7 @@ class mainWindow(QWidget):
         partShelf = self.cart.findChild(QLabel, "partShelf")
         partBox = self.cart.findChild(QLabel, "partBox")
         partQty = self.cart.findChild(QLabel, "partQty")
+        partImage = self.cart.findChild(QLabel, "partImage")
 
         itemName = '\'' + itemId.data().toString() + '\''
         itemId = self.inventoryDb.getItemId(itemName)
@@ -345,6 +348,7 @@ class mainWindow(QWidget):
         partShelf.setText(str(itemDetails[3]))
         partBox.setText(str(itemDetails[4]))
         partQty.setText(str(itemDetails[6]))
+        partImage.setPixmap(QPixmap('images/'+str(itemDetails[0])+'.png'))
 
     def comboAction(self, x):
         if (x == 1):

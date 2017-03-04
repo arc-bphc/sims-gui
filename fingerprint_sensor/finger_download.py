@@ -1,9 +1,11 @@
+#0 is successful
+#non-zero is fail
 import serial
 import time
 
 
 #modify this if the port is different
-port='COM4'
+port='/dev/ttyUSB0'
 
 ser=serial.Serial(port,baudrate=57600)
 
@@ -18,7 +20,7 @@ def genImg():
 
     command=header+address+genImg_header
     ser.write(bytearray(command))
-    
+
     __,s=read_packet()
 
     result=s[9]
@@ -115,11 +117,11 @@ def TemplateNum():
 
     ret=s[9]
 
-    
+
 
     return int(ord(ret)),int(ord(s[11]))
 
-    
+
 
 def Store(buff=0x01):
 
@@ -151,13 +153,15 @@ def Search(buf=0x01):
 
     __,s=read_packet()
 
+    finger_id=int(ord(s[11]))
+
     ret=s[9]
 
-    return int(ord(ret)),int(ord(s[11]))
-    
+    return int(ord(ret)),finger_id
+
 
 def Empty():
-    
+
     Empty_header=[0x01, 0x00, 0x03, 0x0d, 0x00, 0x11]
 
     command=header+address+Empty_header
@@ -180,11 +184,13 @@ def get_finger():
     print "fingerprint accepted"
     if(Img2Tz(0x01)==0):
         print "img to text complete"
+        return 0
     else:
         print "conversion of first image failed"
+        return 1
 
 
-    
+
 
 def enroll():
     time.sleep(1)
@@ -251,7 +257,7 @@ def read_packet():
 ##    UpChar()
 ##
 ##    s=''
-##    
+##
 ##    while ser.inWaiting()!=0:
 ##
 ##        ret,fdata=read_packet()
@@ -276,9 +282,3 @@ def read_packet():
 ##        print 'finger matching'
 ##    else:
 ##        print 'finger not matched'
-
-    
-
-        
-
-    

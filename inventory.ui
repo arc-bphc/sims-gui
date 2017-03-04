@@ -49,22 +49,8 @@ QWidget {background-color: white}
         <property name="verticalSpacing">
          <number>6</number>
         </property>
-        <item row="3" column="0">
-         <widget class="QLabel" name="label_3">
-          <property name="font">
-           <font>
-            <pointsize>12</pointsize>
-            <weight>50</weight>
-            <bold>false</bold>
-           </font>
-          </property>
-          <property name="text">
-           <string>ID</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0" colspan="2" alignment="Qt::AlignHCenter">
-         <widget class="QLabel" name="label">
+        <item row="3" column="0" colspan="2" alignment="Qt::AlignHCenter">
+         <widget class="QLabel" name="partImage">
           <property name="maximumSize">
            <size>
             <width>130</width>
@@ -92,7 +78,7 @@ QWidget {background-color: white}
           </property>
          </widget>
         </item>
-        <item row="6" column="1">
+        <item row="8" column="1">
          <widget class="QLabel" name="partQty">
           <property name="font">
            <font>
@@ -123,14 +109,14 @@ QWidget {background-color: white}
           </property>
          </widget>
         </item>
-        <item row="7" column="0">
+        <item row="9" column="0">
          <widget class="QPushButton" name="addToCartButton">
           <property name="text">
            <string>Add to Cart</string>
           </property>
          </widget>
         </item>
-        <item row="5" column="1">
+        <item row="7" column="1">
          <widget class="QLabel" name="partBox">
           <property name="font">
            <font>
@@ -142,7 +128,7 @@ QWidget {background-color: white}
           </property>
          </widget>
         </item>
-        <item row="6" column="0">
+        <item row="8" column="0">
          <widget class="QLabel" name="label_12">
           <property name="font">
            <font>
@@ -156,7 +142,7 @@ QWidget {background-color: white}
           </property>
          </widget>
         </item>
-        <item row="4" column="1">
+        <item row="6" column="1">
          <widget class="QLabel" name="partShelf">
           <property name="font">
            <font>
@@ -168,14 +154,14 @@ QWidget {background-color: white}
           </property>
          </widget>
         </item>
-        <item row="8" column="0" colspan="2">
+        <item row="10" column="0" colspan="2">
          <widget class="QPushButton" name="cartButton">
           <property name="text">
            <string>View Cart</string>
           </property>
          </widget>
         </item>
-        <item row="7" column="1">
+        <item row="9" column="1">
          <widget class="QSpinBox" name="qtySpinBox">
           <property name="minimumSize">
            <size>
@@ -185,7 +171,7 @@ QWidget {background-color: white}
           </property>
          </widget>
         </item>
-        <item row="3" column="1">
+        <item row="5" column="1">
          <widget class="QLabel" name="partID">
           <property name="font">
            <font>
@@ -197,7 +183,7 @@ QWidget {background-color: white}
           </property>
          </widget>
         </item>
-        <item row="4" column="0">
+        <item row="6" column="0">
          <widget class="QLabel" name="label_4">
           <property name="font">
            <font>
@@ -211,7 +197,7 @@ QWidget {background-color: white}
           </property>
          </widget>
         </item>
-        <item row="5" column="0">
+        <item row="7" column="0">
          <widget class="QLabel" name="label_5">
           <property name="font">
            <font>
@@ -224,6 +210,46 @@ QWidget {background-color: white}
            <string>Box</string>
           </property>
          </widget>
+        </item>
+        <item row="5" column="0">
+         <widget class="QLabel" name="label_3">
+          <property name="font">
+           <font>
+            <pointsize>12</pointsize>
+            <weight>50</weight>
+            <bold>false</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>ID</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0" colspan="2">
+         <spacer name="verticalSpacer_3">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="4" column="0" colspan="2">
+         <spacer name="verticalSpacer_4">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
         </item>
        </layout>
       </item>
