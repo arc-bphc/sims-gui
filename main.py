@@ -392,7 +392,7 @@ class mainWindow(QWidget):
         msg = QMessageBox()
         msg.setIcon(QMessageBox.Information)
         msg.setText(text)
-        msg.setWindowTitle("Success")
+        msg.setWindowTitle("Result")
         msg.setStandardButtons(QMessageBox.Ok)
         msg.exec_()
 
