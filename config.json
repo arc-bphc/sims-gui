@@ -1,0 +1,10 @@
+{
+    "Settings" : {
+        "device" : "desktop",
+
+        "fingerprint": {
+            "enabled": false,
+            "sensorPath": "/dev/ttyUSB0"
+        }
+    }
+}

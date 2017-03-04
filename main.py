@@ -1,7 +1,10 @@
 #!/usr/bin/env python
+
+import sys
+import json
+
 from PyQt4.QtGui import *
 from PyQt4.QtCore import *
-import sys
 
 from ui_mainwindow import Ui_splashScreen
 from ui_userprofile import Ui_userWindow
@@ -18,7 +21,7 @@ from sql.view_cart import view_cart
 from sql.inventory import selectFromInventory
 from sql.purchase import purchaseRequests
 
-from fingerprint_sensor.finger_download import *
+#from fingerprint_sensor.finger_download import *
 
 class userDetails():
     def __init__(self, _name = "ARC-User-X", _userId = 1, _isAdmin = True):
@@ -29,6 +32,8 @@ class userDetails():
 class mainWindow(QWidget):
     def __init__(self, widget):
         super(mainWindow, self).__init__()
+
+        self.loadConfig()
 
         self.windowWidget = widget
         self.windowWidget.setStyleSheet("QPushButton {padding: 10px}\nQWidget {background-color: white}\n* {font: 16pt}\n")
@@ -84,7 +89,7 @@ class mainWindow(QWidget):
         arcLogo = QLabel()
         arcLogo.setMinimumSize(QSize(0, 0))
         arcLogo.setMaximumSize(QSize(175, 150))
-        arcLogo.setPixmap(QPixmap("images/arclogo.png"))
+        arcLogo.setPixmap(QPixmap('images/arclogo.png'))
         arcLogo.setScaledContents(True)
 
         userWidget = QWidget()
@@ -94,7 +99,7 @@ class mainWindow(QWidget):
 
         userIcon.setMinimumSize(QSize(0, 40))
         userIcon.setMaximumSize(QSize(50, 50))
-        userIcon.setPixmap(QPixmap("images/index.png"))
+        userIcon.setPixmap(QPixmap('images/user' + str(self.user.userId) + '.jpg'))
         userIcon.setScaledContents(True)
         comboBox.setMinimumSize(QSize(200, 40))
         comboBox.setMaximumSize(QSize(300, 16777215))
@@ -120,6 +125,14 @@ class mainWindow(QWidget):
         widget.setStyleSheet("QPushButton {padding: 10px}\nQWidget {background-color: white}\n")
 
         backButton.clicked.connect(self.goBack)
+
+    def loadConfig(self):
+        with open('config.json') as data_file:
+            data = json.load(data_file)
+        self.device = data['Settings']['device']
+        self.fprintEnabled = data['Settings']['fingerprint']['enabled']
+        self.sensorPath = data['Settings']['fingerprint']['sensorPath']
+        print 'Loading config from \'config.json\''
 
     def handleComboBox(self, val):
         if val == 1:
@@ -157,6 +170,7 @@ class mainWindow(QWidget):
         lockButton = self.userProfile.findChild(QPushButton, "lockButton")
         logoutButton = self.userProfile.findChild(QPushButton, "logoutButton")
         welcomeLabel = self.userProfile.findChild(QLabel, "welcomeLabel")
+        profilePic = self.userProfile.findChild(QLabel, "profilePic")
 
         inventoryButton.clicked.connect(lambda: self.launchWindow(5))
         editDetailsButton.clicked.connect(lambda: self.launchWindow(4))
@@ -167,6 +181,7 @@ class mainWindow(QWidget):
         logoutButton.clicked.connect(lambda: self.logoutUser())
 
         welcomeLabel.setText("Welcome, " + self.user.name)
+        profilePic.setPixmap(QPixmap('images/user' + str(self.user.userId) + '.jpg'))
 
     def setupResetPin(self):
         Ui_resetPinWindow().setupUi(self.resetPin)
@@ -181,9 +196,9 @@ class mainWindow(QWidget):
         resetPinObject = resetPin()
         result = resetPinObject.compareEnteredPin(self.user.userId, currentPwd, newPwd)
         if result == 0:
-            self.showSuccessDialog('Wrong PIN!')
+            self.showMsgBox('Wrong PIN!')
         else:
-            self.showSuccessDialog('PIN successfully updated!')
+            self.showMsgBox('PIN successfully updated!')
             self.launchWindow(0)
 
     def setupFinger(self):
@@ -207,7 +222,7 @@ class mainWindow(QWidget):
         buttonBox = self.editDetails.findChild(QDialogButtonBox, "buttonBox")
         buttonBox.rejected.connect(lambda: self.launchWindow(0))
         buttonBox.accepted.connect(lambda: self.saveUserDetails(self.user.userId))
-        buttonBox.accepted.connect(lambda: self.showSuccessDialog('Database successfully updated!'))
+        buttonBox.accepted.connect(lambda: self.showMsgBox('Database successfully updated!'))
         buttonBox.accepted.connect(lambda: self.launchWindow(0))
 
         userInfo = user_info()
@@ -278,7 +293,10 @@ class mainWindow(QWidget):
         self.windowWidget.close()
         self.windowWidget = QWidget()
         mainWindow(self.windowWidget)
-        self.windowWidget.show()
+        if self.device == 'desktop':
+            self.windowWidget.show()
+        else:
+            self.windowWidget.showFullScreen()
 
     def saveUserDetails(self, userId):
         name = self.editDetails.findChild(QLineEdit, "name")
@@ -371,9 +389,13 @@ class mainWindow(QWidget):
         button = self.splashScreen.findChild(QPushButton, "pushButton")
         button.setText('Login failed. Try again.'),
 
-        get_finger()
-        f = Search()[0]
-        if f == 0:
+        if self.fprintEnabled == True:
+            get_finger()
+            auth = Search()[0]
+        else:
+            auth = 0
+
+        if auth == 0:
             self.user = userDetails()
             self.createStackedPages()
             self.HomeWidget.setCurrentIndex(1)
@@ -388,7 +410,7 @@ class mainWindow(QWidget):
         self.setupInventory()
         self.setupCart()
 
-    def showSuccessDialog(self, text):
+    def showMsgBox(self, text):
         msg = QMessageBox()
         msg.setIcon(QMessageBox.Information)
         msg.setText(text)
@@ -396,13 +418,19 @@ class mainWindow(QWidget):
         msg.setStandardButtons(QMessageBox.Ok)
         msg.exec_()
 
+    def getDevice(self):
+        return self.device
+
 def main():
     app = QApplication(sys.argv)
     app.setWindowIcon(QIcon('images/arclogo.png'))
 
     widget = QWidget()
     prog = mainWindow(widget)
-    widget.show()
+    if prog.getDevice() == 'desktop':
+        widget.show()
+    else:
+        widget.showFullScreen()
     sys.exit(app.exec_())
 
 if __name__ == '__main__':
