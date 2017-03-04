@@ -14,6 +14,7 @@ from ui_requestitem import Ui_requestItemWindow
 from ui_editdetails import Ui_editDetailsWindow
 from ui_inventory import Ui_inventoryWindow
 from ui_cart import Ui_cartWindow
+from ui_about import Ui_aboutWindow
 
 from sql.user_details import user_info
 from sql.reset_pin import resetPin
@@ -50,6 +51,7 @@ class mainWindow(QWidget):
         self.arcHeader = QWidget()
         self.cart = QWidget()
         self.finger = QDialog()
+        self.about = QWidget()
 
         self.currentPage = 0
         self.previousPage = 0
@@ -58,9 +60,12 @@ class mainWindow(QWidget):
         self.HomeWidget = QStackedWidget(self)
         self.screenWidget = QWidget()
 
+        self.setupAbout()
         self.setupSplashScreen()
+
         self.HomeWidget.addWidget(self.splashScreen)
         self.HomeWidget.addWidget(self.screenWidget)
+        self.HomeWidget.addWidget(self.about)
 
         vbox = QVBoxLayout()
         vbox.addWidget(self.arcHeader)
@@ -105,7 +110,7 @@ class mainWindow(QWidget):
         comboBox.setMaximumSize(QSize(300, 16777215))
 
         comboBox.addItem(self.user.name)
-
+        comboBox.addItem('About')
         if self.user.isAdmin == True:
             comboBox.addItem("Admin Panel")
 
@@ -135,10 +140,11 @@ class mainWindow(QWidget):
         print 'Loading config from \'config.json\''
 
     def handleComboBox(self, val):
-        if val == 1:
+        if val == 2:
             print 'This functionality is not added yet!'
             self.windowWidget.close()
-#            self.HomeWidget.setCurrentIndex(0)
+        if val == 1:
+            self.HomeWidget.setCurrentIndex(2)
 #            self.user = userDetails() #for resetting things
 
     def createStackedPages(self):
@@ -156,6 +162,12 @@ class mainWindow(QWidget):
         button = self.splashScreen.findChild(QPushButton, "pushButton")
 
         button.clicked.connect(lambda: self.unlockScreen())
+
+    def setupAbout(self):
+        Ui_aboutWindow().setupUi(self.about)
+        closeButton = self.about.findChild(QPushButton, "closeButton")
+
+        closeButton.clicked.connect(lambda: self.HomeWidget.setCurrentIndex(1))
 
     def setupFingerprint(self):
         Ui_loginWindow.setupUi(self.finger)
@@ -191,15 +203,6 @@ class mainWindow(QWidget):
 
         buttonBox.accepted.connect(lambda: self.execResetPin(currentPwd.text(), newPwd.text()))
         buttonBox.rejected.connect(lambda: self.launchWindow(0))
-
-    def execResetPin(self, currentPwd, newPwd):
-        resetPinObject = resetPin()
-        result = resetPinObject.compareEnteredPin(self.user.userId, currentPwd, newPwd)
-        if result == 0:
-            self.showMsgBox('Wrong PIN!')
-        else:
-            self.showMsgBox('PIN successfully updated!')
-            self.launchWindow(0)
 
     def setupFinger(self):
         Ui_loginWindow().setupUi(self.finger)
@@ -343,6 +346,15 @@ class mainWindow(QWidget):
         partQty.setText(str(itemDetails[6]))
         partImage.setPixmap(QPixmap('images/'+str(itemDetails[0])+'.png'))
 
+    def execResetPin(self, currentPwd, newPwd):
+        resetPinObject = resetPin()
+        result = resetPinObject.compareEnteredPin(self.user.userId, currentPwd, newPwd)
+        if result == 0:
+            self.showMsgBox('Wrong PIN!')
+        else:
+            self.showMsgBox('PIN successfully updated!')
+            self.launchWindow(0)
+
     def updateViewCart(self):
         self.model.clear()
         itemList = self.viewCart.getItemList(self.user.userId)
@@ -369,10 +381,6 @@ class mainWindow(QWidget):
         partBox.setText(str(itemDetails[4]))
         partQty.setText(str(itemDetails[6]))
         partImage.setPixmap(QPixmap('images/'+str(itemDetails[0])+'.png'))
-
-    def comboAction(self, x):
-        if (x == 1):
-            self.launchWindow(0)
 
     def launchWindow(self, value):
         self.previousPage = self.currentPage
