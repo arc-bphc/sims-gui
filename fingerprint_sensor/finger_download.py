@@ -1,10 +1,11 @@
 import serial
 import time
 
-ser=serial.Serial('/dev/serial0',baudrate=57600)
 
+#modify this if the port is different
+port='COM4'
 
-
+ser=serial.Serial(port,baudrate=57600)
 
 header=[0xef,0x01]
 
@@ -102,6 +103,88 @@ def Match():
 
     return int(ord(ret))
 
+def TemplateNum():
+
+    TemplateNum_header=[0x01,0x00,0x03,0x1d,0x00,0x21]
+
+    command=header+address+TemplateNum_header
+
+    ser.write(bytearray(command))
+
+    __,s=read_packet()
+
+    ret=s[9]
+
+    
+
+    return int(ord(ret)),int(ord(s[11]))
+
+    
+
+def Store(buff=0x01):
+
+    ret,pageid=TemplateNum()
+
+    Store_header=[0x01, 0x00, 0x06 ,0x06,0x01,0x00,pageid]
+
+    checksum=[ (sum(Store_header)/100), (sum(Store_header)%100)]
+
+    command=header+address+Store_header+checksum
+
+    ser.write(bytearray(command))
+
+    __,s=read_packet()
+
+    ret=s[9]
+
+    return int(ord(ret)),command
+
+def Search(buf=0x01):
+
+    Search_header=[0x01, 0x00, 0x08 ,0x04, buf,0x00,0x00,0x00,0x5]
+
+    checksum=[sum(Search_header)/100,sum(Search_header)%100]
+
+    command=header+address+Search_header+checksum
+
+    ser.write(bytearray(command))
+
+    __,s=read_packet()
+
+    ret=s[9]
+
+    return int(ord(ret)),int(ord(s[11]))
+    
+
+def Empty():
+    
+    Empty_header=[0x01, 0x00, 0x03, 0x0d, 0x00, 0x11]
+
+    command=header+address+Empty_header
+
+    ser.write(bytearray(command))
+
+    __,s=read_packet()
+
+    ret=s[9]
+
+    return int(ord(ret))
+
+def get_finger():
+
+    print "put your finger to the sensor"
+    while True:
+        if genImg()==0:
+            break
+
+    print "fingerprint accepted"
+    if(Img2Tz(0x01)==0):
+        print "img to text complete"
+    else:
+        print "conversion of first image failed"
+
+
+    
 
 def enroll():
     time.sleep(1)
@@ -149,50 +232,50 @@ def read_packet():
     return True, s
 
 
-if __name__=='__main__':
-
-    fname=raw_input('Enter file name: ')
-    f=open(fname,'rb')
-
-    data=f.read()
-
-    ret=DownChar(data)
-
-    if(ret== 0x0):
-        print 'transferring data to sensor'
-    else:
-        print 'unable to transfer data'
-
-    ser.write(data)
-
-    UpChar()
-
-    s=''
-    
-    while ser.inWaiting()!=0:
-
-        ret,fdata=read_packet()
-
-        if ret == 0:
-            break
-
-        s=s+fdata
-
-    if s==data:
-        print 'template matching with file'
-
-    print "put your finger to the sensor"
-    while True:
-        if genImg()==0:
-            break
-    print "fingerprint accepted"
-    if(Img2Tz(0x02)==0):
-        print "img to text complete"
-
-    if Match()==0:
-        print 'finger matching'
-    else:
-        print 'finger not matched'
+##if __name__=='__main__':
+##
+##    fname=raw_input('Enter file name: ')
+##    f=open(fname,'rb')
+##
+##    data=f.read()
+##
+##    ret=DownChar(data)
+##
+##    if(ret== 0x0):
+##        print 'transferring data to sensor'
+##    else:
+##        print 'unable to transfer data'
+##
+##    ser.write(data)
+##
+##    UpChar()
+##
+##    s=''
+##    
+##    while ser.inWaiting()!=0:
+##
+##        ret,fdata=read_packet()
+##
+##        if ret == 0:
+##            break
+##
+##        s=s+fdata
+##
+##    if s==data:
+##        print 'template matching with file'
+##
+##    print "put your finger to the sensor"
+##    while True:
+##        if genImg()==0:
+##            break
+##    print "fingerprint accepted"
+##    if(Img2Tz(0x02)==0):
+##        print "img to text complete"
+##
+##    if Match()==0:
+##        print 'finger matching'
+##    else:
+##        print 'finger not matched'
 
     
 
