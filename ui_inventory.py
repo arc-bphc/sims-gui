@@ -97,7 +97,10 @@ class Ui_inventoryWindow(object):
         self.cartButton.setObjectName(_fromUtf8("cartButton"))
         self.gridLayout.addWidget(self.cartButton, 10, 0, 1, 2)
         self.qtySpinBox = QtGui.QSpinBox(self.centralwidget)
-        self.qtySpinBox.setMinimumSize(QtCore.QSize(0, 45))
+        self.qtySpinBox.setMinimumSize(QtCore.QSize(0, 0))
+        self.qtySpinBox.setStyleSheet(_fromUtf8("QSpinBox::up-button { subcontrol-position: left; width: 40px; height: 35px;}\n"
+"\n"
+"QSpinBox::down-button { subcontrol-position: right; width: 40px; height: 35px;}"))
         self.qtySpinBox.setObjectName(_fromUtf8("qtySpinBox"))
         self.gridLayout.addWidget(self.qtySpinBox, 9, 1, 1, 1)
         self.partID = QtGui.QLabel(self.centralwidget)

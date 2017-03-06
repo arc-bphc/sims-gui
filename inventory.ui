@@ -166,8 +166,13 @@ QWidget {background-color: white}
           <property name="minimumSize">
            <size>
             <width>0</width>
-            <height>45</height>
+            <height>0</height>
            </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QSpinBox::up-button { subcontrol-position: left; width: 40px; height: 35px;}
+
+QSpinBox::down-button { subcontrol-position: right; width: 40px; height: 35px;}</string>
           </property>
          </widget>
         </item>
