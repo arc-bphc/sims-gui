@@ -113,12 +113,12 @@ def createNewPassword(text):
 # def main():
 
 #     #add a new user into the users table
-#     new_user = db('test.db')
+    # new_user = db('test.db')
 #     text = raw_input("enter new pin:	")
 #     password = createNewPassword(text)
-#     with open('cover.jpg', 'rb') as input_file:
-#         image = input_file.read()
-#     new_user.insertTuple('users', [1, "yashdeep","yashdeep97@gmail.com",'9010712068','9665333384','BM036',password['salt'],password['hash'],image])#, ['ID','NAME','EMAIL_ID','PIN','PHONE_CALL','PHONE_WHATSAPP','ROOM_NO'])
+#     # with open('cover.jpg', 'rb') as input_file:
+#     #     image = input_file.read()
+#     new_user.insertTuple('users', [2, "arnav","arnav@gmail.com",'9000712068','9000333384','BM007',password['salt'],password['hash']])#, ['ID','NAME','EMAIL_ID','PIN','PHONE_CALL','PHONE_WHATSAPP','ROOM_NO'])
 #     # print new_user.selectQuery('users',['*'],['ID = 1'])
 #     print "\n"
 
@@ -143,7 +143,7 @@ def createNewPassword(text):
 # #     print "\n"
 
 #     #add item to inventory
-#     new_user.insertTuple('inventory', [1, "arduino",123456789112,1,2,'microcontroller',5])
+#     new_user.insertTuple('inventory', [3, "LED",123456789111,1,2,'Diode',100])
 
 
 # if __name__ == '__main__':
