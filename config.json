@@ -7,10 +7,11 @@
             "sensorPath": "/dev/ttyUSB0"
         },
         "images": {
-            "user-images-path": "images/",
-            "user-images-prefix": "user-",
+            "user-images-path": "images/users/",
+            "user-images-prefix": "user",
             "inventory-images-path": "images/",
-            "inventory-images-prefix": ""
+            "inventory-images-prefix": "",
+            "resource-images-path": "images/resource/"
         }
     }
 }

@@ -104,7 +104,8 @@ class mainWindow(QWidget):
 
         userIcon.setMinimumSize(QSize(0, 40))
         userIcon.setMaximumSize(QSize(50, 50))
-        userIcon.setPixmap(QPixmap('images/user' + str(self.user.userId) + '.jpg'))
+        userIcon.setPixmap(QPixmap(self.userImagePath + self.userImagesPrefix + \
+                                    str(self.user.userId) + '.jpg'))
         userIcon.setScaledContents(True)
         comboBox.setMinimumSize(QSize(200, 40))
         comboBox.setMaximumSize(QSize(300, 16777215))
@@ -142,7 +143,7 @@ class mainWindow(QWidget):
         self.userImagesPrefix = data['Settings']['images']['user-images-prefix']
         self.inventoryImagesPath = data['Settings']['images']['inventory-images-path']
         self.inventoryImagesPrefix = data['Settings']['images']['inventory-images-prefix']
-
+        self.resourceImagesPath = data['Settings']['images']['resource-images-path']
         print 'Loading config from \'config.json\''
 
     def handleComboBox(self, val):
@@ -199,7 +200,8 @@ class mainWindow(QWidget):
         logoutButton.clicked.connect(lambda: self.logoutUser())
 
         welcomeLabel.setText("Welcome, " + self.user.name)
-        profilePic.setPixmap(QPixmap('images/user' + str(self.user.userId) + '.jpg'))
+        profilePic.setPixmap(QPixmap(self.userImagePath + self.userImagesPrefix + \
+                                    str(self.user.userId) + '.jpg'))
 
     def setupResetPin(self):
         Ui_resetPinWindow().setupUi(self.resetPin)
@@ -353,7 +355,8 @@ class mainWindow(QWidget):
         partShelf.setText(str(itemDetails[3]))
         partBox.setText(str(itemDetails[4]))
         partQty.setText(str(itemDetails[6]))
-        partImage.setPixmap(QPixmap('images/'+str(itemDetails[0])+'.png'))
+        partImage.setPixmap(QPixmap(self.inventoryImagesPath+self.inventoryImagesPrefix + \
+                                    str(itemDetails[0])+'.png'))
 
     def execResetPin(self, currentPwd, newPwd):
         resetPinObject = resetPin()
@@ -389,7 +392,8 @@ class mainWindow(QWidget):
         partShelf.setText(str(itemDetails[3]))
         partBox.setText(str(itemDetails[4]))
         partQty.setText(str(itemDetails[6]))
-        partImage.setPixmap(QPixmap('images/'+str(itemDetails[0])+'.png'))
+        partImage.setPixmap(QPixmap(self.inventoryImagesPath+self.inventoryImagesPrefix + \
+                                    str(itemDetails[0])+'.png'))
 
     def launchWindow(self, value):
         self.previousPage = self.currentPage
