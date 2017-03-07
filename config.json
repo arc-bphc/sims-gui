@@ -5,6 +5,13 @@
         "fingerprint": {
             "enabled": false,
             "sensorPath": "/dev/ttyUSB0"
+        },
+        "images": {
+            "user-images-path": "images/users/",
+            "user-images-prefix": "user",
+            "inventory-images-path": "images/inventory/",
+            "inventory-images-prefix": "",
+            "resource-images-path": "images/resource/"
         }
     }
 }
