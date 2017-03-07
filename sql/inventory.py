@@ -44,9 +44,9 @@ class selectFromInventory:
 		item = []
 		item = self.user.selectQuery('inventory',['*'],["ITEM_ID = " + str(itemID)])
 		preQuantity = item[0][6]
-		print preQuantity
+		# print preQuantity
 		postQuantity = preQuantity - quantity
-		#print postQuantity
+		# print postQuantity
 		if postQuantity < 0:
 			return 0
 			#returns 0 if quantity demanded is more than that in inventory.
@@ -61,10 +61,10 @@ class selectFromInventory:
 
 # def main():
 # 	obj = selectFromInventory()
-# 	obj.getCatagories()
-# 	obj.getItems(1)
-# 	obj.getItemInfo(0)
-# 	print obj.addToCart(1,'yashdeep',3,20,'now')
+# 	# obj.getCatagories()
+# 	# obj.getItems(1)
+# 	# obj.getItemInfo(0)
+# 	obj.addToCart(1,'yashdeep',3,20,'now')
 
 
 # if __name__ == '__main__':
