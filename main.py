@@ -213,13 +213,14 @@ class mainWindow(QWidget):
         item = self.requestItem.findChild(QLineEdit, "item")
         price = self.requestItem.findChild(QLineEdit, "price")
         requestItemButton = self.requestItem.findChild(QPushButton, "requestItemButton")
+        buttonBox = self.requestItem.findChild(QDialogButtonBox, "buttonBox")
 
         purchaseRequest = purchaseRequests()
-        requestItemButton.clicked.connect(lambda: (purchaseRequest.addToTable(self.user.userId, \
+        buttonBox.accepted.connect(lambda: (purchaseRequest.addToTable(self.user.userId, \
                                     str(project.text()), str(price.text()), \
                                     str(item.text()), 1000),
                                     self.showMsgBox('Request submitted!')))
-
+        buttonBox.rejected.connect(lambda: self.launchWindow(0))
 
     def setupEditDetails(self):
         Ui_editDetailsWindow().setupUi(self.editDetails)
@@ -395,7 +396,6 @@ class mainWindow(QWidget):
         #have to build a history tree for proper back button
 
     def unlockScreen(self):
-
         button = self.splashScreen.findChild(QPushButton, "pushButton")
         button.setText('Login failed. Try again.'),
 
