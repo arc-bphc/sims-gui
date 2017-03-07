@@ -9,7 +9,7 @@
         "images": {
             "user-images-path": "images/users/",
             "user-images-prefix": "user",
-            "inventory-images-path": "images/",
+            "inventory-images-path": "images/inventory/",
             "inventory-images-prefix": "",
             "resource-images-path": "images/resource/"
         }
