@@ -27,7 +27,7 @@ class selectFromInventory:
 
 	def getItemInfo(self,itemNO):
 		itemInfo = self.itemList[itemNO]
-		self.preQuantity = itemInfo[6]
+		# self.preQuantity = itemInfo[6]
 		# print self.preQuantity
 		return itemInfo
 
@@ -41,8 +41,12 @@ class selectFromInventory:
 		itemAlreadyPresent = []
 		itemAlreadyPresent = self.user.selectQuery('transactions',['*'],['ID = ' + str(userID), 'ITEM_ID = ' + str(itemID)])
 		# print itemAlreadyPresent
-		postQuantity = self.preQuantity - quantity
-		#print postQuantity
+		item = []
+		item = self.user.selectQuery('inventory',['*'],["ITEM_ID = " + str(itemID)])
+		preQuantity = item[0][6]
+		# print preQuantity
+		postQuantity = preQuantity - quantity
+		# print postQuantity
 		if postQuantity < 0:
 			return 0
 			#returns 0 if quantity demanded is more than that in inventory.
@@ -57,10 +61,10 @@ class selectFromInventory:
 
 # def main():
 # 	obj = selectFromInventory()
-# 	obj.getCatagories()
-# 	obj.getItems(1)
-# 	obj.getItemInfo(0)
-# 	print obj.addToCart(1,'yashdeep',3,20,'now')
+# 	# obj.getCatagories()
+# 	# obj.getItems(1)
+# 	# obj.getItemInfo(0)
+# 	obj.addToCart(1,'yashdeep',3,20,'now')
 
 
 # if __name__ == '__main__':

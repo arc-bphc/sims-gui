@@ -8,7 +8,7 @@ connection = sqlite3.connect('test.db')
 
 print "Opened database successfully"
 
-connection.execute('''create table users(
+connection.execute('''create table if not exists users(
     ID INT PRIMARY KEY         NOT NULL,
     NAME            TEXT       NOT NULL,
     EMAIL_ID        TEXT       NOT NULL,
@@ -16,11 +16,10 @@ connection.execute('''create table users(
     PHONE_WHATSAPP  CHAR(10)   NOT NULL,
     ROOM_NO         TEXT       NOT NULL,
     SALT            CHAR(5)    NULL,
-    HASHED_PASSWORD CHAR(64)   NULL,
-    IMAGE           BLOB       NULL
+    HASHED_PASSWORD CHAR(64)   NULL
     );''')
 
-connection.execute('''create table transactions(
+connection.execute('''create table if not exists transactions(
     ID                 INT     NOT NULL,
     NAME               TEXT    NOT NULL,
     ITEM_ID            INT     NOT NULL,
@@ -30,7 +29,7 @@ connection.execute('''create table transactions(
     RETURN_DATETIME    INT     NULL
     );''')
 
-connection.execute('''create table history(
+connection.execute('''create table if not exists history(
     ID INT PRIMARY KEY         NOT NULL,
     NAME               TEXT    NOT NULL,
     ITEM_ID            INT     NOT NULL,
@@ -40,7 +39,7 @@ connection.execute('''create table history(
     RETURN_DATETIME    INT     NOT NULL
     );''')
 
-connection.execute('''create table inventory(
+connection.execute('''create table if not exists inventory(
     ITEM_ID 	INT PRIMARY KEY     NOT NULL,
     NAME                 TEXT       NOT NULL,
     RFID	             CHAR(12)   NOT NULL,
@@ -51,8 +50,8 @@ connection.execute('''create table inventory(
     );''')
 
 
-connection.execute('''create table purchase(
-    ID  INT PRIMARY KEY         NOT NULL,
+connection.execute('''create table if not exists purchase(
+    ID  INT             NOT     NULL,
     PROJECT             TEXT    NOT NULL,
     PRICE               INT     NOT NULL,
     ITEM                TEXT    NOT NULL,
