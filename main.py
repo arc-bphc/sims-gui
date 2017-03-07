@@ -134,9 +134,15 @@ class mainWindow(QWidget):
     def loadConfig(self):
         with open('config.json') as data_file:
             data = json.load(data_file)
+
         self.device = data['Settings']['device']
         self.fprintEnabled = data['Settings']['fingerprint']['enabled']
         self.sensorPath = data['Settings']['fingerprint']['sensorPath']
+        self.userImagePath = data['Settings']['images']['user-images-path']
+        self.userImagesPrefix = data['Settings']['images']['user-images-prefix']
+        self.inventoryImagesPath = data['Settings']['images']['inventory-images-path']
+        self.inventoryImagesPrefix = data['Settings']['images']['inventory-images-prefix']
+
         print 'Loading config from \'config.json\''
 
     def handleComboBox(self, val):
