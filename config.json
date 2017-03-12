@@ -12,6 +12,9 @@
             "inventory-images-path": "images/inventory/",
             "inventory-images-prefix": "",
             "resource-images-path": "images/resource/"
+        },
+        "database": {
+            "path": "sql/test.db"
         }
     }
 }
