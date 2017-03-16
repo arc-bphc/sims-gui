@@ -9,14 +9,15 @@ connection = sqlite3.connect('test.db')
 print "Opened database successfully"
 
 connection.execute('''create table if not exists users(
-    ID INT PRIMARY KEY         NOT NULL,
+    ID              INTEGER PRIMARY KEY         AUTOINCREMENT,
     NAME            TEXT       NOT NULL,
     EMAIL_ID        TEXT       NOT NULL,
     PHONE_CALL      CHAR(10)   NOT NULL,
     PHONE_WHATSAPP  CHAR(10)   NOT NULL,
     ROOM_NO         TEXT       NOT NULL,
     SALT            CHAR(5)    NULL,
-    HASHED_PASSWORD CHAR(64)   NULL
+    HASHED_PASSWORD CHAR(64)   NULL,
+    FINGERPRINT_ID  INT        NULL
     );''')
 
 connection.execute('''create table if not exists transactions(
