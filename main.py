@@ -296,12 +296,14 @@ class mainWindow(QWidget):
         listView.setModel(self.model)
         self.updateViewCart()
 
-        removeCartButton.clicked.connect(
-                                        lambda: (
-                                        self.viewCart.removeFromCart(self.user.userId, int(str(partID.text()))),
-                                        self.updateViewCart()))
+        removeCartButton.clicked.connect(lambda: self.removeFromCartAction(listView, int(str(partID.text()))))
         listView.clicked.connect(self.displayCartItem)
         openInventory.clicked.connect(lambda: self.launchWindow(5))
+
+    def removeFromCartAction(self, listView, partID):
+        if len(listView.selectedIndexes()) != 0:
+            self.viewCart.removeFromCart(self.user.userId, partID)
+            self.updateViewCart()
 
     def logoutUser(self):
         self.windowWidget.close()
