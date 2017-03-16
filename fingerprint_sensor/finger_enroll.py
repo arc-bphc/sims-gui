@@ -17,7 +17,7 @@ def genImg():
 
     command=header+address+genImg_header
     ser.write(bytearray(command))
-    
+
     __,s=read_packet()
 
     result=s[9]
@@ -136,18 +136,18 @@ def read_packet():
 
     return True, s
 
-    
-    
-    
 
-    
-    
+
+
+
+
+
 if __name__=='__main__' :
 
     ret=enroll()
 
     print ''
-    
+
     if (ret==0x00):
         print "registration successful"
 
@@ -169,7 +169,7 @@ if __name__=='__main__' :
     time.sleep(0.1)
 
     s=''
-    
+
     while ser.inWaiting()!=0:
 
         ret,data=read_packet()
@@ -190,13 +190,13 @@ if __name__=='__main__' :
 
     print "data saved to file"
 
-    
-
-    
-
-    
 
 
-    
+
+
+
+
+
+
 
     ser.close()

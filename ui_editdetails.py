@@ -100,13 +100,3 @@ class Ui_editDetailsWindow(object):
         self.label_9.setText(_translate("editDetailsWindow", "Room Number", None))
         self.label_10.setText(_translate("editDetailsWindow", "Edit User Details", None))
 
-
-if __name__ == "__main__":
-    import sys
-    app = QtGui.QApplication(sys.argv)
-    editDetailsWindow = QtGui.QWidget()
-    ui = Ui_editDetailsWindow()
-    ui.setupUi(editDetailsWindow)
-    editDetailsWindow.show()
-    sys.exit(app.exec_())
-
