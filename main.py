@@ -419,7 +419,9 @@ class mainWindow(QWidget):
             auth = 0
 
         if auth == 0:
-            self.user = userDetails()
+            userInfo = user_info()
+            userData = userInfo.get_user_info(1)
+            self.user = userDetails(userData[0],1,True) #CHANGE THIS ASAP!!
             self.createStackedPages()
             self.HomeWidget.setCurrentIndex(1)
 
