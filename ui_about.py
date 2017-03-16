@@ -92,13 +92,3 @@ class Ui_aboutWindow(object):
         self.closeButton.setText(_translate("aboutWindow", "Close", None))
         self.label_2.setText(_translate("aboutWindow", "Smart Inventory Management System", None))
 
-
-if __name__ == "__main__":
-    import sys
-    app = QtGui.QApplication(sys.argv)
-    aboutWindow = QtGui.QWidget()
-    ui = Ui_aboutWindow()
-    ui.setupUi(aboutWindow)
-    aboutWindow.show()
-    sys.exit(app.exec_())
-
