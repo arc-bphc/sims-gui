@@ -22,7 +22,7 @@ from sql.view_cart import view_cart
 from sql.inventory import selectFromInventory
 from sql.purchase import purchaseRequests
 
-#from fingerprint_sensor.finger_download import *
+from fingerprint_sensor.finger_download import *
 
 class userDetails():
     def __init__(self, _name = "ARC-User-X", _userId = 1, _isAdmin = True):

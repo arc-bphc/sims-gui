@@ -3,12 +3,6 @@
 import serial
 import time
 
-
-#modify this if the port is different
-port='/dev/ttyUSB0'
-
-ser=serial.Serial(port,baudrate=57600)
-
 header=[0xef,0x01]
 
 address=[0xff,0xff,0xff,0xff]
