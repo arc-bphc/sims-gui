@@ -412,6 +412,7 @@ class mainWindow(QWidget):
         button.setText('Login failed. Try again.'),
 
         if self.fprintEnabled == True:
+            ser=serial.Serial(self.sensorPath,baudrate=57600)
             get_finger()
             auth = Search()[0]
         else:
