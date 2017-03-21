@@ -19,13 +19,6 @@ QWidget {background-color: rgb(255, 255, 255)}
 </string>
   </property>
   <layout class="QGridLayout" name="gridLayout_3">
-   <item row="2" column="1" alignment="Qt::AlignHCenter">
-    <widget class="QDialogButtonBox" name="buttonBox">
-     <property name="standardButtons">
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
-     </property>
-    </widget>
-   </item>
    <item row="0" column="0">
     <spacer name="horizontalSpacer_3">
      <property name="orientation">
@@ -54,6 +47,32 @@ QWidget {background-color: rgb(255, 255, 255)}
    </item>
    <item row="0" column="1">
     <layout class="QGridLayout" name="gridLayout">
+     <item row="3" column="1">
+      <spacer name="verticalSpacer_3">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item row="5" column="1">
+      <spacer name="verticalSpacer_2">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
      <item row="2" column="1">
       <layout class="QGridLayout" name="gridLayout_2">
        <item row="0" column="3">
@@ -139,40 +158,18 @@ QWidget {background-color: rgb(255, 255, 255)}
        </property>
       </spacer>
      </item>
+     <item row="4" column="1" alignment="Qt::AlignHCenter">
+      <widget class="QDialogButtonBox" name="buttonBox">
+       <property name="standardButtons">
+        <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+       </property>
+      </widget>
+     </item>
     </layout>
-   </item>
-   <item row="3" column="1">
-    <spacer name="verticalSpacer_2">
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>40</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item row="1" column="1">
-    <spacer name="verticalSpacer_3">
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>40</height>
-      </size>
-     </property>
-    </spacer>
    </item>
   </layout>
   <zorder>horizontalSpacer_3</zorder>
   <zorder>horizontalSpacer_4</zorder>
-  <zorder>verticalSpacer_2</zorder>
-  <zorder>buttonBox</zorder>
-  <zorder>verticalSpacer_3</zorder>
  </widget>
  <resources/>
  <connections/>
