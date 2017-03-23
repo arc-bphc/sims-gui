@@ -51,6 +51,8 @@ class Ui_enrolWindow(object):
         self.gridLayout_2 = QtGui.QGridLayout()
         self.gridLayout_2.setObjectName(_fromUtf8("gridLayout_2"))
         self.lineEdit_2 = QtGui.QLineEdit(enrolWindow)
+        self.lineEdit_2.setMaxLength(4)
+        self.lineEdit_2.setEchoMode(QtGui.QLineEdit.Password)
         self.lineEdit_2.setObjectName(_fromUtf8("lineEdit_2"))
         self.gridLayout_2.addWidget(self.lineEdit_2, 7, 1, 1, 1)
         self.lineEdit = QtGui.QLineEdit(enrolWindow)
