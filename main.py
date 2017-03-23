@@ -15,6 +15,8 @@ from ui_editdetails import Ui_editDetailsWindow
 from ui_inventory import Ui_inventoryWindow
 from ui_cart import Ui_cartWindow
 from ui_about import Ui_aboutWindow
+from ui_adminpanel import Ui_adminWindow
+from ui_enrol import Ui_enrolWindow
 
 from sql.user_details import user_info
 from sql.reset_pin import resetPin
@@ -52,6 +54,8 @@ class mainWindow(QWidget):
         self.cart = QWidget()
         self.finger = QDialog()
         self.about = QWidget()
+        self.admin = QWidget()
+        self.enrol = QWidget()
 
         self.currentPage = 0
         self.previousPage = 0
@@ -149,10 +153,11 @@ class mainWindow(QWidget):
     def handleComboBox(self, val):
         if val == 2:
             print 'This functionality is not added yet!'
-            self.windowWidget.close()
+            self.StackWidget.setCurrentIndex(7)
         if val == 1:
             self.HomeWidget.setCurrentIndex(2)
-#            self.user = userDetails() #for resetting things
+        if val == 0:
+            self.HomeWidget.setCurrentIndex(0)
 
     def createStackedPages(self):
         self.setupWindows()
@@ -163,6 +168,8 @@ class mainWindow(QWidget):
         self.StackWidget.addWidget(self.editDetails)
         self.StackWidget.addWidget(self.inventory)
         self.StackWidget.addWidget(self.cart)
+        self.StackWidget.addWidget(self.admin)
+        self.StackWidget.addWidget(self.enrol)
 
     def setupSplashScreen(self):
         Ui_splashScreen().setupUi(self.splashScreen)
@@ -300,6 +307,12 @@ class mainWindow(QWidget):
         listView.clicked.connect(self.displayCartItem)
         openInventory.clicked.connect(lambda: self.launchWindow(5))
 
+    def setupAdmin(self):
+        Ui_adminWindow().setupUi(self.admin)
+
+    def setupEnrol(self):
+        Ui_enrolWindow().setupUi(self.enrol)
+
     def removeFromCartAction(self, listView, partID):
         if len(listView.selectedIndexes()) != 0:
             self.viewCart.removeFromCart(self.user.userId, partID)
@@ -434,6 +447,8 @@ class mainWindow(QWidget):
         self.setupEditDetails()
         self.setupInventory()
         self.setupCart()
+        self.setupAdmin()
+        self.setupEnrol()
 
     def showMsgBox(self, text):
         msg = QMessageBox()
