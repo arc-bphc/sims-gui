@@ -28,9 +28,18 @@ from fingerprint_sensor.finger_download import *
 
 class userDetails():
     def __init__(self, _name = "ARC-User-X", _userId = 1, _isAdmin = True):
-        self.name = _name
-        self.userId = _userId
+        self._name = _name
+        self._userId = _userId
         self.isAdmin = _isAdmin
+
+    def getName(self):
+        return self._name
+
+    def getUserId(self):
+        return self._userId
+
+    def isAdmin():
+        return isAdmin
 
 class mainWindow(QWidget):
     def __init__(self, widget):
@@ -109,12 +118,12 @@ class mainWindow(QWidget):
         userIcon.setMinimumSize(QSize(0, 40))
         userIcon.setMaximumSize(QSize(50, 50))
         userIcon.setPixmap(QPixmap(self.userImagePath + self.userImagesPrefix + \
-                                    str(self.user.userId) + '.jpg'))
+                                    str(self.user.getUserId()) + '.jpg'))
         userIcon.setScaledContents(True)
         comboBox.setMinimumSize(QSize(200, 40))
         comboBox.setMaximumSize(QSize(300, 16777215))
 
-        comboBox.addItem(self.user.name)
+        comboBox.addItem(self.user.getName())
         comboBox.addItem('About')
         if self.user.isAdmin == True:
             comboBox.addItem("Admin Panel")
@@ -151,13 +160,12 @@ class mainWindow(QWidget):
         print 'Loading config from \'config.json\''
 
     def handleComboBox(self, val):
-        if val == 2:
-            print 'This functionality is not added yet!'
-            self.StackWidget.setCurrentIndex(7)
-        if val == 1:
-            self.HomeWidget.setCurrentIndex(2)
         if val == 0:
             self.HomeWidget.setCurrentIndex(0)
+        if val == 1:
+            self.HomeWidget.setCurrentIndex(2)
+        if val == 2:
+            self.StackWidget.setCurrentIndex(7)
 
     def createStackedPages(self):
         self.setupWindows()
@@ -206,9 +214,9 @@ class mainWindow(QWidget):
 
         logoutButton.clicked.connect(lambda: self.logoutUser())
 
-        welcomeLabel.setText("Welcome, " + self.user.name)
+        welcomeLabel.setText("Welcome, " + self.user.getName())
         profilePic.setPixmap(QPixmap(self.userImagePath + self.userImagesPrefix + \
-                                    str(self.user.userId) + '.jpg'))
+                                    str(self.user.getUserId()) + '.jpg'))
 
     def setupResetPin(self):
         Ui_resetPinWindow().setupUi(self.resetPin)
@@ -231,7 +239,7 @@ class mainWindow(QWidget):
         buttonBox = self.requestItem.findChild(QDialogButtonBox, "buttonBox")
 
         purchaseRequest = purchaseRequests()
-        buttonBox.accepted.connect(lambda: (purchaseRequest.addToTable(self.user.userId, \
+        buttonBox.accepted.connect(lambda: (purchaseRequest.addToTable(self.user.getUserId(), \
                                     str(project.text()), str(price.text()), \
                                     str(item.text()), 1000),
                                     self.showMsgBox('Request submitted!')))
@@ -242,12 +250,12 @@ class mainWindow(QWidget):
 
         buttonBox = self.editDetails.findChild(QDialogButtonBox, "buttonBox")
         buttonBox.rejected.connect(lambda: self.launchWindow(0))
-        buttonBox.accepted.connect(lambda: self.saveUserDetails(self.user.userId))
+        buttonBox.accepted.connect(lambda: self.saveUserDetails(self.user.getUserId()))
         buttonBox.accepted.connect(lambda: self.showMsgBox('Database successfully updated!'))
         buttonBox.accepted.connect(lambda: self.launchWindow(0))
 
         userInfo = user_info()
-        userData = userInfo.get_user_info(self.user.userId)
+        userData = userInfo.get_user_info(self.user.getUserId())
 
         name = self.editDetails.findChild(QLineEdit, "name")
         phoneCall = self.editDetails.findChild(QLineEdit, "phoneCall")
@@ -310,12 +318,26 @@ class mainWindow(QWidget):
     def setupAdmin(self):
         Ui_adminWindow().setupUi(self.admin)
 
+        enrolUserButton = self.admin.findChild(QPushButton, "enrolUserButton")
+
+        enrolUserButton.clicked.connect(lambda: self.launchWindow(8))
+
     def setupEnrol(self):
         Ui_enrolWindow().setupUi(self.enrol)
 
+        buttonBox = self.enrol.findChild(QDialogButtonBox, "buttonBox")
+
+        if self.user.isAdmin == True:
+            buttonBox.rejected.connect(lambda: self.launchWindow(0))
+            buttonBox.accepted.connect(lambda: self.showMsgBox('Database successfully updated!'))
+            buttonBox.accepted.connect(lambda: self.launchWindow(0))
+        else:
+            buttonBox.rejected.connect(lambda: self.launchWindow(0))
+            buttonBox.accepted.connect(lambda: self.showMsgBox('You are not authorized to do this!'))
+
     def removeFromCartAction(self, listView, partID):
         if len(listView.selectedIndexes()) != 0:
-            self.viewCart.removeFromCart(self.user.userId, partID)
+            self.viewCart.removeFromCart(self.user.getUserId(), partID)
             self.updateViewCart()
 
     def logoutUser(self):
@@ -342,7 +364,7 @@ class mainWindow(QWidget):
     def addToCartAction(self, itemView, qtySpinBox, partQty):
         itemName = '\'' + itemView.selectedIndexes()[0].data().toString() + '\''
         itemId = self.inventoryDb.getItemId(itemName)
-        self.inventoryDb.addToCart(self.user.userId, self.user.name, itemId, qtySpinBox.value(), '123')
+        self.inventoryDb.addToCart(self.user.getUserId(), self.user.getName(), itemId, qtySpinBox.value(), '123')
         qty = int(str(partQty.text()))-qtySpinBox.value()
         if qty < 0:
             qty = 0
@@ -375,7 +397,7 @@ class mainWindow(QWidget):
 
     def execResetPin(self, currentPwd, newPwd):
         resetPinObject = resetPin()
-        result = resetPinObject.compareEnteredPin(self.user.userId, currentPwd, newPwd)
+        result = resetPinObject.compareEnteredPin(self.user.getUserId(), currentPwd, newPwd)
         if result == 0:
             self.showMsgBox('Wrong PIN!')
         else:
@@ -384,7 +406,7 @@ class mainWindow(QWidget):
 
     def updateViewCart(self):
         self.model.clear()
-        itemList = self.viewCart.getItemList(self.user.userId)
+        itemList = self.viewCart.getItemList(self.user.getUserId())
         for item in itemList:
             self.model.appendRow(QStandardItem(item))
 
@@ -400,7 +422,7 @@ class mainWindow(QWidget):
         itemName = '\'' + itemId.data().toString() + '\''
         itemId = self.inventoryDb.getItemId(itemName)
 
-        itemDetails = self.viewCart.getItemInfo(self.user.userId, itemId)
+        itemDetails = self.viewCart.getItemInfo(self.user.getUserId(), itemId)
         partName.setText(itemDetails[1])
         partCategory.setText(itemDetails[5])
         partID.setText(str(itemDetails[0]))
