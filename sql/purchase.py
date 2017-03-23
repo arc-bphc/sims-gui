@@ -3,8 +3,8 @@ from insert_data_users import *
 
 class purchaseRequests:
 
-	def __init__(self):
-		self.user = db('sql/test.db')
+	def __init__(self,dbname):
+		self.user = db(dbname)
 
 	def addToTable(self, userId, project, price, item, date):
 		self.user.insertTuple('purchase', [userId,project,price,item,date])
@@ -13,7 +13,7 @@ class purchaseRequests:
 
 
 # def main():
-# 	obj = purchaseRequests()
+# 	obj = purchaseRequests('test.db')
 # 	obj.addToTable(1,'SIMS',3000,'Raspi',123)
 
 

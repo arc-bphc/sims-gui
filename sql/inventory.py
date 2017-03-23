@@ -5,8 +5,8 @@ items = []
 itemInfo = []
 
 class selectFromInventory:
-	def __init__(self):
-		self.user = db('sql/test.db')
+	def __init__(self,dbname):
+		self.user = db(dbname)
 
 	def getCatagories(self):
 		catagoryList = self.user.selectDistinctQuery('inventory',['CATAGORY'])
@@ -60,7 +60,7 @@ class selectFromInventory:
 			#returns 1 if demanded quantity is valid and changes are made to the database.
 
 # def main():
-# 	obj = selectFromInventory()
+# 	obj = selectFromInventory('test.db')
 # 	# obj.getCatagories()
 # 	# obj.getItems(1)
 # 	# obj.getItemInfo(0)

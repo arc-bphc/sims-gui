@@ -3,8 +3,8 @@ from Crypto.Hash import SHA256
 import Crypto.Random
 
 class enrollUser:
-	def __init__(self):
-		self.user = db('sql/test.db')
+	def __init__(self,dbname):
+		self.user = db(dbname)
 
 	def enrollNewUser(self,name,emailID,phoneCall,phoneWhatsapp,roomNo,pin,fingerID):
 		password = self.createPassword(pin)
@@ -19,7 +19,7 @@ class enrollUser:
 
 
 def main():
-	obj = enrollUser()
+	obj = enrollUser('test.db')
 	obj.enrollNewUser('arnav','habibi@alahuakbar.com','9110000000','9665333384','s123','1234',123)
 
 if __name__ == '__main__':
