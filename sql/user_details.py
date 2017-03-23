@@ -2,8 +2,8 @@ from insert_data_users import *
 
 class user_info:
 
-	def __init__(self):
-		self.user = db('sql/test.db')
+	def __init__(self,dbname):
+		self.user = db(dbname)
 
 	def get_user_info(self, id):
 		user_list = self.user.selectQuery('users',['*'],['ID = ' + str(id)])
@@ -21,7 +21,7 @@ class user_info:
 
 
 def main():
-	obj = user_info()
+	obj = user_info('test.db')
 	user_info_list = obj.get_user_info(1)
 	print user_info_list
 	obj.update_user_info(["yashdeep thorat",'9010712068','9665333384','BM036',"yashdeep97@gmail.com"],1)

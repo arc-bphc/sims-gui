@@ -15,8 +15,8 @@ quantityList = []
 
 class view_cart:
 
-	def __init__(self):
-		self.user = db('sql/test.db')
+	def __init__(self,dbname):
+		self.user = db(dbname)
 
 	def getItemList(self, userId): #this has a very big problem! It copies the list repeatedly
 		item_list = self.user.selectQuery('transactions',['*'],['ID = ' + str(userId)])
@@ -55,7 +55,7 @@ class view_cart:
 
 
 def main():
-	obj = view_cart()
+	obj = view_cart('test.db')
 	# obj.getItemList(1)
 	# print '\n'
 	# print obj.getItemInfo(1,1)
