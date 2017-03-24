@@ -23,6 +23,7 @@ from sql.reset_pin import resetPin
 from sql.view_cart import view_cart
 from sql.inventory import selectFromInventory
 from sql.purchase import purchaseRequests
+from sql.enrollUser import enrollUser
 
 from fingerprint_sensor.finger_download import *
 
@@ -157,6 +158,7 @@ class mainWindow(QWidget):
         self.inventoryImagesPath = data['Settings']['images']['inventory-images-path']
         self.inventoryImagesPrefix = data['Settings']['images']['inventory-images-prefix']
         self.resourceImagesPath = data['Settings']['images']['resource-images-path']
+        self.databasePath = data['Settings']['database']['path']
         print 'Loading config from \'config.json\''
 
     def handleComboBox(self, val):
@@ -238,7 +240,7 @@ class mainWindow(QWidget):
         requestItemButton = self.requestItem.findChild(QPushButton, "requestItemButton")
         buttonBox = self.requestItem.findChild(QDialogButtonBox, "buttonBox")
 
-        purchaseRequest = purchaseRequests()
+        purchaseRequest = purchaseRequests(self.databasePath)
         buttonBox.accepted.connect(lambda: (purchaseRequest.addToTable(self.user.getUserId(), \
                                     str(project.text()), str(price.text()), \
                                     str(item.text()), 1000),
@@ -254,7 +256,7 @@ class mainWindow(QWidget):
         buttonBox.accepted.connect(lambda: self.showMsgBox('Database successfully updated!'))
         buttonBox.accepted.connect(lambda: self.launchWindow(0))
 
-        userInfo = user_info()
+        userInfo = user_info(self.databasePath)
         userData = userInfo.get_user_info(self.user.getUserId())
 
         name = self.editDetails.findChild(QLineEdit, "name")
@@ -272,7 +274,7 @@ class mainWindow(QWidget):
     def setupInventory(self):
         Ui_inventoryWindow().setupUi(self.inventory)
 
-        self.inventoryDb = selectFromInventory()
+        self.inventoryDb = selectFromInventory(self.databasePath)
         self.categoryList = self.inventoryDb.getCatagories()
         self.categoryModel = QStandardItemModel()
         self.itemListModel = QStandardItemModel()
@@ -298,7 +300,7 @@ class mainWindow(QWidget):
     def setupCart(self):
         Ui_cartWindow().setupUi(self.cart)
 
-        self.viewCart = view_cart()
+        self.viewCart = view_cart(self.databasePath)
         self.model = QStandardItemModel()
 
         listView = self.cart.findChild(QListView, "listView")
@@ -325,11 +327,25 @@ class mainWindow(QWidget):
     def setupEnrol(self):
         Ui_enrolWindow().setupUi(self.enrol)
 
+        enrollUserObject = enrollUser(self.databasePath)
+
         buttonBox = self.enrol.findChild(QDialogButtonBox, "buttonBox")
+        name = self.enrol.findChild(QLineEdit, "name")
+        userID = self.enrol.findChild(QLineEdit, "userID")
+        email = self.enrol.findChild(QLineEdit, "email")
+        phoneCall = self.enrol.findChild(QLineEdit, "phoneCall")
+        phoneWhatsApp = self.enrol.findChild(QLineEdit, "phoneWhatsApp")
+        roomNumber = self.enrol.findChild(QLineEdit, "roomNumber")
+        pin = self.enrol.findChild(QLineEdit, "pin")
+
 
         if self.user.isAdmin == True:
             buttonBox.rejected.connect(lambda: self.launchWindow(0))
-            buttonBox.accepted.connect(lambda: self.showMsgBox('Database successfully updated!'))
+            buttonBox.accepted.connect(lambda: enrollUserObject.enrollNewUser(str(name.text()), \
+                                                            str(email.text()), str(phoneCall.text()), \
+                                                            str(phoneWhatsApp.text()), str(roomNumber.text()), \
+                                                            str(pin.text()), str(25)))
+#            buttonBox.accepted.connect(lambda: self.showMsgBox('Database successfully updated!'))
             buttonBox.accepted.connect(lambda: self.launchWindow(0))
         else:
             buttonBox.rejected.connect(lambda: self.launchWindow(0))
@@ -356,7 +372,7 @@ class mainWindow(QWidget):
         roomNumber = self.editDetails.findChild(QLineEdit, "roomNumber")
         email = self.editDetails.findChild(QLineEdit, "email")
 
-        userInfo = user_info()
+        userInfo = user_info(self.databasePath)
         userInfo.update_user_info([str(name.text()), str(phoneCall.text()), \
                                 str(phoneWhatsApp.text()), str(roomNumber.text()), \
                                 str(email.text())], userId)
@@ -396,7 +412,7 @@ class mainWindow(QWidget):
                                     str(itemDetails[0])+'.png'))
 
     def execResetPin(self, currentPwd, newPwd):
-        resetPinObject = resetPin()
+        resetPinObject = resetPin(self.databasePath)
         result = resetPinObject.compareEnteredPin(self.user.getUserId(), currentPwd, newPwd)
         if result == 0:
             self.showMsgBox('Wrong PIN!')
@@ -454,7 +470,7 @@ class mainWindow(QWidget):
             auth = 0
 
         if auth == 0:
-            userInfo = user_info()
+            userInfo = user_info(self.databasePath)
             userData = userInfo.get_user_info(1)
             self.user = userDetails(userData[0],1,True) #CHANGE THIS ASAP!!
             self.createStackedPages()
