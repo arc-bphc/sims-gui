@@ -90,6 +90,10 @@ class Ui_editDetailsWindow(object):
 
         self.retranslateUi(editDetailsWindow)
         QtCore.QMetaObject.connectSlotsByName(editDetailsWindow)
+        editDetailsWindow.setTabOrder(self.name, self.email)
+        editDetailsWindow.setTabOrder(self.email, self.phoneCall)
+        editDetailsWindow.setTabOrder(self.phoneCall, self.phoneWhatsApp)
+        editDetailsWindow.setTabOrder(self.phoneWhatsApp, self.roomNumber)
 
     def retranslateUi(self, editDetailsWindow):
         editDetailsWindow.setWindowTitle(_translate("editDetailsWindow", "Form", None))

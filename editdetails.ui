@@ -171,6 +171,13 @@ QWidget {background-color: white}
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>name</tabstop>
+  <tabstop>email</tabstop>
+  <tabstop>phoneCall</tabstop>
+  <tabstop>phoneWhatsApp</tabstop>
+  <tabstop>roomNumber</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

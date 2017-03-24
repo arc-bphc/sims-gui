@@ -159,6 +159,8 @@ class Ui_cartWindow(object):
 
         self.retranslateUi(cartWindow)
         QtCore.QMetaObject.connectSlotsByName(cartWindow)
+        cartWindow.setTabOrder(self.listView, self.removeCartButton)
+        cartWindow.setTabOrder(self.removeCartButton, self.openInventory)
 
     def retranslateUi(self, cartWindow):
         cartWindow.setWindowTitle(_translate("cartWindow", "Form", None))

@@ -100,6 +100,11 @@ class Ui_userWindow(object):
 
         self.retranslateUi(userWindow)
         QtCore.QMetaObject.connectSlotsByName(userWindow)
+        userWindow.setTabOrder(self.inventoryButton, self.cartButton)
+        userWindow.setTabOrder(self.cartButton, self.requestButton)
+        userWindow.setTabOrder(self.requestButton, self.editDetailsButton)
+        userWindow.setTabOrder(self.editDetailsButton, self.resetPinButton)
+        userWindow.setTabOrder(self.resetPinButton, self.logoutButton)
 
     def retranslateUi(self, userWindow):
         userWindow.setWindowTitle(_translate("userWindow", "Dialog", None))

@@ -456,7 +456,6 @@ class mainWindow(QWidget):
 
     def goBack(self):
         self.StackWidget.setCurrentIndex(0)
-        #have to build a history tree for proper back button
 
     def unlockScreen(self):
         button = self.splashScreen.findChild(QPushButton, "pushButton")

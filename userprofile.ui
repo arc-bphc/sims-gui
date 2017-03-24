@@ -257,6 +257,14 @@ QWidget {background-color: rgb(255, 255, 255)}
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>inventoryButton</tabstop>
+  <tabstop>cartButton</tabstop>
+  <tabstop>requestButton</tabstop>
+  <tabstop>editDetailsButton</tabstop>
+  <tabstop>resetPinButton</tabstop>
+  <tabstop>logoutButton</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

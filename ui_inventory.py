@@ -176,6 +176,10 @@ class Ui_inventoryWindow(object):
 
         self.retranslateUi(inventoryWindow)
         QtCore.QMetaObject.connectSlotsByName(inventoryWindow)
+        inventoryWindow.setTabOrder(self.categoryView, self.itemListView)
+        inventoryWindow.setTabOrder(self.itemListView, self.addToCartButton)
+        inventoryWindow.setTabOrder(self.addToCartButton, self.cartButton)
+        inventoryWindow.setTabOrder(self.cartButton, self.qtySpinBox)
 
     def retranslateUi(self, inventoryWindow):
         inventoryWindow.setWindowTitle(_translate("inventoryWindow", "MainWindow", None))
