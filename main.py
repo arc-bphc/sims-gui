@@ -507,7 +507,7 @@ def main():
     if prog.getDevice() == 'desktop':
         widget.show()
     else:
-        widget.showFullScreen()
+        widget.showMaximized()
     sys.exit(app.exec_())
 
 if __name__ == '__main__':
