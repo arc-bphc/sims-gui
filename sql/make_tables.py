@@ -17,7 +17,8 @@ connection.execute('''create table if not exists users(
     ROOM_NO         TEXT       NOT NULL,
     SALT            CHAR(5)    NULL,
     HASHED_PASSWORD CHAR(64)   NULL,
-    FINGERPRINT_ID  INT        NULL
+    FINGERPRINT_ID  INT        NULL,
+    ISADMIN         INT        NOT NULL
     );''')
 
 connection.execute('''create table if not exists transactions(
