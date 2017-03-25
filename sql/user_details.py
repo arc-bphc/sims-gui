@@ -5,6 +5,10 @@ class user_info:
 	def __init__(self,dbname):
 		self.user = db(dbname)
 
+	def identify_user(self,fingerprintID):
+		userID = self.user.selectQuery('users',['ID'],['FINGERPRINT_ID = ' + str(fingerprintID)])
+		return userID
+
 	def get_user_info(self, id):
 		user_list = self.user.selectQuery('users',['*'],['ID = ' + str(id)])
 		user_info_list = [user_list[0][1],user_list[0][3],user_list[0][4],user_list[0][5],user_list[0][2],user_list[0][9]]
