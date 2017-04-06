@@ -378,13 +378,14 @@ class mainWindow(QWidget):
                                 str(email.text())], userId)
 
     def addToCartAction(self, itemView, qtySpinBox, partQty):
-        itemName = '\'' + itemView.selectedIndexes()[0].data().toString() + '\''
-        itemId = self.inventoryDb.getItemId(itemName)
-        self.inventoryDb.addToCart(self.user.getUserId(), self.user.getName(), itemId, qtySpinBox.value(), '123')
-        qty = int(str(partQty.text()))-qtySpinBox.value()
-        if qty < 0:
-            qty = 0
-        partQty.setText(str(qty))
+        if len(itemView.selectedIndexes()) != 0:
+            itemName = '\'' + itemView.selectedIndexes()[0].data().toString() + '\''
+            itemId = self.inventoryDb.getItemId(itemName)
+            self.inventoryDb.addToCart(self.user.getUserId(), self.user.getName(), itemId, qtySpinBox.value(), '123')
+            qty = int(str(partQty.text()))-qtySpinBox.value()
+            if qty < 0:
+                qty = 0
+            partQty.setText(str(qty))
 
     def updateInventoryItemList(self, id):
         self.itemListModel.clear()
