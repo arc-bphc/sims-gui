@@ -51,7 +51,7 @@ class mainWindow(QWidget):
         self.windowWidget = widget
         self.windowWidget.setStyleSheet("QPushButton {padding: 10px}\nQWidget {background-color: white}\n* {font: 16pt}\n")
         self.windowWidget.setWindowTitle("Smart Inventory Management System")
-        self.windowWidget.resize(1280, 800)
+#        self.windowWidget.resize(1280, 800)
 
         self.splashScreen = QMainWindow()
         self.userProfile = QDialog()
@@ -163,7 +163,7 @@ class mainWindow(QWidget):
 
     def handleComboBox(self, val):
         if val == 0:
-            self.HomeWidget.setCurrentIndex(0)
+            self.StackWidget.setCurrentIndex(0)
         if val == 1:
             self.HomeWidget.setCurrentIndex(2)
         if val == 2:
