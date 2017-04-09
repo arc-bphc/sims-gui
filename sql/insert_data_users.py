@@ -144,5 +144,5 @@ def main():
 # #     print "\n"
 
 #     #add item to inventory
-#     new_user.insertTuple('inventory', [2, "Raspi",123456789101,1,1,'Microcontroller',10])
+#     new_user.insertTuple('inventory', ["Raspi",123456789101,1,1,'Microcontroller',10])
 '''
