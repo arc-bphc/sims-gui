@@ -20,7 +20,7 @@ class enrollUser:
 
 def main():
 	obj = enrollUser('test.db')
-	obj.enrollNewUser('arnav','habibi@alahuakbar.com','9110000000','9665333384','s123','1234',123,1)
+	obj.enrollNewUser('yashdeep','yashdeep97@gmail.com','9010712068','9665333384','bm036','1234',123,1)
 
 if __name__ == '__main__':
     main()
