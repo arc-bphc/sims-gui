@@ -437,7 +437,7 @@ class mainWindow(QWidget):
         partQty = self.cart.findChild(QLabel, "partQty")
         partImage = self.cart.findChild(QLabel, "partImage")
 
-        itemName = '\'' + itemId.data().toString() + '\''
+        itemName = '\'' + itemId.data() + '\''
         itemId = self.inventoryDb.getItemId(itemName)
 
         itemDetails = self.viewCart.getItemInfo(self.user.getUserId(), itemId)
