@@ -110,7 +110,8 @@ def createNewPassword(text):
     return password
 
 #-------------------------------------------------------------------------------------------
-# def main():
+'''
+def main():
 
 #     #add a new user into the users table
     # new_user = db('test.db')
@@ -143,8 +144,5 @@ def createNewPassword(text):
 # #     print "\n"
 
 #     #add item to inventory
-#     new_user.insertTuple('inventory', [3, "LED",123456789111,1,2,'Diode',100])
-
-
-# if __name__ == '__main__':
-#     main()
+#     new_user.insertTuple('inventory', [2, "Raspi",123456789101,1,1,'Microcontroller',10])
+'''

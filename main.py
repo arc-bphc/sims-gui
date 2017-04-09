@@ -3,8 +3,9 @@
 import sys
 import json
 
-from PyQt4.QtGui import *
-from PyQt4.QtCore import *
+from PyQt5.QtGui import *
+from PyQt5.QtCore import *
+from PyQt5.QtWidgets import *
 
 from ui_mainwindow import Ui_splashScreen
 from ui_userprofile import Ui_userWindow

@@ -2,109 +2,95 @@
 
 # Form implementation generated from reading ui file 'enrol.ui'
 #
-# Created by: PyQt4 UI code generator 4.11.4
+# Created by: PyQt5 UI code generator 5.7
 #
 # WARNING! All changes made in this file will be lost!
 
-from PyQt4 import QtCore, QtGui
-
-try:
-    _fromUtf8 = QtCore.QString.fromUtf8
-except AttributeError:
-    def _fromUtf8(s):
-        return s
-
-try:
-    _encoding = QtGui.QApplication.UnicodeUTF8
-    def _translate(context, text, disambig):
-        return QtGui.QApplication.translate(context, text, disambig, _encoding)
-except AttributeError:
-    def _translate(context, text, disambig):
-        return QtGui.QApplication.translate(context, text, disambig)
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 class Ui_enrolWindow(object):
     def setupUi(self, enrolWindow):
-        enrolWindow.setObjectName(_fromUtf8("enrolWindow"))
+        enrolWindow.setObjectName("enrolWindow")
         enrolWindow.resize(1015, 595)
-        enrolWindow.setStyleSheet(_fromUtf8("QPushButton {padding: 10px}\n"
+        enrolWindow.setStyleSheet("QPushButton {padding: 10px}\n"
 "QWidget {background-color: white}\n"
-""))
-        self.gridLayout_3 = QtGui.QGridLayout(enrolWindow)
-        self.gridLayout_3.setObjectName(_fromUtf8("gridLayout_3"))
-        spacerItem = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+"")
+        self.gridLayout_3 = QtWidgets.QGridLayout(enrolWindow)
+        self.gridLayout_3.setObjectName("gridLayout_3")
+        spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout_3.addItem(spacerItem, 0, 0, 1, 1)
-        self.gridLayout = QtGui.QGridLayout()
-        self.gridLayout.setObjectName(_fromUtf8("gridLayout"))
-        self.label_5 = QtGui.QLabel(enrolWindow)
-        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
+        self.gridLayout = QtWidgets.QGridLayout()
+        self.gridLayout.setObjectName("gridLayout")
+        self.label_5 = QtWidgets.QLabel(enrolWindow)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.label_5.sizePolicy().hasHeightForWidth())
         self.label_5.setSizePolicy(sizePolicy)
-        self.label_5.setStyleSheet(_fromUtf8("font: 24pt \"Noto Sans\";"))
-        self.label_5.setObjectName(_fromUtf8("label_5"))
+        self.label_5.setStyleSheet("font: 24pt \"Noto Sans\";")
+        self.label_5.setObjectName("label_5")
         self.gridLayout.addWidget(self.label_5, 0, 0, 1, 1, QtCore.Qt.AlignHCenter)
-        self.buttonBox = QtGui.QDialogButtonBox(enrolWindow)
-        self.buttonBox.setStandardButtons(QtGui.QDialogButtonBox.Cancel|QtGui.QDialogButtonBox.Ok)
-        self.buttonBox.setObjectName(_fromUtf8("buttonBox"))
+        self.buttonBox = QtWidgets.QDialogButtonBox(enrolWindow)
+        self.buttonBox.setStandardButtons(QtWidgets.QDialogButtonBox.Cancel|QtWidgets.QDialogButtonBox.Ok)
+        self.buttonBox.setObjectName("buttonBox")
         self.gridLayout.addWidget(self.buttonBox, 4, 0, 1, 1, QtCore.Qt.AlignHCenter)
-        self.gridLayout_2 = QtGui.QGridLayout()
-        self.gridLayout_2.setObjectName(_fromUtf8("gridLayout_2"))
-        self.roomNumber = QtGui.QLineEdit(enrolWindow)
-        self.roomNumber.setObjectName(_fromUtf8("roomNumber"))
+        self.gridLayout_2 = QtWidgets.QGridLayout()
+        self.gridLayout_2.setObjectName("gridLayout_2")
+        self.roomNumber = QtWidgets.QLineEdit(enrolWindow)
+        self.roomNumber.setObjectName("roomNumber")
         self.gridLayout_2.addWidget(self.roomNumber, 4, 1, 1, 1)
-        self.phoneCall = QtGui.QLineEdit(enrolWindow)
-        self.phoneCall.setObjectName(_fromUtf8("phoneCall"))
+        self.phoneCall = QtWidgets.QLineEdit(enrolWindow)
+        self.phoneCall.setObjectName("phoneCall")
         self.gridLayout_2.addWidget(self.phoneCall, 2, 1, 1, 1)
-        self.name = QtGui.QLineEdit(enrolWindow)
+        self.name = QtWidgets.QLineEdit(enrolWindow)
         self.name.setEnabled(True)
-        self.name.setObjectName(_fromUtf8("name"))
+        self.name.setObjectName("name")
         self.gridLayout_2.addWidget(self.name, 0, 1, 1, 1)
-        self.label_7 = QtGui.QLabel(enrolWindow)
-        self.label_7.setObjectName(_fromUtf8("label_7"))
+        self.label_7 = QtWidgets.QLabel(enrolWindow)
+        self.label_7.setObjectName("label_7")
         self.gridLayout_2.addWidget(self.label_7, 2, 0, 1, 1)
-        self.line = QtGui.QFrame(enrolWindow)
+        self.line = QtWidgets.QFrame(enrolWindow)
         self.line.setMinimumSize(QtCore.QSize(0, 10))
         self.line.setLineWidth(1)
-        self.line.setFrameShape(QtGui.QFrame.HLine)
-        self.line.setFrameShadow(QtGui.QFrame.Sunken)
-        self.line.setObjectName(_fromUtf8("line"))
+        self.line.setFrameShape(QtWidgets.QFrame.HLine)
+        self.line.setFrameShadow(QtWidgets.QFrame.Sunken)
+        self.line.setObjectName("line")
         self.gridLayout_2.addWidget(self.line, 5, 0, 1, 2)
-        self.label_9 = QtGui.QLabel(enrolWindow)
-        self.label_9.setObjectName(_fromUtf8("label_9"))
+        self.label_9 = QtWidgets.QLabel(enrolWindow)
+        self.label_9.setObjectName("label_9")
         self.gridLayout_2.addWidget(self.label_9, 0, 0, 1, 1)
-        self.phoneWhatsApp = QtGui.QLineEdit(enrolWindow)
-        self.phoneWhatsApp.setObjectName(_fromUtf8("phoneWhatsApp"))
+        self.phoneWhatsApp = QtWidgets.QLineEdit(enrolWindow)
+        self.phoneWhatsApp.setObjectName("phoneWhatsApp")
         self.gridLayout_2.addWidget(self.phoneWhatsApp, 3, 1, 1, 1)
-        self.pin = QtGui.QLineEdit(enrolWindow)
+        self.pin = QtWidgets.QLineEdit(enrolWindow)
         self.pin.setMaxLength(4)
-        self.pin.setEchoMode(QtGui.QLineEdit.Password)
-        self.pin.setObjectName(_fromUtf8("pin"))
+        self.pin.setEchoMode(QtWidgets.QLineEdit.Password)
+        self.pin.setObjectName("pin")
         self.gridLayout_2.addWidget(self.pin, 6, 1, 1, 1)
-        self.email = QtGui.QLineEdit(enrolWindow)
-        self.email.setObjectName(_fromUtf8("email"))
+        self.email = QtWidgets.QLineEdit(enrolWindow)
+        self.email.setObjectName("email")
         self.gridLayout_2.addWidget(self.email, 1, 1, 1, 1)
-        self.label_8 = QtGui.QLabel(enrolWindow)
-        self.label_8.setObjectName(_fromUtf8("label_8"))
+        self.label_8 = QtWidgets.QLabel(enrolWindow)
+        self.label_8.setObjectName("label_8")
         self.gridLayout_2.addWidget(self.label_8, 3, 0, 1, 1)
-        self.label_10 = QtGui.QLabel(enrolWindow)
-        self.label_10.setObjectName(_fromUtf8("label_10"))
+        self.label_10 = QtWidgets.QLabel(enrolWindow)
+        self.label_10.setObjectName("label_10")
         self.gridLayout_2.addWidget(self.label_10, 4, 0, 1, 1)
-        self.label_2 = QtGui.QLabel(enrolWindow)
-        self.label_2.setObjectName(_fromUtf8("label_2"))
+        self.label_2 = QtWidgets.QLabel(enrolWindow)
+        self.label_2.setObjectName("label_2")
         self.gridLayout_2.addWidget(self.label_2, 6, 0, 1, 1)
-        self.label_6 = QtGui.QLabel(enrolWindow)
-        self.label_6.setObjectName(_fromUtf8("label_6"))
+        self.label_6 = QtWidgets.QLabel(enrolWindow)
+        self.label_6.setObjectName("label_6")
         self.gridLayout_2.addWidget(self.label_6, 1, 0, 1, 1)
         self.gridLayout.addLayout(self.gridLayout_2, 2, 0, 1, 1)
-        spacerItem1 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
+        spacerItem1 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.gridLayout.addItem(spacerItem1, 1, 0, 1, 1)
-        spacerItem2 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
+        spacerItem2 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.gridLayout.addItem(spacerItem2, 3, 0, 1, 1)
-        spacerItem3 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
+        spacerItem3 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.gridLayout.addItem(spacerItem3, 5, 0, 1, 1)
         self.gridLayout_3.addLayout(self.gridLayout, 0, 1, 1, 1)
-        spacerItem4 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        spacerItem4 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout_3.addItem(spacerItem4, 0, 2, 1, 1)
 
         self.retranslateUi(enrolWindow)
@@ -116,20 +102,21 @@ class Ui_enrolWindow(object):
         enrolWindow.setTabOrder(self.roomNumber, self.pin)
 
     def retranslateUi(self, enrolWindow):
-        enrolWindow.setWindowTitle(_translate("enrolWindow", "Form", None))
-        self.label_5.setText(_translate("enrolWindow", "Enrol User", None))
-        self.label_7.setText(_translate("enrolWindow", "Phone (Calling)", None))
-        self.label_9.setText(_translate("enrolWindow", "Name", None))
-        self.label_8.setText(_translate("enrolWindow", "Phone (WhatsApp)", None))
-        self.label_10.setText(_translate("enrolWindow", "Room Number", None))
-        self.label_2.setText(_translate("enrolWindow", "PIN", None))
-        self.label_6.setText(_translate("enrolWindow", "Email", None))
+        _translate = QtCore.QCoreApplication.translate
+        enrolWindow.setWindowTitle(_translate("enrolWindow", "Form"))
+        self.label_5.setText(_translate("enrolWindow", "Enrol User"))
+        self.label_7.setText(_translate("enrolWindow", "Phone (Calling)"))
+        self.label_9.setText(_translate("enrolWindow", "Name"))
+        self.label_8.setText(_translate("enrolWindow", "Phone (WhatsApp)"))
+        self.label_10.setText(_translate("enrolWindow", "Room Number"))
+        self.label_2.setText(_translate("enrolWindow", "PIN"))
+        self.label_6.setText(_translate("enrolWindow", "Email"))
 
 
 if __name__ == "__main__":
     import sys
-    app = QtGui.QApplication(sys.argv)
-    enrolWindow = QtGui.QWidget()
+    app = QtWidgets.QApplication(sys.argv)
+    enrolWindow = QtWidgets.QWidget()
     ui = Ui_enrolWindow()
     ui.setupUi(enrolWindow)
     enrolWindow.show()
