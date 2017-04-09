@@ -33,9 +33,9 @@ class Ui_adminWindow(object):
         self.pushButton = QtWidgets.QPushButton(adminWindow)
         self.pushButton.setObjectName("pushButton")
         self.gridLayout.addWidget(self.pushButton, 4, 0, 1, 1)
-        self.pushButton_3 = QtWidgets.QPushButton(adminWindow)
-        self.pushButton_3.setObjectName("pushButton_3")
-        self.gridLayout.addWidget(self.pushButton_3, 3, 0, 1, 1)
+        self.editUsersButton = QtWidgets.QPushButton(adminWindow)
+        self.editUsersButton.setObjectName("editUsersButton")
+        self.gridLayout.addWidget(self.editUsersButton, 3, 0, 1, 1)
         spacerItem1 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.gridLayout.addItem(spacerItem1, 1, 0, 1, 1)
         self.enrolUserButton = QtWidgets.QPushButton(adminWindow)
@@ -55,7 +55,7 @@ class Ui_adminWindow(object):
         adminWindow.setWindowTitle(_translate("adminWindow", "Form"))
         self.label_5.setText(_translate("adminWindow", "Administration Panel"))
         self.pushButton.setText(_translate("adminWindow", "Edit Inventory"))
-        self.pushButton_3.setText(_translate("adminWindow", "Edit Users"))
+        self.editUsersButton.setText(_translate("adminWindow", "Edit Users"))
         self.enrolUserButton.setText(_translate("adminWindow", "Enrol User"))
 
 

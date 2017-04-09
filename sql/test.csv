@@ -1,0 +1,5 @@
+Raspi,123456789012,1,1,Microprocessor,10
+Arduino,123456789013,1,2,Microprocessor,20
+LED,123456789014,2,1,diode,512
+Resistors,123456789015,2,2,Circuit-comp,100
+Capacitors,123456789015,2,3,Circuit-comp,100

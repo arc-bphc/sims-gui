@@ -18,6 +18,7 @@ from ui_cart import Ui_cartWindow
 from ui_about import Ui_aboutWindow
 from ui_adminpanel import Ui_adminWindow
 from ui_enrol import Ui_enrolWindow
+from ui_editusers import Ui_editUsersWindow
 
 from sql.user_details import user_info
 from sql.reset_pin import resetPin
@@ -67,6 +68,7 @@ class mainWindow(QWidget):
         self.about = QWidget()
         self.admin = QWidget()
         self.enrol = QWidget()
+        self.editUsers = QWidget()
 
         self.currentPage = 0
         self.previousPage = 0
@@ -181,6 +183,7 @@ class mainWindow(QWidget):
         self.StackWidget.addWidget(self.cart)
         self.StackWidget.addWidget(self.admin)
         self.StackWidget.addWidget(self.enrol)
+        self.StackWidget.addWidget(self.editUsers)
 
     def setupSplashScreen(self):
         Ui_splashScreen().setupUi(self.splashScreen)
@@ -322,8 +325,10 @@ class mainWindow(QWidget):
         Ui_adminWindow().setupUi(self.admin)
 
         enrolUserButton = self.admin.findChild(QPushButton, "enrolUserButton")
+        editUsersButton = self.admin.findChild(QPushButton, "editUsersButton")
 
         enrolUserButton.clicked.connect(lambda: self.launchWindow(8))
+        editUsersButton.clicked.connect(lambda: self.launchWindow(9))
 
     def setupEnrol(self):
         Ui_enrolWindow().setupUi(self.enrol)
@@ -335,7 +340,7 @@ class mainWindow(QWidget):
         userID = self.enrol.findChild(QLineEdit, "userID")
         email = self.enrol.findChild(QLineEdit, "email")
         phoneCall = self.enrol.findChild(QLineEdit, "phoneCall")
-        phoneWhatsApp = self.enrol.findChild(QLineEdit, "phoneWhatsApp")
+        phoneWhasetuptsApp = self.enrol.findChild(QLineEdit, "phoneWhatsApp")
         roomNumber = self.enrol.findChild(QLineEdit, "roomNumber")
         pin = self.enrol.findChild(QLineEdit, "pin")
 
@@ -351,6 +356,9 @@ class mainWindow(QWidget):
         else:
             buttonBox.rejected.connect(lambda: self.launchWindow(0))
             buttonBox.accepted.connect(lambda: self.showMsgBox('You are not authorized to do this!'))
+
+    def setupEditUsers(self):
+        Ui_editUsersWindow().setupUi(self.editUsers)
 
     def removeFromCartAction(self, listView, partID):
         if len(listView.selectedIndexes()) != 0:
@@ -488,6 +496,7 @@ class mainWindow(QWidget):
         self.setupCart()
         self.setupAdmin()
         self.setupEnrol()
+        self.setupEditUsers()
 
     def showMsgBox(self, text):
         msg = QMessageBox()

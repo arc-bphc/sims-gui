@@ -42,13 +42,14 @@ connection.execute('''create table if not exists history(
     );''')
 
 connection.execute('''create table if not exists inventory(
-    ITEM_ID 	INT PRIMARY KEY     NOT NULL,
+    ITEM_ID 	INTEGER PRIMARY KEY     AUTOINCREMENT,
     NAME                 TEXT       NOT NULL,
     RFID	             CHAR(12)   NOT NULL,
     SHELF_NO	         INT        NOT NULL,
     BOX_NO	             INT        NOT NULL,
-    CATAGORY		     TEXT	    NOT NULL,
-    QUANTITY		     INT	    NOT NULL
+    CATEGORY		     TEXT	    NOT NULL,
+    QUANTITY		     INT	    NOT NULL,
+    DESCRIPTION          TEXT       NULL   
     );''')
 
 
