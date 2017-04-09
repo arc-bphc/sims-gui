@@ -380,7 +380,7 @@ class mainWindow(QWidget):
 
     def addToCartAction(self, itemView, qtySpinBox, partQty):
         if len(itemView.selectedIndexes()) != 0:
-            itemName = '\'' + itemView.selectedIndexes()[0].data().toString() + '\''
+            itemName = '\'' + itemView.selectedIndexes()[0].data() + '\''
             itemId = self.inventoryDb.getItemId(itemName)
             self.inventoryDb.addToCart(self.user.getUserId(), self.user.getName(), itemId, qtySpinBox.value(), '123')
             qty = int(str(partQty.text()))-qtySpinBox.value()

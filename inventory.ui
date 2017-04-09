@@ -163,6 +163,12 @@ QWidget {background-color: white}
         </item>
         <item row="9" column="1">
          <widget class="QSpinBox" name="qtySpinBox">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimumSize">
            <size>
             <width>0</width>
@@ -170,9 +176,13 @@ QWidget {background-color: white}
            </size>
           </property>
           <property name="styleSheet">
-           <string notr="true">QSpinBox::up-button { subcontrol-position: left; width: 40px; height: 35px;}
-
-QSpinBox::down-button { subcontrol-position: right; width: 40px; height: 35px;}</string>
+           <string notr="true"/>
+          </property>
+          <property name="buttonSymbols">
+           <enum>QAbstractSpinBox::UpDownArrows</enum>
+          </property>
+          <property name="correctionMode">
+           <enum>QAbstractSpinBox::CorrectToPreviousValue</enum>
           </property>
          </widget>
         </item>
@@ -244,17 +254,11 @@ QSpinBox::down-button { subcontrol-position: right; width: 40px; height: 35px;}<
          </spacer>
         </item>
         <item row="4" column="0" colspan="2">
-         <spacer name="verticalSpacer_4">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
+         <widget class="QLabel" name="descriptionLabel">
+          <property name="text">
+           <string>Description</string>
           </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>40</height>
-           </size>
-          </property>
-         </spacer>
+         </widget>
         </item>
        </layout>
       </item>

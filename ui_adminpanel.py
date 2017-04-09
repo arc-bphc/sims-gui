@@ -54,8 +54,8 @@ class Ui_adminWindow(object):
         _translate = QtCore.QCoreApplication.translate
         adminWindow.setWindowTitle(_translate("adminWindow", "Form"))
         self.label_5.setText(_translate("adminWindow", "Administration Panel"))
-        self.pushButton.setText(_translate("adminWindow", "View Active Projects"))
-        self.pushButton_3.setText(_translate("adminWindow", "View Purchase Requests"))
+        self.pushButton.setText(_translate("adminWindow", "Edit Inventory"))
+        self.pushButton_3.setText(_translate("adminWindow", "Edit Users"))
         self.enrolUserButton.setText(_translate("adminWindow", "Enrol User"))
 
 

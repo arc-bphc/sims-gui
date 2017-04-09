@@ -53,14 +53,14 @@ QWidget {background-color: rgb(255, 255, 255)}
      <item row="4" column="0">
       <widget class="QPushButton" name="pushButton">
        <property name="text">
-        <string>View Active Projects</string>
+        <string>Edit Inventory</string>
        </property>
       </widget>
      </item>
      <item row="3" column="0">
       <widget class="QPushButton" name="pushButton_3">
        <property name="text">
-        <string>View Purchase Requests</string>
+        <string>Edit Users</string>
        </property>
       </widget>
      </item>

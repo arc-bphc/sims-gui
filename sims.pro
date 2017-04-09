@@ -32,6 +32,7 @@ FORMS    += mainwindow.ui \
     adminpanel.ui \
     itemdetails.ui \
     about.ui \
-    enrol.ui
+    enrol.ui \
+    editusers.ui
 
 RESOURCES +=
