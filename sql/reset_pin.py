@@ -1,4 +1,4 @@
-from insert_data_users import *
+from .insert_data_users import *
 from Crypto.Hash import SHA256
 
 class resetPin:
@@ -6,7 +6,7 @@ class resetPin:
 		self.user = db(dbname)
 
 	def compareEnteredPin(self,id,pin,newPin):
-		print 'old pin ' + pin + ' new pin ' + newPin
+		print ('old pin ' + pin + ' new pin ' + newPin)
 		newPin = comparePin(self,id,pin,newPin)
 
 		if self.flag == 1:
@@ -39,7 +39,7 @@ def comparePin(obj,id,pin,newPin):
 
 def main():
 	obj = resetPin('test.db')
-	print obj.compareEnteredPin(1,'1234','hello')
+	#print obj.compareEnteredPin(1,'1234','hello')
 
 if __name__ == '__main__':
     main()

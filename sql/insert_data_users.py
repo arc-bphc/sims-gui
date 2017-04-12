@@ -15,7 +15,8 @@ class db:
         try:
             self.conn = sqlite3.connect(self.databaseName)
             self.cursor = self.conn.cursor()
-            self.conn.text_factory = str
+            #conn.text_factory = str
+
             #self.execute('.header on')
             #self.execute('.mode column')
         except:

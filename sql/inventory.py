@@ -1,4 +1,4 @@
-from insert_data_users import *
+from .insert_data_users import *
 
 catagoryList = []
 items = []

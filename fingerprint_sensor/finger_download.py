@@ -170,17 +170,17 @@ def Empty():
 
 def get_finger():
 
-    print "put your finger to the sensor"
+    print ("put your finger to the sensor")
     while True:
         if genImg()==0:
             break
 
-    print "fingerprint accepted"
+    print ("fingerprint accepted")
     if(Img2Tz(0x01)==0):
-        print "img to text complete"
+        print ("img to text complete")
         return 0
     else:
-        print "conversion of first image failed"
+        print ("conversion of first image failed")
         return 1
 
 
@@ -188,27 +188,27 @@ def get_finger():
 
 def enroll():
     time.sleep(1)
-    print "enroll fingerprint:"
+    print ("enroll fingerprint:")
 
-    print "put your finger to the sensor"
+    print ("put your finger to the sensor")
     while True:
         if genImg()==0:
             break
 
-    print "fingerprint accepted"
+    print ("fingerprint accepted")
     if(Img2Tz(0x01)==0):
-        print "img to text complete"
+        print ("img to text complete")
     else:
-        print "conversion of first image failed"
+        print ("conversion of first image failed")
 
-    print "put your finger to the sensor once more"
+    print ("put your finger to the sensor once more")
     while True:
         if genImg()==0:
             break
     if(Img2Tz(0x02)==0):
-        print "img to text complete"
+        print ("img to text complete")
     else:
-        print "conversion of second image failed"
+        print ("conversion of second image failed")
 
     return RegModel()
 
@@ -219,7 +219,7 @@ def read_packet():
     s=ser.read(9)
 
     if ([hex(ord(c)) for c in s[0:6]] != [hex(c) for c in (header+address)]):
-        print "data not in sync"
+        print ("data not in sync")
         return False, None
 
     pack_length= int(ord(s[7])*256) + int(ord(s[8]))
