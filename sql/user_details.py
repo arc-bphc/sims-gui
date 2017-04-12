@@ -1,4 +1,4 @@
-from insert_data_users import *
+from .insert_data_users import *
 
 class user_info:
 
@@ -27,10 +27,10 @@ class user_info:
 def main():
 	obj = user_info('test.db')
 	user_info_list = obj.get_user_info(1)
-	print user_info_list
+	#print user_info_list
 	obj.update_user_info(["yashdeep thorat",'9010712068','9665333384','BM036',"yashdeep97@gmail.com"],1)
 	user_info_list = obj.get_user_info(1)
-	print user_info_list
+	#print user_info_list
 
 if __name__ == '__main__':
     main()

@@ -19,7 +19,7 @@ class db:
             #self.execute('.header on')
             #self.execute('.mode column')
         except:
-            print 'Error in connecting to database'
+            print ('Error in connecting to database')
 
     def __del__(self):
         self.conn.close()
@@ -86,17 +86,17 @@ class db:
     		else:
     			return
     	else:
-    		whereClause = ' AND '.join(whereClause)
-    		query = 'delete from ' + table + ' where ' + whereClause
-    		# print query
-    		self.conn.execute(query)
-    		self.conn.commit()
+            whereClause = ' AND '.join(whereClause)
+            query = 'delete from ' + table + ' where ' + whereClause
+            # print query
+            self.conn.execute(query)
+            self.conn.commit()
 
     def copyToHistory(self, whereClause):
-    	whereClause = ' AND '.join(whereClause)
-    	query = 'insert into history select * from transactions where ' + whereClause
-	self.conn.execute(query)
-	self.conn.commit()
+        whereClause = ' AND '.join(whereClause)
+        query = 'insert into history select * from transactions where ' + whereClause
+        self.conn.execute(query)
+        self.conn.commit()
 
 
 #----------------------------Hashing and encrypting passwords-------------------------------
@@ -120,7 +120,7 @@ def main():
 #     # with open('cover.jpg', 'rb') as input_file:
 #     #     image = input_file.read()
     new_user.insertTuple('users', ["arnav","arnav@gmail.com",'9000712068','9000333384','BM007',password['salt'],password['hash'],1,0],['NAME','EMAIL_ID','PHONE_CALL','PHONE_WHATSAPP','ROOM_NO','SALT','HASHED_PASSWORD','FINGERPRINT_ID','ISADMIN'])
-    print new_user.selectQuery('users',['*'],['ID = 1'])
+    #print new_user.selectQuery('users',['*'],['ID = 1'])
 #     print "\n"
 
 #     #add withdrawn item to transaction database

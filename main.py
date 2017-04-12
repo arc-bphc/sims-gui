@@ -162,7 +162,7 @@ class mainWindow(QWidget):
         self.inventoryImagesPrefix = data['Settings']['images']['inventory-images-prefix']
         self.resourceImagesPath = data['Settings']['images']['resource-images-path']
         self.databasePath = data['Settings']['database']['path']
-        print 'Loading config from \'config.json\''
+        print ('Loading config from \'config.json\'')
 
     def handleComboBox(self, val):
         if val == 0:
