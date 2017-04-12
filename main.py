@@ -375,7 +375,7 @@ class mainWindow(QWidget):
         if self.device == 'desktop':
             self.windowWidget.show()
         else:
-            self.windowWidget.showFullScreen()
+            self.windowWidget.showMaximized()
 
     def saveUserDetails(self, userId):
         name = self.editDetails.findChild(QLineEdit, "name")
