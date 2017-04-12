@@ -188,7 +188,10 @@ class mainWindow(QWidget):
     def setupSplashScreen(self):
         Ui_splashScreen().setupUi(self.splashScreen)
         button = self.splashScreen.findChild(QPushButton, "pushButton")
-
+        pinButton = self.splashScreen.findChild(QPushButton, "pinButton")
+        pinBox = self.splashScreen.findChild(QLineEdit, "pinBox")
+        pinBox.hide()
+        pinButton.clicked.connect(lambda: pinBox.show())
         button.clicked.connect(lambda: self.unlockScreen())
 
     def setupAbout(self):
