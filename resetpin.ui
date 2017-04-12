@@ -81,7 +81,33 @@ QWidget {background-color: rgb(255, 255, 255)}
      </item>
      <item row="2" column="1">
       <layout class="QGridLayout" name="gridLayout">
-       <item row="0" column="2">
+       <item row="1" column="0">
+        <spacer name="horizontalSpacer_5">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="1" column="4">
+        <spacer name="horizontalSpacer_4">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="0" column="3">
         <widget class="QLineEdit" name="currentPwd">
          <property name="maxLength">
           <number>4</number>
@@ -91,21 +117,21 @@ QWidget {background-color: rgb(255, 255, 255)}
          </property>
         </widget>
        </item>
-       <item row="0" column="0">
+       <item row="0" column="1">
         <widget class="QLabel" name="label">
          <property name="text">
           <string>Current PIN</string>
          </property>
         </widget>
        </item>
-       <item row="1" column="0">
+       <item row="1" column="1">
         <widget class="QLabel" name="label_2">
          <property name="text">
           <string>New PIN</string>
          </property>
         </widget>
        </item>
-       <item row="1" column="2">
+       <item row="1" column="3">
         <widget class="QLineEdit" name="newPwd">
          <property name="maxLength">
           <number>4</number>
@@ -115,7 +141,7 @@ QWidget {background-color: rgb(255, 255, 255)}
          </property>
         </widget>
        </item>
-       <item row="0" column="1" rowspan="2">
+       <item row="1" column="2">
         <spacer name="horizontalSpacer_3">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
