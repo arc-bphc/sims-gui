@@ -1,6 +1,6 @@
 {
     "Settings" : {
-        "device" : "desktop",
+        "device" : "desktopf",
 
         "fingerprint": {
             "enabled": false,

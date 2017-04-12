@@ -36,7 +36,7 @@
       <item row="2" column="0" alignment="Qt::AlignHCenter">
        <widget class="QLabel" name="label_2">
         <property name="styleSheet">
-         <string notr="true">font: 75 100pt &quot;Noto Sans&quot;;</string>
+         <string notr="true">font: 75 120pt &quot;Noto Sans&quot;;</string>
         </property>
         <property name="text">
          <string>SIMS</string>
@@ -83,8 +83,8 @@
        <widget class="QLabel" name="label">
         <property name="maximumSize">
          <size>
-          <width>492</width>
-          <height>192</height>
+          <width>400</width>
+          <height>160</height>
          </size>
         </property>
         <property name="text">
