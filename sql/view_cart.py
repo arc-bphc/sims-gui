@@ -5,7 +5,7 @@
 	single item'''
 
 
-from .insert_data_users import *
+from insert_data_users import *
 
 item_list = []
 items_issued = []
