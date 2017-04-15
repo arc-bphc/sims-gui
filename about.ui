@@ -27,7 +27,7 @@ QWidget {background-color: white}
         <string notr="true">font: 18pt &quot;Noto Sans&quot;;</string>
        </property>
        <property name="text">
-        <string>Written in Python using PyQt4 and SQLite</string>
+        <string>Written in Python3 using PyQt5 and SQLite</string>
        </property>
       </widget>
      </item>

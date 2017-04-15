@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'userprofile.ui'
 #
-# Created by: PyQt5 UI code generator 5.7
+# Created by: PyQt5 UI code generator 5.8.2
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -66,7 +66,7 @@ class Ui_userWindow(object):
         self.gridLayout.addItem(spacerItem3, 1, 1, 1, 1)
         self.profilePic = QtWidgets.QLabel(userWindow)
         self.profilePic.setMinimumSize(QtCore.QSize(75, 75))
-        self.profilePic.setMaximumSize(QtCore.QSize(120, 120))
+        self.profilePic.setMaximumSize(QtCore.QSize(200, 200))
         self.profilePic.setText("")
         self.profilePic.setPixmap(QtGui.QPixmap("images/index.png"))
         self.profilePic.setScaledContents(True)
@@ -77,7 +77,7 @@ class Ui_userWindow(object):
         icon.addPixmap(QtGui.QPixmap("images/back.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.logoutButton.setIcon(icon)
         self.logoutButton.setObjectName("logoutButton")
-        self.gridLayout.addWidget(self.logoutButton, 10, 0, 1, 1, QtCore.Qt.AlignLeft)
+        self.gridLayout.addWidget(self.logoutButton, 9, 0, 1, 1, QtCore.Qt.AlignLeft)
         self.gridLayout_2.addLayout(self.gridLayout, 0, 0, 1, 1)
 
         self.retranslateUi(userWindow)

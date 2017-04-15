@@ -201,8 +201,8 @@ QWidget {background-color: rgb(255, 255, 255)}
        </property>
        <property name="maximumSize">
         <size>
-         <width>120</width>
-         <height>120</height>
+         <width>200</width>
+         <height>200</height>
         </size>
        </property>
        <property name="text">
@@ -216,7 +216,7 @@ QWidget {background-color: rgb(255, 255, 255)}
        </property>
       </widget>
      </item>
-     <item row="10" column="0" alignment="Qt::AlignLeft">
+     <item row="9" column="0" alignment="Qt::AlignLeft">
       <widget class="QPushButton" name="logoutButton">
        <property name="text">
         <string>Logout</string>

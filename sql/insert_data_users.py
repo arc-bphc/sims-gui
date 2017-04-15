@@ -5,6 +5,8 @@ from Crypto.Hash import SHA256
 import Crypto.Random
 import os.path
 from os import listdir, getcwd
+import random
+import string
 #from IPython.core.display import Image
 
 #-------------SQLite functions----------------------------------
@@ -104,7 +106,8 @@ class db:
 
 def createNewPassword(text):
     password = {}
-    password['salt'] = Crypto.Random.get_random_bytes(5)
+    #changed the salt algo to be ascii
+    password['salt'] = ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(5))
     # print salt
     text = text + password['salt']
     password['hash'] = SHA256.new(text).hexdigest()

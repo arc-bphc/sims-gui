@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'about.ui'
 #
-# Created by: PyQt5 UI code generator 5.7
+# Created by: PyQt5 UI code generator 5.8.2
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -71,7 +71,7 @@ class Ui_aboutWindow(object):
     def retranslateUi(self, aboutWindow):
         _translate = QtCore.QCoreApplication.translate
         aboutWindow.setWindowTitle(_translate("aboutWindow", "Form"))
-        self.label_4.setText(_translate("aboutWindow", "Written in Python using PyQt4 and SQLite"))
+        self.label_4.setText(_translate("aboutWindow", "Written in Python3 using PyQt5 and SQLite"))
         self.label_3.setText(_translate("aboutWindow", "Developed by Arnav Dhamija, Yashdeep Thorat, Ebin Philip"))
         self.label.setText(_translate("aboutWindow", "SIMS Alpha"))
         self.label_7.setText(_translate("aboutWindow", "Automation & Robotics Club, BITS Pilani, Hyderabad Campus"))
