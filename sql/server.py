@@ -5,6 +5,11 @@ import socket
  
 userID = 0
 
+def getItemList(userID):
+	obj = view_cart('test.db')
+	print (userID)
+	return obj.getItemList(userID)
+
 def ComparePin(data):
 	database = db('test.db')
 	user = []
@@ -14,25 +19,24 @@ def ComparePin(data):
 	user_list = database.selectQuery('users',['*'],['ID = ' + str(userID)])
 	salt = user_list[0][6]
 	hashedPin = user_list[0][7]
+	enteredPin = enteredPin.encode('utf-8')
+	salt = salt.encode('utf-8')
 	enteredPin = enteredPin + salt
-	# print (enteredPin)
-	# enteredPin.encode('utf-8')
-	# print (enteredPin)
-	enteredpin = SHA256.new(enteredPin).hexdigest()
-	if enteredpin == hashedPin:
-		return 1
+	enteredPin = SHA256.new(enteredPin).hexdigest()
+	if enteredPin == hashedPin:
+		itemList = getItemList(userID)
+		data = ",".join(itemList)
+		return data
 	else:
-		return 0
+		return "incorrect pin"
 
-def getItemList():
-	obj = view_cart('test.db')
-	return obj.getItemList(userID)
+
 
 
 def Main():
     
     host = "192.168.0.111"
-    port = 6000
+    port = 3000
      
     mySocket = socket.socket()
     mySocket.bind((host,port))
@@ -45,12 +49,7 @@ def Main():
             if not data:
                     break
             print ("userID, pin entered by user: " + str(data))
-            flag = ComparePin(data)
-            if flag == 1:
-            	itemList = getItemList()
-            	data = ",".join(itemList)
-            else:
-            	data = "incorrect pin"
+            data = ComparePin(data)
 
             # data = str(data).upper()
             print ("sending: " + str(data))
