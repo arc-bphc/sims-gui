@@ -7,6 +7,7 @@ import os.path
 from os import listdir, getcwd
 import random
 import string
+import hashlib
 #from IPython.core.display import Image
 
 #-------------SQLite functions----------------------------------
@@ -109,8 +110,12 @@ def createNewPassword(text):
     #changed the salt algo to be ascii
     password['salt'] = ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(5))
     # print salt
+    password['salt'].encode('utf-8')
+    text.encode('utf-8')
     text = text + password['salt']
-    password['hash'] = SHA256.new(text).hexdigest()
+    #text.encode('utf-8')
+    hash_object = hashlib.sha256(text.encode('utf-8'))
+    password['hash'] = hash_object.hexdigest()
     return password
 
 #-------------------------------------------------------------------------------------------
@@ -119,7 +124,7 @@ def main():
 
 #     #add a new user into the users table
     new_user = db('test.db')
-    text = raw_input("enter new pin:	")
+    text = input("enter new pin:	")
     password = createNewPassword(text)
 #     # with open('cover.jpg', 'rb') as input_file:
 #     #     image = input_file.read()
