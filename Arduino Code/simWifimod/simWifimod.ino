@@ -1,33 +1,49 @@
+/* This program sets up wifi and connects to server 
+ * starts a loop which pings the server every 30s 
+ * if ping fails, tries reconnecting
+ * The intial setup of the wifi module is done by setupEsp(), called in arduino setup()
+ * espStatus() is called in arduino loop(), which calls updateEsp() 
+ * which tries pinging,else reconnects 
+ */
 #include<SoftwareSerial.h>
 
 SoftwareSerial esp(10,11);
 
+//enables debug and messages on Serial
 boolean debug=true;
 boolean msg=true;
 
+//boolean variables for initial setup
 boolean esp_reset=false;
 boolean esp_init=false;
 boolean wifi_connected=false;
 boolean server_connected=false;
 boolean esp_setup=false;
 
+//store time in ms after last ping
 long updateTime=0;
+//no of times updateEsp() failed
 int update_fails=0;
 
+//this identifies the module to the server
 int shelf_id=0xF2;
 
+//user id and pin 
+//to be sent to server to fetch items list
 String userpin="025678";
 
+//ssid and pwd for wifi
 String ssid="TP-LINK";
 String pwd="12345678";
 
+//to output debug messages to serial
 int debugOut(String S){
   if(debug)
     return Serial.println(S);
   else
     return -1;
 }
-
+//overloaded version
 int debugOut(char *S,int len){
   if(debug){
     String message="";
@@ -39,6 +55,7 @@ int debugOut(char *S,int len){
     return -1;
 }
 
+//to output message on Serial
 int msgOut(String S){
   if(msg)
     return Serial.println(S);
@@ -46,12 +63,14 @@ int msgOut(String S){
     return -1;
 }
 
+//clear esp input buffer
 void clearEsp(){
   while(esp.available()){
     esp.read();
   }
 }
 
+//to reset esp module
 boolean resetEsp(){
   msgOut("resetting..");
   digitalWrite(8,LOW);
@@ -60,6 +79,7 @@ boolean resetEsp(){
   delay(2000);
   clearEsp();
   int count=0;
+  //sends AT to esp module and gets response
   while(testEsp()!=1){
     if(count>3){
       return false;
@@ -96,6 +116,10 @@ int testEsp(){
   return -1;  
 }
 
+//executes commands for checking status of wifi,server etc
+//searches the response for checkword
+//if checkword found,returns true
+//response: stores response after executing command
 boolean checkCommandStatus(String Command,String checkword,String &response){
   long startTime;
   clearEsp();
@@ -123,12 +147,15 @@ boolean checkCommandStatus(String Command,String checkword,String &response){
   }
 }
 
-//attempts executing a command.No of repeats specified in attempts
+//attempts executing a command
 //returns:
 //1:success
 //2:failed
 //-1:timeout
-int executeCommand(String Command,String &response,int attempts=3){
+//arguments:
+//command: command to execute
+//store: to store response after executing command
+int executeCommand(String Command,String &response){
   long startTime;
   clearEsp();
   //check if esp is ready to receive commands
@@ -172,6 +199,11 @@ int executeCommand(String Command,String &response,int attempts=3){
   return -1;
 }  
 
+//checks if wifi is connected
+//arguments:
+//ssid: wifi name
+//pwd: password
+//strength: signal strength<not used>
 boolean isWifiConnectedEsp(String ssid,String pwd,int strength=0){
   String response= "";
   if(checkCommandStatus("AT+CWJAP?",ssid,response)){
@@ -181,26 +213,25 @@ boolean isWifiConnectedEsp(String ssid,String pwd,int strength=0){
     return false;
 }
 
+//connect to wifi
+//arguments:
+//ssid: wifi hotspot name
+//pwd: password
 boolean wifiConnectEsp(String ssid,String pwd){
-  
   if(isWifiConnectedEsp(ssid,pwd)){
     debugOut("connected to wifi");
     return true;
   }
   String response="";
-  
-  int ret=executeCommand("AT+CWJAP=\""+ssid+"\",\""+pwd+"\"",response);
-  if(ret==1){
+  if(executeCommand("AT+CWJAP=\""+ssid+"\",\""+pwd+"\"",response)){
     return true;
-  }
-  else if(ret==-1){
-    return false;
   }
   else{
     return false;
   }
 }
 
+//set esp mode to station and enable multiple connections
 boolean setModesEsp(){
   String response="";
   if(!checkCommandStatus("AT+CWMODE?","1",response)){
@@ -222,6 +253,8 @@ boolean setModesEsp(){
   }
 }
 
+//checks if connected to server
+//ip: ip of server
 boolean isServerConnectedEsp(String ip){
   String response="";
   if(checkCommandStatus("AT+CIPSTATUS",ip,response)){
@@ -232,11 +265,13 @@ boolean isServerConnectedEsp(String ip){
     return false;
 }
 
+//connects to server
+//arguments:
+//ip: ip address of server
+//port: port to connect to
 boolean connectToServerEsp(String ip,String port){
   String response="";
-  
-  executeCommand(("AT+CIPCLOSE=0"),response,1);
-     
+  executeCommand(("AT+CIPCLOSE=0"),response);
   if(executeCommand(String("AT+CIPSTART=")+"0,\"TCP\",\""+ip+"\","+port,response)){
     msgOut("connected to "+ip);
     return true;
@@ -248,9 +283,6 @@ boolean connectToServerEsp(String ip,String port){
 
 //sends data to the server 
 //connection to server must be made before function call
-//returns(boolean):
-//  True-if data sen
-//  False-failed
 //arguments:
 //  byte *:data to send
 //  len: data length
@@ -293,7 +325,6 @@ boolean writeDataEsp(byte dat[],int len){
 //overloaded function to send string data
 boolean writeDataEsp(String &dat,int len){
   byte data[len];
-
   for(int i=0;i<len;++i)
     data[i]=byte(dat[i]);
   debugOut((char*)data,len);
@@ -371,12 +402,16 @@ int readDataEsp(String &resp, long timeout=2000){
   return -1;
 }
 
+//to request list of items from server
+//arguments:
+//pin: user pin
+//reply: list of items returned by server
 boolean requestList(String &pin,String &reply){
   if(!isServerConnectedEsp("192.168.0.101")){
     server_connected=false;
     return false; 
   } 
-  
+  //0x10 is byte code for fetching data
   writeDataEsp(0x10);
   reply="";
   readDataEsp(reply,100);
@@ -397,6 +432,7 @@ boolean requestList(String &pin,String &reply){
   }
 }
 
+//fn to setup esp module
 boolean setupEsp(){
   if(!esp_setup){
     esp_init=false;
@@ -437,12 +473,14 @@ boolean setupEsp(){
   return false;
 }
 
+// function to establish comm with server
 boolean initServer(){
   server_connected=false;
   clearEsp();
   if(!connectToServerEsp("192.168.0.101","8080"))
     return false;
   String reply="";
+  //sends shelf id to server for authentication
   writeDataEsp(shelf_id);
   readDataEsp(reply,200);
   debugOut(String(byte(reply[0])));
@@ -455,9 +493,11 @@ boolean initServer(){
     return false;
 }
 
+//fn to ping server
 boolean pingServer(){
   if(server_connected){
     long t1=millis();
+    //send byte code for pinging
     writeDataEsp(0x20);
     String response="";
     readDataEsp(response);
@@ -472,13 +512,17 @@ boolean pingServer(){
   return false; 
 }
 
+//fn to update esp connection status
+//pings server, tries connecting if failed
 boolean updateEsp(){
+  //checks wifi connection every 2s
   if(((millis()-updateTime)%2000)==0){
     if(!isWifiConnectedEsp(ssid,pwd)){
       esp_init=false;
       wifi_connected=false;
     }
   }
+  //tries pinging server every 30s
   if((millis()-updateTime)>30000){
     clearEsp();
     updateTime=millis();
@@ -509,9 +553,11 @@ boolean updateEsp(){
   
 }
 
+//fn called in loop, to check esp status
 void espStatus(){
   if(!updateEsp()){
     update_fails++;
+    //resets esp if updateEsp() fails 10 times
     if(update_fails>=10){
       update_fails=0;
       esp_setup=false;
@@ -528,17 +574,15 @@ void setup() {
   pinMode(8,OUTPUT);
   esp_setup=setupEsp();
   updateTime=millis();
-  delay(1000);
-  
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
   espStatus();
   if(Serial.available()){
-    int choice=Serial.parseInt();
+    char choice=Serial.read();
     switch(choice){
-      case 1:
+      case '1':
         {
           String list="";
           
@@ -550,7 +594,7 @@ void loop() {
             Serial.println("error");
           break;
         }
-      case 2:{
+      case '2':{
         updateEsp();
         break;
       }
