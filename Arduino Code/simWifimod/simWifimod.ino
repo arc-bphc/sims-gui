@@ -482,7 +482,7 @@ boolean initServer(){
   String reply="";
   //sends shelf id to server for authentication
   writeDataEsp(shelf_id);
-  readDataEsp(reply,200);
+  readDataEsp(reply);
   debugOut(String(byte(reply[0])));
   if(byte(reply[0])==0x01){ 
     debugOut("");
