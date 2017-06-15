@@ -123,7 +123,7 @@ def clientHandler(conn,address):
                     #for '' in item_details, generator is called simply to increment index
                     for i in item_details:
                         if i!='':
-                            items_string=items_string+i[0]+','+i[1]+','+str(i[2])+','+str(quantity[next(index)])+'#'
+                            items_string=items_string+','.join([i[0],i[1],str(i[2]),str(quantity[next(index)])])+'#'
                         else:
                             next(index)
                     if items_string=="":
