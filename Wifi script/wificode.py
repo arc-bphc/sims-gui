@@ -175,6 +175,5 @@ if __name__=='__main__':
             conn_handler.start()
     finally:
         s.close()
-        print("error in main")
 
 
