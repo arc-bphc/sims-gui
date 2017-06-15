@@ -2,6 +2,8 @@ from multiprocessing import Process
 import socket
 import time
 import sqlite3
+import hashlib
+import random
 
 #connect to database
 database_path='./../sql/'
@@ -39,7 +41,15 @@ def executeDB(command,arguments=None,conn=False,except_raise=True):
             raise dbError('no results found for:'+command+str(arguments))
     else:
         return response
-    
+
+def createPassword(text,salt):
+    salt=salt.encode('utf-8')
+    text=text.encode('utf-8')
+    text = text + salt
+    #text.encode('utf-8')
+    hash_object = hashlib.sha256(text)
+    password = hash_object.hexdigest()
+    return password	
 '''
 fn to handle a new client connection
 started as a seperate process
@@ -93,9 +103,10 @@ def clientHandler(conn,address):
                     #split into id_no and password
                     id_no=int(msg[:2])
                     pwd=msg[2:]
+                    del msg
                     #retrieve password from db based on id_no
-                    password=executeDB('select HASHED_PASSWORD from users where ID=(?)',[id_no],True)
-                    if ((password[0][0]!=pwd)):
+                    salt,password=executeDB('select SALT,HASHED_PASSWORD from users where ID=(?)',[id_no],True)[0]
+                    if (password!=createPassword(pwd,salt)):
                             raise connError('password not matching')
                     #get transaction details(item_id,quantity)
                     #from database based on id_no
