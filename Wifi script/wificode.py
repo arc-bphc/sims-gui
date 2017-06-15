@@ -21,13 +21,15 @@ class dbError(Error):
 class connError(Error):
     def __init__(self,msg):
         self.message="Connection error:"+str(msg)
-    
-#fn to execute db commands and retrieve results
-#params:command:<String>: Sql command to execute
-#       arguments:<iterable> optional arguments for sql commands
-#       conn:<boolean> selects connError or dbError
-#       except_raise:<boolean> controls exception rasising
-#returns:<List of tuples> response of sql query
+
+'''    
+fn to execute db commands and retrieve results
+params:command:<String>: Sql command to execute
+       arguments:<iterable> optional arguments for sql commands
+       conn:<boolean> selects connError or dbError
+       except_raise:<boolean> controls exception rasising
+returns:<List of tuples> response of sql query
+'''
 def executeDB(command,arguments=None,conn=False,except_raise=True):
     response=cursor.execute(command,arguments).fetchall()
     if response==[] and except_raise:
@@ -38,12 +40,13 @@ def executeDB(command,arguments=None,conn=False,except_raise=True):
     else:
         return response
     
-
-#fn to handle a new client connection
-#started as a seperate process
-#params:    conn<socket> new connection
-#           address:<string>
-#returns: void
+'''
+fn to handle a new client connection
+started as a seperate process
+params:    conn<socket> new connection
+           address:<string>
+returns: void
+'''
 def clientHandler(conn,address):
     try:
         conn.settimeout(1)
@@ -152,9 +155,10 @@ def clientHandler(conn,address):
         
     finally:
         conn.close()
-
-#this block is required since each process executes the script file
-#anything outside the block gets redundantly executed
+'''
+this block is required since each process executes the script file
+anything outside the block gets redundantly executed
+'''
 if __name__=='__main__':
    
     try:
