@@ -143,7 +143,7 @@ def clientHandler(conn,address):
                 continue
             except connError as err:
                 print(err.message)
-                conn.send(bytearray[0x09])
+                conn.send(bytearray([0x09]))
             except socket.timeout:
                 continue
             

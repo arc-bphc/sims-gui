@@ -26,11 +26,11 @@ long updateTime=0;
 int update_fails=0;
 
 //this identifies the module to the server
-int shelf_id=0xF0;
+int shelf_id=0xF2;
 
 //user id and pin 
 //to be sent to server to fetch items list
-String userpin="011234";
+String userpin="025678";
 
 //ssid and pwd for wifi
 String ssid="TP-LINK";
