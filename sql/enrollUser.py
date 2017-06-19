@@ -1,4 +1,4 @@
-from insert_data_users import *
+from .insert_data_users import *
 
 class enrollUser:
         def __init__(self,dbname):
@@ -18,7 +18,7 @@ class enrollUser:
                 #text.encode('utf-8')
                 hash_object = hashlib.sha256(text.encode('utf-8'))
                 password['hash'] = hash_object.hexdigest()
-                return password	
+                return password
 
 def main():
 	obj = enrollUser('test.db')

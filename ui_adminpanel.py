@@ -58,13 +58,3 @@ class Ui_adminWindow(object):
         self.editUsersButton.setText(_translate("adminWindow", "Edit Users"))
         self.enrolUserButton.setText(_translate("adminWindow", "Enrol User"))
 
-
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    adminWindow = QtWidgets.QWidget()
-    ui = Ui_adminWindow()
-    ui.setupUi(adminWindow)
-    adminWindow.show()
-    sys.exit(app.exec_())
-
