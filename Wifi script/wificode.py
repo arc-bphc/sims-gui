@@ -24,15 +24,16 @@ class connError(Error):
     def __init__(self,msg):
         self.message="Connection error:"+str(msg)
 
-'''    
-fn to execute db commands and retrieve results
-params:command:<String>: Sql command to execute
-       arguments:<iterable> optional arguments for sql commands
-       conn:<boolean> selects connError or dbError
-       except_raise:<boolean> controls exception rasising
-returns:<List of tuples> response of sql query
-'''
+
 def executeDB(command,arguments=None,conn=False,except_raise=True):
+    '''    
+    fn to execute db commands and retrieve results
+    params:command:<String>: Sql command to execute
+           arguments:<iterable> optional arguments for sql commands
+           conn:<boolean> selects connError or dbError
+           except_raise:<boolean> controls exception rasising
+    returns:<List of tuples> response of sql query
+    '''
     response=cursor.execute(command,arguments).fetchall()
     if response==[] and except_raise:
         if conn:
@@ -43,6 +44,14 @@ def executeDB(command,arguments=None,conn=False,except_raise=True):
         return response
 
 def createPassword(text,salt):
+    '''
+    fn to encode userpin into hashed format
+    to compare with database
+    params:
+        text: pin to encode
+        salt: salt to use for encoding
+    returns hashed password
+    '''
     salt=salt.encode('utf-8')
     text=text.encode('utf-8')
     text = text + salt
@@ -50,14 +59,60 @@ def createPassword(text,salt):
     hash_object = hashlib.sha256(text)
     password = hash_object.hexdigest()
     return password	
-'''
-fn to handle a new client connection
-started as a seperate process
-params:    conn<socket> new connection
-           address:<string>
-returns: void
-'''
+
+def createItemsList(id_no,shelf_no,null_val):
+    '''
+    get transaction details(item_id,quantity) from database based on id_no for withdraw and return, specified by null_val
+    uses item_id it to to get item details for each item and parses all the items and details to a string
+    arguments:
+    id_no:<int> user id no for the transaction
+    shelf_no:<int> shelf number
+    null_val:<str> 'NOT NULL' or 'NULL' to obtain list of items to withdraw/return
+    returns: <str> item details of all items in the transacition
+    '''
+    try:
+        transaction=executeDB('select ITEM_ID,QUANTITY from transactions where ID=(?) AND WITHDRAW_DATETIME IS '+null_val,[id_no])
+        item_ids=[]
+        quantity=[]
+        #split o/p of sql query: transaction
+        for i in transaction:
+            item_ids.append(i[0])
+            quantity.append(i[1])
+        item_details=[]
+        #get item details for each item from transaction
+        #based on item_id and shelf_no
+        for i in item_ids:
+            result=executeDB('select NAME,RFID,BOX_NO from inventory where ITEM_ID=(?) AND SHELF_NO=(?)',[i,shelf_no],except_raise=False)
+            #when an item isn't there in shelf 
+            if result==[]:
+                #helps when sending quantity
+                item_details=item_details+['']
+            else:
+                item_details=item_details+result
+        items_string=''
+        #generator which gives index for each successive
+        #item in item_details
+        index=(i for i in range(len(item_details)))
+        #item_details made into a string
+        #quantity is added using the generator
+        #for '' in item_details, generator is called simply to increment index
+        for i in item_details:
+            if i!='':
+                items_string=items_string+','.join([i[0],i[1],str(i[2]),str(quantity[next(index)])])+'#'
+            else:
+                next(index)
+        return items_string
+    except (dbError,connError):
+        return ''
+
 def clientHandler(conn,address):
+    '''
+    fn to handle a new client connection
+    started as a seperate process
+    params:    conn<socket> new connection
+               address:<string>
+    returns: void
+    '''
     try:
         conn.settimeout(1)
         #first the client id is received
@@ -108,39 +163,10 @@ def clientHandler(conn,address):
                     salt,password=executeDB('select SALT,HASHED_PASSWORD from users where ID=(?)',[id_no],True)[0]
                     if (password!=createPassword(pwd,salt)):
                             raise connError('password not matching')
-                    #get transaction details(item_id,quantity)
-                    #from database based on id_no
-                    transaction=executeDB('select ITEM_ID,QUANTITY from transactions where ID=(?)',[id_no])   
-                    item_ids=[]
-                    quantity=[]
-                    #split o/p of sql query: transaction
-                    for i in transaction:
-                        item_ids.append(i[0])
-                        quantity.append(i[1])
-                    item_details=[]
-                    #get item details for each item from transaction
-                    #based on item_id and shelf_no
-                    for i in item_ids:
-                        result=executeDB('select NAME,RFID,BOX_NO from inventory where ITEM_ID=(?) AND SHELF_NO=(?)',[i,shelf_no],except_raise=False)
-                        #when an item isn't there in shelf 
-                        if result==[]:
-                            #helps when sending quantity
-                            item_details=item_details+['']
-                        else:
-                            item_details=item_details+result
-                    items_string=''
-                    #generator which gives index for each successive
-                    #item in item_details
-                    index=(i for i in range(len(item_details)))
-                    #item_details made into a string
-                    #quantity is added using the generator
-                    #for '' in item_details, generator is called simply to increment index
-                    for i in item_details:
-                        if i!='':
-                            items_string=items_string+','.join([i[0],i[1],str(i[2]),str(quantity[next(index)])])+'#'
-                        else:
-                            next(index)
-                    if items_string=="":
+                    
+                    items_string=createItemsList(id_no,shelf_no,'NULL')+'&'
+                    items_string=items_string+createItemsList(id_no,shelf_no,'NOT NULL')
+                    if items_string=='&' or items_string==None:
                         raise dbError("no data from db")
                     else:
                         print("sending data:"+items_string)
@@ -166,11 +192,12 @@ def clientHandler(conn,address):
         
     finally:
         conn.close()
-'''
-this block is required since each process executes the script file
-anything outside the block gets redundantly executed
-'''
+
 if __name__=='__main__':
+    '''
+    this block is required since each process executes the script file
+    anything outside the block gets redundantly executed
+    '''
    
     try:
         host=''
