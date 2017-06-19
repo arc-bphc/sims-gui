@@ -579,6 +579,7 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
   espStatus();
+  
   if(Serial.available()){
     char choice=Serial.read();
     switch(choice){

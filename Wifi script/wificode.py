@@ -2,6 +2,8 @@ from multiprocessing import Process
 import socket
 import time
 import sqlite3
+import hashlib
+import random
 
 #connect to database
 database_path='./../sql/'
@@ -21,13 +23,15 @@ class dbError(Error):
 class connError(Error):
     def __init__(self,msg):
         self.message="Connection error:"+str(msg)
-    
-#fn to execute db commands and retrieve results
-#params:command:<String>: Sql command to execute
-#       arguments:<iterable> optional arguments for sql commands
-#       conn:<boolean> selects connError or dbError
-#       except_raise:<boolean> controls exception rasising
-#returns:<List of tuples> response of sql query
+
+'''    
+fn to execute db commands and retrieve results
+params:command:<String>: Sql command to execute
+       arguments:<iterable> optional arguments for sql commands
+       conn:<boolean> selects connError or dbError
+       except_raise:<boolean> controls exception rasising
+returns:<List of tuples> response of sql query
+'''
 def executeDB(command,arguments=None,conn=False,except_raise=True):
     response=cursor.execute(command,arguments).fetchall()
     if response==[] and except_raise:
@@ -37,13 +41,22 @@ def executeDB(command,arguments=None,conn=False,except_raise=True):
             raise dbError('no results found for:'+command+str(arguments))
     else:
         return response
-    
 
-#fn to handle a new client connection
-#started as a seperate process
-#params:    conn<socket> new connection
-#           address:<string>
-#returns: void
+def createPassword(text,salt):
+    salt=salt.encode('utf-8')
+    text=text.encode('utf-8')
+    text = text + salt
+    #text.encode('utf-8')
+    hash_object = hashlib.sha256(text)
+    password = hash_object.hexdigest()
+    return password	
+'''
+fn to handle a new client connection
+started as a seperate process
+params:    conn<socket> new connection
+           address:<string>
+returns: void
+'''
 def clientHandler(conn,address):
     try:
         conn.settimeout(1)
@@ -90,9 +103,10 @@ def clientHandler(conn,address):
                     #split into id_no and password
                     id_no=int(msg[:2])
                     pwd=msg[2:]
+                    del msg
                     #retrieve password from db based on id_no
-                    password=executeDB('select HASHED_PASSWORD from users where ID=(?)',[id_no],True)
-                    if ((password[0][0]!=pwd)):
+                    salt,password=executeDB('select SALT,HASHED_PASSWORD from users where ID=(?)',[id_no],True)[0]
+                    if (password!=createPassword(pwd,salt)):
                             raise connError('password not matching')
                     #get transaction details(item_id,quantity)
                     #from database based on id_no
@@ -123,7 +137,7 @@ def clientHandler(conn,address):
                     #for '' in item_details, generator is called simply to increment index
                     for i in item_details:
                         if i!='':
-                            items_string=items_string+i[0]+','+i[1]+','+str(i[2])+','+str(quantity[next(index)])+'#'
+                            items_string=items_string+','.join([i[0],i[1],str(i[2]),str(quantity[next(index)])])+'#'
                         else:
                             next(index)
                     if items_string=="":
@@ -140,7 +154,7 @@ def clientHandler(conn,address):
                 continue
             except connError as err:
                 print(err.message)
-                conn.send(bytearray[0x09])
+                conn.send(bytearray([0x09]))
             except socket.timeout:
                 continue
             
@@ -152,9 +166,10 @@ def clientHandler(conn,address):
         
     finally:
         conn.close()
-
-#this block is required since each process executes the script file
-#anything outside the block gets redundantly executed
+'''
+this block is required since each process executes the script file
+anything outside the block gets redundantly executed
+'''
 if __name__=='__main__':
    
     try:
@@ -175,6 +190,5 @@ if __name__=='__main__':
             conn_handler.start()
     finally:
         s.close()
-        print("error in main")
 
 

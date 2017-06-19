@@ -1,8 +1,8 @@
 #!/usr/bin/python
 
 import sqlite3
-from Crypto.Hash import SHA256
-import Crypto.Random
+from Cryptodome.Hash import SHA256
+import Cryptodome.Random
 import os.path
 from os import listdir, getcwd
 import random

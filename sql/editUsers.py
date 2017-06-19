@@ -22,7 +22,7 @@ class editUsers:
 			
 def main():
 	obj = editUsers('test.db')
-	print obj.listUser()
+	print (obj.listUser())
 	obj.makeAdmin(1)
 	obj.deleteUser(2)
 
