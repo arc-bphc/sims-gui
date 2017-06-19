@@ -21,35 +21,35 @@ Then, run the file using:
 ```
 
 
-## DATABASE:
-### Users:
+## Database
+### Users
 
 `ID`|Name|Email ID|Phone call|Phone whatsapp|Room no.|Salt|Hashed Password|Fingerprint ID|Is Admin
 ---|---|---|---|---|---|---|---|---|---
-+ This table consists of all the registered users and their relevent information. 
-+ The Is Admin field determines whether  a particular user has access to the admin functions. 
++ This table consists of all the registered users and their relevent information.
++ The Is Admin field determines whether  a particular user has access to the admin functions.
 + Here ID is a primary key.
 
-### Transactions:
+### Transactions
 `ID`|Name|Item ID|Quantity|Issue Datetime|Withdraw Datetime|Return Datetime
 ---|---|---|---|---|---|---
 + This table is used to manaage all the withdran items from the inventory.
 + A particular entry will be moved to the History table after the item is returned.
 + Here ID is a foreign key.
 
-### History:
+### History
 `ID`|Name|Item ID|Quantity|Issue Datetime|Withdraw Datetime|Return Datetime
 ---|---|---|---|---|---|---
 + this table has the details of all the transactions that have occurred previously.
 + Here ID is a foreign key.
 
-### Inventory:
+### Inventory
 `Item ID`|Name|RFID|Shelf no.|Box no.|Catagory|Quantity|Description
 ---|---|---|---|---|---|---|---
 + This table consists of all list of Items present in the inventory along with their location and quantity.
 + Here Item ID is a primary key.
 
-### Purchase:
+### Purchase
 `ID`|Project|Price|Item|Date
 ---|---|---|---|---
 + This table is used to record all the purchase requests from the users.
