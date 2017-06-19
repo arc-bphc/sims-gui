@@ -28,11 +28,11 @@ FORMS    += mainwindow.ui \
     arc-header.ui \
     itemwidget.ui \
     cart.ui \
-    form.ui \
     adminpanel.ui \
     itemdetails.ui \
     about.ui \
     enrol.ui \
-    editusers.ui
+    editusers.ui \
+    enrolfingerprint.ui
 
 RESOURCES +=
