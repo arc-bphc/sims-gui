@@ -1,7 +1,6 @@
 ![Automation & Robotics Club @ BPHC](http://www.automationandroboticsclub.com/gallery_gen/140f562717e57af5d4fe0e2685b8cfc5_148x139.png "Automation & Robotics Club @ BPHC")
 
-# SIMS
-
+# SIMS - Smart Inventory Management System
 
 ## Introduction
 
