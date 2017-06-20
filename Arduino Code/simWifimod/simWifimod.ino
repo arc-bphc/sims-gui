@@ -36,6 +36,9 @@ String userpin="025678";
 String ssid="TP-LINK";
 String pwd="12345678";
 
+//ip of server
+String server_ip="192.168.0.100";
+
 //to output debug messages to serial
 int debugOut(String S){
   if(debug)
@@ -407,7 +410,7 @@ int readDataEsp(String &resp, long timeout=2000){
 //pin: user pin
 //reply: list of items returned by server
 boolean requestList(String &pin,String &reply){
-  if(!isServerConnectedEsp("192.168.0.101")){
+  if(!isServerConnectedEsp(server_ip)){
     server_connected=false;
     return false; 
   } 
@@ -477,7 +480,7 @@ boolean setupEsp(){
 boolean initServer(){
   server_connected=false;
   clearEsp();
-  if(!connectToServerEsp("192.168.0.101","8080"))
+  if(!connectToServerEsp(server_ip,"8080"))
     return false;
   String reply="";
   //sends shelf id to server for authentication
