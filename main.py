@@ -506,9 +506,9 @@ class mainWindow(QWidget):
             userInfo = user_info(self.databasePath)
             userData = userInfo.get_user_info(1)
             print(userData)
-            # self.user = userDetails(userData[0],1,True) #CHANGE THIS ASAP!!
-            # self.createStackedPages()
-            # self.HomeWidget.setCurrentIndex(1)
+            self.user = userDetails(userData[0],1,True) #CHANGE THIS ASAP!!
+            self.createStackedPages()
+            self.HomeWidget.setCurrentIndex(1)
 
     def setupWindows(self):
         self.setupHeaderWidget(self.arcHeader)
