@@ -359,6 +359,11 @@ class mainWindow(QWidget):
         phoneWhasetuptsApp = self.enrol.findChild(QLineEdit, "phoneWhatsApp")
         roomNumber = self.enrol.findChild(QLineEdit, "roomNumber")
         pin = self.enrol.findChild(QLineEdit, "pin")
+        inventoryAccess = self.enrol.findChild(QCheckBox, "inventoryAccess")
+        labAccess = self.enrol.findChild(QCheckBox, "labAccess")
+
+        # buttonBox.accepted.connect()
+        buttonBox.rejected.connect(lambda: self.launchWindow(0))
 
 
         if self.user.isAdmin == True:

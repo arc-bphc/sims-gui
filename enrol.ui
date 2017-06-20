@@ -195,7 +195,7 @@ QWidget {background-color: white}
       </spacer>
      </item>
      <item row="5" column="0" alignment="Qt::AlignHCenter">
-      <widget class="QCheckBox" name="InventoryAccess">
+      <widget class="QCheckBox" name="inventoryAccess">
        <property name="text">
         <string>Inventory Access</string>
        </property>
