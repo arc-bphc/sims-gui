@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>977</width>
-    <height>691</height>
+    <height>696</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -157,6 +157,12 @@
           <height>16777215</height>
          </size>
         </property>
+        <property name="maxLength">
+         <number>6</number>
+        </property>
+        <property name="echoMode">
+         <enum>QLineEdit::Password</enum>
+        </property>
        </widget>
       </item>
       <item row="3" column="0" alignment="Qt::AlignHCenter">
@@ -172,7 +178,6 @@
      </layout>
     </item>
    </layout>
-   <zorder>pushButton</zorder>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>

@@ -205,9 +205,12 @@ class mainWindow(QWidget):
         Ui_splashScreen().setupUi(self.splashScreen)
         button = self.splashScreen.findChild(QPushButton, "pushButton")
         pinButton = self.splashScreen.findChild(QPushButton, "pinButton")
-        pinBox = self.splashScreen.findChild(QLineEdit, "pinBox")
-        pinBox.hide()
-        pinButton.clicked.connect(lambda: pinBox.show())
+
+        self.pinBox = self.splashScreen.findChild(QLineEdit, "pinBox")
+        self.pinEntry = False
+        self.pinBox.hide()
+
+        pinButton.clicked.connect(lambda: self.loginWithPIN())
         button.clicked.connect(lambda: self.unlockScreen())
 
     def setupAbout(self):
@@ -351,7 +354,7 @@ class mainWindow(QWidget):
 
     def setupEnrol(self):
         Ui_enrolWindow().setupUi(self.enrol)
-        fingerID = 20 #placeholder
+        fingerID = 25 #placeholder
         enrollUserObject = enrollUser(self.databasePath)
 
         buttonBox = self.enrol.findChild(QDialogButtonBox, "buttonBox")
@@ -559,6 +562,13 @@ class mainWindow(QWidget):
 
     def getDevice(self):
         return self.device
+
+    def loginWithPIN(self):
+        if self.pinEntry == False:
+            self.pinEntry = True
+            self.pinBox.show()
+        else:
+            print("To be implemented soon")
 
 def main():
     app = QApplication(sys.argv)

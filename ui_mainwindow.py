@@ -11,7 +11,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_splashScreen(object):
     def setupUi(self, splashScreen):
         splashScreen.setObjectName("splashScreen")
-        splashScreen.resize(977, 691)
+        splashScreen.resize(977, 696)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -62,6 +62,8 @@ class Ui_splashScreen(object):
         self.pinBox = QtWidgets.QLineEdit(self.centralWidget)
         self.pinBox.setMinimumSize(QtCore.QSize(300, 0))
         self.pinBox.setMaximumSize(QtCore.QSize(400, 16777215))
+        self.pinBox.setMaxLength(6)
+        self.pinBox.setEchoMode(QtWidgets.QLineEdit.Password)
         self.pinBox.setObjectName("pinBox")
         self.gridLayout.addWidget(self.pinBox, 8, 0, 1, 1, QtCore.Qt.AlignHCenter)
         self.label_3 = QtWidgets.QLabel(self.centralWidget)
@@ -69,7 +71,6 @@ class Ui_splashScreen(object):
         self.label_3.setObjectName("label_3")
         self.gridLayout.addWidget(self.label_3, 3, 0, 1, 1, QtCore.Qt.AlignHCenter)
         self.gridLayout_2.addLayout(self.gridLayout, 0, 0, 1, 1)
-        self.pushButton.raise_()
         splashScreen.setCentralWidget(self.centralWidget)
 
         self.retranslateUi(splashScreen)
