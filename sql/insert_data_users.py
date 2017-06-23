@@ -37,6 +37,7 @@ class db:
         else:
             parameterPlaceholder = '(' + ','.join(parameters) + ')'
             query = 'insert into ' + table + parameterPlaceholder + ' values ' + placeholder
+            print(query)
             self.conn.execute(query, values)
         self.conn.commit()
 

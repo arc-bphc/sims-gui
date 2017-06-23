@@ -348,7 +348,7 @@ class mainWindow(QWidget):
 
     def setupEnrol(self):
         Ui_enrolWindow().setupUi(self.enrol)
-
+        fingerID = 20 #placeholder
         enrollUserObject = enrollUser(self.databasePath)
 
         buttonBox = self.enrol.findChild(QDialogButtonBox, "buttonBox")
@@ -356,12 +356,12 @@ class mainWindow(QWidget):
         userID = self.enrol.findChild(QLineEdit, "userID")
         email = self.enrol.findChild(QLineEdit, "email")
         phoneCall = self.enrol.findChild(QLineEdit, "phoneCall")
-        phoneWhasetuptsApp = self.enrol.findChild(QLineEdit, "phoneWhatsApp")
+        phoneWhatsApp = self.enrol.findChild(QLineEdit, "phoneWhatsApp")
         roomNumber = self.enrol.findChild(QLineEdit, "roomNumber")
         pin = self.enrol.findChild(QLineEdit, "pin")
         inventoryAccess = self.enrol.findChild(QCheckBox, "inventoryAccess")
         labAccess = self.enrol.findChild(QCheckBox, "labAccess")
-
+        adminPriv = self.enrol.findChild(QCheckBox, "adminPriv")
         # buttonBox.accepted.connect()
         buttonBox.rejected.connect(lambda: self.launchWindow(0))
 
@@ -371,8 +371,9 @@ class mainWindow(QWidget):
             buttonBox.accepted.connect(lambda: enrollUserObject.enrollNewUser(str(name.text()), \
                                                             str(email.text()), str(phoneCall.text()), \
                                                             str(phoneWhatsApp.text()), str(roomNumber.text()), \
-                                                            str(pin.text()), str(25)))
-#            buttonBox.accepted.connect(lambda: self.showMsgBox('Database successfully updated!'))
+                                                            str(pin.text()), fingerID, adminPriv.isChecked(), \
+                                                            labAccess.isChecked(), inventoryAccess.isChecked()))
+            buttonBox.accepted.connect(lambda: self.showMsgBox('Database successfully updated!'))
             buttonBox.accepted.connect(lambda: self.launchWindow(0))
         else:
             buttonBox.rejected.connect(lambda: self.launchWindow(0))
