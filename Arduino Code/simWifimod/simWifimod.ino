@@ -7,7 +7,9 @@
  */
 #include<SoftwareSerial.h>
 
-SoftwareSerial esp(10,11);
+#define esp Serial3
+
+//SoftwareSerial esp(10,11);
 
 //enables debug and messages on Serial
 boolean debug=true;
@@ -33,8 +35,8 @@ int shelf_id=0xF2;
 String userpin="025678";
 
 //ssid and pwd for wifi
-String ssid="TP-LINK";
-String pwd="12345678";
+String ssid="ARC";
+String pwd="bphc@arc";
 
 //ip of server
 String server_ip="192.168.0.100";
@@ -76,9 +78,9 @@ void clearEsp(){
 //to reset esp module
 boolean resetEsp(){
   msgOut("resetting..");
-  digitalWrite(8,LOW);
+  digitalWrite(22,LOW);
   delay(10);
-  digitalWrite(8,HIGH);
+  digitalWrite(22,HIGH);
   delay(2000);
   clearEsp();
   int count=0;
@@ -359,8 +361,7 @@ int readDataEsp(String &resp, long timeout=2000){
     else if((millis()-startTime)>timeout){
         debugOut("no data available");
         debugOut(response);
-        return -1;                         
-      
+        return -1;                           
     }
     else
       continue;
@@ -381,7 +382,7 @@ int readDataEsp(String &resp, long timeout=2000){
   int data_size=response.toInt();
 
   debugOut(String(data_size)+" bytes received");
-  delay(1);
+  delay(10);
   response="";
   for(int i=0;i<data_size;++i){
     if(esp.available()){
