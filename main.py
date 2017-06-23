@@ -395,6 +395,8 @@ class mainWindow(QWidget):
         fprint3 = self.enrolFingerprint.findChild(QLabel, "fprint3")
         exitButton = self.enrolFingerprint.findChild(QPushButton, "exitButton")
 
+        exitButton.clicked.connect(lambda: self.launchWindow(8))
+
         scanFingerprint = QMovie("images/finger-scan.gif")
         scanFingerprint.setScaledSize(QSize(320, 240))
 

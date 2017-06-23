@@ -50,21 +50,14 @@ QWidget {background-color: white}
        </property>
       </widget>
      </item>
-     <item row="5" column="0" alignment="Qt::AlignHCenter">
+     <item row="7" column="0" alignment="Qt::AlignHCenter">
       <widget class="QCheckBox" name="labAccess">
        <property name="text">
         <string>ARC Lab Access  </string>
        </property>
       </widget>
      </item>
-     <item row="8" column="0">
-      <widget class="QPushButton" name="biometricButton">
-       <property name="text">
-        <string>Biometrics</string>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="0" alignment="Qt::AlignHCenter">
+     <item row="6" column="0" alignment="Qt::AlignHCenter">
       <widget class="QCheckBox" name="adminPriv">
        <property name="text">
         <string>Administrator    </string>
@@ -162,7 +155,7 @@ QWidget {background-color: white}
        </item>
       </layout>
      </item>
-     <item row="11" column="0">
+     <item row="12" column="0">
       <spacer name="verticalSpacer_4">
        <property name="orientation">
         <enum>Qt::Vertical</enum>
@@ -188,34 +181,21 @@ QWidget {background-color: white}
        </property>
       </spacer>
      </item>
-     <item row="9" column="0">
-      <spacer name="verticalSpacer_3">
-       <property name="orientation">
-        <enum>Qt::Vertical</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>20</width>
-         <height>40</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item row="10" column="0" alignment="Qt::AlignHCenter">
+     <item row="11" column="0" alignment="Qt::AlignHCenter">
       <widget class="QDialogButtonBox" name="buttonBox">
        <property name="standardButtons">
         <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
        </property>
       </widget>
      </item>
-     <item row="6" column="0" alignment="Qt::AlignHCenter">
+     <item row="8" column="0" alignment="Qt::AlignHCenter">
       <widget class="QCheckBox" name="inventoryAccess">
        <property name="text">
         <string>Inventory Access</string>
        </property>
       </widget>
      </item>
-     <item row="3" column="0">
+     <item row="5" column="0">
       <spacer name="verticalSpacer">
        <property name="orientation">
         <enum>Qt::Vertical</enum>
@@ -228,8 +208,28 @@ QWidget {background-color: white}
        </property>
       </spacer>
      </item>
-     <item row="7" column="0">
+     <item row="9" column="0">
       <spacer name="verticalSpacer_5">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item row="4" column="0">
+      <widget class="QPushButton" name="biometricButton">
+       <property name="text">
+        <string>Biometrics</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0">
+      <spacer name="verticalSpacer_3">
        <property name="orientation">
         <enum>Qt::Vertical</enum>
        </property>
