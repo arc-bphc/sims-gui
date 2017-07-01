@@ -36,21 +36,17 @@ class Ui_loginWindow(object):
         self.label.setScaledContents(True)
         self.label.setObjectName("label")
         self.verticalLayout.addWidget(self.label, 0, QtCore.Qt.AlignHCenter)
-        self.label_3 = QtWidgets.QLabel(loginWindow)
-        self.label_3.setStyleSheet("font: 75 14pt \"Noto Sans\";")
-        self.label_3.setObjectName("label_3")
-        self.verticalLayout.addWidget(self.label_3, 0, QtCore.Qt.AlignHCenter)
-        self.pushButton_2 = QtWidgets.QPushButton(loginWindow)
-        self.pushButton_2.setObjectName("pushButton_2")
-        self.verticalLayout.addWidget(self.pushButton_2)
-        self.pushButton = QtWidgets.QPushButton(loginWindow)
-        self.pushButton.setObjectName("pushButton")
-        self.verticalLayout.addWidget(self.pushButton)
         spacerItem1 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout.addItem(spacerItem1)
+        self.label_3 = QtWidgets.QLabel(loginWindow)
+        self.label_3.setStyleSheet("font: 75 18pt \"Noto Sans\";")
+        self.label_3.setObjectName("label_3")
+        self.verticalLayout.addWidget(self.label_3, 0, QtCore.Qt.AlignHCenter)
+        spacerItem2 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout.addItem(spacerItem2)
         self.gridLayout.addLayout(self.verticalLayout, 0, 1, 1, 1)
-        spacerItem2 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.gridLayout.addItem(spacerItem2, 0, 2, 1, 1)
+        spacerItem3 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.gridLayout.addItem(spacerItem3, 0, 2, 1, 1)
 
         self.retranslateUi(loginWindow)
         QtCore.QMetaObject.connectSlotsByName(loginWindow)
@@ -59,8 +55,6 @@ class Ui_loginWindow(object):
         _translate = QtCore.QCoreApplication.translate
         loginWindow.setWindowTitle(_translate("loginWindow", "Login"))
         self.label_3.setText(_translate("loginWindow", "Place your finger on the sensor"))
-        self.pushButton_2.setText(_translate("loginWindow", "Login"))
-        self.pushButton.setText(_translate("loginWindow", "Enrol User"))
 
 
 if __name__ == "__main__":

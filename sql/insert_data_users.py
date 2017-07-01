@@ -37,6 +37,7 @@ class db:
         else:
             parameterPlaceholder = '(' + ','.join(parameters) + ')'
             query = 'insert into ' + table + parameterPlaceholder + ' values ' + placeholder
+            print(query)
             self.conn.execute(query, values)
         self.conn.commit()
 
@@ -48,13 +49,14 @@ class db:
             whereClause = ' AND '.join(whereClause)
             query = 'select ' + placeholder + ' from ' + table + ' where ' + whereClause
         # print whereClause
-        # print query
+        print(query)
         self.cursor.execute(query)
         return self.cursor.fetchall()
 
     def viewItemInfo(self, itemId):
         itemInfo = []
         itemInfo = self.selectQuery('inventory', ['*'], ['ITEM_ID = ' + str(itemId)])
+        # print(itemInfo)
         return itemInfo
 
     def selectDistinctQuery(self, table, col, whereClause = []):

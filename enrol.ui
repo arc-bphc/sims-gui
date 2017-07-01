@@ -221,7 +221,11 @@ QWidget {background-color: white}
        </property>
       </spacer>
      </item>
+<<<<<<< HEAD
      <item row="4" column="0">
+=======
+     <item row="4" column="0" alignment="Qt::AlignHCenter">
+>>>>>>> 579b2b5490e1e31896e496ea0dc64854b2c0e4c7
       <widget class="QPushButton" name="biometricButton">
        <property name="text">
         <string>Biometrics</string>

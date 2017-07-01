@@ -9,7 +9,7 @@ class selectFromInventory:
 		self.user = db(dbname)
 
 	def getCatagories(self):
-		catagoryList = self.user.selectDistinctQuery('inventory',['CATAGORY'])
+		catagoryList = self.user.selectDistinctQuery('inventory',['CATEGORY'])
 		self.catagories = []
 		for i in range(len(catagoryList)):
 			self.catagories.append(catagoryList[i][0])
@@ -19,7 +19,7 @@ class selectFromInventory:
 	#	print self.catagories[catagoryNo]
 		items = []
 		self.itemList = []
-		self.itemList = self.user.selectQuery('inventory',['*'],["CATAGORY = '" + self.catagories[catagoryNo] + "'"])
+		self.itemList = self.user.selectQuery('inventory',['*'],["CATEGORY = '" + self.catagories[catagoryNo] + "'"])
 	#	print self.itemList
 		for j in range(len(self.itemList)):
 			items.append(self.itemList[j][1])
