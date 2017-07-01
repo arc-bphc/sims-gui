@@ -102,7 +102,7 @@ class Ui_enrolWindow(object):
         self.gridLayout.addItem(spacerItem4, 9, 0, 1, 1)
         self.biometricButton = QtWidgets.QPushButton(enrolWindow)
         self.biometricButton.setObjectName("biometricButton")
-        self.gridLayout.addWidget(self.biometricButton, 4, 0, 1, 1)
+        self.gridLayout.addWidget(self.biometricButton, 4, 0, 1, 1, QtCore.Qt.AlignHCenter)
         spacerItem5 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.gridLayout.addItem(spacerItem5, 3, 0, 1, 1)
         self.gridLayout_3.addLayout(self.gridLayout, 0, 1, 1, 1)
