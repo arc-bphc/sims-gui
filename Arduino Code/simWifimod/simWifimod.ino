@@ -20,6 +20,9 @@ boolean esp_reset=false;
 boolean esp_init=false;
 boolean wifi_connected=false;
 boolean server_connected=false;
+
+//this variable when false, causes updateEsp() to call setupEsp()
+//this is useful when wifi/server etc fails. setupEsp() will try reconnectiing
 boolean esp_setup=false;
 
 //store time in ms after last ping
@@ -35,8 +38,8 @@ int shelf_id=0xF2;
 String userpin="025678";
 
 //ssid and pwd for wifi
-String ssid="ARC";
-String pwd="bphc@arc";
+String ssid="TP-LINK";
+String pwd="12345678";
 
 //ip of server
 String server_ip="192.168.0.100";
@@ -112,6 +115,7 @@ int testEsp(){
       return 1;
     }
     else if(response.indexOf("busy")!=-1){
+      debugOut(response);
       return 0;
     }
     else
@@ -137,19 +141,21 @@ boolean checkCommandStatus(String Command,String checkword,String &response){
     if(esp.available())
       response+=(char)esp.read();
     if(response.indexOf(checkword)!=-1){
+      delay(5);
+      clearEsp();
       return true;
     }
     else if(response.indexOf("FAIL")!=-1){
-      return false;
+      break;
     }
     else if(response.indexOf("ERROR")!=-1){
-      return false;
+      break;
     }
     else if((millis()-startTime)>100){
-      return false;
-    }
-  
+      break;
+    } 
   }
+  return false;
 }
 
 //attempts executing a command
@@ -172,7 +178,7 @@ int executeCommand(String Command,String &response){
     count++;
     delay(2000);
   }
-
+  count=0;
   esp.println(Command);
   startTime=millis();
   response="";
@@ -192,11 +198,15 @@ int executeCommand(String Command,String &response){
       int ret=testEsp();
       if(ret==0){ 
         startTime=millis(); 
+        count++;
         continue;
       }
       else{
         return -1;                         
       }
+    }
+    else if(count>4){
+      return -1;
     }
     else
       continue;
@@ -224,14 +234,16 @@ boolean isWifiConnectedEsp(String ssid,String pwd,int strength=0){
 //pwd: password
 boolean wifiConnectEsp(String ssid,String pwd){
   if(isWifiConnectedEsp(ssid,pwd)){
-    debugOut("connected to wifi");
+    msgOut("connected to wifi");
     return true;
   }
   String response="";
-  if(executeCommand("AT+CWJAP=\""+ssid+"\",\""+pwd+"\"",response)){
+  if(executeCommand("AT+CWJAP=\""+ssid+"\",\""+pwd+"\"",response)==1){
     return true;
   }
   else{
+    msgOut("wifi connect failed");
+    debugOut(response);
     return false;
   }
 }
@@ -241,7 +253,7 @@ boolean setModesEsp(){
   String response="";
   if(!checkCommandStatus("AT+CWMODE?","1",response)){
     debugOut("Setting connection mode to station");
-    if(!executeCommand("AT+CWMODE=1",response)){
+    if(executeCommand("AT+CWMODE=1",response)!=1){
       return false;
     }
   }
@@ -277,11 +289,12 @@ boolean isServerConnectedEsp(String ip){
 boolean connectToServerEsp(String ip,String port){
   String response="";
   executeCommand(("AT+CIPCLOSE=0"),response);
-  if(executeCommand(String("AT+CIPSTART=")+"0,\"TCP\",\""+ip+"\","+port,response)){
+  if(executeCommand(String("AT+CIPSTART=")+"0,\"TCP\",\""+ip+"\","+port,response)==1){
     msgOut("connected to "+ip);
     return true;
   }
   else{
+    debugOut(response);
     return false;
   }
 }
@@ -438,7 +451,7 @@ boolean requestList(String &pin,String &reply){
 
 //fn to setup esp module
 boolean setupEsp(){
-  if(!esp_setup){
+  if(!esp_reset){
     esp_init=false;
     wifi_connected=false;
     server_connected=false;
@@ -456,22 +469,21 @@ boolean setupEsp(){
     if(esp_init)
       debugOut("init done");
   }
-  if(esp_init){
+  if(esp_init && !(wifi_connected)){
     wifi_connected=wifiConnectEsp(ssid,pwd);
     delay(100);
-    if(wifi_connected){
-      debugOut("wifi connected");
+  }
+  if(wifi_connected && !(server_connected)){
+      msgOut("wifi connected");
       //tries connecting to server
       //setupEsp() returns true even if
       //server connection fails
       if(!initServer())
         msgOut("server failed");
-      clearEsp();
-      if(wifi_connected){
+  }
+  if(server_connected){
         msgOut("setup complete");
         return true;
-      }
-    }
   }
   msgOut("setup failed");
   return false;
@@ -519,56 +531,52 @@ boolean pingServer(){
 //fn to update esp connection status
 //pings server, tries connecting if failed
 boolean updateEsp(){
-  //checks wifi connection every 2s
-  if(((millis()-updateTime)%2000)==0){
-    if(!isWifiConnectedEsp(ssid,pwd)){
-      esp_init=false;
-      wifi_connected=false;
-    }
+  clearEsp();
+  updateTime=millis();
+  if(!esp_setup){
+    esp_setup=setupEsp();
+    return esp_setup;
   }
-  //tries pinging server every 30s
-  if((millis()-updateTime)>30000){
-    clearEsp();
-    updateTime=millis();
-    if(!esp_setup){
-      esp_setup=setupEsp();
-      return esp_setup;
-    }
-    else if((!esp_init) || (!wifi_connected)){
-      return setupEsp();
-    }
-    else if(!server_connected){
+  else{
+    // try pinging server
+    if(!pingServer()){
+      // reconnect to server, if ping fails
       if(initServer())
         return true;
     }
     else{
-      if(!pingServer()){
-        if(initServer())
-          return true;
-      }
-      else{
-        return true;
-      }
+      return true;
     }
-    
-    return false;
   }
-  return true;
-  
+  // if function hasn't returned true by now, ping and server has failed
+  esp_setup=false;
+  return false;
 }
 
 //fn called in loop, to check esp status
 void espStatus(){
-  if(!updateEsp()){
-    update_fails++;
-    //resets esp if updateEsp() fails 10 times
-    if(update_fails>=10){
-      update_fails=0;
+  //checks wifi connection every 2s
+  if(((millis()-updateTime)%2000)==0){
+    if(!isWifiConnectedEsp(ssid,pwd)){
+      wifi_connected=false;
+      //to call setupEsp() when updateEsp() is called
       esp_setup=false;
     }
   }
-  else
-    update_fails=0;
+  //tries pinging server every 30s
+  if((millis()-updateTime)>30000){
+    if(!updateEsp()){
+      update_fails++;
+      //resets esp if updateEsp() fails 10 times
+      if(update_fails>=10){
+        update_fails=0;
+        //will cause esp to reset when updateEsp() is called
+        esp_reset=false;
+      }
+    }
+    else
+      update_fails=0;
+  }
 }
 
 void setup() {

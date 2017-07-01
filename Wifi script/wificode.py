@@ -105,6 +105,23 @@ def createItemsList(id_no,shelf_no,null_val):
     except (dbError,connError):
         return ''
 
+def verifyUserPin(conn):
+    #receive user password/messaage
+    msg=conn.recv(1024)
+    if len(msg)!=6:
+        raise connError('message corrupt')
+    msg=msg.decode()
+    print('message:'+msg)
+    #split into id_no and password
+    id_no=int(msg[:2])
+    pwd=msg[2:]
+    del msg
+    #retrieve password from db based on id_no
+    salt,password=executeDB('select SALT,HASHED_PASSWORD from users where ID=(?)',[id_no],True)[0]
+    if (password!=createPassword(pwd,salt)):
+            raise connError('password not matching')
+    return id_no
+
 def clientHandler(conn,address):
     '''
     fn to handle a new client connection
@@ -149,21 +166,8 @@ def clientHandler(conn,address):
                 #retrieve data   
                 elif dat[0]==0x10:
                     conn.send(bytearray([0x01]))
-                    #receive user password/messaage
-                    msg=conn.recv(1024)
-                    if len(msg)!=6:
-                        raise connError('message corrupt')
-                    msg=msg.decode()
-                    print('message:'+msg)
-                    #split into id_no and password
-                    id_no=int(msg[:2])
-                    pwd=msg[2:]
-                    del msg
-                    #retrieve password from db based on id_no
-                    salt,password=executeDB('select SALT,HASHED_PASSWORD from users where ID=(?)',[id_no],True)[0]
-                    if (password!=createPassword(pwd,salt)):
-                            raise connError('password not matching')
-                    
+                    #will raise exception if pin is wrong
+                    id_no=verifyUserPin(conn)
                     items_string=createItemsList(id_no,shelf_no,'NULL')+'&'
                     items_string=items_string+createItemsList(id_no,shelf_no,'NOT NULL')
                     if items_string=='&' or items_string==None:
@@ -171,6 +175,8 @@ def clientHandler(conn,address):
                     else:
                         print("sending data:"+items_string)
                         conn.send((items_string).encode())
+                elif dat[0]==0x30:
+                    pass
                 else:
                     continue
             #handling possible and allowed errors

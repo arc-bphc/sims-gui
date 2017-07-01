@@ -14,7 +14,7 @@
             "resource-images-path": "images/resource/"
         },
         "database": {
-            "path": "sql/test.db"
+            "path": "sql/SIMS.db"
         }
     }
 }
