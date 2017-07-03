@@ -1,4 +1,4 @@
-from insert_data_users import db
+from .insert_data_users import db
 import hashlib
 
 class loginWithPin:
