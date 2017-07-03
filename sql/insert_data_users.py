@@ -16,10 +16,7 @@ class db:
         try:
             self.conn = sqlite3.connect(self.databaseName)
             self.cursor = self.conn.cursor()
-            #conn.text_factory = str
 
-            #self.execute('.header on')
-            #self.execute('.mode column')
         except:
             print ('Error in connecting to database')
 
@@ -27,17 +24,20 @@ class db:
         self.conn.close()
 
     def insertTuple(self, table, values, parameters = []):
-        placeholder = '(' + ','.join('?'*len(values)) + ')'
-        #print placeholder
-        if len(parameters) == 0:
-            query = 'insert into ' + table + ' values ' + placeholder
-            self.conn.execute(query, values)
+        if '' in values:
+            pass
         else:
-            parameterPlaceholder = '(' + ','.join(parameters) + ')'
-            query = 'insert into ' + table + parameterPlaceholder + ' values ' + placeholder
-            print(query)
-            self.conn.execute(query, values)
-        self.conn.commit()
+            placeholder = '(' + ','.join('?'*len(values)) + ')'
+            #print placeholder
+            if len(parameters) == 0:
+                query = 'insert into ' + table + ' values ' + placeholder
+                self.conn.execute(query, values)
+            else:
+                parameterPlaceholder = '(' + ','.join(parameters) + ')'
+                query = 'insert into ' + table + parameterPlaceholder + ' values ' + placeholder
+                print(query)
+                self.conn.execute(query, values)
+            self.conn.commit()
 
     def selectQuery(self, table, col, whereClause = []):
         placeholder = ','.join(col)
@@ -46,7 +46,6 @@ class db:
         else:
             whereClause = ' AND '.join(whereClause)
             query = 'select ' + placeholder + ' from ' + table + ' where ' + whereClause
-        # print whereClause
         print(query)
         self.cursor.execute(query)
         return self.cursor.fetchall()
@@ -54,7 +53,6 @@ class db:
     def viewItemInfo(self, itemId):
         itemInfo = []
         itemInfo = self.selectQuery('inventory', ['*'], ['ITEM_ID = ' + str(itemId)])
-        # print(itemInfo)
         return itemInfo
 
     def selectDistinctQuery(self, table, col, whereClause = []):
@@ -70,14 +68,17 @@ class db:
 
     def updateQuery(self, table, values, whereClause = []):
         values = ','.join(values)
-        if len(whereClause) == 0:
-            query = 'update ' + table + ' set ' + values
+        if '' in values:
+            pass
         else:
-            whereClause = ' AND '.join(whereClause)
-            query = 'update ' + table + ' set ' + values + ' where ' + whereClause
-            #print query
-        self.conn.execute(query)
-        self.conn.commit()
+            if len(whereClause) == 0:
+                query = 'update ' + table + ' set ' + values
+            else:
+                whereClause = ' AND '.join(whereClause)
+                query = 'update ' + table + ' set ' + values + ' where ' + whereClause
+                #print query
+            self.conn.execute(query)
+            self.conn.commit()
 
     def deleteQuery(self, table, whereClause = []):
     	if len(whereClause) == 0:
