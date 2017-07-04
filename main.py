@@ -49,6 +49,23 @@ class userDetails():
     def isAdmin():
         return isAdmin
 
+# Event Filter
+
+def clickable(widget):
+    class Filter(QObject):
+        clicked = pyqtSignal()
+        def eventFilter(self, obj, event):
+            if obj == widget:
+                if event.type() == QEvent.MouseButtonRelease:
+                    if obj.rect().contains(event.pos()):
+                        self.clicked.emit()
+                        # The developer can opt for .emit(obj) to get the object within the slot.
+                        return True
+            return False
+    filter = Filter(widget)
+    widget.installEventFilter(filter)
+    return filter.clicked
+
 # The mainWindow class handles all the GUI widgets and logic
 
 class mainWindow(QWidget):
@@ -203,15 +220,10 @@ class mainWindow(QWidget):
     # UI->Python files. We connect the actions of each widget through Qt's signal/slots
     def setupSplashScreen(self):
         Ui_splashScreen().setupUi(self.splashScreen)
-        button = self.splashScreen.findChild(QPushButton, "pushButton")
-        pinButton = self.splashScreen.findChild(QPushButton, "pinButton")
-
-        self.pinBox = self.splashScreen.findChild(QLineEdit, "pinBox")
         self.pinEntry = False
-        self.pinBox.hide()
 
-        pinButton.clicked.connect(lambda: self.loginWithPIN())
-        button.clicked.connect(lambda: self.unlockScreen())
+        clickable(self.splashScreen).connect(lambda: self.unlockScreen())
+
 
     def setupAbout(self):
         Ui_aboutWindow().setupUi(self.about)
@@ -523,9 +535,6 @@ class mainWindow(QWidget):
     # Fingerprint login is supported here. We only take the sensor's word
     # for whether the fingerprint provided is valid.
     def unlockScreen(self):
-        button = self.splashScreen.findChild(QPushButton, "pushButton")
-        button.setText('Login failed. Try again.'),
-
         if self.fprintEnabled == True:
             ser=serial.Serial(self.sensorPath,baudrate=57600)
             get_finger()
