@@ -166,7 +166,7 @@ def clientHandler(conn,address):
                 #retrieve data   
                 elif dat[0]==0x10:
                     conn.send(bytearray([0x01]))
-                    #will raise exception if pin is wrong
+                    #will raise exception if pin is wrong and send 0x09
                     id_no=verifyUserPin(conn)
                     items_string=createItemsList(id_no,shelf_no,'NULL')+'&'
                     items_string=items_string+createItemsList(id_no,shelf_no,'NOT NULL')
@@ -176,6 +176,7 @@ def clientHandler(conn,address):
                         print("sending data:"+items_string)
                         conn.send((items_string).encode())
                 elif dat[0]==0x30:
+                    
                     pass
                 else:
                     continue
