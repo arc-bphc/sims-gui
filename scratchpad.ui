@@ -481,8 +481,8 @@
   <widget class="QTableWidget" name="tableWidget">
    <property name="geometry">
     <rect>
-     <x>330</x>
-     <y>160</y>
+     <x>340</x>
+     <y>80</y>
      <width>461</width>
      <height>251</height>
     </rect>
@@ -506,8 +506,8 @@
   <widget class="QLabel" name="label_6">
    <property name="geometry">
     <rect>
-     <x>210</x>
-     <y>90</y>
+     <x>260</x>
+     <y>470</y>
      <width>321</width>
      <height>181</height>
     </rect>
