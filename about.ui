@@ -99,7 +99,7 @@ QWidget {background-color: white}
         <string notr="true">font: italic bold 18pt &quot;Noto Sans&quot;;</string>
        </property>
        <property name="text">
-        <string>v0.1.1a</string>
+        <string>v0.1.2a</string>
        </property>
       </widget>
      </item>

@@ -75,7 +75,7 @@ class Ui_aboutWindow(object):
         self.label_3.setText(_translate("aboutWindow", "Developed by Arnav Dhamija, Yashdeep Thorat, Ebin Philip"))
         self.label.setText(_translate("aboutWindow", "SIMS Alpha"))
         self.label_7.setText(_translate("aboutWindow", "Automation & Robotics Club, BITS Pilani, Hyderabad Campus"))
-        self.label_5.setText(_translate("aboutWindow", "v0.1.1a"))
+        self.label_5.setText(_translate("aboutWindow", "v0.1.2a"))
         self.closeButton.setText(_translate("aboutWindow", "Close"))
         self.label_2.setText(_translate("aboutWindow", "Smart Inventory Management System"))
 
