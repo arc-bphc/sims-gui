@@ -195,7 +195,7 @@ class Response_Packet(Packet):
                 else:
                     self.Error = self.IntFromParameter()
                     self.ACK=False
-    
+
 
     def ParseFromBytes(self,high,low):
         '''
@@ -488,7 +488,7 @@ class GT511C3(SerialCommander):
             return True
         else:
             return retval
-        
+
 
     def IsPressFinger(self):
         '''
@@ -728,8 +728,8 @@ class GT511C3(SerialCommander):
         else:
             r = bytearray(self._serial.read(12))
             rp = Response_Packet(r[:12],self.UseSerialDebug)
-            
-            
+
+
         self._lastResponse = rp
         return rp
 
@@ -754,8 +754,8 @@ class fsensor(GT511C3):
         '''
         resets the enroller index to use enroll1()
         '''
-        self.enrollIndex=0    
-        
+        self.enrollIndex=0
+
     def waitForFinger(self,state=True,timeout=5):
         '''
         waits until finger is placed/not placed on sensor or timeout, based on state
@@ -808,7 +808,7 @@ class fsensor(GT511C3):
             ret=self.Identify1_N()
             if ret<200:
                 return ret
-        return False    
+        return False
 
     def enroll(self,index):
         '''
@@ -837,8 +837,6 @@ class fsensor(GT511C3):
             if self.enrollIndex>=2:
                 self.resetEnrollIndex()
             return ret
-        
 
-    
-        
-    
+    def getCurrentEnrollIndex():
+        return self.enrollIndex

@@ -29,6 +29,7 @@ from sql.purchase import purchaseRequests
 from sql.enrollUser import enrollUser
 
 from fingerprint_sensor.finger_download import *
+from fingerprint_sensor.FPS import *
 
 # Objects from this class are used for the active user in the application
 # At a time, only one user can be logged in.
