@@ -184,6 +184,7 @@ class mainWindow(QWidget):
         self.device = data['Settings']['device']
         self.fprintEnabled = data['Settings']['fingerprint']['enabled']
         self.sensorPath = data['Settings']['fingerprint']['sensorPath']
+        self.baudRate = data['Settings']['fingerprint']['baudRate']
         self.userImagePath = data['Settings']['images']['user-images-path']
         self.userImagesPrefix = data['Settings']['images']['user-images-prefix']
         self.inventoryImagesPath = data['Settings']['images']['inventory-images-path']
@@ -406,21 +407,51 @@ class mainWindow(QWidget):
     def setupEnrolFingerprint(self):
         Ui_enrolFingerWindow().setupUi(self.enrolFingerprint)
 
-        fprint1 = self.enrolFingerprint.findChild(QLabel, "fprint1")
-        fprint2 = self.enrolFingerprint.findChild(QLabel, "fprint2")
-        fprint3 = self.enrolFingerprint.findChild(QLabel, "fprint3")
+        fingerprintWidgets = []
+        fingerprintWidgets.append(self.enrolFingerprint.findChild(QLabel, "fprint1"))
+        fingerprintWidgets.append(self.enrolFingerprint.findChild(QLabel, "fprint2"))
+        fingerprintWidgets.append(self.enrolFingerprint.findChild(QLabel, "fprint3"))
         exitButton = self.enrolFingerprint.findChild(QPushButton, "exitButton")
 
         exitButton.clicked.connect(lambda: self.launchWindow(8))
 
+        for fprint in fingerprintWidgets:
+            # fprint.setMovie(scanFingerprint)
+            fprint.setPixmap(QPixmap("images/fingerprint-icon.jpg"))
+
+        if self.fprintEnabled:
+            self.setFingerprintStates(fingerprintWidgets, 55)
+
+    def setFingerprintStates(self, fingerprintWidgets, index):
+        fingerprintObject = fsensor(self.sensorPath, self.baudRate)
+
         scanFingerprint = QMovie("images/finger-scan.gif")
         scanFingerprint.setScaledSize(QSize(320, 240))
-
-        fprint1.setMovie(scanFingerprint)
-        fprint2.setMovie(scanFingerprint)
-        fprint3.setMovie(scanFingerprint)
-
         scanFingerprint.start()
+
+        correctFingerprint = QPixmap("images/finger-correct.gif")
+        wrongFingerprint = QPixmap("images/finger-wrong.gif")
+
+        if fsensor.getCurrentEnrollIndex() == 0:
+            fingerprintWidgets[0].setMovie(scanFingerprint)
+            if fsensor.enroll(index):
+                fingerprintWidgets[0].setPixmap(correctFingerprint)
+                fingerprintWidgets[1].setMovie(scanFingerprint)
+                if fsensor.enroll(index):
+                    fingerprintWidgets[0].setPixmap(correctFingerprint)
+                    fingerprintWidgets[1].setPixmap(correctFingerprint)
+                    fingerprintWidgets[2].setMovie(scanFingerprint)
+                    if fsensor.enroll(index):
+                        fingerprintWidgets[0].setPixmap(correctFingerprint)
+                        fingerprintWidgets[1].setPixmap(correctFingerprint)
+                        fingerprintWidgets[2].setPixmap(correctFingerprint)
+                        self.showMsgBox('Fingerprint Registered!')
+                        return true
+                    else:
+                        return false
+                else:
+                    self.showMsgBox('Try Again')
+
 
     def removeFromCartAction(self, listView, partID):
         if len(listView.selectedIndexes()) != 0:

@@ -783,7 +783,7 @@ class fsensor(GT511C3):
         self.SetLED(0)
         return True
 
-    def  GetTemplate(self,ID):
+    def GetTemplate(self,ID):
         '''
         retrieves fingerprint template of specified ID
         arguments:
