@@ -50,7 +50,7 @@ class Ui_enrolFingerWindow(object):
         self.gridLayout.addWidget(self.fprint2, 1, 2, 1, 1, QtCore.Qt.AlignHCenter)
         self.exitButton = QtWidgets.QPushButton(enrolFingerWindow)
         self.exitButton.setObjectName("exitButton")
-        self.gridLayout.addWidget(self.exitButton, 5, 2, 1, 1, QtCore.Qt.AlignHCenter)
+        self.gridLayout.addWidget(self.exitButton, 5, 2, 1, 1)
         spacerItem2 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout.addItem(spacerItem2, 1, 1, 1, 1)
         spacerItem3 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
