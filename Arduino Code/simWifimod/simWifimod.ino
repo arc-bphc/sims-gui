@@ -7,7 +7,7 @@
  */
 #include<SoftwareSerial.h>
 
-#define esp Serial3
+#define esp Serial2
 
 //SoftwareSerial esp(10,11);
 
@@ -38,8 +38,8 @@ int shelf_id=0xF2;
 String userpin="025678";
 
 //ssid and pwd for wifi
-String ssid="TP-LINK";
-String pwd="12345678";
+String ssid="ARC";
+String pwd="bphc@arc";
 
 //ip of server
 String server_ip="192.168.0.100";
@@ -583,7 +583,7 @@ void setup() {
   // put your setup code here, to run once:
   esp.begin(57600);
   Serial.begin(115200);
-  pinMode(8,OUTPUT);
+  pinMode(22,OUTPUT);
   esp_setup=setupEsp();
   updateTime=millis();
 }

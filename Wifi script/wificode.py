@@ -25,7 +25,7 @@ class connError(Error):
         self.message="Connection error:"+str(msg)
 
 
-def executeDB(command,arguments=None,conn=False,except_raise=True):
+def executeDB(command,arguments=[],conn=False,except_raise=True):
     '''    
     fn to execute db commands and retrieve results
     params:command:<String>: Sql command to execute
@@ -122,6 +122,72 @@ def verifyUserPin(conn):
             raise connError('password not matching')
     return id_no
 
+def lockHandler(conn):
+    print("lock handler")
+    time1=int(time.perf_counter())
+    while True:
+            try:
+                # the loop will exit if left unresponsive for 45s
+                if((int(time.perf_counter())-time1)>45):
+                    print("time elapsed:"+str(int((time.perf_counter()-time1))))
+                    break
+                
+                #check for incoming data
+                dat=conn.recv(1024)
+                if len(dat)==0:
+                    continue
+                
+
+                #ping
+                elif dat[0]==0x20:
+                    add_template=executeDB('SELECT FINGERPRINT_ID FROM fingerprint WHERE SENSOR=0',except_raise=False)
+                    delete_template=executeDB('SELECT FINGERPRINT_ID FROM fingerprint WHERE SENSOR=2',except_raise=False)
+                    print(str(len(add_template))+" "+str(len(delete_template)))
+                    conn.send(bytearray([len(add_template),len(delete_template)]))
+                    if not add_template==[]:
+                        for i in add_template:
+                            template=executeDB('SELECT TEMPLATE FROM fingerprint WHERE FINGERPRINT_ID=(?)',[i[0]],except_raise=False)[0][0]
+                            print(str(i[0])+":")
+                            print(template)
+                            if(conn.recv(1024)[0]==0x01):
+                                conn.send(bytearray([i[0]]))
+                                sendTemplate(conn,template)
+                            
+                    time1=int(time.perf_counter())
+                    print("received ping")
+
+                else:
+                    continue
+
+            #handling possible and allowed errors
+            except dbError as err:
+                print(err.message)
+                conn.send(bytearray([0x08]))
+                continue
+            except connError as err:
+                print(err.message)
+                conn.send(bytearray([0x09]))
+            except socket.timeout:
+                continue
+def sendTemplate(conn,template):
+    old_i=0
+    i=42
+    while i<505:
+        try:
+            vals=conn.recv(1024)
+            if(vals[0]==0x01):
+                print("sent data "+str(i/42))
+                print(template[old_i:i])
+                conn.send(template[old_i:i])
+                old_i=i
+                i=i+42
+                time.sleep(0.01)
+            else:
+                print("error sending data")
+                break
+        except socket.timeout:
+            print("socket timed out")
+
 def clientHandler(conn,address):
     '''
     fn to handle a new client connection
@@ -143,6 +209,9 @@ def clientHandler(conn,address):
         shelf_no=shelf_no[0][0]
         print("connected to"+str(address),"shelf no:"+str(shelf_no))
         conn.send(bytearray([0x01]))
+        if shelf_no==15:
+            lockHandler(conn)
+            return
         #start timer
         time1=int(time.perf_counter())
         while True:
@@ -176,8 +245,12 @@ def clientHandler(conn,address):
                         print("sending data:"+items_string)
                         conn.send((items_string).encode())
                 elif dat[0]==0x30:
-                    
                     pass
+                elif dat[0]==0x70:
+                    conn.send(bytearray([0x01]))
+                    f=open('golluri','rb+')
+                    t=f.read()
+                    sendTemplate(conn,t)
                 else:
                     continue
             #handling possible and allowed errors

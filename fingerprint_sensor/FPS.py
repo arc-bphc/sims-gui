@@ -652,7 +652,7 @@ class GT511C3(SerialCommander):
         packetbytes = cp.GetPacketBytes()
         self.SendCommand(packetbytes, 12)
         rp = self.GetResponse()
-        retval=True
+        retval=rp.ACK
         if not rp.ACK:
             if rp.Error == rp.errors['NACK_INVALID_POS']:
                 retval = 'NACK_INVALID_POS'
@@ -660,11 +660,43 @@ class GT511C3(SerialCommander):
                 retval = 'NACK_IS_NOT_USED'
         return retval
 
-    def SetTemplate(self,tmplt,ID,duplicateCheck):
+    def SetTemplate(self,template,ID,duplicateCheck):
+        if len(template)<504:
+            print("invalid template")
+            return False
         cp = Command_Packet('SetTemplate',UseSerialDebug=self.UseSerialDebug)
         cp.ParameterFromInt(ID)
         packetbytes = cp.GetPacketBytes()
         self.SendCommand(packetbytes, 12)
+        rp = self.GetResponse()
+        retval=rp.ACK
+        if not rp.ACK:
+            if rp.Error == rp.errors['NACK_INVALID_POS']:
+                retval = 'NACK_INVALID_POS'
+            elif rp.Error == rp.errors['NACK_DEV_ERR']:
+                retval = 'NACK_DEV_ERR'
+            elif rp.Error<200:
+                retval='Duplicate ID'
+            else:
+                pass
+        if retval:
+            self._serial.write(template)
+            rp = self.GetResponse()
+            retval=rp.ACK
+            if not rp.ACK:
+                if rp.Error == rp.errors['NACK_COMM_ERR']:
+                    retval = 'NACK_COMM_ERR'
+                elif rp.Error == rp.errors['NACK_DEV_ERR']:
+                    retval = 'NACK_DEV_ERR'
+                elif rp.Error<200:
+                    retval='Duplicate ID'
+                else:
+                    pass
+            return retval
+        else:
+            print("SetTemplate failed")
+            return retval
+                
     '''
          Uploads a template to the fps
          Parameter: the template (498 bytes)
@@ -799,6 +831,8 @@ class fsensor(GT511C3):
         data=self._serial.read(504)
         return True,data
 
+    
+
     def Search(self):
         '''
         Takes a fingerprint and searches the sensor database for a match
@@ -808,7 +842,7 @@ class fsensor(GT511C3):
             ret=self.Identify1_N()
             if ret<200:
                 return ret
-        return False
+        return None
 
     def enroll(self,index):
         '''

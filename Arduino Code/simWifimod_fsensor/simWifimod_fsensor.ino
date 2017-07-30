@@ -1,4 +1,4 @@
-
+ 
 /* This program sets up wifi and connects to server 
  * starts a loop which pings the server every 30s 
  * if ping fails, tries reconnecting
@@ -32,18 +32,18 @@ long updateTime=0;
 int update_fails=0;
 
 //this identifies the module to the server
-int shelf_id=0xF2;
+int shelf_id=0xFF;
 
 //user id and pin 
 //to be sent to server to fetch items list
 String userpin="025678";
 
 //ssid and pwd for wifi
-String ssid="TP-LINK";
-String pwd="12345678";
+String ssid="ARC";
+String pwd="bphc@arc";
 
 //ip of server
-String server_ip="192.168.0.101";
+String server_ip="192.168.0.100";
 
 //to output debug messages to serial
 int debugOut(String S){
@@ -82,6 +82,12 @@ int msgOut(String S){
 void clearEsp(){
   while(esp.available()){
     esp.read();
+  }
+}
+
+void clearSensor(){
+  while(_serial.available()){
+    _serial.read();
   }
 }
 
@@ -496,8 +502,10 @@ boolean requestList(String &pin,String &reply){
       debugOut("wrong shelf");
       return false;
     }
-    else
+    else{
+      Serial.println(reply);
       return true;
+    }
   }
   else{
     debugOut("data refused");
@@ -571,11 +579,21 @@ boolean pingServer(){
     long t1=millis();
     //send byte code for pinging
     writeDataEsp(0x20);
-    String response="";
-    readDataEsp(response);
-    Serial.println(int(response[0]));
-    if(byte(response[0])==0x01){
-      Serial.println(millis()-t1);
+    byte response[2];
+    int ret1=readDataEsp(response);
+    if(ret1!=-1){
+      debugOut("new:"+String(int(response[0]))+" delete:"+String(int(response[1])));
+      if(int(response[0])){
+        for(int i=0;i<int(response[0]);++i){
+          writeDataEsp(0x01);
+          byte reply;
+          if(readDataEsp(&reply)!=-1){
+            setFingerTemplate(int(reply));
+          }
+          else
+            debugOut("template not received");
+        }
+      }
       debugOut("pinged");
       return true;
     }
@@ -635,32 +653,74 @@ void espStatus(){
   }
 }
 
-boolean getFingerTemplate(){
-  writeDataEsp(0x70);
-  byte response[12];
-  readDataEsp(response);
-  if(byte(response[0]==0x01)){
-    readDataEsp(response);
-    int len=byte(response[0])*256+byte((response[1]));
-    debugOut("receiving bytes:");
-    debugOut(String(len));
-    writeDataEsp(0x01);
-    int s=readDataEsp(response);
-    debugOut("receved bytes:");
-    debugOut(String(s));
-    for(int i=0;i<s;++i){
-      Serial.print(int(response[i]));
-      Serial.print(" ");
-    }
-    Serial.println();
-    _serial.write(response,12);
-    Serial.print("sensor response:");
-    Serial.println(fps.SetTemplate(10,false));
+boolean setFingerTemplate(int pos){
+  clearEsp();
+  clearSensor();
+  debugOut("pos:"+String(pos));
+  byte ftemplate[504];
+  byte response[42];
+  if(fps.CheckEnrolled(pos)){
+    deleteEnrollment(pos);
   }
-  else
-    debugOut(response,sizeof(response));
+  
+  int fail_count=0;
+  int s=0;
+  for(int i=0;i<12;++i){
+    writeDataEsp(0x01);
+    delay(10);
+    debugOut("receive:"+String(i));
+    s=readDataEsp(response);
+    if(s==-1){
+      if(fail_count>3)
+        break;
+      i--;
+      fail_count++;
+      break;
+    }
+    for(int j=42*i,k=0;j<j+42,k<42;++j,++k)
+      ftemplate[j]=response[k];
+    fail_count=0; 
+  }
+  if(s!=-1){
+    if(fps.SetTemplate(pos,false)){
+       Serial.println("sent temp:"+String(fps.SendTemplate(ftemplate,504)));
+       delay(10);
+       Serial.println("reply:"+String(_serial.available()));
+       
+    }
+    else{
+      debugOut("setTemplate failed");
+      return false;
+    }
+    
+    clearSensor();
+    Serial.println("done");
+  }
+  if((fps.CheckEnrolled(pos)) && (s!=-1)){
+    debugOut("Enrolled:"+String(pos));
+    return true;
+  }
+  else{
+    debugOut("template-sending error");
+    return false;
+  }
 }
-
+//boolean SetTemplate(){
+//  byte command[]={0x55,0xAA,0x00,0x01,0x00,0x00,0x00,0x00,0x71,0x0,0x71,0x01};
+//  _serial.write(command,12);
+//  Serial.print("response:")
+//  Serial.println(_serial.available());
+//}
+boolean deleteEnrollment(int pos){
+  if(fps.DeleteID(pos)){
+    debugOut("deleted:"+String(pos));
+    return true;
+  }
+  else{
+    debugOut("delete failed");
+    return false;
+  }
+}
 void setup() {
   // put your setup code here, to run once:
   esp.begin(57600);
@@ -669,6 +729,8 @@ void setup() {
   esp_setup=setupEsp();
   updateTime=millis();
   fps.Open();
+  fps.SetLED(1);
+  pingServer();
 }
 
 void loop() {
@@ -677,6 +739,7 @@ void loop() {
   
   if(Serial.available()){
     char choice=Serial.read();
+    Serial.println(choice);
     switch(choice){
       case '1':
         {
@@ -695,7 +758,23 @@ void loop() {
         break;
       }
       case '3':{
-        getFingerTemplate();
+        clearEsp();
+        debugOut("index?");
+        while(!Serial.available());
+        int enroll_index=Serial.parseInt();
+        writeDataEsp(0x70);
+        String r="";
+        readDataEsp(r);
+        
+        setFingerTemplate(enroll_index);
+        break;
+      }
+      case '4':{
+        clearEsp();
+        debugOut("index?");
+        while(!Serial.available());
+        int delete_index=Serial.parseInt();
+        deleteEnrollment(delete_index);
         break;
       }
       default:{
