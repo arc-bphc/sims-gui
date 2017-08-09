@@ -7,7 +7,7 @@
  * which tries pinging,else reconnects 
  */
 #include<SoftwareSerial.h>
-#include <FPS_GT511C3M.h>
+#include "FPS_GT511C3M.h"
 #define esp Serial2
 
 //SoftwareSerial esp(10,11);
@@ -43,7 +43,7 @@ String ssid="ARC";
 String pwd="bphc@arc";
 
 //ip of server
-String server_ip="192.168.0.100";
+String server_ip="192.168.0.105";
 
 //to output debug messages to serial
 int debugOut(String S){
@@ -580,18 +580,27 @@ boolean pingServer(){
     //send byte code for pinging
     writeDataEsp(0x20);
     byte response[2];
-    int ret1=readDataEsp(response);
-    if(ret1!=-1){
+    if(readDataEsp(response)!=-1){
       debugOut("new:"+String(int(response[0]))+" delete:"+String(int(response[1])));
       if(int(response[0])){
         for(int i=0;i<int(response[0]);++i){
-          writeDataEsp(0x01);
+          //writeDataEsp(0x01);
           byte reply;
           if(readDataEsp(&reply)!=-1){
             setFingerTemplate(int(reply));
           }
           else
             debugOut("template not received");
+        }
+      }
+      if(int(response[1])){
+        for(int i=0;i<int(response[1]);++i){
+          byte reply;
+          if(readDataEsp(&reply)!=-1){
+            deleteEnrollment(int(reply));
+          }
+          else
+            debugOut("template delete failed");
         }
       }
       debugOut("pinged");
@@ -662,31 +671,24 @@ boolean setFingerTemplate(int pos){
   if(fps.CheckEnrolled(pos)){
     deleteEnrollment(pos);
   }
-  
   int fail_count=0;
   int s=0;
   for(int i=0;i<12;++i){
-    writeDataEsp(0x01);
+    writeDataEsp(byte(i+1));
     delay(10);
     debugOut("receive:"+String(i));
     s=readDataEsp(response);
     if(s==-1){
-      if(fail_count>3)
-        break;
       i--;
-      fail_count++;
-      break;
+      continue;
     }
     for(int j=42*i,k=0;j<j+42,k<42;++j,++k)
       ftemplate[j]=response[k];
     fail_count=0; 
   }
   if(s!=-1){
-    if(fps.SetTemplate(pos,false)){
-       Serial.println("sent temp:"+String(fps.SendTemplate(ftemplate,504)));
-       delay(10);
-       Serial.println("reply:"+String(_serial.available()));
-       
+    if(fps.SetTemplate(pos,ftemplate,false)){
+       Serial.println("tmp sent");
     }
     else{
       debugOut("setTemplate failed");
@@ -698,10 +700,12 @@ boolean setFingerTemplate(int pos){
   }
   if((fps.CheckEnrolled(pos)) && (s!=-1)){
     debugOut("Enrolled:"+String(pos));
+    writeDataEsp(0x01);
     return true;
   }
   else{
-    debugOut("template-sending error");
+    debugOut("template-setting error");
+    writeDataEsp(0x00);
     return false;
   }
 }

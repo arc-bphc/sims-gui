@@ -41,6 +41,7 @@ def executeDB(command,arguments=[],conn=False,except_raise=True):
         else:
             raise dbError('no results found for:'+command+str(arguments))
     else:
+        db.commit()
         return response
 
 def createPassword(text,salt):
@@ -149,10 +150,17 @@ def lockHandler(conn):
                             template=executeDB('SELECT TEMPLATE FROM fingerprint WHERE FINGERPRINT_ID=(?)',[i[0]],except_raise=False)[0][0]
                             print(str(i[0])+":")
                             print(template)
+##                            if(conn.recv(1024)[0]==0x01):
+                            conn.send(bytearray([i[0]]))
+                            sendTemplate(conn,template)
                             if(conn.recv(1024)[0]==0x01):
-                                conn.send(bytearray([i[0]]))
-                                sendTemplate(conn,template)
-                            
+                                print("enrolled "+str(i[0]))
+                                executeDB('update fingerprint SET SENSOR=1 WHERE FINGERPRINT_ID=(?)',[i[0]],except_raise=False)
+                    if not delete_template==[]:
+                        for i in delete_template:
+                            print('deleting'+str(i[0]))
+                            conn.send(bytearray([i[0]]))
+                        
                     time1=int(time.perf_counter())
                     print("received ping")
 
@@ -172,21 +180,21 @@ def lockHandler(conn):
 def sendTemplate(conn,template):
     old_i=0
     i=42
-    while i<505:
+    while i<504:
         try:
             vals=conn.recv(1024)
-            if(vals[0]==0x01):
-                print("sent data "+str(i/42))
-                print(template[old_i:i])
-                conn.send(template[old_i:i])
-                old_i=i
-                i=i+42
-                time.sleep(0.01)
-            else:
-                print("error sending data")
-                break
+            i=(int.from_bytes(vals,'little'))*42
+            print(i)
+            print("sent data "+str(i/42))
+            print(template[old_i:i])
+            conn.send(template[old_i:i])
+            old_i=i
+            #i=i+42
+            time.sleep(0.01)
+            
         except socket.timeout:
-            print("socket timed out")
+            print("error sending data")
+            break
 
 def clientHandler(conn,address):
     '''
