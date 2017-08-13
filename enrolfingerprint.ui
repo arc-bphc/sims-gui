@@ -21,32 +21,6 @@ QWidget {background-color: rgb(255, 255, 255)}
   <layout class="QGridLayout" name="gridLayout_2">
    <item row="1" column="1">
     <layout class="QGridLayout" name="gridLayout">
-     <item row="2" column="2">
-      <spacer name="verticalSpacer_4">
-       <property name="orientation">
-        <enum>Qt::Vertical</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>20</width>
-         <height>40</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item row="4" column="2">
-      <spacer name="verticalSpacer">
-       <property name="orientation">
-        <enum>Qt::Vertical</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>20</width>
-         <height>40</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
      <item row="1" column="0" alignment="Qt::AlignHCenter">
       <widget class="QLabel" name="fprint1">
        <property name="maximumSize">
@@ -75,6 +49,32 @@ QWidget {background-color: rgb(255, 255, 255)}
         <string>Place your finger on the sensor (1/3)</string>
        </property>
       </widget>
+     </item>
+     <item row="2" column="2">
+      <spacer name="verticalSpacer_4">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item row="4" column="2">
+      <spacer name="verticalSpacer">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
      </item>
      <item row="1" column="4" alignment="Qt::AlignHCenter">
       <widget class="QLabel" name="fprint3">
@@ -114,7 +114,7 @@ QWidget {background-color: rgb(255, 255, 255)}
        </property>
       </widget>
      </item>
-     <item row="5" column="2">
+     <item row="6" column="2">
       <widget class="QPushButton" name="exitButton">
        <property name="text">
         <string>Exit</string>
@@ -146,6 +146,13 @@ QWidget {background-color: rgb(255, 255, 255)}
         </size>
        </property>
       </spacer>
+     </item>
+     <item row="5" column="2">
+      <widget class="QPushButton" name="fingerprintButton">
+       <property name="text">
+        <string>Scan Fingerprint</string>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>

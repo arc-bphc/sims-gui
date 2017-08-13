@@ -872,5 +872,5 @@ class fsensor(GT511C3):
                 self.resetEnrollIndex()
             return ret
 
-    def getCurrentEnrollIndex():
+    def getCurrentEnrollIndex(self):
         return self.enrollIndex

@@ -137,7 +137,7 @@ class mainWindow(QWidget):
 
         arcLogo = QLabel()
         arcLogo.setMinimumSize(QSize(0, 0))
-        arcLogo.setMaximumSize(QSize(175, 150))
+        arcLogo.setMaximumSize(QSize(117, 100))
         arcLogo.setPixmap(QPixmap('images/arclogo.png'))
         arcLogo.setScaledContents(True)
 
@@ -412,43 +412,42 @@ class mainWindow(QWidget):
         fingerprintWidgets.append(self.enrolFingerprint.findChild(QLabel, "fprint2"))
         fingerprintWidgets.append(self.enrolFingerprint.findChild(QLabel, "fprint3"))
         exitButton = self.enrolFingerprint.findChild(QPushButton, "exitButton")
+        fingerprintButton = self.enrolFingerprint.findChild(QPushButton, "fingerprintButton")
 
         exitButton.clicked.connect(lambda: self.launchWindow(8))
-
+        fingerprintButton.clicked.connect(lambda: self.setFingerprintStates(fingerprintWidgets))
         for fprint in fingerprintWidgets:
             # fprint.setMovie(scanFingerprint)
             fprint.setPixmap(QPixmap("images/fingerprint-icon.jpg"))
 
-        if self.fprintEnabled:
-            self.setFingerprintStates(fingerprintWidgets, 55)
-
-    def setFingerprintStates(self, fingerprintWidgets, index):
+    def setFingerprintStates(self, fingerprintWidgets):
         fingerprintObject = fsensor(self.sensorPath, self.baudRate)
-
         scanFingerprint = QMovie("images/finger-scan.gif")
         scanFingerprint.setScaledSize(QSize(320, 240))
         scanFingerprint.start()
-
+        index = 11
+        print(index)
         correctFingerprint = QPixmap("images/finger-correct.gif")
         wrongFingerprint = QPixmap("images/finger-wrong.gif")
 
-        if fsensor.getCurrentEnrollIndex() == 0:
+        if fingerprintObject.getCurrentEnrollIndex() == 0:
             fingerprintWidgets[0].setMovie(scanFingerprint)
-            if fsensor.enroll(index):
+            if fingerprintObject.enroll(index):
                 fingerprintWidgets[0].setPixmap(correctFingerprint)
                 fingerprintWidgets[1].setMovie(scanFingerprint)
-                if fsensor.enroll(index):
+                if fingerprintObject.enroll(index):
                     fingerprintWidgets[0].setPixmap(correctFingerprint)
                     fingerprintWidgets[1].setPixmap(correctFingerprint)
                     fingerprintWidgets[2].setMovie(scanFingerprint)
-                    if fsensor.enroll(index):
+                    if fingerprintObject.enroll(index):
                         fingerprintWidgets[0].setPixmap(correctFingerprint)
                         fingerprintWidgets[1].setPixmap(correctFingerprint)
                         fingerprintWidgets[2].setPixmap(correctFingerprint)
                         self.showMsgBox('Fingerprint Registered!')
-                        return true
+                        return True
                     else:
-                        return false
+                        self.showMsgBox('Try Again')
+                        return False
                 else:
                     self.showMsgBox('Try Again')
 
@@ -568,9 +567,10 @@ class mainWindow(QWidget):
     # for whether the fingerprint provided is valid.
     def unlockScreen(self):
         if self.fprintEnabled == True:
-            ser=serial.Serial(self.sensorPath,baudrate=57600)
-            get_finger()
-            auth = Search()[0]
+            # ser=serial.Serial(self.sensorPath,baudrate=57600)
+            # get_finger()
+            # auth = Search()[0]
+            auth = 0
         else:
             auth = 0
 

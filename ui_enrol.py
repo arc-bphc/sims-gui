@@ -30,9 +30,6 @@ class Ui_enrolWindow(object):
         self.label_5.setStyleSheet("font: 24pt \"Noto Sans\";")
         self.label_5.setObjectName("label_5")
         self.gridLayout.addWidget(self.label_5, 0, 0, 1, 1, QtCore.Qt.AlignHCenter)
-        self.labAccess = QtWidgets.QCheckBox(enrolWindow)
-        self.labAccess.setObjectName("labAccess")
-        self.gridLayout.addWidget(self.labAccess, 7, 0, 1, 1, QtCore.Qt.AlignHCenter)
         self.adminPriv = QtWidgets.QCheckBox(enrolWindow)
         self.adminPriv.setObjectName("adminPriv")
         self.gridLayout.addWidget(self.adminPriv, 6, 0, 1, 1, QtCore.Qt.AlignHCenter)
@@ -105,6 +102,9 @@ class Ui_enrolWindow(object):
         self.gridLayout.addWidget(self.biometricButton, 4, 0, 1, 1, QtCore.Qt.AlignHCenter)
         spacerItem5 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.gridLayout.addItem(spacerItem5, 3, 0, 1, 1)
+        self.labAccess = QtWidgets.QCheckBox(enrolWindow)
+        self.labAccess.setObjectName("labAccess")
+        self.gridLayout.addWidget(self.labAccess, 7, 0, 1, 1, QtCore.Qt.AlignHCenter)
         self.gridLayout_3.addLayout(self.gridLayout, 0, 1, 1, 1)
         spacerItem6 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout_3.addItem(spacerItem6, 0, 2, 1, 1)
@@ -121,7 +121,6 @@ class Ui_enrolWindow(object):
         _translate = QtCore.QCoreApplication.translate
         enrolWindow.setWindowTitle(_translate("enrolWindow", "Form"))
         self.label_5.setText(_translate("enrolWindow", "Enrol User"))
-        self.labAccess.setText(_translate("enrolWindow", "ARC Lab Access  "))
         self.adminPriv.setText(_translate("enrolWindow", "Administrator    "))
         self.label_7.setText(_translate("enrolWindow", "Phone (Calling)"))
         self.label_9.setText(_translate("enrolWindow", "Name"))
@@ -131,6 +130,7 @@ class Ui_enrolWindow(object):
         self.label_6.setText(_translate("enrolWindow", "Email"))
         self.inventoryAccess.setText(_translate("enrolWindow", "Inventory Access"))
         self.biometricButton.setText(_translate("enrolWindow", "Biometrics"))
+        self.labAccess.setText(_translate("enrolWindow", "ARC Lab Access  "))
 
 
 if __name__ == "__main__":
