@@ -366,6 +366,10 @@ class mainWindow(QWidget):
         enrolUserButton.clicked.connect(lambda: self.launchWindow(8))
         editUsersButton.clicked.connect(lambda: self.launchWindow(9))
 
+    def launchEnrolFingerprint(self):
+        self.launchWindow(10)
+        self.setupEnrolFingerprint()
+
     def setupEnrol(self):
         Ui_enrolWindow().setupUi(self.enrol)
         fingerID = 25 #placeholder
@@ -384,7 +388,7 @@ class mainWindow(QWidget):
         adminPriv = self.enrol.findChild(QCheckBox, "adminPriv")
         biometricButton = self.enrol.findChild(QPushButton, "biometricButton")
         # buttonBox.accepted.connect()
-        biometricButton.clicked.connect(lambda: self.launchWindow(10))
+        biometricButton.clicked.connect(lambda: self.launchEnrolFingerprint())
         buttonBox.rejected.connect(lambda: self.launchWindow(0))
 
 
@@ -415,31 +419,31 @@ class mainWindow(QWidget):
         fingerprintButton = self.enrolFingerprint.findChild(QPushButton, "fingerprintButton")
 
         exitButton.clicked.connect(lambda: self.launchWindow(8))
-        fingerprintButton.clicked.connect(lambda: self.setFingerprintStates(fingerprintWidgets))
         for fprint in fingerprintWidgets:
             # fprint.setMovie(scanFingerprint)
             fprint.setPixmap(QPixmap("images/fingerprint-icon.jpg"))
+        self.setFingerprintStates(fingerprintWidgets)
 
     def setFingerprintStates(self, fingerprintWidgets):
         fingerprintObject = fsensor(self.sensorPath, self.baudRate)
         scanFingerprint = QMovie("images/finger-scan.gif")
         scanFingerprint.setScaledSize(QSize(320, 240))
         scanFingerprint.start()
-        index = 11
+        index = 105
         print(index)
         correctFingerprint = QPixmap("images/finger-correct.gif")
         wrongFingerprint = QPixmap("images/finger-wrong.gif")
 
         if fingerprintObject.getCurrentEnrollIndex() == 0:
             fingerprintWidgets[0].setMovie(scanFingerprint)
-            if fingerprintObject.enroll(index):
+            if fingerprintObject.enroll(index)==True:
                 fingerprintWidgets[0].setPixmap(correctFingerprint)
                 fingerprintWidgets[1].setMovie(scanFingerprint)
-                if fingerprintObject.enroll(index):
+                if fingerprintObject.enroll(index)==True:
                     fingerprintWidgets[0].setPixmap(correctFingerprint)
                     fingerprintWidgets[1].setPixmap(correctFingerprint)
                     fingerprintWidgets[2].setMovie(scanFingerprint)
-                    if fingerprintObject.enroll(index):
+                    if fingerprintObject.enroll(index)==True:
                         fingerprintWidgets[0].setPixmap(correctFingerprint)
                         fingerprintWidgets[1].setPixmap(correctFingerprint)
                         fingerprintWidgets[2].setPixmap(correctFingerprint)
@@ -594,7 +598,6 @@ class mainWindow(QWidget):
         self.setupAdmin()
         self.setupEnrol()
         self.setupEditUsers()
-        self.setupEnrolFingerprint()
 
     def showMsgBox(self, text):
         msg = QMessageBox()
