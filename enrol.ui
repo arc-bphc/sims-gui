@@ -50,13 +50,6 @@ QWidget {background-color: white}
        </property>
       </widget>
      </item>
-     <item row="7" column="0" alignment="Qt::AlignHCenter">
-      <widget class="QCheckBox" name="labAccess">
-       <property name="text">
-        <string>ARC Lab Access  </string>
-       </property>
-      </widget>
-     </item>
      <item row="6" column="0" alignment="Qt::AlignHCenter">
       <widget class="QCheckBox" name="adminPriv">
        <property name="text">
@@ -240,6 +233,13 @@ QWidget {background-color: white}
         </size>
        </property>
       </spacer>
+     </item>
+     <item row="7" column="0" alignment="Qt::AlignHCenter">
+      <widget class="QCheckBox" name="labAccess">
+       <property name="text">
+        <string>ARC Lab Access  </string>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>
