@@ -22,7 +22,7 @@ class editUsers:
 		return nameList
 
 	def modifyFingerprint(self,userID,newFinger):
-		self.user.updateQuery('fingerprint', ['TEMPLATE = '+str(newFinger), 'SENSOR = 0'],['ID = ' + str(userID)])
+		self.user.updateQueryNew('fingerprint',[newFinger,0],['TEMPLATE','SENSOR'],['ID = ' + str(userID)])
 		
 			
 def main():
