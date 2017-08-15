@@ -474,7 +474,7 @@ class mainWindow(QWidget):
         self.userModel = QStandardItemModel()
         userView.setModel(self.userModel)
         for item in self.userList:
-            self.userModel.appendRow(QStandardItem(item))
+            self.userModel.appendRow(QStandardItem(item[1]))
         userView.clicked.connect(self.updateEditUserInfo)
 
         ftemplate = None
@@ -486,17 +486,29 @@ class mainWindow(QWidget):
             saveButton.clicked.connect(lambda: self.showMsgBox('You are not authorized to do this!'))
 
     def updateEditUserInfo(self, nameId):
-        # print(self.userModel.item(nameId.row()).text())
+        print(self.userModel.item(nameId.row()).text())
 
         username = self.editUsers.findChild(QLabel, "username")
         name = self.editUsers.findChild(QLineEdit, "name")
         email = self.editUsers.findChild(QLineEdit, "email")
         phoneCall = self.editUsers.findChild(QLineEdit, "phoneCall")
-        phoneWhatsApp = self.editUsers.findChild(QLineEdit, "roomNumber")
-
+        phoneWhatsApp = self.editUsers.findChild(QLineEdit, "phoneWhatsApp")
+        roomNumber = self.editUsers.findChild(QLineEdit, "roomNumber")
         adminCheckBox = self.editUsers.findChild(QCheckBox, "adminCheckBox")
         labCheckBox = self.editUsers.findChild(QCheckBox, "labCheckBox")
         inventoryCheckBox = self.editUsers.findChild(QCheckBox, "inventoryCheckBox")
+        userImage = self.editUsers.findChild(QLabel, "userImage")
+
+        res = self.userInfoObject.get_user_info(self.userList[nameId.row()][0])
+
+        username.setText(res[0])
+        name.setText(res[0])
+        email.setText(res[4])
+        phoneCall.setText(res[1])
+        phoneWhatsApp.setText(res[2])
+        roomNumber.setText(res[3])
+        userImage.setPixmap(QPixmap(self.userImagePath + self.userImagesPrefix + \
+                                    str(self.user.getUserId()) + '.jpg'))
 
     def setupEnrolFingerprint(self):
         Ui_enrolFingerWindow().setupUi(self.enrolFingerprint)
