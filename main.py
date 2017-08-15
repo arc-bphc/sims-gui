@@ -299,12 +299,12 @@ class mainWindow(QWidget):
         if self.fprintEnabled == True:
             self.setupFinger()
             self.HomeWidget.setCurrentIndex(3)
-            auth = 0
+            auth = True
         else:
-            auth = 0
+            auth = True
             self.HomeWidget.setCurrentIndex(1)
 
-        if auth == 0:
+        if auth == True:
             userInfo = user_info(self.databasePath)
             userData = userInfo.get_user_info(1)
             print(userData)
@@ -329,8 +329,9 @@ class mainWindow(QWidget):
             print('FOUND')
             fingerLabel.setPixmap(correctFingerprint)
             time.sleep(1)
+            userInfoObject = user_info(self.databasePath)
             # loggedIn = True
-            # self.userId = GET FROM DB!
+            self.userId = userInfoObject.identify_user(fingerId)
             print(fingerId)
             fingerData = fingerId
             self.HomeWidget.setCurrentIndex(1)
@@ -429,14 +430,15 @@ class mainWindow(QWidget):
         enrolUserButton.clicked.connect(lambda: self.launchWindow(8))
         editUsersButton.clicked.connect(lambda: self.launchWindow(9))
 
-    def launchEnrolFingerprint(self,ftemplate):
+    def launchEnrolFingerprint(self):
         self.launchWindow(10)
-        self.setupEnrolFingerprint(ftemplate)
+        self.setupEnrolFingerprint()
 
     def setupEnrol(self):
         Ui_enrolWindow().setupUi(self.enrol)
-        fingerID = 25 #placeholder
+
         enrollUserObject = enrollUser(self.databasePath)
+        userInfoObject = user_info(self.databasePath)
 
         buttonBox = self.enrol.findChild(QDialogButtonBox, "buttonBox")
         name = self.enrol.findChild(QLineEdit, "name")
@@ -451,8 +453,8 @@ class mainWindow(QWidget):
         adminPriv = self.enrol.findChild(QCheckBox, "adminPriv")
         biometricButton = self.enrol.findChild(QPushButton, "biometricButton")
         # buttonBox.accepted.connect()
-        ftemplate=None
-        biometricButton.clicked.connect(lambda: self.launchEnrolFingerprint(ftemplate))
+        self.ftemplate=None
+        biometricButton.clicked.connect(lambda: self.launchEnrolFingerprint())
         buttonBox.rejected.connect(lambda: self.launchWindow(0))
 
         if self.user.isAdmin == True:
@@ -460,9 +462,9 @@ class mainWindow(QWidget):
             buttonBox.accepted.connect(lambda: enrollUserObject.enrollNewUser(str(name.text()), \
                                                             str(email.text()), str(phoneCall.text()), \
                                                             str(phoneWhatsApp.text()), str(roomNumber.text()), \
-                                                            str(pin.text()), fingerID, adminPriv.isChecked(), \
+                                                            str(pin.text()), self.ftemplate[0], adminPriv.isChecked(), \
                                                             labAccess.isChecked(), inventoryAccess.isChecked()))
-            buttonBox.accepted.connect(lambda: storeFingerprint())
+            buttonBox.accepted.connect(lambda: enrollUserObject.storeFingerprint(userInfoObject.getUserID(), self.ftemplate[0], self.ftemplate[1]))
             buttonBox.accepted.connect(lambda: self.showMsgBox('Database successfully updated!'))
             buttonBox.accepted.connect(lambda: self.launchWindow(0))
         else:
@@ -497,8 +499,8 @@ class mainWindow(QWidget):
             self.userModel.appendRow(QStandardItem(item[1]))
         userView.clicked.connect(self.updateEditUserInfo)
 
-        ftemplate = None
-        biometricButton.clicked.connect(lambda: self.launchEnrolFingerprint(ftemplate))
+        self.ftemplate = None
+        biometricButton.clicked.connect(lambda: self.launchEnrolFingerprint())
 
         if self.user.isAdmin == True:
             saveButton.clicked.connect(lambda: self.showMsgBox('Database successfully updated!'))
@@ -560,12 +562,12 @@ class mainWindow(QWidget):
 
         threads=[]
         self.fingerprintObject.stop=False
-        t=Thread(target=self.setFingerprintStates,args=(fingerprintWidgets,index,scanFingerprint,threads,ftemplate,))
+        t=Thread(target=self.setFingerprintStates,args=(fingerprintWidgets,index,scanFingerprint,threads,))
         threads.append(t)
         # fingerprintWidgets[0].setMovie(scanFingerprint)
         t.start()
 
-    def setFingerprintStates(self, fingerprintWidgets,index,scanFingerprint,threads,ftemplate):
+    def setFingerprintStates(self, fingerprintWidgets,index,scanFingerprint,threads):
         curr_enroll=self.fingerprintObject.getCurrentEnrollIndex()
 
         fingerprintWidgets[curr_enroll].setMovie(scanFingerprint)
@@ -586,14 +588,14 @@ class mainWindow(QWidget):
             if curr_enroll<2:
                 fingerprintWidgets[self.fingerprintObject.getCurrentEnrollIndex()].setMovie(scanFingerprint)
                 scanFingerprint.start()
-                t=Thread(target=self.setFingerprintStates,args=(fingerprintWidgets,index,scanFingerprint,threads))
+                t=Thread(target=self.setFingerprintStates,args=(fingerprintWidgets,index,scanFingerprint,threads,))
                 threads.append(t)
                 t.start()
                 return
             elif curr_enroll==2:
-                ftemplate=self.fingerprintObject.GetTemplate(index)
+                template=self.fingerprintObject.GetTemplate(index)
                 self.fingerprintObject.DeleteID(index)
-                ftemplate=[index,ftemplate]
+                self.ftemplate=[index,template]
             else:
                 pass
         else:
