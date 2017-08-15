@@ -17,7 +17,7 @@ class editUsers:
 		count = count[0][0]
 		for i in range(1,count+1):
 			my_list = self.user.selectQuery('users',['*'],['ID = ' + str(i)])
-			name = str(my_list[0][0]) + '/' + my_list[0][1]
+			name = (my_list[0][0], my_list[0][1])
 			nameList.append(name)
 		return nameList
 
