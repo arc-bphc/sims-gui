@@ -3,6 +3,8 @@
 import sys
 import json
 
+from threading import Thread
+
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
@@ -422,38 +424,79 @@ class mainWindow(QWidget):
         for fprint in fingerprintWidgets:
             # fprint.setMovie(scanFingerprint)
             fprint.setPixmap(QPixmap("images/fingerprint-icon.jpg"))
-        self.setFingerprintStates(fingerprintWidgets)
-
-    def setFingerprintStates(self, fingerprintWidgets):
-        fingerprintObject = fsensor(self.sensorPath, self.baudRate)
+        index = 92
+        self.fingerprintObject = fsensor(self.sensorPath, self.baudRate)
+        self.fingerprintObject.resetEnrollIndex()
+        
         scanFingerprint = QMovie("images/finger-scan.gif")
         scanFingerprint.setScaledSize(QSize(320, 240))
+
+        t=Thread(target=self.setFingerprintStates,args=(fingerprintWidgets,index,scanFingerprint,))
+        
+        # fingerprintWidgets[0].setMovie(scanFingerprint)
+        
+        
+        t.start()
+
+    def setFingerprintStates(self, fingerprintWidgets,index,scanFingerprint):
+        curr_enroll=self.fingerprintObject.getCurrentEnrollIndex()
+
+        fingerprintWidgets[curr_enroll].setMovie(scanFingerprint)
         scanFingerprint.start()
-        index = 105
-        print(index)
+
+        defaultFingerprint= QPixmap("images/fingerprint-icon.jpg")
         correctFingerprint = QPixmap("images/finger-correct.gif")
         wrongFingerprint = QPixmap("images/finger-wrong.gif")
+        # scanFingerprint = QMovie("images/finger-scan.gif")
+        # scanFingerprint.setScaledSize(QSize(320, 240))
+        if curr_enroll==0:
+            for i in fingerprintWidgets[1:]:
+                i.setPixmap(defaultFingerprint)
 
-        if fingerprintObject.getCurrentEnrollIndex() == 0:
-            fingerprintWidgets[0].setMovie(scanFingerprint)
-            if fingerprintObject.enroll(index)==True:
-                fingerprintWidgets[0].setPixmap(correctFingerprint)
-                fingerprintWidgets[1].setMovie(scanFingerprint)
-                if fingerprintObject.enroll(index)==True:
-                    fingerprintWidgets[0].setPixmap(correctFingerprint)
-                    fingerprintWidgets[1].setPixmap(correctFingerprint)
-                    fingerprintWidgets[2].setMovie(scanFingerprint)
-                    if fingerprintObject.enroll(index)==True:
-                        fingerprintWidgets[0].setPixmap(correctFingerprint)
-                        fingerprintWidgets[1].setPixmap(correctFingerprint)
-                        fingerprintWidgets[2].setPixmap(correctFingerprint)
-                        self.showMsgBox('Fingerprint Registered!')
-                        return True
-                    else:
-                        self.showMsgBox('Try Again')
-                        return False
-                else:
-                    self.showMsgBox('Try Again')
+
+        ret=self.fingerprintObject.enroll(index)
+        if ret==True:
+            fingerprintWidgets[curr_enroll].setPixmap(correctFingerprint)
+            if curr_enroll<2:
+                fingerprintWidgets[self.fingerprintObject.getCurrentEnrollIndex()].setMovie(scanFingerprint)
+                scanFingerprint.start()
+                t=Thread(target=self.setFingerprintStates,args=(fingerprintWidgets,index,scanFingerprint))
+                t.start()
+                return
+           
+        else:
+            print("sensor response"+str(ret))
+            if curr_enroll==2:
+                for i in fingerprintWidgets:
+                    i.setPixmap(wrongFingerprint)
+            fingerprintWidgets[curr_enroll].setPixmap(wrongFingerprint)
+            return
+
+        pass
+        # t.start()
+        
+
+        # if fingerprintObject.getCurrentEnrollIndex() == 0:
+        #     fingerprintWidgets[0].setMovie(scanFingerprint)
+        #     scanFingerprint.start()
+        #     if fingerprintObject.enroll(index)==True:
+        #         fingerprintWidgets[0].setPixmap(correctFingerprint)
+        #         fingerprintWidgets[1].setMovie(scanFingerprint)
+        #         if fingerprintObject.enroll(index)==True:
+        #             fingerprintWidgets[0].setPixmap(correctFingerprint)
+        #             fingerprintWidgets[1].setPixmap(correctFingerprint)
+        #             fingerprintWidgets[2].setMovie(scanFingerprint)
+        #             if fingerprintObject.enroll(index)==True:
+        #                 fingerprintWidgets[0].setPixmap(correctFingerprint)
+        #                 fingerprintWidgets[1].setPixmap(correctFingerprint)
+        #                 fingerprintWidgets[2].setPixmap(correctFingerprint)
+        #                 self.showMsgBox('Fingerprint Registered!')
+        #                 return True
+        #             else:
+        #                 self.showMsgBox('Try Again')
+        #                 return False
+        #         else:
+        #             self.showMsgBox('Try Again')
 
 
     def removeFromCartAction(self, listView, partID):
