@@ -4,7 +4,6 @@ import sys
 import json
 
 from threading import Thread
-
 import sqlite3
 
 from PyQt5.QtGui import *
@@ -113,6 +112,7 @@ class mainWindow(QWidget):
         self.HomeWidget.addWidget(self.splashScreen)
         self.HomeWidget.addWidget(self.screenWidget)
         self.HomeWidget.addWidget(self.about)
+        self.HomeWidget.addWidget(self.finger)
 
         vbox = QVBoxLayout()
         vbox.addWidget(self.arcHeader)
@@ -240,6 +240,8 @@ class mainWindow(QWidget):
     def setupFingerprint(self):
         Ui_loginWindow.setupUi(self.finger)
 
+
+
     def setupUserProfile(self):
         Ui_userWindow().setupUi(self.userProfile)
         inventoryButton = self.userProfile.findChild(QPushButton, "inventoryButton")
@@ -275,6 +277,38 @@ class mainWindow(QWidget):
 
     def setupFinger(self):
         Ui_loginWindow().setupUi(self.finger)
+        self.fingerprintObject = fsensor(self.sensorPath, self.baudRate)
+
+        fingerLabel = self.finger.findChild(QLabel, "fingerLabel")
+        fingerData = None
+        self.scanFingerprint = QMovie("images/finger-scan.gif")
+        self.scanFingerprint.setScaledSize(QSize(320, 240))
+        self.scanFingerprint.start()
+        fingerLabel.setMovie(self.scanFingerprint)
+
+        Thread(target=self.scanFinger).start()
+
+
+    def scanFinger(self):
+        correctFingerprint = QPixmap("images/finger-correct.gif")
+        wrongFingerprint = QPixmap("images/finger-wrong.gif")
+
+        fingerLabel = self.finger.findChild(QLabel, "fingerLabel")
+        loggedIn = True
+        while(loggedIn == False):
+            fingerId = self.fingerprintObject.Search()
+            if (fingerId == None):
+                print('NOT FOUND')
+                fingerLabel.setPixmap(wrongFingerprint)
+                time.sleep(1)
+                fingerLabel.setMovie(self.scanFingerprint)
+            else:
+                print('FOUND')
+                loggedIn = True
+                print(fingerId)
+                fingerData = fingerId
+        self.HomeWidget.setCurrentIndex(1)
+
 
     def setupRequestItem(self):
         Ui_requestItemWindow().setupUi(self.requestItem)
@@ -396,7 +430,6 @@ class mainWindow(QWidget):
         biometricButton.clicked.connect(lambda: self.launchEnrolFingerprint(ftemplate))
         buttonBox.rejected.connect(lambda: self.launchWindow(0))
 
-
         if self.user.isAdmin == True:
             buttonBox.rejected.connect(lambda: self.launchWindow(0))
             buttonBox.accepted.connect(lambda: enrollUserObject.enrollNewUser(str(name.text()), \
@@ -412,6 +445,27 @@ class mainWindow(QWidget):
 
     def setupEditUsers(self):
         Ui_editUsersWindow().setupUi(self.editUsers)
+
+        username = self.editUsers.findChild(QLabel, "username")
+        name = self.editUsers.findChild(QLineEdit, "name")
+        email = self.editUsers.findChild(QLineEdit, "email")
+        phoneCall = self.editUsers.findChild(QLineEdit, "phoneCall")
+        phoneWhatsApp = self.editUsers.findChild(QLineEdit, "roomNumber")
+
+        adminCheckBox = self.editUsers.findChild(QCheckBox, "adminCheckBox")
+        labCheckBox = self.editUsers.findChild(QCheckBox, "labCheckBox")
+        inventoryCheckBox = self.editUsers.findChild(QCheckBox, "inventoryCheckBox")
+
+        biometricButton = self.editUsers.findChild(QPushButton, "biometricButton")
+        saveButton = self.editUsers.findChild(QPushButton, "saveButton")
+
+        ftemplate = None
+        biometricButton.clicked.connect(lambda: self.launchEnrolFingerprint(ftemplate))
+
+        if self.user.isAdmin == True:
+            saveButton.clicked.connect(lambda: self.showMsgBox('Database successfully updated!'))
+        else:
+            saveButton.clicked.connect(lambda: self.showMsgBox('You are not authorized to do this!'))
 
     def setupEnrolFingerprint(self):
         Ui_enrolFingerWindow().setupUi(self.enrolFingerprint)
@@ -430,7 +484,7 @@ class mainWindow(QWidget):
         index = 94
         self.fingerprintObject = fsensor(self.sensorPath, self.baudRate)
         self.fingerprintObject.resetEnrollIndex()
-        
+
         scanFingerprint = QMovie("images/finger-scan.gif")
         scanFingerprint.setScaledSize(QSize(320, 240))
 
@@ -467,7 +521,7 @@ class mainWindow(QWidget):
                 threads.append(t)
                 t.start()
                 return
-           
+
         else:
             print("sensor response"+str(ret))
             if curr_enroll==2:
@@ -478,7 +532,7 @@ class mainWindow(QWidget):
             return
 
         # t.start()
-        
+
 
         # if fingerprintObject.getCurrentEnrollIndex() == 0:
         #     fingerprintWidgets[0].setMovie(scanFingerprint)
@@ -635,7 +689,8 @@ class mainWindow(QWidget):
             print(userData)
             self.user = userDetails(userData[0],1,True) #CHANGE THIS ASAP!!
             self.createStackedPages()
-            self.HomeWidget.setCurrentIndex(1)
+            self.setupFinger()
+            self.HomeWidget.setCurrentIndex(3)
 
     def setupWindows(self):
         self.setupHeaderWidget(self.arcHeader)
