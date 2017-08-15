@@ -30,6 +30,7 @@ from sql.view_cart import view_cart
 from sql.inventory import selectFromInventory
 from sql.purchase import purchaseRequests
 from sql.enrollUser import enrollUser
+from sql.editUsers import editUsers
 from sql.insert_data_users import db
 
 from fingerprint_sensor.finger_download import *
@@ -244,8 +245,6 @@ class mainWindow(QWidget):
     def setupFingerprint(self):
         Ui_loginWindow.setupUi(self.finger)
 
-
-
     def setupUserProfile(self):
         Ui_userWindow().setupUi(self.userProfile)
         inventoryButton = self.userProfile.findChild(QPushButton, "inventoryButton")
@@ -453,6 +452,8 @@ class mainWindow(QWidget):
     def setupEditUsers(self):
         Ui_editUsersWindow().setupUi(self.editUsers)
 
+        editUsersObject = editUsers(self.databasePath)
+
         username = self.editUsers.findChild(QLabel, "username")
         name = self.editUsers.findChild(QLineEdit, "name")
         email = self.editUsers.findChild(QLineEdit, "email")
@@ -473,6 +474,8 @@ class mainWindow(QWidget):
             saveButton.clicked.connect(lambda: self.showMsgBox('Database successfully updated!'))
         else:
             saveButton.clicked.connect(lambda: self.showMsgBox('You are not authorized to do this!'))
+
+
 
     def setupEnrolFingerprint(self):
         Ui_enrolFingerWindow().setupUi(self.enrolFingerprint)
@@ -693,12 +696,12 @@ class mainWindow(QWidget):
     # for whether the fingerprint provided is valid.
     def unlockScreen(self):
         if self.fprintEnabled == True:
-            # ser=serial.Serial(self.sensorPath,baudrate=57600)
-            # get_finger()
-            # auth = Search()[0]
+            self.setupFinger()
+            self.HomeWidget.setCurrentIndex(3)
             auth = 0
         else:
             auth = 0
+            self.HomeWidget.setCurrentIndex(1)
 
         if auth == 0:
             userInfo = user_info(self.databasePath)
@@ -706,8 +709,6 @@ class mainWindow(QWidget):
             print(userData)
             self.user = userDetails(userData[0],1,True) #CHANGE THIS ASAP!!
             self.createStackedPages()
-            self.setupFinger()
-            self.HomeWidget.setCurrentIndex(3)
 
     def setupWindows(self):
         self.setupHeaderWidget(self.arcHeader)
