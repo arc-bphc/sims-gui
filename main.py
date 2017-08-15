@@ -291,6 +291,23 @@ class mainWindow(QWidget):
 
         Thread(target=self.scanFinger).start()
 
+    # Fingerprint login is supported here. We only take the sensor's word
+    # for whether the fingerprint provided is valid.
+    def unlockScreen(self):
+        if self.fprintEnabled == True:
+            self.setupFinger()
+            self.HomeWidget.setCurrentIndex(3)
+            auth = 0
+        else:
+            auth = 0
+            self.HomeWidget.setCurrentIndex(1)
+
+        if auth == 0:
+            userInfo = user_info(self.databasePath)
+            userData = userInfo.get_user_info(1)
+            print(userData)
+            self.user = userDetails(userData[0],1,True) #CHANGE THIS ASAP!!
+            self.createStackedPages()
 
     def scanFinger(self):
         correctFingerprint = QPixmap("images/finger-correct.gif")
@@ -510,6 +527,7 @@ class mainWindow(QWidget):
         userImage.setPixmap(QPixmap(self.userImagePath + self.userImagesPrefix + \
                                     str(self.user.getUserId()) + '.jpg'))
 
+
     def setupEnrolFingerprint(self):
         Ui_enrolFingerWindow().setupUi(self.enrolFingerprint)
 
@@ -724,24 +742,6 @@ class mainWindow(QWidget):
 
     def goBack(self):
         self.StackWidget.setCurrentIndex(0)
-
-    # Fingerprint login is supported here. We only take the sensor's word
-    # for whether the fingerprint provided is valid.
-    def unlockScreen(self):
-        if self.fprintEnabled == True:
-            self.setupFinger()
-            self.HomeWidget.setCurrentIndex(3)
-            auth = 0
-        else:
-            auth = 0
-            self.HomeWidget.setCurrentIndex(1)
-
-        if auth == 0:
-            userInfo = user_info(self.databasePath)
-            userData = userInfo.get_user_info(1)
-            print(userData)
-            self.user = userDetails(userData[0],1,True) #CHANGE THIS ASAP!!
-            self.createStackedPages()
 
     def setupWindows(self):
         self.setupHeaderWidget(self.arcHeader)
