@@ -24,7 +24,7 @@ class db:
         self.conn.close()
 
     def insertTuple(self, table, values, parameters = []):
-        if '' in values:
+        if values == '':
             pass
         else:
             placeholder = '(' + ','.join('?'*len(values)) + ')'
