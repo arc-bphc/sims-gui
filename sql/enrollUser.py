@@ -5,11 +5,14 @@ class enrollUser:
                 self.user = db(dbname)
 
         def storeFingerprint(self, userID, fingerID, blob):
-                self.user.insertTuple('fingerprint', [userID, fingerID, blob, 1])
+                print(userID)
+                print(fingerID)
+                print(type(blob))
+                self.user.insertTuple('fingerprint', [fingerID, userID, blob, 0])
 
-        def enrollNewUser(self,name,emailID,phoneCall,phoneWhatsapp,roomNo,pin,fingerID,isAdmin,doorAccess,inventoryAccess):
+        def enrollNewUser(self,name,emailID,phoneCall,phoneWhatsapp,roomNo,pin,isAdmin,doorAccess,inventoryAccess):
                 password = self.createPassword(pin)
-                self.user.insertTuple('users', [name, emailID, phoneCall, phoneWhatsapp, roomNo, password['salt'], password['hash'], fingerID, isAdmin, doorAccess, inventoryAccess],['NAME','EMAIL_ID','PHONE_CALL','PHONE_WHATSAPP','ROOM_NO','SALT','HASHED_PASSWORD','FINGERPRINT_ID','ISADMIN','DOOR_ACCESS','INVENTORY_ACCESS'])
+                self.user.insertTuple('users', [name, emailID, phoneCall, phoneWhatsapp, roomNo, password['salt'], password['hash'], isAdmin, doorAccess, inventoryAccess],['NAME','EMAIL_ID','PHONE_CALL','PHONE_WHATSAPP','ROOM_NO','SALT','HASHED_PASSWORD','ISADMIN','DOOR_ACCESS','INVENTORY_ACCESS'])
         def createPassword(self,text):
                 password = {}
                 #changed the salt algo to be ascii

@@ -462,8 +462,9 @@ class mainWindow(QWidget):
             buttonBox.accepted.connect(lambda: enrollUserObject.enrollNewUser(str(name.text()), \
                                                             str(email.text()), str(phoneCall.text()), \
                                                             str(phoneWhatsApp.text()), str(roomNumber.text()), \
-                                                            str(pin.text()), self.ftemplate[0], adminPriv.isChecked(), \
+                                                            str(pin.text()),  adminPriv.isChecked(), \
                                                             labAccess.isChecked(), inventoryAccess.isChecked()))
+
             buttonBox.accepted.connect(lambda: enrollUserObject.storeFingerprint(userInfoObject.getUserID(), self.ftemplate[0], self.ftemplate[1]))
             buttonBox.accepted.connect(lambda: self.showMsgBox('Database successfully updated!'))
             buttonBox.accepted.connect(lambda: self.launchWindow(0))
@@ -593,7 +594,7 @@ class mainWindow(QWidget):
                 t.start()
                 return
             elif curr_enroll==2:
-                template=self.fingerprintObject.GetTemplate(index)
+                template=self.fingerprintObject.GetTemplate(index)[1]
                 self.fingerprintObject.DeleteID(index)
                 self.ftemplate=[index,template]
             else:
