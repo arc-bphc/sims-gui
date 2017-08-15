@@ -452,7 +452,9 @@ class mainWindow(QWidget):
     def setupEditUsers(self):
         Ui_editUsersWindow().setupUi(self.editUsers)
 
-        editUsersObject = editUsers(self.databasePath)
+        self.editUsersObject = editUsers(self.databasePath)
+        self.userInfoObject = user_info(self.databasePath)
+        print(self.editUsersObject.listUser())
 
         username = self.editUsers.findChild(QLabel, "username")
         name = self.editUsers.findChild(QLineEdit, "name")
@@ -467,6 +469,14 @@ class mainWindow(QWidget):
         biometricButton = self.editUsers.findChild(QPushButton, "biometricButton")
         saveButton = self.editUsers.findChild(QPushButton, "saveButton")
 
+        userView = self.editUsers.findChild(QListView, "userView")
+        self.userList = self.editUsersObject.listUser()
+        self.userModel = QStandardItemModel()
+        userView.setModel(self.userModel)
+        for item in self.userList:
+            self.userModel.appendRow(QStandardItem(item))
+        userView.clicked.connect(self.updateEditUserInfo)
+
         ftemplate = None
         biometricButton.clicked.connect(lambda: self.launchEnrolFingerprint(ftemplate))
 
@@ -475,7 +485,18 @@ class mainWindow(QWidget):
         else:
             saveButton.clicked.connect(lambda: self.showMsgBox('You are not authorized to do this!'))
 
+    def updateEditUserInfo(self, nameId):
+        # print(self.userModel.item(nameId.row()).text())
 
+        username = self.editUsers.findChild(QLabel, "username")
+        name = self.editUsers.findChild(QLineEdit, "name")
+        email = self.editUsers.findChild(QLineEdit, "email")
+        phoneCall = self.editUsers.findChild(QLineEdit, "phoneCall")
+        phoneWhatsApp = self.editUsers.findChild(QLineEdit, "roomNumber")
+
+        adminCheckBox = self.editUsers.findChild(QCheckBox, "adminCheckBox")
+        labCheckBox = self.editUsers.findChild(QCheckBox, "labCheckBox")
+        inventoryCheckBox = self.editUsers.findChild(QCheckBox, "inventoryCheckBox")
 
     def setupEnrolFingerprint(self):
         Ui_enrolFingerWindow().setupUi(self.enrolFingerprint)
