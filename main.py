@@ -30,9 +30,13 @@ from sql.view_cart import view_cart
 from sql.inventory import selectFromInventory
 from sql.purchase import purchaseRequests
 from sql.enrollUser import enrollUser
+from sql.insert_data_users import db
 
 from fingerprint_sensor.finger_download import *
 from fingerprint_sensor.FPS import *
+
+database_path='./sql/'
+dbs=db(database_path+'SIMS.db')
 
 # Objects from this class are used for the active user in the application
 # At a time, only one user can be logged in.
@@ -406,7 +410,7 @@ class mainWindow(QWidget):
 
     def launchEnrolFingerprint(self,ftemplate):
         self.launchWindow(10)
-        self.setupEnrolFingerprint()
+        self.setupEnrolFingerprint(ftemplate)
 
     def setupEnrol(self):
         Ui_enrolWindow().setupUi(self.enrol)
@@ -481,7 +485,13 @@ class mainWindow(QWidget):
         for fprint in fingerprintWidgets:
             # fprint.setMovie(scanFingerprint)
             fprint.setPixmap(QPixmap("images/fingerprint-icon.jpg"))
-        index = 94
+
+        finger_ids=dbs.selectQuery('fingerprint',['FINGERPRINT_ID'],['SENSOR IS NOT 2'])
+        finger_ids=set([i[0] for i in finger_ids])
+        all_index=set(range(1,max(finger_ids)+1))
+        index=min(all_index-finger_ids)
+        print(index)
+
         self.fingerprintObject = fsensor(self.sensorPath, self.baudRate)
         self.fingerprintObject.resetEnrollIndex()
 
@@ -490,12 +500,12 @@ class mainWindow(QWidget):
 
         threads=[]
         self.fingerprintObject.stop=False
-        t=Thread(target=self.setFingerprintStates,args=(fingerprintWidgets,index,scanFingerprint,threads,))
+        t=Thread(target=self.setFingerprintStates,args=(fingerprintWidgets,index,scanFingerprint,threads,ftemplate,))
         threads.append(t)
         # fingerprintWidgets[0].setMovie(scanFingerprint)
         t.start()
 
-    def setFingerprintStates(self, fingerprintWidgets,index,scanFingerprint,threads):
+    def setFingerprintStates(self, fingerprintWidgets,index,scanFingerprint,threads,ftemplate):
         curr_enroll=self.fingerprintObject.getCurrentEnrollIndex()
 
         fingerprintWidgets[curr_enroll].setMovie(scanFingerprint)
@@ -510,7 +520,6 @@ class mainWindow(QWidget):
             for i in fingerprintWidgets[1:]:
                 i.setPixmap(defaultFingerprint)
 
-
         ret=self.fingerprintObject.enroll(index)
         if ret==True:
             fingerprintWidgets[curr_enroll].setPixmap(correctFingerprint)
@@ -521,7 +530,12 @@ class mainWindow(QWidget):
                 threads.append(t)
                 t.start()
                 return
-
+            elif curr_enroll==2:
+                ftemplate=self.fingerprintObject.GetTemplate(index)
+                self.fingerprintObject.DeleteID(index)
+                ftemplate=[index,ftemplate]
+            else:
+                pass
         else:
             print("sensor response"+str(ret))
             if curr_enroll==2:

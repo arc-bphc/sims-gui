@@ -158,5 +158,11 @@ def createNewPassword(text):
 #     #add item to inventory
 #     new_user.insertTuple('inventory', ["Raspi",123456789101,1,1,'Microcontroller',10])
 
+<<<<<<< HEAD
 # if __name__ == '__main__':
 #     main()
+=======
+if __name__ == '__main__':
+    # main()
+    pass
+>>>>>>> e6b0214c78f26019cef7a3bcab272c462794a6ed
