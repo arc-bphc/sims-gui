@@ -35,7 +35,7 @@ class db:
             else:
                 parameterPlaceholder = '(' + ','.join(parameters) + ')'
                 query = 'insert into ' + table + parameterPlaceholder + ' values ' + placeholder
-                print(query)
+                # print(query)
                 self.conn.execute(query, values)
             self.conn.commit()
 
@@ -46,7 +46,7 @@ class db:
         else:
             whereClause = ' AND '.join(whereClause)
             query = 'select ' + placeholder + ' from ' + table + ' where ' + whereClause
-        print(query)
+        # print(query)
         self.cursor.execute(query)
         return self.cursor.fetchall()
 
