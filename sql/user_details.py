@@ -9,6 +9,11 @@ class user_info:
 		userID = self.user.selectQuery('users',['ID'],['FINGERPRINT_ID = ' + str(fingerprintID)])
 		return userID
 
+	def getUserID(self):
+		userID = self.user.selectQuery('users',['ID'],['ID = (SELECT MAX(ID) FROM users)'])
+		return userID[0][0]
+
+
 	def get_user_info(self, id):
 		user_list = self.user.selectQuery('users',['*'],['ID = ' + str(id)])
 		user_info_list = [user_list[0][1],user_list[0][3],user_list[0][4],user_list[0][5],user_list[0][2],user_list[0][9]]
@@ -24,13 +29,14 @@ class user_info:
 
 
 
-def main():
-	obj = user_info('test.db')
-	user_info_list = obj.get_user_info(1)
-	#print user_info_list
-	obj.update_user_info(["yashdeep thorat",'9010712068','9665333384','BM036',"yashdeep97@gmail.com"],1)
-	user_info_list = obj.get_user_info(1)
-	#print user_info_list
+# def main():
+# 	obj = user_info('SIMS.db')
+# 	# user_info_list = obj.get_user_info(1)
+# 	#print user_info_list
+# 	# obj.update_user_info(["yashdeep thorat",'9010712068','9665333384','BM036',"yashdeep97@gmail.com"],1)
+# 	# user_info_list = obj.get_user_info(1)
+# 	#print user_info_list
+# 	obj.getUserID()
 
-if __name__ == '__main__':
-    main()
+# if __name__ == '__main__':
+#     main()
