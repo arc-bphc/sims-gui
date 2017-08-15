@@ -1,4 +1,4 @@
-from insert_data_users import *
+from .insert_data_users import db
 
 class editUsers:
 	def __init__(self,dbname):
@@ -6,7 +6,8 @@ class editUsers:
 
 	def deleteUser(self,userID):
 		self.user.deleteQuery('users',['ID = ' + str(userID)])
-
+		self.user.updateQuery('fingerprint', ['SENSOR = 2'],['ID = ' + str(userID)])
+# 
 	def makeAdmin(self,userID):
 		self.user.updateQuery('users',['ISADMIN = 1'],['ID = ' + str(userID)])
 
@@ -19,12 +20,16 @@ class editUsers:
 			name = my_list[0][1]
 			nameList.append(name)
 		return nameList
+
+	def modifyFingerprint(self,userID,newFinger):
+		self.user.updateQuery('fingerprint', ['TEMPLATE = '+str(newFinger), 'SENSOR = 0'],['ID = ' + str(userID)])
+		
 			
 def main():
-	obj = editUsers('test.db')
-	print (obj.listUser())
-	obj.makeAdmin(1)
-	obj.deleteUser(2)
+	obj = editUsers('SIMS.db')
+	# print (obj.listUser())
+	# obj.deleteUser(5)
+	# obj.modifyFingerprint(5,1)
 
 
 if __name__ == '__main__':

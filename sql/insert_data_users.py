@@ -67,8 +67,10 @@ class db:
         return self.cursor.fetchall()
 
     def updateQuery(self, table, values, whereClause = []):
+        # print(values)
+        # print(whereClause)
         values = ','.join(values)
-        if '' in values:
+        if values=='':
             pass
         else:
             if len(whereClause) == 0:
@@ -76,7 +78,6 @@ class db:
             else:
                 whereClause = ' AND '.join(whereClause)
                 query = 'update ' + table + ' set ' + values + ' where ' + whereClause
-                #print query
             self.conn.execute(query)
             self.conn.commit()
 
@@ -121,15 +122,16 @@ def createNewPassword(text):
 
 #-------------------------------------------------------------------------------------------
 
-def main():
+# def main():
 
 #     #add a new user into the users table
-    new_user = db('test.db')
-    text = input("enter new pin:	")
-    password = createNewPassword(text)
+    # new_user = db('SIMS.db')
+    # new_user.updateQuery('users',['ROOM_NO = "B135"'],['ID = 4'])
+    # text = input("enter new pin:	")
+    # password = createNewPassword(text)
 #     # with open('cover.jpg', 'rb') as input_file:
 #     #     image = input_file.read()
-    new_user.insertTuple('users', ["arnav","arnav@gmail.com",'9000712068','9000333384','BM007',password['salt'],password['hash'],1,0],['NAME','EMAIL_ID','PHONE_CALL','PHONE_WHATSAPP','ROOM_NO','SALT','HASHED_PASSWORD','FINGERPRINT_ID','ISADMIN'])
+    # new_user.insertTuple('users', ["arnav","arnav@gmail.com",'9000712068','9000333384','BM007',password['salt'],password['hash'],1,0],['NAME','EMAIL_ID','PHONE_CALL','PHONE_WHATSAPP','ROOM_NO','SALT','HASHED_PASSWORD','FINGERPRINT_ID','ISADMIN'])
     #print new_user.selectQuery('users',['*'],['ID = 1'])
 #     print "\n"
 
@@ -156,5 +158,5 @@ def main():
 #     #add item to inventory
 #     new_user.insertTuple('inventory', ["Raspi",123456789101,1,1,'Microcontroller',10])
 
-if __name__ == '__main__':
-    main()
+# if __name__ == '__main__':
+#     main()
