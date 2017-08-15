@@ -88,6 +88,8 @@ class mainWindow(QWidget):
         self.windowWidget.setWindowTitle("Smart Inventory Management System")
 #        self.windowWidget.resize(1280, 800)
 
+        self.userId = None
+
         self.splashScreen = QMainWindow()
         self.userProfile = QDialog()
         self.resetPin = QWidget()
@@ -328,10 +330,10 @@ class mainWindow(QWidget):
             fingerLabel.setPixmap(correctFingerprint)
             time.sleep(1)
             # loggedIn = True
+            # self.userId = GET FROM DB!
             print(fingerId)
             fingerData = fingerId
             self.HomeWidget.setCurrentIndex(1)
-
 
     def setupRequestItem(self):
         Ui_requestItemWindow().setupUi(self.requestItem)
@@ -460,6 +462,7 @@ class mainWindow(QWidget):
                                                             str(phoneWhatsApp.text()), str(roomNumber.text()), \
                                                             str(pin.text()), fingerID, adminPriv.isChecked(), \
                                                             labAccess.isChecked(), inventoryAccess.isChecked()))
+            buttonBox.accepted.connect(lambda: storeFingerprint())
             buttonBox.accepted.connect(lambda: self.showMsgBox('Database successfully updated!'))
             buttonBox.accepted.connect(lambda: self.launchWindow(0))
         else:
