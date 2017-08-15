@@ -57,7 +57,7 @@ QWidget {background-color: rgb(255, 255, 255)}
       </widget>
      </item>
      <item alignment="Qt::AlignHCenter">
-      <widget class="QLabel" name="label">
+      <widget class="QLabel" name="fingerLabel">
        <property name="maximumSize">
         <size>
          <width>320</width>
