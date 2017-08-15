@@ -81,6 +81,22 @@ class db:
             self.conn.execute(query)
             self.conn.commit()
 
+    def updateQueryNew(self, table, values, parameters, whereClause = []):    
+        for index in range(len(parameters)):
+            parameters[index] = parameters[index] + "=?"
+        parameters = ','.join(parameters)
+        if values=='':
+            pass
+        else:
+            if len(whereClause) == 0:
+                query = 'update ' + table + ' set ' + values
+            else:
+                whereClause = ' AND '.join(whereClause)
+                query = 'update ' + table + ' set ' + parameters + ' where ' + whereClause
+            # print(query,values)
+            self.conn.execute(query,values)
+            self.conn.commit()
+
     def deleteQuery(self, table, whereClause = []):
     	if len(whereClause) == 0:
     		query = 'delete from ' + table
