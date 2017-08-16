@@ -3,8 +3,8 @@
         "device" : "desktop",
 
         "fingerprint": {
-            "enabled": false,
-            "sensorPath": "/dev/ttyUSB0",
+            "enabled": true,
+            "sensorPath": "/dev/serial0",
             "baudRate": 9600
         },
         "images": {

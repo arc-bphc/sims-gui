@@ -6,7 +6,7 @@ class user_info:
 		self.user = db(dbname)
 
 	def identify_user(self,fingerprintID):
-		userID = self.user.selectQuery('users',['ID'],['FINGERPRINT_ID = ' + str(fingerprintID)])
+		userID = self.user.selectQuery('fingerprint',['ID'],['FINGERPRINT_ID = ' + str(fingerprintID)])
 		return userID
 
 	def getUserID(self):
