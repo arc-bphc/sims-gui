@@ -285,12 +285,12 @@ class mainWindow(QWidget):
         self.fingerprintObject = fsensor(self.sensorPath, self.baudRate)
 
         fingerLabel = self.finger.findChild(QLabel, "fingerLabel")
-        fingerData = None
+        # fingerData = None
         self.scanFingerprint = QMovie("images/finger-scan.gif")
         self.scanFingerprint.setScaledSize(QSize(320, 240))
         self.scanFingerprint.start()
         fingerLabel.setMovie(self.scanFingerprint)
-
+        self.userId=None
         Thread(target=self.scanFinger).start()
 
     # Fingerprint login is supported here. We only take the sensor's word
@@ -333,7 +333,7 @@ class mainWindow(QWidget):
             # loggedIn = True
             self.userId = userInfoObject.identify_user(fingerId)
             print(fingerId)
-            fingerData = fingerId
+            # fingerData = fingerId
             self.HomeWidget.setCurrentIndex(1)
 
     def setupRequestItem(self):
@@ -466,6 +466,7 @@ class mainWindow(QWidget):
                                                             labAccess.isChecked(), inventoryAccess.isChecked()))
 
             buttonBox.accepted.connect(lambda: enrollUserObject.storeFingerprint(userInfoObject.getUserID(), self.ftemplate[0], self.ftemplate[1]))
+            buttonBox.accepted.connect(lambda: self.fingerprintObject.setTemplate(self.ftemplate[1],self.ftemplate[0])
             buttonBox.accepted.connect(lambda: self.showMsgBox('Database successfully updated!'))
             buttonBox.accepted.connect(lambda: self.launchWindow(0))
         else:
@@ -555,7 +556,7 @@ class mainWindow(QWidget):
         index=min(all_index-finger_ids)
         print(index)
 
-        self.fingerprintObject = fsensor(self.sensorPath, self.baudRate)
+        # self.fingerprintObject = fsensor(self.sensorPath, self.baudRate)
         self.fingerprintObject.resetEnrollIndex()
 
         scanFingerprint = QMovie("images/finger-scan.gif")
