@@ -298,20 +298,23 @@ class mainWindow(QWidget):
         wrongFingerprint = QPixmap("images/finger-wrong.gif")
 
         fingerLabel = self.finger.findChild(QLabel, "fingerLabel")
-        loggedIn = False
-        while(loggedIn == False):
-            fingerId = self.fingerprintObject.Search()
-            if (fingerId == None):
-                print('NOT FOUND')
-                fingerLabel.setPixmap(wrongFingerprint)
-                time.sleep(1)
-                fingerLabel.setMovie(self.scanFingerprint)
-            else:
-                print('FOUND')
-                loggedIn = True
-                print(fingerId)
-                fingerData = fingerId
-        self.HomeWidget.setCurrentIndex(1)
+        # loggedIn = False
+        # while(loggedIn == False):
+        fingerId = self.fingerprintObject.Search()
+        if (fingerId == None):
+            print('NOT FOUND')
+            fingerLabel.setPixmap(wrongFingerprint)
+            time.sleep(1)
+            # fingerLabel.setMovie(self.scanFingerprint)
+            self.HomeWidget.setCurrentIndex(0)
+        else:
+            print('FOUND')
+            fingerLabel.setPixmap(correctFingerprint)
+            time.sleep(1)
+            # loggedIn = True
+            print(fingerId)
+            fingerData = fingerId
+            self.HomeWidget.setCurrentIndex(1)
 
 
     def setupRequestItem(self):
