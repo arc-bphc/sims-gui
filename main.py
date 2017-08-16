@@ -290,7 +290,6 @@ class mainWindow(QWidget):
         self.scanFingerprint.setScaledSize(QSize(320, 240))
         self.scanFingerprint.start()
         fingerLabel.setMovie(self.scanFingerprint)
-        self.userId=None
         Thread(target=self.scanFinger).start()
 
     # Fingerprint login is supported here. We only take the sensor's word
