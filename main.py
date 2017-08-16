@@ -298,7 +298,7 @@ class mainWindow(QWidget):
         wrongFingerprint = QPixmap("images/finger-wrong.gif")
 
         fingerLabel = self.finger.findChild(QLabel, "fingerLabel")
-        loggedIn = True
+        loggedIn = False
         while(loggedIn == False):
             fingerId = self.fingerprintObject.Search()
             if (fingerId == None):
