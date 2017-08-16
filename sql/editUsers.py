@@ -26,6 +26,7 @@ class editUsers:
 		nameList=self.user.selectQuery('users',['ID','NAME'])
 		print("list of users:")
 		print(nameList)
+		return nameList
 
 	def modifyFingerprint(self,userID,newFinger):
 		self.user.updateQueryNew('fingerprint',[newFinger,0],['TEMPLATE','SENSOR'],['ID = ' + str(userID)])
