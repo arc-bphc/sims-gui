@@ -466,7 +466,7 @@ class mainWindow(QWidget):
                                                             labAccess.isChecked(), inventoryAccess.isChecked()))
 
             buttonBox.accepted.connect(lambda: enrollUserObject.storeFingerprint(userInfoObject.getUserID(), self.ftemplate[0], self.ftemplate[1]))
-            buttonBox.accepted.connect(lambda: self.fingerprintObject.setTemplate(self.ftemplate[1],self.ftemplate[0])
+            buttonBox.accepted.connect(lambda: self.fingerprintObject.setTemplate(self.ftemplate[1],self.ftemplate[0]))
             buttonBox.accepted.connect(lambda: self.showMsgBox('Database successfully updated!'))
             buttonBox.accepted.connect(lambda: self.launchWindow(0))
         else:
