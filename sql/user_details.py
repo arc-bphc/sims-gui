@@ -7,7 +7,10 @@ class user_info:
 
 	def identify_user(self,fingerprintID):
 		userID = self.user.selectQuery('fingerprint',['ID'],['FINGERPRINT_ID = ' + str(fingerprintID)])
-		return userID
+		if userID==[]:
+			return None
+		else:
+			return userID[0][0]
 
 	def getUserID(self):
 		userID = self.user.selectQuery('users',['ID'],['ID = (SELECT MAX(ID) FROM users)'])
