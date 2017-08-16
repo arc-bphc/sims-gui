@@ -157,4 +157,5 @@ def main():
 #     new_user.insertTuple('inventory', ["Raspi",123456789101,1,1,'Microcontroller',10])
 
 if __name__ == '__main__':
-    main()
+    # main()
+    pass
