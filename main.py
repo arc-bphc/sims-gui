@@ -5,6 +5,8 @@ import json
 
 from threading import Thread
 
+import sqlite3
+
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
@@ -368,7 +370,7 @@ class mainWindow(QWidget):
         enrolUserButton.clicked.connect(lambda: self.launchWindow(8))
         editUsersButton.clicked.connect(lambda: self.launchWindow(9))
 
-    def launchEnrolFingerprint(self):
+    def launchEnrolFingerprint(self,ftemplate):
         self.launchWindow(10)
         self.setupEnrolFingerprint()
 
@@ -390,7 +392,8 @@ class mainWindow(QWidget):
         adminPriv = self.enrol.findChild(QCheckBox, "adminPriv")
         biometricButton = self.enrol.findChild(QPushButton, "biometricButton")
         # buttonBox.accepted.connect()
-        biometricButton.clicked.connect(lambda: self.launchEnrolFingerprint())
+        ftemplate=None
+        biometricButton.clicked.connect(lambda: self.launchEnrolFingerprint(ftemplate))
         buttonBox.rejected.connect(lambda: self.launchWindow(0))
 
 
@@ -420,25 +423,25 @@ class mainWindow(QWidget):
         exitButton = self.enrolFingerprint.findChild(QPushButton, "exitButton")
         fingerprintButton = self.enrolFingerprint.findChild(QPushButton, "fingerprintButton")
 
-        exitButton.clicked.connect(lambda: self.launchWindow(8))
+        exitButton.clicked.connect(lambda: self.exitFingerEnroll())
         for fprint in fingerprintWidgets:
             # fprint.setMovie(scanFingerprint)
             fprint.setPixmap(QPixmap("images/fingerprint-icon.jpg"))
-        index = 92
+        index = 94
         self.fingerprintObject = fsensor(self.sensorPath, self.baudRate)
         self.fingerprintObject.resetEnrollIndex()
         
         scanFingerprint = QMovie("images/finger-scan.gif")
         scanFingerprint.setScaledSize(QSize(320, 240))
 
-        t=Thread(target=self.setFingerprintStates,args=(fingerprintWidgets,index,scanFingerprint,))
-        
+        threads=[]
+        self.fingerprintObject.stop=False
+        t=Thread(target=self.setFingerprintStates,args=(fingerprintWidgets,index,scanFingerprint,threads,))
+        threads.append(t)
         # fingerprintWidgets[0].setMovie(scanFingerprint)
-        
-        
         t.start()
 
-    def setFingerprintStates(self, fingerprintWidgets,index,scanFingerprint):
+    def setFingerprintStates(self, fingerprintWidgets,index,scanFingerprint,threads):
         curr_enroll=self.fingerprintObject.getCurrentEnrollIndex()
 
         fingerprintWidgets[curr_enroll].setMovie(scanFingerprint)
@@ -460,7 +463,8 @@ class mainWindow(QWidget):
             if curr_enroll<2:
                 fingerprintWidgets[self.fingerprintObject.getCurrentEnrollIndex()].setMovie(scanFingerprint)
                 scanFingerprint.start()
-                t=Thread(target=self.setFingerprintStates,args=(fingerprintWidgets,index,scanFingerprint))
+                t=Thread(target=self.setFingerprintStates,args=(fingerprintWidgets,index,scanFingerprint,threads))
+                threads.append(t)
                 t.start()
                 return
            
@@ -469,10 +473,10 @@ class mainWindow(QWidget):
             if curr_enroll==2:
                 for i in fingerprintWidgets:
                     i.setPixmap(wrongFingerprint)
-            fingerprintWidgets[curr_enroll].setPixmap(wrongFingerprint)
+            else:
+                fingerprintWidgets[curr_enroll].setPixmap(wrongFingerprint)
             return
 
-        pass
         # t.start()
         
 
@@ -498,6 +502,10 @@ class mainWindow(QWidget):
         #         else:
         #             self.showMsgBox('Try Again')
 
+    def exitFingerEnroll(self):
+        self.fingerprintObject.stop=True
+        print("stopping enrollment")
+        self.launchWindow(8)
 
     def removeFromCartAction(self, listView, partID):
         if len(listView.selectedIndexes()) != 0:

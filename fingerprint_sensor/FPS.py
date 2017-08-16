@@ -660,7 +660,7 @@ class GT511C3(SerialCommander):
                 retval = 'NACK_IS_NOT_USED'
         return retval
 
-    def SetTemplate(self,template,ID,duplicateCheck):
+    def SetTemplate(self,template,ID,duplicateCheck=False):
         if len(template)<504:
             print("invalid template")
             return False
@@ -781,6 +781,7 @@ class fsensor(GT511C3):
         self.enroller=[self.Enroll1,self.Enroll2,self.Enroll3]
 ##        self.ChangeBaudRate(115200)
         self.enrollIndex=0
+        self.stop=False
 
     def resetEnrollIndex(self):
         '''
@@ -788,7 +789,7 @@ class fsensor(GT511C3):
         '''
         self.enrollIndex=0
 
-    def waitForFinger(self,state=True,timeout=5):
+    def waitForFinger(self,state=True,timeout=10):
         '''
         waits until finger is placed/not placed on sensor or timeout, based on state
         state=True: wait for finger press, and vice versa
@@ -796,7 +797,8 @@ class fsensor(GT511C3):
         '''
         time1=int(time.perf_counter())
         while self.IsPressFinger()!=state:
-            if int(time.perf_counter())-time1>timeout:
+            print(self.stop)
+            if ((int(time.perf_counter()-time1)>timeout) or self.stop):
                 return False
         return True
 
