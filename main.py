@@ -3,7 +3,9 @@
 import sys
 import json
 
+import threading
 from threading import Thread
+from multiprocessing.pool import ThreadPool
 import sqlite3
 
 from PyQt5.QtGui import *
@@ -78,6 +80,7 @@ def clickable(widget):
 # The mainWindow class handles all the GUI widgets and logic
 
 class mainWindow(QWidget):
+    userIdSignal = pyqtSignal(int)
     def __init__(self, widget):
         super(mainWindow, self).__init__()
 
@@ -133,6 +136,8 @@ class mainWindow(QWidget):
 
         self.HomeWidget.setCurrentIndex(0)
         self.StackWidget.setCurrentIndex(0)
+
+        self.scanThread = ThreadPool(processes=1)
 
     # The widget on top with the back button, ARC logo, and user options
     def setupHeaderWidget(self, widget):
@@ -290,29 +295,43 @@ class mainWindow(QWidget):
         self.scanFingerprint.setScaledSize(QSize(320, 240))
         self.scanFingerprint.start()
         fingerLabel.setMovie(self.scanFingerprint)
-        Thread(target=self.scanFinger).start()
+        self.scanThread.apply_async(self.scanFinger, callback=self.gotResult)
+
+    def gotResult(self, myresult):
+        print(myresult)
+        print(threading.current_thread())
+        self.userIdSignal.connect(self.handleAction)
+        self.userIdSignal.emit(myresult)
+
+    def handleAction(self, myresult):
+        print(threading.current_thread())
+        print("THERESULT")
+        print(myresult)
+        if myresult != -1:
+            userInfo = user_info(self.databasePath)
+            userData = userInfo.get_user_info(myresult)
+            print(userData)
+            self.user = userDetails(userData[0],myresult,True) #CHANGE THIS ASAP!!
+            self.createStackedPages()
+            self.HomeWidget.setCurrentIndex(1)
+        else:
+            # self.finger = QWidget()
+            self.HomeWidget.setCurrentIndex(0)
 
     # Fingerprint login is supported here. We only take the sensor's word
     # for whether the fingerprint provided is valid.
     def unlockScreen(self):
         if self.fprintEnabled == True:
+            print(threading.current_thread())
             self.setupFinger()
             self.HomeWidget.setCurrentIndex(3)
-            auth = True
         else:
-            auth = True
             self.HomeWidget.setCurrentIndex(1)
-
-        if auth == True:
-            userInfo = user_info(self.databasePath)
-            userData = userInfo.get_user_info(1)
-            print(userData)
-            self.user = userDetails(userData[0],1,True) #CHANGE THIS ASAP!!
-            self.createStackedPages()
 
     def scanFinger(self):
         correctFingerprint = QPixmap("images/finger-correct.gif")
         wrongFingerprint = QPixmap("images/finger-wrong.gif")
+        print(threading.current_thread())
 
         fingerLabel = self.finger.findChild(QLabel, "fingerLabel")
         # loggedIn = False
@@ -322,8 +341,7 @@ class mainWindow(QWidget):
             print('NOT FOUND')
             fingerLabel.setPixmap(wrongFingerprint)
             time.sleep(1)
-            # fingerLabel.setMovie(self.scanFingerprint)
-            self.HomeWidget.setCurrentIndex(0)
+            return -1
         else:
             print('FOUND')
             fingerLabel.setPixmap(correctFingerprint)
@@ -331,9 +349,10 @@ class mainWindow(QWidget):
             userInfoObject = user_info(self.databasePath)
             # loggedIn = True
             self.userId = userInfoObject.identify_user(fingerId)
-            print(fingerId)
-            # fingerData = fingerId
-            self.HomeWidget.setCurrentIndex(1)
+            return self.userId
+            # print(fingerId)
+            # # fingerData = fingerId
+            # self.HomeWidget.setCurrentIndex(1)
 
     def setupRequestItem(self):
         Ui_requestItemWindow().setupUi(self.requestItem)
@@ -551,7 +570,7 @@ class mainWindow(QWidget):
 
         finger_ids=dbs.selectQuery('fingerprint',['FINGERPRINT_ID'],['SENSOR IS NOT 2'])
         finger_ids=set([i[0] for i in finger_ids])
-        all_index=set(range(1,max(finger_ids)+1))
+        all_index=set(range(0,200))
         index=min(all_index-finger_ids)
         print(index)
 
