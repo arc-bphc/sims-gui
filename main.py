@@ -135,7 +135,7 @@ class mainWindow(QWidget):
         self.HomeWidget.setCurrentIndex(0)
         self.StackWidget.setCurrentIndex(0)
 
-        self.scanThread = ThreadPool(process=1)
+        self.scanThread = ThreadPool(processes=1)
 
     # The widget on top with the back button, ARC logo, and user options
     def setupHeaderWidget(self, widget):
