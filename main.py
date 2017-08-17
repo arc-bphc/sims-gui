@@ -295,6 +295,7 @@ class mainWindow(QWidget):
         self.scanFingerprint.setScaledSize(QSize(320, 240))
         self.scanFingerprint.start()
         fingerLabel.setMovie(self.scanFingerprint)
+
         self.scanThread.apply_async(self.scanFinger, callback=self.gotResult)
 
     def gotResult(self, myresult):
@@ -455,7 +456,7 @@ class mainWindow(QWidget):
     def setupEnrol(self):
         Ui_enrolWindow().setupUi(self.enrol)
 
-        enrollUserObject = enrollUser(self.databasePath)
+        self.enrollUserObject = enrollUser(self.databasePath)
         userInfoObject = user_info(self.databasePath)
 
         buttonBox = self.enrol.findChild(QDialogButtonBox, "buttonBox")
@@ -477,13 +478,13 @@ class mainWindow(QWidget):
 
         if self.user.isAdmin == True:
             buttonBox.rejected.connect(lambda: self.launchWindow(0))
-            buttonBox.accepted.connect(lambda: enrollUserObject.enrollNewUser(str(name.text()), \
+            buttonBox.accepted.connect(lambda: self.enrollUserObject.enrollNewUser(str(name.text()), \
                                                             str(email.text()), str(phoneCall.text()), \
                                                             str(phoneWhatsApp.text()), str(roomNumber.text()), \
                                                             str(pin.text()),  adminPriv.isChecked(), \
                                                             labAccess.isChecked(), inventoryAccess.isChecked()))
 
-            buttonBox.accepted.connect(lambda: enrollUserObject.storeFingerprint(userInfoObject.getUserID(), self.ftemplate[0], self.ftemplate[1]))
+            buttonBox.accepted.connect(lambda: self.enrollUserObject.storeFingerprint(userInfoObject.getUserID(), self.ftemplate[0], self.ftemplate[1]))
             buttonBox.accepted.connect(lambda: self.fingerprintObject.SetTemplate(self.ftemplate[1],self.ftemplate[0]))
             buttonBox.accepted.connect(lambda: self.showMsgBox('Database successfully updated!'))
             buttonBox.accepted.connect(lambda: self.launchWindow(0))
@@ -521,12 +522,24 @@ class mainWindow(QWidget):
 
         self.ftemplate = None
         biometricButton.clicked.connect(lambda: self.launchEnrolFingerprint())
-
+        
         if self.user.isAdmin == True:
-            saveButton.clicked.connect(lambda: self.showMsgBox('Database successfully updated!'))
+            saveButton.clicked.connect(lambda: saveEditUsers(self.userList[nameId.row()][0],str(name.text()),str(email.text()),str(phoneCall.text()),str(phoneWhatsapp)))
         else:
             saveButton.clicked.connect(lambda: self.showMsgBox('You are not authorized to do this!'))
-
+    
+    def saveEditUsers(self,userId,name,email,phoneCall,phoneWhatsapp,adminAccess,labAccess,inventoryAccess):
+        if (self.editUsersObject.updateUser([name,email,phoneCall,phoneWhatsapp],userId)):
+            editUsersObject.adminAccess(userId,adminAccess,labAccess,inventoryAccess)
+            if not self.ftemplate==None:
+                if self.userInfoObject.getFingerID(userId)==None:
+                    self.enrollUserObject.storeFingerprint(userInfoObject.getUserID(), self.ftemplate[0], self.ftemplate[1]))
+                else:
+                    self.editUsersObject.modifyFingerprint(userId,self.ftemplate[1])
+                print('fingerprint modified')
+            self.showMsgBox('Database successfully updated!')
+        else:
+            self.showMsgBox('Database update Failed!')
     def updateEditUserInfo(self, nameId):
         print(self.userModel.item(nameId.row()).text())
 

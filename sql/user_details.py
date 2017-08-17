@@ -11,6 +11,13 @@ class user_info:
 			return None
 		else:
 			return userID[0][0]
+	
+	def getFingerID(self,userID):
+		fingerID=self.user.selectQuery('fingerprint',['FINGERPRINT_ID'],['ID = ' + str(userID)])
+		if fingerID==[]:
+			return None
+		else:
+			return fingerID[0][0]
 
 	def getUserID(self):
 		userID = self.user.selectQuery('users',['ID'],['ID = (SELECT MAX(ID) FROM users)'])
