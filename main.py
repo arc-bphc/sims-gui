@@ -299,7 +299,6 @@ class mainWindow(QWidget):
     def unlockScreen(self):
         if self.fprintEnabled == True:
             self.setupFinger()
-            self.scanThread.join()
             self.HomeWidget.setCurrentIndex(3)
         else:
             self.HomeWidget.setCurrentIndex(1)
