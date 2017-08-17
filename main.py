@@ -293,8 +293,10 @@ class mainWindow(QWidget):
         self.scanFingerprint.setScaledSize(QSize(320, 240))
         self.scanFingerprint.start()
         fingerLabel.setMovie(self.scanFingerprint)
+        self.scanThread.apply_async(self.scanFinger, callback=self.gotResult)
 
-        self.scanResult = self.scanThread.apply_async(self.scanFinger)
+    def gotResult(self, myresult):
+        print(myresult)
 
     # Fingerprint login is supported here. We only take the sensor's word
     # for whether the fingerprint provided is valid.
@@ -302,7 +304,6 @@ class mainWindow(QWidget):
         if self.fprintEnabled == True:
             self.setupFinger()
             self.HomeWidget.setCurrentIndex(3)
-            print(self.scanResult.get())
         else:
             self.HomeWidget.setCurrentIndex(1)
 
