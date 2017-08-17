@@ -4,7 +4,7 @@ import sys
 import json
 
 from threading import Thread
-from multiprocessing import ThreadPool
+from multiprocessing.pool import ThreadPool
 import sqlite3
 
 from PyQt5.QtGui import *
