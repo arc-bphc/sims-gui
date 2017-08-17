@@ -134,6 +134,8 @@ class mainWindow(QWidget):
         self.HomeWidget.setCurrentIndex(0)
         self.StackWidget.setCurrentIndex(0)
 
+        self.scanThread = Thread(target=self.scanFinger)
+
     # The widget on top with the back button, ARC logo, and user options
     def setupHeaderWidget(self, widget):
         hbox = QHBoxLayout()
@@ -290,25 +292,23 @@ class mainWindow(QWidget):
         self.scanFingerprint.setScaledSize(QSize(320, 240))
         self.scanFingerprint.start()
         fingerLabel.setMovie(self.scanFingerprint)
-        Thread(target=self.scanFinger).start()
+        self.scanThread.start()
 
     # Fingerprint login is supported here. We only take the sensor's word
     # for whether the fingerprint provided is valid.
     def unlockScreen(self):
         if self.fprintEnabled == True:
             self.setupFinger()
+            self.scanThread.join()
             self.HomeWidget.setCurrentIndex(3)
-            auth = True
         else:
-            auth = True
             self.HomeWidget.setCurrentIndex(1)
 
-        if auth == True:
-            userInfo = user_info(self.databasePath)
-            userData = userInfo.get_user_info(1)
-            print(userData)
-            self.user = userDetails(userData[0],1,True) #CHANGE THIS ASAP!!
-            self.createStackedPages()
+        userInfo = user_info(self.databasePath)
+        userData = userInfo.get_user_info(1)
+        print(userData)
+        self.user = userDetails(userData[0],1,True) #CHANGE THIS ASAP!!
+        self.createStackedPages()
 
     def scanFinger(self):
         correctFingerprint = QPixmap("images/finger-correct.gif")
