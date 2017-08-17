@@ -294,7 +294,7 @@ class mainWindow(QWidget):
         self.scanFingerprint.start()
         fingerLabel.setMovie(self.scanFingerprint)
 
-        self.scanResult = scanThread.apply_async(scanFinger)
+        self.scanResult = self.scanThread.apply_async(self.scanFinger)
 
     # Fingerprint login is supported here. We only take the sensor's word
     # for whether the fingerprint provided is valid.
@@ -332,7 +332,7 @@ class mainWindow(QWidget):
             userInfoObject = user_info(self.databasePath)
             # loggedIn = True
             self.userId = userInfoObject.identify_user(fingerId)
-            return userId
+            return self.userId
             # print(fingerId)
             # # fingerData = fingerId
             # self.HomeWidget.setCurrentIndex(1)
