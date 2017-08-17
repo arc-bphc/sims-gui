@@ -46,10 +46,12 @@ dbs=db(database_path+'SIMS.db')
 # NOTE: Make this a singleton in the future?
 
 class userDetails():
-    def __init__(self, _name = "ARC-User-X", _userId = 1, _isAdmin = True):
+    def __init__(self, _name = "ARC-User-X", _userId = 1, _isAdmin = True, labAccess = True, inventoryAccess = True):
         self._name = _name
         self._userId = _userId
-        self.isAdmin = _isAdmin
+        self._isAdmin = _isAdmin
+        self._hasLabAccess = labAccess
+        self._hasInventoryAccess = inventoryAccess
 
     def getName(self):
         return self._name
@@ -57,8 +59,14 @@ class userDetails():
     def getUserId(self):
         return self._userId
 
-    def isAdmin():
-        return isAdmin
+    def isAdmin(self):
+        return self._isAdmin
+
+    def hasLabAccess(self):
+        return self._hasLabAccess
+
+    def hasInventoryAccess(self):
+        return self._hasInventoryAccess
 
 # Event Filter
 
@@ -172,7 +180,7 @@ class mainWindow(QWidget):
 
         comboBox.addItem(self.user.getName())
         comboBox.addItem('About')
-        if self.user.isAdmin == True:
+        if self.user.isAdmin() == True:
             comboBox.addItem("Admin Panel")
 
         comboBox.activated.connect(self.handleComboBox)
@@ -312,7 +320,7 @@ class mainWindow(QWidget):
             userInfo = user_info(self.databasePath)
             userData = userInfo.get_user_info(myresult)
             print(userData)
-            self.user = userDetails(userData[0],myresult,True) #CHANGE THIS ASAP!!
+            self.user = userDetails(userData[0], myresult, userData[5], userData[6], userData[7])
             self.createStackedPages()
             self.HomeWidget.setCurrentIndex(1)
         else:
@@ -476,7 +484,7 @@ class mainWindow(QWidget):
         biometricButton.clicked.connect(lambda: self.launchEnrolFingerprint())
         buttonBox.rejected.connect(lambda: self.launchWindow(0))
 
-        if self.user.isAdmin == True:
+        if self.user.isAdmin() == True:
             buttonBox.rejected.connect(lambda: self.launchWindow(0))
             buttonBox.accepted.connect(lambda: self.enrollUserObject.enrollNewUser(str(name.text()), \
                                                             str(email.text()), str(phoneCall.text()), \
@@ -522,24 +530,25 @@ class mainWindow(QWidget):
 
         self.ftemplate = None
         biometricButton.clicked.connect(lambda: self.launchEnrolFingerprint())
-        
-        if self.user.isAdmin == True:
-            saveButton.clicked.connect(lambda: saveEditUsers(self.userList[nameId.row()][0],str(name.text()),str(email.text()),str(phoneCall.text()),str(phoneWhatsapp)))
+
+        if self.user.isAdmin() == True:
+            saveButton.clicked.connect(lambda: self.saveEditUsers(self.selectedUserId,str(name.text()),str(email.text()),str(phoneCall.text()),str(phoneWhatsApp.text()), adminCheckBox.isChecked(), labCheckBox.isChecked(), inventoryCheckBox.isChecked()))
         else:
             saveButton.clicked.connect(lambda: self.showMsgBox('You are not authorized to do this!'))
-    
+
     def saveEditUsers(self,userId,name,email,phoneCall,phoneWhatsapp,adminAccess,labAccess,inventoryAccess):
         if (self.editUsersObject.updateUser([name,email,phoneCall,phoneWhatsapp],userId)):
             editUsersObject.adminAccess(userId,adminAccess,labAccess,inventoryAccess)
             if not self.ftemplate==None:
                 if self.userInfoObject.getFingerID(userId)==None:
-                    self.enrollUserObject.storeFingerprint(userInfoObject.getUserID(), self.ftemplate[0], self.ftemplate[1]))
+                    self.enrollUserObject.storeFingerprint(userId, self.ftemplate[0], self.ftemplate[1])
                 else:
-                    self.editUsersObject.modifyFingerprint(userId,self.ftemplate[1])
+                    self.editUsersObject.modifyFingerprint(userId, self.ftemplate[1])
                 print('fingerprint modified')
             self.showMsgBox('Database successfully updated!')
         else:
             self.showMsgBox('Database update Failed!')
+
     def updateEditUserInfo(self, nameId):
         print(self.userModel.item(nameId.row()).text())
 
@@ -554,7 +563,8 @@ class mainWindow(QWidget):
         inventoryCheckBox = self.editUsers.findChild(QCheckBox, "inventoryCheckBox")
         userImage = self.editUsers.findChild(QLabel, "userImage")
 
-        res = self.userInfoObject.get_user_info(self.userList[nameId.row()][0])
+        self.selectedUserId = self.userList[nameId.row()][0]
+        res = self.userInfoObject.get_user_info(self.selectedUserId)
 
         username.setText(res[0])
         name.setText(res[0])
