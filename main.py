@@ -3,6 +3,7 @@
 import sys
 import json
 
+import threading
 from threading import Thread
 from multiprocessing.pool import ThreadPool
 import sqlite3
@@ -79,6 +80,7 @@ def clickable(widget):
 # The mainWindow class handles all the GUI widgets and logic
 
 class mainWindow(QWidget):
+    userIdSignal = pyqtSignal(int)
     def __init__(self, widget):
         super(mainWindow, self).__init__()
 
@@ -297,25 +299,38 @@ class mainWindow(QWidget):
 
     def gotResult(self, myresult):
         print(myresult)
+        print(threading.current_thread())
+        self.userIdSignal.connect(self.handleAction)
+        self.userIdSignal.emit(myresult)
+
+    def handleAction(self, myresult):
+        print(threading.current_thread())
+        print("THERESULT")
+        print(myresult)
+        if myresult != -1:
+            userInfo = user_info(self.databasePath)
+            userData = userInfo.get_user_info(1)
+            print(userData)
+            self.user = userDetails(userData[0],1,True) #CHANGE THIS ASAP!!
+            self.createStackedPages()
+            self.HomeWidget.setCurrentIndex(1)
+        else:
+            self.HomeWidget.setCurrentIndex(0)
 
     # Fingerprint login is supported here. We only take the sensor's word
     # for whether the fingerprint provided is valid.
     def unlockScreen(self):
         if self.fprintEnabled == True:
+            print(threading.current_thread())
             self.setupFinger()
             self.HomeWidget.setCurrentIndex(3)
         else:
             self.HomeWidget.setCurrentIndex(1)
 
-        userInfo = user_info(self.databasePath)
-        userData = userInfo.get_user_info(1)
-        print(userData)
-        self.user = userDetails(userData[0],1,True) #CHANGE THIS ASAP!!
-        self.createStackedPages()
-
     def scanFinger(self):
         correctFingerprint = QPixmap("images/finger-correct.gif")
         wrongFingerprint = QPixmap("images/finger-wrong.gif")
+        print(threading.current_thread())
 
         fingerLabel = self.finger.findChild(QLabel, "fingerLabel")
         # loggedIn = False
