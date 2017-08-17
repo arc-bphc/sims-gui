@@ -4,6 +4,7 @@ import sys
 import json
 
 from threading import Thread
+from multiprocessing import ThreadPool
 import sqlite3
 
 from PyQt5.QtGui import *
@@ -134,7 +135,7 @@ class mainWindow(QWidget):
         self.HomeWidget.setCurrentIndex(0)
         self.StackWidget.setCurrentIndex(0)
 
-        self.scanThread = Thread(target=self.scanFinger)
+        self.scanThread = ThreadPool(process=1)
 
     # The widget on top with the back button, ARC logo, and user options
     def setupHeaderWidget(self, widget):
@@ -293,14 +294,14 @@ class mainWindow(QWidget):
         self.scanFingerprint.start()
         fingerLabel.setMovie(self.scanFingerprint)
 
-        if not self.scanThread.is_alive():
-            self.scanThread.start()
+        self.scanResult = scanThread.apply_async(scanFinger)
 
     # Fingerprint login is supported here. We only take the sensor's word
     # for whether the fingerprint provided is valid.
     def unlockScreen(self):
         if self.fprintEnabled == True:
             self.setupFinger()
+            print(self.scanResult.get())
             self.HomeWidget.setCurrentIndex(3)
         else:
             self.HomeWidget.setCurrentIndex(1)
@@ -323,7 +324,7 @@ class mainWindow(QWidget):
             print('NOT FOUND')
             fingerLabel.setPixmap(wrongFingerprint)
             time.sleep(1)
-            self.HomeWidget.setCurrentIndex(0)
+            return -1
         else:
             print('FOUND')
             fingerLabel.setPixmap(correctFingerprint)
@@ -331,9 +332,10 @@ class mainWindow(QWidget):
             userInfoObject = user_info(self.databasePath)
             # loggedIn = True
             self.userId = userInfoObject.identify_user(fingerId)
-            print(fingerId)
-            # fingerData = fingerId
-            self.HomeWidget.setCurrentIndex(1)
+            return userId
+            # print(fingerId)
+            # # fingerData = fingerId
+            # self.HomeWidget.setCurrentIndex(1)
 
     def setupRequestItem(self):
         Ui_requestItemWindow().setupUi(self.requestItem)
