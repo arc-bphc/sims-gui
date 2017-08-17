@@ -309,12 +309,13 @@ class mainWindow(QWidget):
         print(myresult)
         if myresult != -1:
             userInfo = user_info(self.databasePath)
-            userData = userInfo.get_user_info(1)
+            userData = userInfo.get_user_info(myresult)
             print(userData)
-            self.user = userDetails(userData[0],1,True) #CHANGE THIS ASAP!!
+            self.user = userDetails(userData[0],myresult,True) #CHANGE THIS ASAP!!
             self.createStackedPages()
             self.HomeWidget.setCurrentIndex(1)
         else:
+            # self.finger = QWidget()
             self.HomeWidget.setCurrentIndex(0)
 
     # Fingerprint login is supported here. We only take the sensor's word
@@ -569,7 +570,7 @@ class mainWindow(QWidget):
 
         finger_ids=dbs.selectQuery('fingerprint',['FINGERPRINT_ID'],['SENSOR IS NOT 2'])
         finger_ids=set([i[0] for i in finger_ids])
-        all_index=set(range(1,max(finger_ids)+1))
+        all_index=set(range(0,200))
         index=min(all_index-finger_ids)
         print(index)
 
