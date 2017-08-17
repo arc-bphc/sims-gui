@@ -292,7 +292,9 @@ class mainWindow(QWidget):
         self.scanFingerprint.setScaledSize(QSize(320, 240))
         self.scanFingerprint.start()
         fingerLabel.setMovie(self.scanFingerprint)
-        self.scanThread.start()
+
+        if not self.scanThread.is_alive():
+            self.scanThread.start()
 
     # Fingerprint login is supported here. We only take the sensor's word
     # for whether the fingerprint provided is valid.
@@ -300,9 +302,6 @@ class mainWindow(QWidget):
         if self.fprintEnabled == True:
             self.setupFinger()
             self.HomeWidget.setCurrentIndex(3)
-            
-            self.scanThread.join()
-            
         else:
             self.HomeWidget.setCurrentIndex(1)
 
@@ -324,7 +323,6 @@ class mainWindow(QWidget):
             print('NOT FOUND')
             fingerLabel.setPixmap(wrongFingerprint)
             time.sleep(1)
-            # fingerLabel.setMovie(self.scanFingerprint)
             self.HomeWidget.setCurrentIndex(0)
         else:
             print('FOUND')
