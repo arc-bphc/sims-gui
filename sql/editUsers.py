@@ -22,6 +22,20 @@ class editUsers:
 	# 		nameList.append(name)
 	# 	# print(nameList)
 	# 	return nameList
+	def updateUser(self, values, userId):
+		for i in values:
+			if ((i=="") and (not i==values[2])):
+				print("empty string")
+				return false
+		values[0] = "NAME = '" + values[0] + "'"
+		values[1] = "PHONE_CALL = '" + values[1] + "'"
+		values[2] = "PHONE_WHATSAPP = '" + values[2] + "'"
+		values[3] = "ROOM_NO = '" + values[3] + "'"
+		values[4] = "EMAIL_ID = '" + values[4] + "'"
+		self.user.updateQuery('users',values, ['ID = ' + str(userId)])
+		return True
+
+		
 	def listUser(self):
 		nameList=self.user.selectQuery('users',['ID','NAME'])
 		print("list of users:")
