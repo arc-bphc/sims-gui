@@ -19,7 +19,7 @@ class user_info:
 
 	def get_user_info(self, id):
 		user_list = self.user.selectQuery('users',['*'],['ID = ' + str(id)])
-		user_info_list = [user_list[0][1],user_list[0][3],user_list[0][4],user_list[0][5],user_list[0][2],user_list[0][9]]
+		user_info_list = [user_list[0][1],user_list[0][3],user_list[0][4],user_list[0][5],user_list[0][2],user_list[0][8],user_list[0][9],user_list[0][10]]
 		return user_info_list
 
 	def update_user_info(self, values, id):
