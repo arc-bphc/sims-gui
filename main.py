@@ -352,7 +352,7 @@ class mainWindow(QWidget):
             time.sleep(1)
             return -1
         else:
-            print('FOUND')
+            print('FOUND:'+str(fingerId))
             fingerLabel.setPixmap(correctFingerprint)
             time.sleep(1)
             userInfoObject = user_info(self.databasePath)
@@ -511,7 +511,8 @@ class mainWindow(QWidget):
         name = self.editUsers.findChild(QLineEdit, "name")
         email = self.editUsers.findChild(QLineEdit, "email")
         phoneCall = self.editUsers.findChild(QLineEdit, "phoneCall")
-        phoneWhatsApp = self.editUsers.findChild(QLineEdit, "roomNumber")
+        phoneWhatsApp = self.editUsers.findChild(QLineEdit, "phoneWhatsApp")
+        roomNumber = self.editUsers.findChild(QLineEdit, "roomNumber")
 
         adminCheckBox = self.editUsers.findChild(QCheckBox, "adminCheckBox")
         labCheckBox = self.editUsers.findChild(QCheckBox, "labCheckBox")
@@ -532,18 +533,23 @@ class mainWindow(QWidget):
         biometricButton.clicked.connect(lambda: self.launchEnrolFingerprint())
 
         if self.user.isAdmin() == True:
-            saveButton.clicked.connect(lambda: self.saveEditUsers(self.selectedUserId,str(name.text()),str(email.text()),str(phoneCall.text()),str(phoneWhatsApp.text()), adminCheckBox.isChecked(), labCheckBox.isChecked(), inventoryCheckBox.isChecked()))
+            saveButton.clicked.connect(lambda: self.saveEditUsers(self.selectedUserId,str(name.text()),str(email.text()),str(phoneCall.text()),str(phoneWhatsApp.text()), str(roomNumber.text()),adminCheckBox.isChecked(), labCheckBox.isChecked(), inventoryCheckBox.isChecked()))
         else:
             saveButton.clicked.connect(lambda: self.showMsgBox('You are not authorized to do this!'))
 
-    def saveEditUsers(self,userId,name,email,phoneCall,phoneWhatsapp,adminAccess,labAccess,inventoryAccess):
-        if (self.editUsersObject.updateUser([name,email,phoneCall,phoneWhatsapp],userId)):
-            editUsersObject.adminAccess(userId,adminAccess,labAccess,inventoryAccess)
+    def saveEditUsers(self,userId,name,email,phoneCall,phoneWhatsapp,roomNumber,adminAccess,labAccess,inventoryAccess):
+        if (self.editUsersObject.updateUser([name,email,phoneCall,phoneWhatsapp,roomNumber],userId)):
+            self.editUsersObject.adminAccess(userId,adminAccess,labAccess,inventoryAccess)
             if not self.ftemplate==None:
                 if self.userInfoObject.getFingerID(userId)==None:
+                    print('new finger enrollment')
                     self.enrollUserObject.storeFingerprint(userId, self.ftemplate[0], self.ftemplate[1])
+                    self.fingerprintObject.SetTemplate(self.ftemplate[1],self.ftemplate[0])
                 else:
+                    print('modifying fingerprint '+str(self.userInfoObject.getFingerID(userId)))
                     self.editUsersObject.modifyFingerprint(userId, self.ftemplate[1])
+                    self.fingerprintObject.DeleteID(self.userInfoObject.getFingerID(userId))
+                    self.fingerprintObject.SetTemplate(self.ftemplate[1],self.userInfoObject.getFingerID(userId))
                 print('fingerprint modified')
             self.showMsgBox('Database successfully updated!')
         else:
