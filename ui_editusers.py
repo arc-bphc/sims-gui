@@ -120,7 +120,7 @@ class Ui_editUsersWindow(object):
         editUsersWindow.setWindowTitle(_translate("editUsersWindow", "Form"))
         self.label.setText(_translate("editUsersWindow", "Edit Users"))
         self.label_6.setText(_translate("editUsersWindow", "Users"))
-        self.deleteButton.setText(_translate("editUsersWindow", "Remove User"))
+        self.deleteButton.setText(_translate("editUsersWindow", "REMOVE"))
         self.adminCheckBox.setText(_translate("editUsersWindow", "Administrator"))
         self.inventoryCheckBox.setText(_translate("editUsersWindow", "Inventory Access"))
         self.label_8.setText(_translate("editUsersWindow", "Phone (Calling)"))

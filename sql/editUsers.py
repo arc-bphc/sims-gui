@@ -26,7 +26,7 @@ class editUsers:
 		for i in values:
 			if ((i=="") and (not i==values[2])):
 				print("empty string")
-				return false
+				return False
 		values[0] = "NAME = '" + values[0] + "'"
 		values[1] = "EMAIL_ID = '" + values[1] + "'"
 		values[2] = "PHONE_CALL = '" + values[2] + "'"
@@ -38,8 +38,6 @@ class editUsers:
 
 	def listUser(self):
 		nameList=self.user.selectQuery('users',['ID','NAME'])
-		print("list of users:")
-		print(nameList)
 		return nameList
 
 	def modifyFingerprint(self,userID,newFinger):

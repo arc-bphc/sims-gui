@@ -505,7 +505,6 @@ class mainWindow(QWidget):
 
         self.editUsersObject = editUsers(self.databasePath)
         self.userInfoObject = user_info(self.databasePath)
-        print(self.editUsersObject.listUser())
 
         username = self.editUsers.findChild(QLabel, "username")
         name = self.editUsers.findChild(QLineEdit, "name")
@@ -520,6 +519,7 @@ class mainWindow(QWidget):
 
         biometricButton = self.editUsers.findChild(QPushButton, "biometricButton")
         saveButton = self.editUsers.findChild(QPushButton, "saveButton")
+        deleteButton = self.editUsers.findChild(QPushButton, "deleteButton")
 
         userView = self.editUsers.findChild(QListView, "userView")
         self.userList = self.editUsersObject.listUser()
@@ -534,8 +534,10 @@ class mainWindow(QWidget):
 
         if self.user.isAdmin() == True:
             saveButton.clicked.connect(lambda: self.saveEditUsers(self.selectedUserId,str(name.text()),str(email.text()),str(phoneCall.text()),str(phoneWhatsApp.text()), str(roomNumber.text()),adminCheckBox.isChecked(), labCheckBox.isChecked(), inventoryCheckBox.isChecked()))
+            deleteButton.clicked.connect(lambda: self.deleteUser(self.selectedUserId))
         else:
             saveButton.clicked.connect(lambda: self.showMsgBox('You are not authorized to do this!'))
+            deleteButton.clicked.connect(lambda: self.showMsgBox('You are not authorized to do this!'))
 
     def saveEditUsers(self,userId,name,email,phoneCall,phoneWhatsapp,roomNumber,adminAccess,labAccess,inventoryAccess):
         if (self.editUsersObject.updateUser([name,email,phoneCall,phoneWhatsapp,roomNumber],userId)):
@@ -553,7 +555,11 @@ class mainWindow(QWidget):
                 print('fingerprint modified')
             self.showMsgBox('Database successfully updated!')
         else:
-            self.showMsgBox('Database update Failed!')
+            self.showMsgBox('Database update Failed!/n Invalid Data Entered')
+    
+    def deleteUser(self,userId):
+        self.editUsersObject.deleteUser(userId)
+        self.fingerprintObject.DeleteID(self.userInfoObject.getFingerID(userId))
 
     def updateEditUserInfo(self, nameId):
         print(self.userModel.item(nameId.row()).text())
@@ -580,7 +586,9 @@ class mainWindow(QWidget):
         roomNumber.setText(res[3])
         userImage.setPixmap(QPixmap(self.userImagePath + self.userImagesPrefix + \
                                     str(self.user.getUserId()) + '.jpg'))
-
+        adminCheckBox.setChecked(res[5])
+        labCheckBox.setChecked(res[6])
+        inventoryCheckBox.setChecked(res[7])
 
     def setupEnrolFingerprint(self):
         Ui_enrolFingerWindow().setupUi(self.enrolFingerprint)
