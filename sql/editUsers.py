@@ -24,7 +24,7 @@ class editUsers:
 	# 	return nameList
 	def updateUser(self, values, userId):
 		for i in values:
-			if ((i=="") and (not i==values[2])):
+			if ((i=="") and (not i==values[3])):
 				print("empty string")
 				return False
 		values[0] = "NAME = '" + values[0] + "'"

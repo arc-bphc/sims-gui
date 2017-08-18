@@ -486,20 +486,30 @@ class mainWindow(QWidget):
 
         if self.user.isAdmin() == True:
             buttonBox.rejected.connect(lambda: self.launchWindow(0))
-            buttonBox.accepted.connect(lambda: self.enrollUserObject.enrollNewUser(str(name.text()), \
-                                                            str(email.text()), str(phoneCall.text()), \
+            buttonBox.accepted.connect(lambda: self.saveEnrolUser(str(name.text()),str(email.text()), str(phoneCall.text()), \
                                                             str(phoneWhatsApp.text()), str(roomNumber.text()), \
                                                             str(pin.text()),  adminPriv.isChecked(), \
                                                             labAccess.isChecked(), inventoryAccess.isChecked()))
-
-            buttonBox.accepted.connect(lambda: self.enrollUserObject.storeFingerprint(userInfoObject.getUserID(), self.ftemplate[0], self.ftemplate[1]))
-            buttonBox.accepted.connect(lambda: self.fingerprintObject.SetTemplate(self.ftemplate[1],self.ftemplate[0]))
-            buttonBox.accepted.connect(lambda: self.showMsgBox('Database successfully updated!'))
-            buttonBox.accepted.connect(lambda: self.launchWindow(0))
+            
+            #buttonBox.accepted.connect(lambda: self.enrollUserObject.storeFingerprint(userInfoObject.getUserID(), self.ftemplate[0], self.ftemplate[1]))
+            #buttonBox.accepted.connect(lambda: self.fingerprintObject.SetTemplate(self.ftemplate[1],self.ftemplate[0]))
+            #buttonBox.accepted.connect(lambda: self.showMsgBox('Database successfully updated!'))
+            #buttonBox.accepted.connect(lambda: self.launchWindow(0))
         else:
             buttonBox.rejected.connect(lambda: self.launchWindow(0))
             buttonBox.accepted.connect(lambda: self.showMsgBox('You are not authorized to do this!'))
 
+    def saveEnrolUser(self,name,email,phoneCall,phoneWhatsapp,roomNumber,pin,adminAccess,labAccess,inventoryAccess):
+        if self.enrollUserObject.enrollNewUser(name,email,phoneCall,phoneWhatsapp,roomNumber,pin,adminAccess,labAccess,inventoryAccess):
+            if (not self.ftemplate==None) and (self.fingerprintObject.SetTemplate(self.ftemplate[1],self.ftemplate[0])==True):
+                self.enrollUserObject.storeFingerprint(userInfoObject.getUserID(), self.ftemplate[0], self.ftemplate[1])
+            else:
+                print('fingerprint not stored')
+            self.showMsgBox('Database successfully updated!')
+            self.launchWindow(0)
+        else:
+            self.showMsgBox('Invalid Values!')
+        
     def setupEditUsers(self):
         Ui_editUsersWindow().setupUi(self.editUsers)
 
@@ -545,14 +555,19 @@ class mainWindow(QWidget):
             if not self.ftemplate==None:
                 if self.userInfoObject.getFingerID(userId)==None:
                     print('new finger enrollment')
-                    self.enrollUserObject.storeFingerprint(userId, self.ftemplate[0], self.ftemplate[1])
-                    self.fingerprintObject.SetTemplate(self.ftemplate[1],self.ftemplate[0])
+                    if self.fingerprintObject.SetTemplate(self.ftemplate[1],self.ftemplate[0])==True:
+                        self.enrollUserObject.storeFingerprint(userId, self.ftemplate[0], self.ftemplate[1])
+                    else:
+                        print("enroll to sensor failed")
+                    
                 else:
                     print('modifying fingerprint '+str(self.userInfoObject.getFingerID(userId)))
-                    self.editUsersObject.modifyFingerprint(userId, self.ftemplate[1])
+                    
                     self.fingerprintObject.DeleteID(self.userInfoObject.getFingerID(userId))
-                    self.fingerprintObject.SetTemplate(self.ftemplate[1],self.userInfoObject.getFingerID(userId))
-                print('fingerprint modified')
+                    if self.fingerprintObject.SetTemplate(self.ftemplate[1],self.userInfoObject.getFingerID(userId))==True:
+                        self.editUsersObject.modifyFingerprint(userId, self.ftemplate[1])
+                    else:
+                        print("enroll to sensor failed")
             self.showMsgBox('Database successfully updated!')
         else:
             self.showMsgBox('Database update Failed!/n Invalid Data Entered')
@@ -604,8 +619,7 @@ class mainWindow(QWidget):
         for fprint in fingerprintWidgets:
             # fprint.setMovie(scanFingerprint)
             fprint.setPixmap(QPixmap("images/fingerprint-icon.jpg"))
-
-        finger_ids=dbs.selectQuery('fingerprint',['FINGERPRINT_ID'],['SENSOR IS NOT 2'])
+        finger_ids=dbs.selectQuery('fingerprint',['FINGERPRINT_ID'])
         finger_ids=set([i[0] for i in finger_ids])
         all_index=set(range(0,200))
         index=min(all_index-finger_ids)
