@@ -89,6 +89,7 @@ def clickable(widget):
 
 class mainWindow(QWidget):
     userIdSignal = pyqtSignal(int)
+    userListChanged = pyqtSignal()
     def __init__(self, widget):
         super(mainWindow, self).__init__()
 
@@ -146,6 +147,8 @@ class mainWindow(QWidget):
         self.StackWidget.setCurrentIndex(0)
 
         self.scanThread = ThreadPool(processes=1)
+
+        self.userListChanged.connect(self.updateUserList)
 
     # The widget on top with the back button, ARC logo, and user options
     def setupHeaderWidget(self, widget):
@@ -249,7 +252,6 @@ class mainWindow(QWidget):
         self.pinEntry = False
 
         clickable(self.splashScreen).connect(lambda: self.unlockScreen())
-
 
     def setupAbout(self):
         Ui_aboutWindow().setupUi(self.about)
@@ -490,7 +492,7 @@ class mainWindow(QWidget):
                                                             str(phoneWhatsApp.text()), str(roomNumber.text()), \
                                                             str(pin.text()),  adminPriv.isChecked(), \
                                                             labAccess.isChecked(), inventoryAccess.isChecked()))
-            
+
             #buttonBox.accepted.connect(lambda: self.enrollUserObject.storeFingerprint(userInfoObject.getUserID(), self.ftemplate[0], self.ftemplate[1]))
             #buttonBox.accepted.connect(lambda: self.fingerprintObject.SetTemplate(self.ftemplate[1],self.ftemplate[0]))
             #buttonBox.accepted.connect(lambda: self.showMsgBox('Database successfully updated!'))
@@ -506,10 +508,17 @@ class mainWindow(QWidget):
             else:
                 print('fingerprint not stored')
             self.showMsgBox('Database successfully updated!')
+            self.userListChanged.emit()
             self.launchWindow(0)
         else:
             self.showMsgBox('Invalid Values!')
-        
+
+    def updateUserList(self):
+        self.userModel.clear()
+        self.userList = self.editUsersObject.listUser()
+        for item in self.userList:
+            self.userModel.appendRow(QStandardItem(item[1]))
+
     def setupEditUsers(self):
         Ui_editUsersWindow().setupUi(self.editUsers)
 
@@ -559,10 +568,10 @@ class mainWindow(QWidget):
                         self.enrollUserObject.storeFingerprint(userId, self.ftemplate[0], self.ftemplate[1])
                     else:
                         print("enroll to sensor failed")
-                    
+
                 else:
                     print('modifying fingerprint '+str(self.userInfoObject.getFingerID(userId)))
-                    
+
                     self.fingerprintObject.DeleteID(self.userInfoObject.getFingerID(userId))
                     if self.fingerprintObject.SetTemplate(self.ftemplate[1],self.userInfoObject.getFingerID(userId))==True:
                         self.editUsersObject.modifyFingerprint(userId, self.ftemplate[1])
@@ -571,10 +580,11 @@ class mainWindow(QWidget):
             self.showMsgBox('Database successfully updated!')
         else:
             self.showMsgBox('Database update Failed!/n Invalid Data Entered')
-    
+
     def deleteUser(self,userId):
         self.editUsersObject.deleteUser(userId)
         self.fingerprintObject.DeleteID(self.userInfoObject.getFingerID(userId))
+        self.userListChanged.emit()
 
     def updateEditUserInfo(self, nameId):
         print(self.userModel.item(nameId.row()).text())
