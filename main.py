@@ -502,7 +502,7 @@ class mainWindow(QWidget):
     def saveEnrolUser(self,name,email,phoneCall,phoneWhatsapp,roomNumber,pin,adminAccess,labAccess,inventoryAccess):
         if self.enrollUserObject.enrollNewUser(name,email,phoneCall,phoneWhatsapp,roomNumber,pin,adminAccess,labAccess,inventoryAccess):
             if (not self.ftemplate==None) and (self.fingerprintObject.SetTemplate(self.ftemplate[1],self.ftemplate[0])==True):
-                self.enrollUserObject.storeFingerprint(userInfoObject.getUserID(), self.ftemplate[0], self.ftemplate[1])
+                self.enrollUserObject.storeFingerprint(self.userInfoObject.getUserID(), self.ftemplate[0], self.ftemplate[1])
             else:
                 print('fingerprint not stored')
             self.showMsgBox('Database successfully updated!')
