@@ -589,16 +589,19 @@ class mainWindow(QWidget):
     def deleteUser(self,userId):
         print('called')
         
-        msg = QMessageBox()
-        msg.setIcon(QMessageBox.Information)
-        msg.setText('Are you sure you want to delete this user?')
-        msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
-        ret = msg.exec_()
-        
-        if ret == QMessageBox.Ok:            
-            self.editUsersObject.deleteUser(userId)
-            self.fingerprintObject.DeleteID(self.userInfoObject.getFingerID(userId))
-            self.userListChanged.emit()
+        if userId == self.user.getUserId():
+            self.showMsgBox('You can\'t delete yourself!')
+        else:
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Information)
+            msg.setText('Are you sure you want to delete this user?')
+            msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+            ret = msg.exec_()
+            
+            if ret == QMessageBox.Ok:            
+                self.editUsersObject.deleteUser(userId)
+                self.fingerprintObject.DeleteID(self.userInfoObject.getFingerID(userId))
+                self.userListChanged.emit()
 
     def updateEditUserInfo(self, nameId):
         print(self.userModel.item(nameId.row()).text())
