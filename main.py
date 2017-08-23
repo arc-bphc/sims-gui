@@ -582,9 +582,18 @@ class mainWindow(QWidget):
             self.showMsgBox('Database update Failed!/n Invalid Data Entered')
 
     def deleteUser(self,userId):
-        self.editUsersObject.deleteUser(userId)
-        self.fingerprintObject.DeleteID(self.userInfoObject.getFingerID(userId))
-        self.userListChanged.emit()
+        print('called')
+        
+        msg = QMessageBox()
+        msg.setIcon(QMessageBox.Information)
+        msg.setText('Are you sure you want to delete this user?')
+        msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+        ret = msg.exec_()
+        
+        if ret == QMessageBox.Ok:            
+            self.editUsersObject.deleteUser(userId)
+            self.fingerprintObject.DeleteID(self.userInfoObject.getFingerID(userId))
+            self.userListChanged.emit()
 
     def updateEditUserInfo(self, nameId):
         print(self.userModel.item(nameId.row()).text())
