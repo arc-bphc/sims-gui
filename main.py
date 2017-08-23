@@ -175,8 +175,13 @@ class mainWindow(QWidget):
 
         userIcon.setMinimumSize(QSize(0, 40))
         userIcon.setMaximumSize(QSize(50, 50))
-        userIcon.setPixmap(QPixmap(self.userImagePath + self.userImagesPrefix + \
-                                    str(self.user.getUserId()) + '.jpg'))
+        
+        userImagePath = self.userImagePath + self.userImagesPrefix + \
+                                    str(self.user.getUserId()) + '.jpg'
+        if QFile.exists(userImagePath):
+            userIcon.setPixmap(QPixmap(userImagePath))
+        else:
+            userIcon.setPixmap(QPixmap(userImagePath + self.userImagesPrefix + 'default.png'))
         userIcon.setScaledContents(True)
         comboBox.setMinimumSize(QSize(200, 40))
         comboBox.setMaximumSize(QSize(300, 16777215))
@@ -327,7 +332,7 @@ class mainWindow(QWidget):
             self.HomeWidget.setCurrentIndex(1)
         else:
             # self.finger = QWidget()
-            self.HomeWidget.setCurrentIndex(0)
+            self.logoutUser()
 
     # Fingerprint login is supported here. We only take the sensor's word
     # for whether the fingerprint provided is valid.
