@@ -3,3 +3,5 @@ config.json
 *.pyc
 */*.pyc
 */*/*.pyc
+*.db
+*.csv
