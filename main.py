@@ -799,15 +799,15 @@ class mainWindow(QWidget):
 
     def execResetPin(self, currentPwd, newPwd):
         resetPinObject = resetPin(self.databasePath)
-        if currentPwd:
-            result = resetPinObject.compareEnteredPin(self.user.getUserId(), currentPwd, newPwd)
-            if result == 0:
-                self.showMsgBox('Wrong PIN!')
-            else:
-                self.showMsgBox('PIN successfully updated!')
-                self.launchWindow(0)
+        
+        result = resetPinObject.compareEnteredPin(self.user.getUserId(), currentPwd, newPwd)
+        if result == 0:
+            self.showMsgBox('Wrong PIN!')
         else:
-            self.showMsgBox('Enter Current Password')
+            self.showMsgBox('PIN successfully updated!')
+            self.launchWindow(0)
+        #else:
+            #self.showMsgBox('Enter Current Password')
 
     def updateViewCart(self):
         self.model.clear()

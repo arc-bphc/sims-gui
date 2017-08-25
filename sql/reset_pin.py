@@ -1,5 +1,6 @@
 from .insert_data_users import *
 from Crypto.Hash import SHA256
+import hashlib
 
 class resetPin:
 	def __init__(self,dbname):
@@ -20,20 +21,41 @@ def comparePin(obj,id,pin,newPin):
 	salt = user_list[0][6]
 	#print salt
 	hashed_pin = user_list[0][7]
+	print(type(salt))
+	print(type(hashed_pin))
 	#print "hashed_pin from database:  " + hashed_pin
-	pin = pin + salt
-	newPin = newPin + salt
-	# print pin
-	entered_pin = SHA256.new(pin).hexdigest()
-	newPin = SHA256.new(newPin).hexdigest()
-	#print "entered_pin:	" + entered_pin
-	if hashed_pin == entered_pin:
+	if hashed_pin == "" and salt=="":
+		print('generating new pwd')
+		newPin=createNewPassword(newPin)
+		obj.user.updateQuery('users',["SALT = '" + newPin['salt'] + "'"],['ID = ' + str(id)])
 		obj.flag = 1
-		#print "newPin:	" + newPin
-		return newPin
+		return newPin['hash']
 	else:
-		obj.flag = 0
-		return '0'
+		pin = pin + salt
+		newPin = newPin + salt
+		entered_pin = SHA256.new(pin).hexdigest()
+		newPin = SHA256.new(newPin).hexdigest()
+		#print "entered_pin:	" + entered_pin
+		if hashed_pin == entered_pin:
+			obj.flag = 1
+			#print "newPin:	" + newPin
+			return newPin
+		else:
+			obj.flag = 0
+			return ''
+
+def createNewPassword(text):
+    password = {}
+    #changed the salt algo to be ascii
+    password['salt'] = ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(5))
+    # print salt
+    password['salt'].encode('utf-8')
+    text.encode('utf-8')
+    text = text + password['salt']
+    #text.encode('utf-8')
+    hash_object = hashlib.sha256(text.encode('utf-8'))
+    password['hash'] = hash_object.hexdigest()
+    return password
 
 
 
