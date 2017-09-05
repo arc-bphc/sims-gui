@@ -90,14 +90,16 @@ def clickable(widget):
 class mainWindow(QWidget):
     userIdSignal = pyqtSignal(int)
     userListChanged = pyqtSignal()
+    fingerScanning=False
     def __init__(self, widget):
         super(mainWindow, self).__init__()
 
         self.loadConfig()
 
         self.windowWidget = widget
-        self.windowWidget.setStyleSheet("QPushButton {padding: 10px}\nQWidget {background-color: white}\n* {font: 16pt}\n")
+        self.windowWidget.setStyleSheet("QPushButton {border-width: 1px;border-color: #339;border-style: solid;border-radius: 8;padding: 10px}\nQPushButton:pressed{background:royalblue;border-color:royalblue;border-width:2px}\nQWidget {background-color: white}\n* {font: 16pt}\n")
         self.windowWidget.setWindowTitle("Smart Inventory Management System")
+        
 #        self.windowWidget.resize(1280, 800)
 
         self.userId = None
@@ -119,7 +121,8 @@ class mainWindow(QWidget):
         self.enrolFingerprint = QWidget()
 
         self.currentPage = 0
-        self.previousPage = 0
+        self.previousPage = []
+        
 
         self.StackWidget = QStackedWidget(self)
         self.HomeWidget = QStackedWidget(self)
@@ -140,6 +143,8 @@ class mainWindow(QWidget):
 
         windowVBox = QVBoxLayout()
         windowVBox.addWidget(self.HomeWidget)
+        
+        self.onAdminPage=False
 
         self.windowWidget.setLayout(windowVBox)
 
@@ -161,6 +166,7 @@ class mainWindow(QWidget):
         backButton.setFlat(True)
         backButton.setIcon(icon)
         backButton.setIconSize(QSize(48, 48))
+        backButton.setFocusPolicy(Qt.NoFocus)
 
         arcLogo = QLabel()
         arcLogo.setMinimumSize(QSize(0, 0))
@@ -169,10 +175,12 @@ class mainWindow(QWidget):
         arcLogo.setScaledContents(True)
 
         userWidget = QWidget()
+        userWidget.setFocusPolicy(Qt.NoFocus)
         userHBox = QHBoxLayout()
         userIcon = QLabel()
-        comboBox = QComboBox()
-
+        comboBox = QPushButton(self.user.getName())
+        comboBox.setFocusPolicy(Qt.NoFocus)
+        comboBox.setAttribute(Qt.WA_MouseNoMask,True)
         userIcon.setMinimumSize(QSize(0, 40))
         userIcon.setMaximumSize(QSize(50, 50))
         
@@ -186,12 +194,13 @@ class mainWindow(QWidget):
         comboBox.setMinimumSize(QSize(200, 40))
         comboBox.setMaximumSize(QSize(300, 16777215))
 
-        comboBox.addItem(self.user.getName())
-        comboBox.addItem('About')
-        if self.user.isAdmin() == True:
-            comboBox.addItem("Admin Panel")
+        #comboBox.addItem(self.user.getName())
+        #comboBox.addItem('About')
+        
+            #comboBox.addItem("Admin Panel")
+        comboBox.clicked.connect(self.handleComboBox)
 
-        comboBox.activated.connect(self.handleComboBox)
+        #comboBox.activated.connect(self.handleComboBox)
 
         userHBox.addWidget(userIcon)
         userHBox.addWidget(comboBox)
@@ -225,13 +234,12 @@ class mainWindow(QWidget):
         self.databasePath = data['Settings']['database']['path']
         print ('Loading config from \'config.json\'')
 
-    def handleComboBox(self, val):
-        if val == 0:
+    def handleComboBox(self):
+        if (self.StackWidget.currentIndex() == 0) and self.user.isAdmin():
+            self.launchWindow(7)
+        else:
+            self.previousPage=[]
             self.StackWidget.setCurrentIndex(0)
-        if val == 1:
-            self.HomeWidget.setCurrentIndex(2)
-        if val == 2:
-            self.StackWidget.setCurrentIndex(7)
 
     # The widgets are arranged in a QStackedWidget. They are layered on
     # top of one another in the order in which they are added to the StackWidget
@@ -278,6 +286,16 @@ class mainWindow(QWidget):
         logoutButton = self.userProfile.findChild(QPushButton, "logoutButton")
         welcomeLabel = self.userProfile.findChild(QLabel, "welcomeLabel")
         profilePic = self.userProfile.findChild(QLabel, "profilePic")
+        
+        inventoryButton.setFocusPolicy(Qt.NoFocus)
+        editDetailsButton.setFocusPolicy(Qt.NoFocus)
+        requestButton.setFocusPolicy(Qt.NoFocus)
+        resetPinButton.setFocusPolicy(Qt.NoFocus)
+        cartButton.setFocusPolicy(Qt.NoFocus)
+        #lockButton.setFocusPolicy(Qt.NoFocus)
+        logoutButton.setFocusPolicy(Qt.NoFocus)
+        welcomeLabel.setFocusPolicy(Qt.NoFocus)
+        profilePic.setFocusPolicy(Qt.NoFocus)
 
         inventoryButton.clicked.connect(lambda: self.launchWindow(5))
         editDetailsButton.clicked.connect(lambda: self.launchWindow(4))
@@ -519,10 +537,12 @@ class mainWindow(QWidget):
             self.showMsgBox('Invalid Values!')
 
     def updateUserList(self):
+        print('resetting')
         self.userModel.clear()
         self.userList = self.editUsersObject.listUser()
         for item in self.userList:
             self.userModel.appendRow(QStandardItem(item[1]))
+        self.updateEditUserInfo(None)
 
     def setupEditUsers(self):
         Ui_editUsersWindow().setupUi(self.editUsers)
@@ -551,6 +571,7 @@ class mainWindow(QWidget):
         userView.setModel(self.userModel)
         for item in self.userList:
             self.userModel.appendRow(QStandardItem(item[1]))
+        
         userView.clicked.connect(self.updateEditUserInfo)
 
         self.ftemplate = None
@@ -600,12 +621,12 @@ class mainWindow(QWidget):
             
             if ret == QMessageBox.Ok:            
                 self.editUsersObject.deleteUser(userId)
-                self.fingerprintObject.DeleteID(self.userInfoObject.getFingerID(userId))
+                finger_id=self.userInfoObject.getFingerID(userId)
+                if not finger_id==None:
+                    self.fingerprintObject.DeleteID(finger_id)
                 self.userListChanged.emit()
 
     def updateEditUserInfo(self, nameId):
-        print(self.userModel.item(nameId.row()).text())
-
         username = self.editUsers.findChild(QLabel, "username")
         name = self.editUsers.findChild(QLineEdit, "name")
         email = self.editUsers.findChild(QLineEdit, "email")
@@ -616,7 +637,24 @@ class mainWindow(QWidget):
         labCheckBox = self.editUsers.findChild(QCheckBox, "labCheckBox")
         inventoryCheckBox = self.editUsers.findChild(QCheckBox, "inventoryCheckBox")
         userImage = self.editUsers.findChild(QLabel, "userImage")
-
+        
+        #this part resets all the selected user's details in editusers after deleteUser
+        if nameId==None:
+            print("resetting list")
+            username.setText("")
+            name.setText("")
+            email.setText("")
+            phoneCall.setText("")
+            phoneWhatsApp.setText("")
+            roomNumber.setText("")
+            #userImage.setPixmap(QPixmap(self.userImagePath + self.userImagesPrefix + \
+                                        #str(self.selectedUserId) + '.jpg'))
+            adminCheckBox.setChecked(False)
+            labCheckBox.setChecked(False)
+            inventoryCheckBox.setChecked(False)
+            return
+            
+        print(self.userModel.item(nameId.row()).text())
         self.selectedUserId = self.userList[nameId.row()][0]
         res = self.userInfoObject.get_user_info(self.selectedUserId)
 
@@ -627,7 +665,7 @@ class mainWindow(QWidget):
         phoneWhatsApp.setText(res[2])
         roomNumber.setText(res[3])
         userImage.setPixmap(QPixmap(self.userImagePath + self.userImagesPrefix + \
-                                    str(self.user.getUserId()) + '.jpg'))
+                                    str(self.selectedUserId) + '.jpg'))
         adminCheckBox.setChecked(res[5])
         labCheckBox.setChecked(res[6])
         inventoryCheckBox.setChecked(res[7])
@@ -663,6 +701,7 @@ class mainWindow(QWidget):
         t=Thread(target=self.setFingerprintStates,args=(fingerprintWidgets,index,scanFingerprint,threads,))
         threads.append(t)
         # fingerprintWidgets[0].setMovie(scanFingerprint)
+        self.fingerScanning=True
         t.start()
 
     def setFingerprintStates(self, fingerprintWidgets,index,scanFingerprint,threads):
@@ -691,6 +730,7 @@ class mainWindow(QWidget):
                 t.start()
                 return
             elif curr_enroll==2:
+                self.fingerScanning=False
                 template=self.fingerprintObject.GetTemplate(index)[1]
                 self.fingerprintObject.DeleteID(index)
                 self.ftemplate=[index,template]
@@ -698,6 +738,7 @@ class mainWindow(QWidget):
                 pass
         else:
             print("sensor response"+str(ret))
+            self.fingerScanning=False
             if curr_enroll==2:
                 for i in fingerprintWidgets:
                     i.setPixmap(wrongFingerprint)
@@ -732,8 +773,9 @@ class mainWindow(QWidget):
 
     def exitFingerEnroll(self):
         self.fingerprintObject.stop=True
+        self.fingerScanning=False
         print("stopping enrollment")
-        self.launchWindow(8)
+        
 
     def removeFromCartAction(self, listView, partID):
         if len(listView.selectedIndexes()) != 0:
@@ -748,7 +790,7 @@ class mainWindow(QWidget):
         if self.device == 'desktop':
             self.windowWidget.show()
         else:
-            self.windowWidget.showMaximized()
+            self.windowWidget.showFullScreen()
 
     def saveUserDetails(self, userId):
         name = self.editDetails.findChild(QLineEdit, "name")
@@ -838,14 +880,19 @@ class mainWindow(QWidget):
                                     str(itemDetails[0])+'.png'))
 
     def launchWindow(self, value):
-        self.previousPage = self.currentPage
+        self.previousPage.append(self.StackWidget.currentIndex())
         self.StackWidget.setCurrentIndex(value)
         self.currentPage = value
         self.updateViewCart()
 
     def goBack(self):
-        self.StackWidget.setCurrentIndex(0)
-
+        if (self.StackWidget.currentIndex()==10) and self.fingerScanning:
+            return
+        if len(self.previousPage):
+            self.StackWidget.setCurrentIndex(self.previousPage[-1])
+            self.previousPage.pop(-1)
+        else:
+            pass
     def setupWindows(self):
         self.setupHeaderWidget(self.arcHeader)
         self.setupUserProfile()
@@ -886,7 +933,7 @@ def main():
     if prog.getDevice() == 'desktop':
         widget.show()
     else:
-        widget.showMaximized()
+        widget.showFullScreen()
     sys.exit(app.exec_())
 
 if __name__ == '__main__':

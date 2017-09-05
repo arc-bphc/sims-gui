@@ -51,6 +51,9 @@ QWidget {background-color: rgb(255, 255, 255)}
          <height>16777215</height>
         </size>
        </property>
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
+       </property>
        <property name="text">
         <string>Reset PIN</string>
        </property>
@@ -99,6 +102,9 @@ QWidget {background-color: rgb(255, 255, 255)}
          <height>16777215</height>
         </size>
        </property>
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
+       </property>
        <property name="text">
         <string>Inventory</string>
        </property>
@@ -118,12 +124,16 @@ QWidget {background-color: rgb(255, 255, 255)}
          <height>16777215</height>
         </size>
        </property>
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
+       </property>
        <property name="text">
         <string>Purchase Request</string>
        </property>
        <property name="icon">
         <iconset theme="save">
-         <normaloff>.</normaloff>.</iconset>
+         <normaloff/>
+        </iconset>
        </property>
       </widget>
      </item>
@@ -140,6 +150,9 @@ QWidget {background-color: rgb(255, 255, 255)}
          <width>400</width>
          <height>16777215</height>
         </size>
+       </property>
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
        </property>
        <property name="text">
         <string>Edit Details</string>
@@ -172,6 +185,9 @@ QWidget {background-color: rgb(255, 255, 255)}
          <width>400</width>
          <height>16777215</height>
         </size>
+       </property>
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
        </property>
        <property name="text">
         <string>View Cart</string>
@@ -218,6 +234,9 @@ QWidget {background-color: rgb(255, 255, 255)}
      </item>
      <item row="9" column="0" alignment="Qt::AlignLeft">
       <widget class="QPushButton" name="logoutButton">
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
+       </property>
        <property name="text">
         <string>Logout</string>
        </property>
