@@ -927,7 +927,7 @@ class mainWindow(QWidget):
 def main():
     app = QApplication(sys.argv)
     app.setWindowIcon(QIcon('images/arclogo.png'))
-
+    app.setOverrideCursor(QCursor(Qt.BlankCursor))
     widget = QWidget()
     prog = mainWindow(widget)
     if prog.getDevice() == 'desktop':
