@@ -91,12 +91,12 @@ class mainWindow(QWidget):
     userIdSignal = pyqtSignal(int)
     userListChanged = pyqtSignal()
     fingerScanning=False
-    def __init__(self, widget):
+    def __init__(self):
         super(mainWindow, self).__init__()
 
         self.loadConfig()
 
-        self.windowWidget = widget
+        self.windowWidget = QWidget()
         self.windowWidget.setStyleSheet("QPushButton {border-width: 1px;border-color: #339;border-style: solid;border-radius: 8;padding: 10px}\nQPushButton:pressed{background:royalblue;border-color:royalblue;border-width:2px}\nQWidget {background-color: white}\n* {font: 16pt}\n")
         self.windowWidget.setWindowTitle("Smart Inventory Management System")
         
@@ -785,13 +785,13 @@ class mainWindow(QWidget):
     # Logging out closes and reopens the application
     def logoutUser(self):
         self.windowWidget.close()
-        self.windowWidget = QWidget()
-        mainWindow(self.windowWidget)
-        if self.device == 'desktop':
-            self.windowWidget.show()
+        
+        prog=mainWindow()
+        if prog.getDevice() == 'desktop':
+            prog.windowWidget.show()
         else:
             #self.windowWidget.showMaximized()
-            self.windowWidget.showFullScreen()
+            prog.windowWidget.showFullScreen()
 
     def saveUserDetails(self, userId):
         name = self.editDetails.findChild(QLineEdit, "name")
@@ -928,10 +928,8 @@ class mainWindow(QWidget):
         else:
             print("To be implemented soon")
 
-def main():
-    app = QApplication(sys.argv)
-    app.setWindowIcon(QIcon('images/arclogo.png'))
-    app.setOverrideCursor(QCursor(Qt.BlankCursor))
+def startApp():
+    global app
     widget = QWidget()
     prog = mainWindow(widget)
     if prog.getDevice() == 'desktop':
@@ -939,6 +937,21 @@ def main():
     else:
         #widget.showMaximized()
         widget.showFullScreen()
+    
+
+
+def main():
+    global app
+    app = QApplication(sys.argv)
+    app.setWindowIcon(QIcon('images/arclogo.png'))
+    app.setOverrideCursor(QCursor(Qt.BlankCursor))
+    #widget = QWidget()
+    prog = mainWindow()
+    if prog.getDevice() == 'desktop':
+        prog.windowWidget.show()
+    else:
+        #widget.showMaximized()
+        prog.windowWidget.showFullScreen()
     sys.exit(app.exec_())
 
 if __name__ == '__main__':
