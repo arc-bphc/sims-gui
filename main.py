@@ -27,6 +27,7 @@ from ui_adminpanel import Ui_adminWindow
 from ui_enrol import Ui_enrolWindow
 from ui_editusers import Ui_editUsersWindow
 from ui_enrolfingerprint import Ui_enrolFingerWindow
+from ui_archeader import Ui_arcHeader
 
 from sql.user_details import user_info
 from sql.reset_pin import resetPin
@@ -93,6 +94,18 @@ class mainWindow(QWidget):
     userIdSignal = pyqtSignal(int)
     userListChanged = pyqtSignal()
     fingerScanning=False
+    HeaderWidgetCreated=False
+    UserProfileCreated=False
+    FingerCreated=False
+    ResetPinCreated=False
+    RequestItemCreated=False
+    EditDetailsCreated=False
+    InventoryCreated=False
+    CartCreated=False
+    AdminCreated=False
+    EnrolCreated=False
+    EditUsersCreated=False
+    EnrolFingerprintCreated=False
     def __init__(self):
         super(mainWindow, self).__init__()
 
@@ -160,6 +173,51 @@ class mainWindow(QWidget):
 
     # The widget on top with the back button, ARC logo, and user options
     def setupHeaderWidget(self, widget):
+        if not self.HeaderWidgetCreated:
+            Ui_arcHeader().setupUi(self.arcHeader)
+            
+        arcLogo = self.arcHeader.findChild(QLabel,'label_3')
+        arcLogo.setPixmap(QPixmap('images/arclogo.png'))
+        
+        backButton = self.arcHeader.findChild(QPushButton,'backButton')
+        backButton.setFocusPolicy(Qt.NoFocus)
+        
+        userWidget = self.arcHeader.findChild(QWidget,'widget')
+        userWidget.setFocusPolicy(Qt.NoFocus)
+        
+        userIcon = self.arcHeader.findChild(QLabel,'label_4')
+        userImagePath = self.userImagePath + self.userImagesPrefix + \
+                                    str(self.user.getUserId()) + '.jpg'
+        if QFile.exists(userImagePath):
+            userIcon.setPixmap(QPixmap(userImagePath))
+        else:
+            userIcon.setPixmap(QPixmap(userImagePath + self.userImagesPrefix + 'default.png'))
+       
+        comboBox = self.arcHeader.findChild(QPushButton,'comboBox')
+        comboBox.setFocusPolicy(Qt.NoFocus)
+        comboBox.setText(self.user.getName())
+        
+        if not self.HeaderWidgetCreated:
+            backButton.clicked.connect(self.goBack)
+            comboBox.clicked.connect(self.handleComboBox)
+            self.HeaderWidgetCreated=True
+        
+        hbox = self.arcHeader.findChild(QHBoxLayout,'horizontalLayout_2')
+        userHBox = self.arcHeader.findChild(QHBoxLayout,'horizontalLayout_3')
+        
+        userHBox.addWidget(userIcon)
+        userHBox.addWidget(comboBox)
+        userWidget.setLayout(userHBox)
+
+        hbox.addWidget(backButton)
+        hbox.addWidget(arcLogo)
+        hbox.addWidget(userWidget)
+        hbox.setAlignment(backButton, Qt.AlignLeft|Qt.AlignTop)
+        hbox.setAlignment(arcLogo, Qt.AlignHCenter|Qt.AlignTop)
+        hbox.setAlignment(userWidget, Qt.AlignRight|Qt.AlignTop)
+        widget.setLayout(hbox)
+        widget.setStyleSheet("QPushButton {padding: 10px}\nQWidget {background-color: white}\n")
+        """
         hbox = QHBoxLayout()
         icon = QIcon()
         icon.addPixmap(QPixmap("images/back.png"), QIcon.Normal, QIcon.Off)
@@ -219,7 +277,7 @@ class mainWindow(QWidget):
         widget.setStyleSheet("QPushButton {padding: 10px}\nQWidget {background-color: white}\n")
 
         backButton.clicked.connect(self.goBack)
-
+        """
     # Config is loaded from the config.json file present in the same dir
     def loadConfig(self):
         with open('config.json') as data_file:
@@ -238,6 +296,7 @@ class mainWindow(QWidget):
         print ('Loading config from \'config.json\'')
 
     def handleComboBox(self):
+        print(self.previousPage)
         if (self.StackWidget.currentIndex() == 0) and self.user.isAdmin():
             self.launchWindow(7)
         else:
@@ -265,7 +324,6 @@ class mainWindow(QWidget):
     def setupSplashScreen(self):
         Ui_splashScreen().setupUi(self.splashScreen)
         self.pinEntry = False
-
         clickable(self.splashScreen).connect(lambda: self.unlockScreen())
 
     def setupAbout(self):
@@ -278,7 +336,9 @@ class mainWindow(QWidget):
         Ui_loginWindow.setupUi(self.finger)
 
     def setupUserProfile(self):
-        Ui_userWindow().setupUi(self.userProfile)
+        if not self.UserProfileCreated:
+            Ui_userWindow().setupUi(self.userProfile)
+            self.UserProfileCreated=True
         inventoryButton = self.userProfile.findChild(QPushButton, "inventoryButton")
         editDetailsButton = self.userProfile.findChild(QPushButton, "editDetailsButton")
         requestButton = self.userProfile.findChild(QPushButton, "requestButton")
@@ -305,14 +365,16 @@ class mainWindow(QWidget):
         resetPinButton.clicked.connect(lambda: self.launchWindow(1))
         cartButton.clicked.connect(lambda: self.launchWindow(6))
 
-        logoutButton.clicked.connect(lambda:logoutUser())
+        logoutButton.clicked.connect(lambda:self.logoutUser())
 
         welcomeLabel.setText("Welcome, " + self.user.getName())
         profilePic.setPixmap(QPixmap(self.userImagePath + self.userImagesPrefix + \
                                     str(self.user.getUserId()) + '.jpg'))
 
     def setupResetPin(self):
-        Ui_resetPinWindow().setupUi(self.resetPin)
+        if not self.ResetPinCreated:
+            Ui_resetPinWindow().setupUi(self.resetPin)
+            self.ResetPinCreated=True
         buttonBox = self.resetPin.findChild(QDialogButtonBox, "buttonBox")
         currentPwd = self.resetPin.findChild(QLineEdit, "currentPwd")
         newPwd = self.resetPin.findChild(QLineEdit, "newPwd")
@@ -321,8 +383,9 @@ class mainWindow(QWidget):
         buttonBox.rejected.connect(lambda: self.launchWindow(0))
 
     def setupFinger(self):
-        Ui_loginWindow().setupUi(self.finger)
-
+        if not self.FingerCreated:
+            Ui_loginWindow().setupUi(self.finger)
+            self.FingerCreated=True
         fingerLabel = self.finger.findChild(QLabel, "fingerLabel")
         # fingerData = None
         self.scanFingerprint = QMovie("images/finger-scan.gif")
@@ -350,7 +413,7 @@ class mainWindow(QWidget):
             self.HomeWidget.setCurrentIndex(1)
         else:
             # self.finger = QWidget()
-            logoutUser()
+            self.logoutUser()
 
     # Fingerprint login is supported here. We only take the sensor's word
     # for whether the fingerprint provided is valid.
@@ -391,7 +454,9 @@ class mainWindow(QWidget):
             # self.HomeWidget.setCurrentIndex(1)
 
     def setupRequestItem(self):
-        Ui_requestItemWindow().setupUi(self.requestItem)
+        if not self.RequestItemCreated:
+            Ui_requestItemWindow().setupUi(self.requestItem)
+            self.RequestItemCreated=True
         project = self.requestItem.findChild(QLineEdit, "project")
         item = self.requestItem.findChild(QLineEdit, "item")
         price = self.requestItem.findChild(QLineEdit, "price")
@@ -406,14 +471,16 @@ class mainWindow(QWidget):
         buttonBox.rejected.connect(lambda: self.launchWindow(0))
 
     def setupEditDetails(self):
-        Ui_editDetailsWindow().setupUi(self.editDetails)
-
+        if not self.EditDetailsCreated:
+            Ui_editDetailsWindow().setupUi(self.editDetails)
+            
         buttonBox = self.editDetails.findChild(QDialogButtonBox, "buttonBox")
-        buttonBox.rejected.connect(lambda: self.launchWindow(0))
-        buttonBox.accepted.connect(lambda: self.saveUserDetails(self.user.getUserId()))
-        buttonBox.accepted.connect(lambda: self.showMsgBox('Database successfully updated!'))
-        buttonBox.accepted.connect(lambda: self.launchWindow(0))
-
+        if not self.EditDetailsCreated:
+            buttonBox.rejected.connect(lambda: self.launchWindow(0))
+            buttonBox.accepted.connect(lambda: self.saveUserDetails(self.user.getUserId()))
+            buttonBox.accepted.connect(lambda: self.showMsgBox('Database successfully updated!'))
+            buttonBox.accepted.connect(lambda: self.launchWindow(0))
+            self.EditDetailsCreated=True
         userInfo = user_info(self.databasePath)
         userData = userInfo.get_user_info(self.user.getUserId())
 
@@ -430,7 +497,9 @@ class mainWindow(QWidget):
         email.setText(userData[4])
 
     def setupInventory(self):
-        Ui_inventoryWindow().setupUi(self.inventory)
+        if not self.InventoryCreated:
+            Ui_inventoryWindow().setupUi(self.inventory)
+            self.InventoryCreated=True
 
         self.inventoryDb = selectFromInventory(self.databasePath)
         self.categoryList = self.inventoryDb.getCatagories()
@@ -449,15 +518,17 @@ class mainWindow(QWidget):
 
         for item in self.categoryList:
             self.categoryModel.appendRow(QStandardItem(item))
-
-        categoryView.clicked.connect(self.updateInventoryItemList)
-        itemView.clicked.connect(self.updateInventoryItemInfo)
-        cartButton.clicked.connect(lambda: self.launchWindow(6))
-        addToCartButton.clicked.connect(lambda: self.addToCartAction(itemView, qtySpinBox, partQty))
+        if not self.InventoryCreated:
+            categoryView.clicked.connect(self.updateInventoryItemList)
+            itemView.clicked.connect(self.updateInventoryItemInfo)
+            cartButton.clicked.connect(lambda: self.launchWindow(6))
+            addToCartButton.clicked.connect(lambda: self.addToCartAction(itemView, qtySpinBox, partQty))
+            self.InventoryCreated=True
 
     def setupCart(self):
-        Ui_cartWindow().setupUi(self.cart)
-
+        if not self.CartCreated:
+            Ui_cartWindow().setupUi(self.cart)
+            
         self.viewCart = view_cart(self.databasePath)
         self.model = QStandardItemModel()
 
@@ -470,30 +541,32 @@ class mainWindow(QWidget):
 
         listView.setModel(self.model)
         self.updateViewCart()
-
-        removeCartButton.clicked.connect(lambda: self.removeFromCartAction(listView, int(str(partID.text()))))
-        listView.clicked.connect(self.displayCartItem)
-        openInventory.clicked.connect(lambda: self.launchWindow(5))
+        if not self.CartCreated:
+            removeCartButton.clicked.connect(lambda: self.removeFromCartAction(listView, int(str(partID.text()))))
+            listView.clicked.connect(self.displayCartItem)
+            openInventory.clicked.connect(lambda: self.launchWindow(5))
+            self.CartCreated=True
 
     def setupAdmin(self):
-        
-        if self.user.isAdmin():
+        if not self.AdminCreated:
             Ui_adminWindow().setupUi(self.admin)
-            enrolUserButton = self.admin.findChild(QPushButton, "enrolUserButton")
-            editUsersButton = self.admin.findChild(QPushButton, "editUsersButton")
-
+            
+        enrolUserButton = self.admin.findChild(QPushButton, "enrolUserButton")
+        editUsersButton = self.admin.findChild(QPushButton, "editUsersButton")
+        if not self.AdminCreated:
             enrolUserButton.clicked.connect(lambda: self.launchWindow(8))
             editUsersButton.clicked.connect(lambda: self.launchWindow(9))
-        else:
-            return
+            self.AdminCreated=True
+ 
 
     def launchEnrolFingerprint(self):
         self.launchWindow(10)
         self.setupEnrolFingerprint()
 
     def setupEnrol(self):
-        Ui_enrolWindow().setupUi(self.enrol)
-
+        if not self.EnrolCreated:
+            Ui_enrolWindow().setupUi(self.enrol)
+            
         self.enrollUserObject = enrollUser(self.databasePath)
         userInfoObject = user_info(self.databasePath)
 
@@ -513,21 +586,22 @@ class mainWindow(QWidget):
         self.ftemplate=None
         biometricButton.clicked.connect(lambda: self.launchEnrolFingerprint())
         buttonBox.rejected.connect(lambda: self.launchWindow(0))
-
-        if self.user.isAdmin() == True:
-            buttonBox.rejected.connect(lambda: self.launchWindow(0))
-            buttonBox.accepted.connect(lambda: self.saveEnrolUser(str(name.text()),str(email.text()), str(phoneCall.text()), \
-                                                            str(phoneWhatsApp.text()), str(roomNumber.text()), \
-                                                            str(pin.text()),  adminPriv.isChecked(), \
-                                                            labAccess.isChecked(), inventoryAccess.isChecked()))
-
-            #buttonBox.accepted.connect(lambda: self.enrollUserObject.storeFingerprint(userInfoObject.getUserID(), self.ftemplate[0], self.ftemplate[1]))
-            #buttonBox.accepted.connect(lambda: self.fingerprintObject.SetTemplate(self.ftemplate[1],self.ftemplate[0]))
-            #buttonBox.accepted.connect(lambda: self.showMsgBox('Database successfully updated!'))
-            #buttonBox.accepted.connect(lambda: self.launchWindow(0))
-        else:
-            buttonBox.rejected.connect(lambda: self.launchWindow(0))
-            buttonBox.accepted.connect(lambda: self.showMsgBox('You are not authorized to do this!'))
+        if not self.EnrolCreated:
+            if self.user.isAdmin() == True:
+                buttonBox.rejected.connect(lambda: self.launchWindow(0))
+                buttonBox.accepted.connect(lambda: self.saveEnrolUser(str(name.text()),str(email.text()), str(phoneCall.text()), \
+                                                                str(phoneWhatsApp.text()), str(roomNumber.text()), \
+                                                                str(pin.text()),  adminPriv.isChecked(), \
+                                                                labAccess.isChecked(), inventoryAccess.isChecked()))
+    
+                #buttonBox.accepted.connect(lambda: self.enrollUserObject.storeFingerprint(userInfoObject.getUserID(), self.ftemplate[0], self.ftemplate[1]))
+                #buttonBox.accepted.connect(lambda: self.fingerprintObject.SetTemplate(self.ftemplate[1],self.ftemplate[0]))
+                #buttonBox.accepted.connect(lambda: self.showMsgBox('Database successfully updated!'))
+                #buttonBox.accepted.connect(lambda: self.launchWindow(0))
+            else:
+                buttonBox.rejected.connect(lambda: self.launchWindow(0))
+                buttonBox.accepted.connect(lambda: self.showMsgBox('You are not authorized to do this!'))
+            self.EnrolCreated=True
 
     def saveEnrolUser(self,name,email,phoneCall,phoneWhatsapp,roomNumber,pin,adminAccess,labAccess,inventoryAccess):
         if self.enrollUserObject.enrollNewUser(name,email,phoneCall,phoneWhatsapp,roomNumber,pin,adminAccess,labAccess,inventoryAccess):
@@ -550,8 +624,9 @@ class mainWindow(QWidget):
         self.updateEditUserInfo(None)
 
     def setupEditUsers(self):
-        Ui_editUsersWindow().setupUi(self.editUsers)
-
+        if not self.EditUsersCreated:
+            Ui_editUsersWindow().setupUi(self.editUsers)
+            
         self.editUsersObject = editUsers(self.databasePath)
         self.userInfoObject = user_info(self.databasePath)
 
@@ -576,19 +651,19 @@ class mainWindow(QWidget):
         userView.setModel(self.userModel)
         for item in self.userList:
             self.userModel.appendRow(QStandardItem(item[1]))
-        
-        userView.clicked.connect(self.updateEditUserInfo)
 
         self.ftemplate = None
-        biometricButton.clicked.connect(lambda: self.launchEnrolFingerprint())
-
-        if self.user.isAdmin() == True:
-            saveButton.clicked.connect(lambda: self.saveEditUsers(self.selectedUserId,str(name.text()),str(email.text()),str(phoneCall.text()),str(phoneWhatsApp.text()), str(roomNumber.text()),adminCheckBox.isChecked(), labCheckBox.isChecked(), inventoryCheckBox.isChecked()))
-            deleteButton.clicked.connect(lambda: self.deleteUser(self.selectedUserId))
-        else:
-            saveButton.clicked.connect(lambda: self.showMsgBox('You are not authorized to do this!'))
-            deleteButton.clicked.connect(lambda: self.showMsgBox('You are not authorized to do this!'))
-
+        
+        if not self.EditUsersCreated:
+            biometricButton.clicked.connect(lambda: self.launchEnrolFingerprint())
+            userView.clicked.connect(self.updateEditUserInfo)
+            if self.user.isAdmin() == True:
+                saveButton.clicked.connect(lambda: self.saveEditUsers(self.selectedUserId,str(name.text()),str(email.text()),str(phoneCall.text()),str(phoneWhatsApp.text()), str(roomNumber.text()),adminCheckBox.isChecked(), labCheckBox.isChecked(), inventoryCheckBox.isChecked()))
+                deleteButton.clicked.connect(lambda: self.deleteUser(self.selectedUserId))
+            else:
+                saveButton.clicked.connect(lambda: self.showMsgBox('You are not authorized to do this!'))
+                deleteButton.clicked.connect(lambda: self.showMsgBox('You are not authorized to do this!'))
+            self.EditUsersCreated=True
     def saveEditUsers(self,userId,name,email,phoneCall,phoneWhatsapp,roomNumber,adminAccess,labAccess,inventoryAccess):
         if (self.editUsersObject.updateUser([name,email,phoneCall,phoneWhatsapp,roomNumber],userId)):
             self.editUsersObject.adminAccess(userId,adminAccess,labAccess,inventoryAccess)
@@ -676,8 +751,9 @@ class mainWindow(QWidget):
         inventoryCheckBox.setChecked(res[7])
 
     def setupEnrolFingerprint(self):
-        Ui_enrolFingerWindow().setupUi(self.enrolFingerprint)
-
+        if not self.EnrolFingerprintCreated:
+            Ui_enrolFingerWindow().setupUi(self.enrolFingerprint)
+            self.EnrolFingerprintCreated=True
         fingerprintWidgets = []
         fingerprintWidgets.append(self.enrolFingerprint.findChild(QLabel, "fprint1"))
         fingerprintWidgets.append(self.enrolFingerprint.findChild(QLabel, "fprint2"))
@@ -922,6 +998,13 @@ class mainWindow(QWidget):
             self.pinBox.show()
         else:
             print("To be implemented soon")
+            
+    def logoutUser(self):
+        self.HomeWidget.setCurrentIndex(0)
+        self.user=None
+        self.previousPage=[]
+        self.currentPage=0
+        self.setupFinger()
 
 def startApp():
     global prog
@@ -929,20 +1012,9 @@ def startApp():
     if prog.getDevice() == 'desktop':
         prog.windowWidget.show()
     else:
-        #self.windowWidget.showMaximized()
-        prog.windowWidget.showFullScreen()  
+        prog.windowWidget.showMaximized()
+        #prog.windowWidget.showFullScreen()  
 
-# Logging out closes and reopens the application
-def logoutUser():
-    global prog,app
-    if not prog==None:
-        os.system('sh restart.sh')
-
-        app.exit(0)
-        
-    else:
-        return
-    startApp()    
 
 
 def main():
