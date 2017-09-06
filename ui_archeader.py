@@ -41,7 +41,7 @@ class Ui_arcHeader(object):
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(_fromUtf8("ChevronLeft-128.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.backButton.setIcon(icon)
-        self.backButton.setIconSize(QtCore.QSize(32, 32))
+        self.backButton.setIconSize(QtCore.QSize(48, 48))
         self.backButton.setFlat(True)
         self.backButton.setObjectName(_fromUtf8("backButton"))
         self.horizontalLayout_2.addWidget(self.backButton, QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
