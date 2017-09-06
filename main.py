@@ -790,6 +790,7 @@ class mainWindow(QWidget):
         if self.device == 'desktop':
             self.windowWidget.show()
         else:
+            #self.windowWidget.showMaximized()
             self.windowWidget.showFullScreen()
 
     def saveUserDetails(self, userId):
@@ -880,6 +881,9 @@ class mainWindow(QWidget):
                                     str(itemDetails[0])+'.png'))
 
     def launchWindow(self, value):
+        if len(self.previousPage) and value==self.previousPage[-1]:
+            self.goBack()
+            return
         self.previousPage.append(self.StackWidget.currentIndex())
         self.StackWidget.setCurrentIndex(value)
         self.currentPage = value
@@ -933,6 +937,7 @@ def main():
     if prog.getDevice() == 'desktop':
         widget.show()
     else:
+        #widget.showMaximized()
         widget.showFullScreen()
     sys.exit(app.exec_())
 
