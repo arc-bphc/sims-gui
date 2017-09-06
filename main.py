@@ -2,6 +2,7 @@
 
 import sys
 import json
+import gc
 
 import threading
 from threading import Thread
@@ -152,6 +153,7 @@ class mainWindow(QWidget):
         self.StackWidget.setCurrentIndex(0)
 
         self.scanThread = ThreadPool(processes=1)
+        self.setupFinger()
 
         self.userListChanged.connect(self.updateUserList)
 
@@ -303,7 +305,7 @@ class mainWindow(QWidget):
         resetPinButton.clicked.connect(lambda: self.launchWindow(1))
         cartButton.clicked.connect(lambda: self.launchWindow(6))
 
-        logoutButton.clicked.connect(lambda: self.logoutUser())
+        logoutButton.clicked.connect(lambda:logoutUser())
 
         welcomeLabel.setText("Welcome, " + self.user.getName())
         profilePic.setPixmap(QPixmap(self.userImagePath + self.userImagesPrefix + \
@@ -326,10 +328,9 @@ class mainWindow(QWidget):
         # fingerData = None
         self.scanFingerprint = QMovie("images/finger-scan.gif")
         self.scanFingerprint.setScaledSize(QSize(320, 240))
-        self.scanFingerprint.start()
         fingerLabel.setMovie(self.scanFingerprint)
 
-        self.scanThread.apply_async(self.scanFinger, callback=self.gotResult)
+        
 
     def gotResult(self, myresult):
         print(myresult)
@@ -350,14 +351,15 @@ class mainWindow(QWidget):
             self.HomeWidget.setCurrentIndex(1)
         else:
             # self.finger = QWidget()
-            self.logoutUser()
+            logoutUser()
 
     # Fingerprint login is supported here. We only take the sensor's word
     # for whether the fingerprint provided is valid.
     def unlockScreen(self):
         if self.fprintEnabled == True:
             print(threading.current_thread())
-            self.setupFinger()
+            self.scanFingerprint.start()
+            self.scanThread.apply_async(self.scanFinger, callback=self.gotResult)
             self.HomeWidget.setCurrentIndex(3)
         else:
             self.HomeWidget.setCurrentIndex(1)
@@ -782,16 +784,6 @@ class mainWindow(QWidget):
             self.viewCart.removeFromCart(self.user.getUserId(), partID)
             self.updateViewCart()
 
-    # Logging out closes and reopens the application
-    def logoutUser(self):
-        self.windowWidget.close()
-        
-        prog=mainWindow()
-        if prog.getDevice() == 'desktop':
-            prog.windowWidget.show()
-        else:
-            #self.windowWidget.showMaximized()
-            prog.windowWidget.showFullScreen()
 
     def saveUserDetails(self, userId):
         name = self.editDetails.findChild(QLineEdit, "name")
@@ -929,29 +921,35 @@ class mainWindow(QWidget):
             print("To be implemented soon")
 
 def startApp():
-    global app
-    widget = QWidget()
-    prog = mainWindow(widget)
-    if prog.getDevice() == 'desktop':
-        widget.show()
-    else:
-        #widget.showMaximized()
-        widget.showFullScreen()
-    
-
-
-def main():
-    global app
-    app = QApplication(sys.argv)
-    app.setWindowIcon(QIcon('images/arclogo.png'))
-    app.setOverrideCursor(QCursor(Qt.BlankCursor))
-    #widget = QWidget()
-    prog = mainWindow()
+    global prog
+    prog=mainWindow()
     if prog.getDevice() == 'desktop':
         prog.windowWidget.show()
     else:
-        #widget.showMaximized()
-        prog.windowWidget.showFullScreen()
+        #self.windowWidget.showMaximized()
+        prog.windowWidget.showFullScreen()  
+
+# Logging out closes and reopens the application
+def logoutUser():
+    global prog,app
+    if not prog==None:
+        prog.close()
+        del prog
+        gc.collect()
+        
+    else:
+        return
+    startApp()    
+
+
+def main():
+    global app,prog
+    app = QApplication(sys.argv)
+    app.setWindowIcon(QIcon('images/arclogo.png'))
+    app.setOverrideCursor(QCursor(Qt.BlankCursor))
+    
+    #widget = QWidget()
+    startApp()
     sys.exit(app.exec_())
 
 if __name__ == '__main__':
