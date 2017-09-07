@@ -168,8 +168,9 @@ class mainWindow(QWidget):
         self.HomeWidget.setCurrentIndex(0)
         self.createStackedPages()
         
-
+        self.StackWidget.setCurrentIndex(0)
         self.userListChanged.connect(self.updateUserList)
+        self.userIdSignal.connect(self.handleAction)
 
     # The widget on top with the back button, ARC logo, and user options
     def setupHeaderWidget(self, widget):
@@ -338,7 +339,7 @@ class mainWindow(QWidget):
     def setupUserProfile(self):
         if not self.UserProfileCreated:
             Ui_userWindow().setupUi(self.userProfile)
-            self.UserProfileCreated=True
+            
         inventoryButton = self.userProfile.findChild(QPushButton, "inventoryButton")
         editDetailsButton = self.userProfile.findChild(QPushButton, "editDetailsButton")
         requestButton = self.userProfile.findChild(QPushButton, "requestButton")
@@ -359,13 +360,14 @@ class mainWindow(QWidget):
         welcomeLabel.setFocusPolicy(Qt.NoFocus)
         profilePic.setFocusPolicy(Qt.NoFocus)
 
-        inventoryButton.clicked.connect(lambda: self.launchWindow(5))
-        editDetailsButton.clicked.connect(lambda: self.launchWindow(4))
-        requestButton.clicked.connect(lambda: self.launchWindow(3))
-        resetPinButton.clicked.connect(lambda: self.launchWindow(1))
-        cartButton.clicked.connect(lambda: self.launchWindow(6))
-
-        logoutButton.clicked.connect(lambda:self.logoutUser())
+        if not self.UserProfileCreated:
+            inventoryButton.clicked.connect(lambda: self.launchWindow(5))
+            editDetailsButton.clicked.connect(lambda: self.launchWindow(4))
+            requestButton.clicked.connect(lambda: self.launchWindow(3))
+            resetPinButton.clicked.connect(lambda: self.launchWindow(1))
+            cartButton.clicked.connect(lambda: self.launchWindow(6))
+            logoutButton.clicked.connect(lambda:self.logoutUser())
+            self.UserProfileCreated=True
 
         welcomeLabel.setText("Welcome, " + self.user.getName())
         profilePic.setPixmap(QPixmap(self.userImagePath + self.userImagesPrefix + \
@@ -374,13 +376,14 @@ class mainWindow(QWidget):
     def setupResetPin(self):
         if not self.ResetPinCreated:
             Ui_resetPinWindow().setupUi(self.resetPin)
-            self.ResetPinCreated=True
+            
         buttonBox = self.resetPin.findChild(QDialogButtonBox, "buttonBox")
         currentPwd = self.resetPin.findChild(QLineEdit, "currentPwd")
         newPwd = self.resetPin.findChild(QLineEdit, "newPwd")
-
-        buttonBox.accepted.connect(lambda: self.execResetPin(currentPwd.text(), newPwd.text()))
-        buttonBox.rejected.connect(lambda: self.launchWindow(0))
+        if not self.ResetPinCreated:
+            buttonBox.accepted.connect(lambda: self.execResetPin(currentPwd.text(), newPwd.text()))
+            buttonBox.rejected.connect(lambda: self.launchWindow(0))
+            self.ResetPinCreated=True
 
     def setupFinger(self):
         if not self.FingerCreated:
@@ -397,7 +400,6 @@ class mainWindow(QWidget):
     def gotResult(self, myresult):
         print(myresult)
         print(threading.current_thread())
-        self.userIdSignal.connect(self.handleAction)
         self.userIdSignal.emit(myresult)
 
     def handleAction(self, myresult):
@@ -407,7 +409,6 @@ class mainWindow(QWidget):
         if myresult != -1:
             userInfo = user_info(self.databasePath)
             userData = userInfo.get_user_info(myresult)
-            print(userData)
             self.user = userDetails(userData[0], myresult, userData[5], userData[6], userData[7])
             self.setupWindows()
             self.HomeWidget.setCurrentIndex(1)
@@ -456,7 +457,7 @@ class mainWindow(QWidget):
     def setupRequestItem(self):
         if not self.RequestItemCreated:
             Ui_requestItemWindow().setupUi(self.requestItem)
-            self.RequestItemCreated=True
+            
         project = self.requestItem.findChild(QLineEdit, "project")
         item = self.requestItem.findChild(QLineEdit, "item")
         price = self.requestItem.findChild(QLineEdit, "price")
@@ -464,11 +465,13 @@ class mainWindow(QWidget):
         buttonBox = self.requestItem.findChild(QDialogButtonBox, "buttonBox")
 
         purchaseRequest = purchaseRequests(self.databasePath)
-        buttonBox.accepted.connect(lambda: (purchaseRequest.addToTable(self.user.getUserId(), \
-                                    str(project.text()), str(price.text()), \
-                                    str(item.text()), 1000),
-                                    self.showMsgBox('Request submitted!')))
-        buttonBox.rejected.connect(lambda: self.launchWindow(0))
+        if not self.RequestItemCreated:
+            buttonBox.accepted.connect(lambda: (purchaseRequest.addToTable(self.user.getUserId(), \
+                                        str(project.text()), str(price.text()), \
+                                        str(item.text()), 1000),
+                                        self.showMsgBox('Request submitted!')))
+            buttonBox.rejected.connect(lambda: self.launchWindow(0))
+            self.RequestItemCreated=True
 
     def setupEditDetails(self):
         if not self.EditDetailsCreated:
@@ -499,7 +502,6 @@ class mainWindow(QWidget):
     def setupInventory(self):
         if not self.InventoryCreated:
             Ui_inventoryWindow().setupUi(self.inventory)
-            self.InventoryCreated=True
 
         self.inventoryDb = selectFromInventory(self.databasePath)
         self.categoryList = self.inventoryDb.getCatagories()
@@ -753,15 +755,17 @@ class mainWindow(QWidget):
     def setupEnrolFingerprint(self):
         if not self.EnrolFingerprintCreated:
             Ui_enrolFingerWindow().setupUi(self.enrolFingerprint)
-            self.EnrolFingerprintCreated=True
+            
         fingerprintWidgets = []
         fingerprintWidgets.append(self.enrolFingerprint.findChild(QLabel, "fprint1"))
         fingerprintWidgets.append(self.enrolFingerprint.findChild(QLabel, "fprint2"))
         fingerprintWidgets.append(self.enrolFingerprint.findChild(QLabel, "fprint3"))
         exitButton = self.enrolFingerprint.findChild(QPushButton, "exitButton")
         fingerprintButton = self.enrolFingerprint.findChild(QPushButton, "fingerprintButton")
-
-        exitButton.clicked.connect(lambda: self.exitFingerEnroll())
+        
+        if not self.EnrolFingerprintCreated:        
+            exitButton.clicked.connect(lambda: self.exitFingerEnroll())
+            self.EnrolFingerprintCreated=True
         for fprint in fingerprintWidgets:
             # fprint.setMovie(scanFingerprint)
             fprint.setPixmap(QPixmap("images/fingerprint-icon.jpg"))
