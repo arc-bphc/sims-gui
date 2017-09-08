@@ -113,7 +113,7 @@ class mainWindow(QWidget):
 
         self.windowWidget = QWidget()
         self.windowWidget.setStyleSheet("QPushButton {border-width: 1px;border-color: #339;border-style: solid;border-radius: 8;padding: 10px}\nQPushButton:pressed{background:royalblue;border-color:royalblue;border-width:2px}\nQWidget {background-color: white}\n* {font: 16pt}\n")
-        self.windowWidget.setWindowTitle("Smart Inventory Management System")
+        self.windowWidget.setWindowFlags(Qt.FramelessWindowHint)
         
 #        self.windowWidget.resize(1280, 800)
 
@@ -1022,14 +1022,24 @@ class mainWindow(QWidget):
         self.currentPage=0
         self.setupFinger()
 
+def handleFocus(old,new):
+    if type(new)==QLineEdit:
+        os.system('florence show')
+    elif (not type(new)==QLineEdit) and type(old)==QLineEdit:
+        os.system('florence hide')
+    else:
+        pass
+
 def startApp():
     global prog
     prog=mainWindow()
     if prog.getDevice() == 'desktop':
         prog.windowWidget.show()
     else:
-        #prog.windowWidget.showMaximized()
-        prog.windowWidget.showFullScreen()  
+        
+        prog.windowWidget.showMaximized()
+        #prog.windowWidget.showFullScreen()  
+        
 
 
 
@@ -1038,7 +1048,7 @@ def main():
     app = QApplication(sys.argv)
     app.setWindowIcon(QIcon('images/arclogo.png'))
     app.setOverrideCursor(QCursor(Qt.BlankCursor))
-    
+    app.focusChanged.connect(handleFocus)
     #widget = QWidget()
     startApp()
     sys.exit(app.exec_())
