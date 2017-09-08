@@ -1016,8 +1016,8 @@ def startApp():
     if prog.getDevice() == 'desktop':
         prog.windowWidget.show()
     else:
-        #prog.windowWidget.showMaximized()
-        prog.windowWidget.showFullScreen()  
+        prog.windowWidget.showMaximized()
+        #prog.windowWidget.showFullScreen()  
 
 
 

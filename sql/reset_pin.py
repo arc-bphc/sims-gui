@@ -1,5 +1,5 @@
 from .insert_data_users import *
-from Crypto.Hash import SHA256
+#from Crypto.Hash import SHA256
 import hashlib
 
 class resetPin:
@@ -12,7 +12,6 @@ class resetPin:
 
 		if self.flag == 1:
 			self.user.updateQuery('users',["HASHED_PASSWORD = '" + newPin + "'"],['ID = ' + str(id)])
-		status = self.flag
 		return self.flag
 
 def comparePin(obj,id,pin,newPin):
@@ -33,10 +32,12 @@ def comparePin(obj,id,pin,newPin):
 	else:
 		pin = pin + salt
 		newPin = newPin + salt
-		entered_pin = SHA256.new(pin).hexdigest()
-		newPin = SHA256.new(newPin).hexdigest()
+		pin = hashlib.sha256(pin.encode('utf-8')).hexdigest()
+		newPin = hashlib.sha256(newPin.encode('utf-8')).hexdigest()
+		#entered_pin = SHA256.new(pin).hexdigest()
+		#newPin = SHA256.new(newPin).hexdigest()
 		#print "entered_pin:	" + entered_pin
-		if hashed_pin == entered_pin:
+		if hashed_pin == pin:
 			obj.flag = 1
 			#print "newPin:	" + newPin
 			return newPin
