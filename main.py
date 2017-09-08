@@ -124,6 +124,7 @@ class mainWindow(QWidget):
         self.resetPin = QWidget()
         self.fingerprint = QDialog()
         self.requestItem = QWidget()
+        self.requestItemScroller = QScrollArea()
         self.editDetails = QWidget()
         self.inventory = QMainWindow()
         self.arcHeader = QWidget()
@@ -310,7 +311,7 @@ class mainWindow(QWidget):
         self.StackWidget.addWidget(self.userProfile)
         self.StackWidget.addWidget(self.resetPin)
         self.StackWidget.addWidget(self.fingerprint)
-        self.StackWidget.addWidget(self.requestItem)
+        self.StackWidget.addWidget(self.requestItemScroller)
         self.StackWidget.addWidget(self.editDetails)
         self.StackWidget.addWidget(self.inventory)
         self.StackWidget.addWidget(self.cart)
@@ -469,7 +470,23 @@ class mainWindow(QWidget):
         price = self.requestItem.findChild(QLineEdit, "price")
         requestItemButton = self.requestItem.findChild(QPushButton, "requestItemButton")
         buttonBox = self.requestItem.findChild(QDialogButtonBox, "buttonBox")
-
+        
+        self.requestItem.setFixedSize(1119,629)
+        
+        parent = QWidget()
+        self.requestItem.setParent(parent)
+        parent.setFixedSize(1119,1200)
+        #self.RequestItemScroller = QScrollArea()
+        parent.setFocusPolicy(Qt.NoFocus)
+        
+        self.requestItemScroller.setFocusPolicy(Qt.NoFocus)
+        self.requestItemScroller.setWidget(parent)
+        self.requestItemScroller.setAlignment(Qt.AlignHCenter|Qt.AlignVCenter)
+        self.requestItemScroller.setWidgetResizable(True)
+        self.requestItemScroller.setFrameShape(QFrame.Box)
+        self.requestItemScroller.setLineWidth(0)
+        self.requestItemScroller.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
+        
         purchaseRequest = purchaseRequests(self.databasePath)
         if not self.RequestItemCreated:
             buttonBox.accepted.connect(lambda: (purchaseRequest.addToTable(self.user.getUserId(), \
