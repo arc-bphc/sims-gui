@@ -370,8 +370,14 @@ class mainWindow(QWidget):
             self.UserProfileCreated=True
 
         welcomeLabel.setText("Welcome, " + self.user.getName())
-        profilePic.setPixmap(QPixmap(self.userImagePath + self.userImagesPrefix + \
-                                    str(self.user.getUserId()) + '.jpg'))
+        #profilePic.setPixmap(QPixmap(self.userImagePath + self.userImagesPrefix + \
+                                    #str(self.user.getUserId()) + '.jpg'))
+        userImagePath = self.userImagePath + self.userImagesPrefix + \
+                                    str(self.user.getUserId()) + '.jpg'
+        if QFile.exists(userImagePath):
+            profilePic.setPixmap(QPixmap(userImagePath))
+        else:
+            profilePic.setPixmap(QPixmap('images/default_user.png'))
 
     def setupResetPin(self):
         if not self.ResetPinCreated:
@@ -748,6 +754,12 @@ class mainWindow(QWidget):
         roomNumber.setText(res[3])
         userImage.setPixmap(QPixmap(self.userImagePath + self.userImagesPrefix + \
                                     str(self.selectedUserId) + '.jpg'))
+        #userImagePath = self.userImagePath + self.userImagesPrefix + \
+                                    #str(self.selectedUserId) + '.jpg'
+        #if QFile.exists(userImagePath):
+            #userImage.setPixmap(QPixmap(userImagePath))
+        #else:
+            #userImage.setPixmap(QPixmap('images/default_user.png'))
         adminCheckBox.setChecked(res[5])
         labCheckBox.setChecked(res[6])
         inventoryCheckBox.setChecked(res[7])
@@ -1016,8 +1028,8 @@ def startApp():
     if prog.getDevice() == 'desktop':
         prog.windowWidget.show()
     else:
-        prog.windowWidget.showMaximized()
-        #prog.windowWidget.showFullScreen()  
+        #prog.windowWidget.showMaximized()
+        prog.windowWidget.showFullScreen()  
 
 
 
