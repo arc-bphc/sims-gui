@@ -90,8 +90,8 @@ class Command_Packet(Packet):
         commandName=args[0]
         kwargs.setdefault('UseSerialDebug', True)
         self.UseSerialDebug= kwargs['UseSerialDebug']
-        if self.UseSerialDebug:
-            print('Command: %s' % commandName)
+        #if self.UseSerialDebug:
+            #print('Command: %s' % commandName)
         self.cmd = self.commands[commandName]
 
     UseSerialDebug = True
@@ -181,8 +181,8 @@ class Response_Packet(Packet):
         if not (_buffer is None ):
             self.RawBytes = _buffer
             self._lastBuffer = bytes(_buffer)
-            if self.UseSerialDebug:
-                print('readed: %s'% self.serializeToSend(_buffer))
+            #if self.UseSerialDebug:
+                #print('readed: %s'% self.serializeToSend(_buffer))
             if _buffer.__len__()>=12:
                 self.ParameterBytes[0] = _buffer[4]
                 self.ParameterBytes[1] = _buffer[5]
@@ -742,8 +742,8 @@ class GT511C3(SerialCommander):
         if not self._serial is None:
             self._serial.reset_input_buffer()
             self._serial.write(bytes(cmd))
-            if self.UseSerialDebug:
-                print([hex(i) for i in cmd])
+            #if self.UseSerialDebug:
+                #print([hex(i) for i in cmd])
         else:
             if self.UseSerialDebug:
                 print('[SendCommand] No es posible escribir en %s' % self._device_name)
@@ -797,7 +797,6 @@ class fsensor(GT511C3):
         '''
         time1=int(time.perf_counter())
         while self.IsPressFinger()!=state:
-            print(self.stop)
             if ((int(time.perf_counter()-time1)>timeout) or self.stop):
                 return False
         return True
