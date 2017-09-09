@@ -71,8 +71,35 @@ class userDetails():
     def hasInventoryAccess(self):
         return self._hasInventoryAccess
 
-# Event Filter
+class ScrollArea(QScrollArea):
+    
+    def __init__(self,parent):
+        self.widget=QWidget()
+        super().__init__(parent)
+    
+    def addWidget(self,wid):
+        wid.setFixedSize(wid.size())
+        wid.setFocusPolicy(Qt.NoFocus)
+        wid.setParent(self.widget)
+        #wid.show()
+        #self.widget=wid
+        
+        self.widget.setFixedWidth(wid.width())
+        self.widget.setFixedHeight(1000)
+        self.widget.setFocusPolicy(Qt.NoFocus)
+        
+        self.setWidget(self.widget)
+        self.setFocusPolicy(Qt.NoFocus)
+        self.setFrameShape(QFrame.Box)
+        self.setWidgetResizable(True)
+        self.setLineWidth(0)
+        self.setAlignment(Qt.AlignHCenter|Qt.AlignVCenter)
+        
+        self.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
+        
+        
 
+# Event Filter
 def clickable(widget):
     class Filter(QObject):
         clicked = pyqtSignal()
@@ -91,6 +118,7 @@ def clickable(widget):
 # The mainWindow class handles all the GUI widgets and logic
 
 class mainWindow(QWidget):
+        
     userIdSignal = pyqtSignal(int)
     userListChanged = pyqtSignal()
     fingerScanning=False
@@ -113,7 +141,7 @@ class mainWindow(QWidget):
 
         self.windowWidget = QWidget()
         self.windowWidget.setStyleSheet("QPushButton {border-width: 1px;border-color: #339;border-style: solid;border-radius: 8;padding: 10px}\nQPushButton:pressed{background:royalblue;border-color:royalblue;border-width:2px}\nQWidget {background-color: white}\n* {font: 16pt}\n")
-        self.windowWidget.setWindowTitle("Smart Inventory Management System")
+        self.windowWidget.setWindowFlags(Qt.FramelessWindowHint)
         
 #        self.windowWidget.resize(1280, 800)
 
@@ -124,6 +152,7 @@ class mainWindow(QWidget):
         self.resetPin = QWidget()
         self.fingerprint = QDialog()
         self.requestItem = QWidget()
+        self.requestItemScroller = ScrollArea(self.windowWidget)
         self.editDetails = QWidget()
         self.inventory = QMainWindow()
         self.arcHeader = QWidget()
@@ -196,7 +225,12 @@ class mainWindow(QWidget):
        
         comboBox = self.arcHeader.findChild(QPushButton,'comboBox')
         comboBox.setFocusPolicy(Qt.NoFocus)
-        comboBox.setText(self.user.getName())
+        for i in self.user.getName().split(' '):
+            if len(i)>3:
+                username=i
+                break
+                
+        comboBox.setText(username)
         
         if not self.HeaderWidgetCreated:
             backButton.clicked.connect(self.goBack)
@@ -310,7 +344,7 @@ class mainWindow(QWidget):
         self.StackWidget.addWidget(self.userProfile)
         self.StackWidget.addWidget(self.resetPin)
         self.StackWidget.addWidget(self.fingerprint)
-        self.StackWidget.addWidget(self.requestItem)
+        self.StackWidget.addWidget(self.requestItemScroller)
         self.StackWidget.addWidget(self.editDetails)
         self.StackWidget.addWidget(self.inventory)
         self.StackWidget.addWidget(self.cart)
@@ -368,10 +402,20 @@ class mainWindow(QWidget):
             cartButton.clicked.connect(lambda: self.launchWindow(6))
             logoutButton.clicked.connect(lambda:self.logoutUser())
             self.UserProfileCreated=True
-
-        welcomeLabel.setText("Welcome, " + self.user.getName())
-        profilePic.setPixmap(QPixmap(self.userImagePath + self.userImagesPrefix + \
-                                    str(self.user.getUserId()) + '.jpg'))
+        
+        for i in self.user.getName().split(' '):
+            if len(i)>3:
+                username=i
+                break
+        welcomeLabel.setText("Welcome, " + username)
+        #profilePic.setPixmap(QPixmap(self.userImagePath + self.userImagesPrefix + \
+                                    #str(self.user.getUserId()) + '.jpg'))
+        userImagePath = self.userImagePath + self.userImagesPrefix + \
+                                    str(self.user.getUserId()) + '.jpg'
+        if QFile.exists(userImagePath):
+            profilePic.setPixmap(QPixmap(userImagePath))
+        else:
+            profilePic.setPixmap(QPixmap('images/default_user.png'))
 
     def setupResetPin(self):
         if not self.ResetPinCreated:
@@ -463,7 +507,23 @@ class mainWindow(QWidget):
         price = self.requestItem.findChild(QLineEdit, "price")
         requestItemButton = self.requestItem.findChild(QPushButton, "requestItemButton")
         buttonBox = self.requestItem.findChild(QDialogButtonBox, "buttonBox")
-
+        
+        self.requestItemScroller.addWidget(self.requestItem)
+        
+        #self.requestItem.setFixedSize(1119,629)
+        #parent = QWidget()
+        #self.requestItem.setParent(parent)
+        #parent.setFixedSize(1119,1200)
+        #self.RequestItemScroller = QScrollArea()
+        #parent.setFocusPolicy(Qt.NoFocus)
+        #self.requestItemScroller.setFocusPolicy(Qt.NoFocus)
+        #self.requestItemScroller.setWidget(parent)
+        #self.requestItemScroller.setAlignment(Qt.AlignHCenter|Qt.AlignVCenter)
+        #self.requestItemScroller.setWidgetResizable(True)
+        #self.requestItemScroller.setFrameShape(QFrame.Box)
+        #self.requestItemScroller.setLineWidth(0)
+        #self.requestItemScroller.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
+        
         purchaseRequest = purchaseRequests(self.databasePath)
         if not self.RequestItemCreated:
             buttonBox.accepted.connect(lambda: (purchaseRequest.addToTable(self.user.getUserId(), \
@@ -748,6 +808,12 @@ class mainWindow(QWidget):
         roomNumber.setText(res[3])
         userImage.setPixmap(QPixmap(self.userImagePath + self.userImagesPrefix + \
                                     str(self.selectedUserId) + '.jpg'))
+        #userImagePath = self.userImagePath + self.userImagesPrefix + \
+                                    #str(self.selectedUserId) + '.jpg'
+        #if QFile.exists(userImagePath):
+            #userImage.setPixmap(QPixmap(userImagePath))
+        #else:
+            #userImage.setPixmap(QPixmap('images/default_user.png'))
         adminCheckBox.setChecked(res[5])
         labCheckBox.setChecked(res[6])
         inventoryCheckBox.setChecked(res[7])
@@ -1010,14 +1076,24 @@ class mainWindow(QWidget):
         self.currentPage=0
         self.setupFinger()
 
+def handleFocus(old,new):
+    if type(new)==QLineEdit:
+        os.system('florence show')
+    elif (not type(new)==QLineEdit) and type(old)==QLineEdit:
+        os.system('florence hide')
+    else:
+        pass
+
 def startApp():
     global prog
     prog=mainWindow()
     if prog.getDevice() == 'desktop':
         prog.windowWidget.show()
     else:
+        
         prog.windowWidget.showMaximized()
         #prog.windowWidget.showFullScreen()  
+        
 
 
 
@@ -1026,7 +1102,7 @@ def main():
     app = QApplication(sys.argv)
     app.setWindowIcon(QIcon('images/arclogo.png'))
     app.setOverrideCursor(QCursor(Qt.BlankCursor))
-    
+    app.focusChanged.connect(handleFocus)
     #widget = QWidget()
     startApp()
     sys.exit(app.exec_())

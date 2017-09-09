@@ -47,7 +47,7 @@ class Ui_arcHeader(object):
         #self.horizontalLayout_2.addWidget(self.backButton, QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
         self.label_3 = QtWidgets.QLabel(arcHeader)
         self.label_3.setMinimumSize(QtCore.QSize(0, 0))
-        self.label_3.setMaximumSize(QtCore.QSize(175, 150))
+        self.label_3.setMaximumSize(QtCore.QSize(117, 100))
         self.label_3.setText((""))
         self.label_3.setPixmap(QtGui.QPixmap(("13015184_719298964879056_6631447530178360880_n.png")))
         self.label_3.setScaledContents(True)
