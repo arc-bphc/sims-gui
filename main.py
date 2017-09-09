@@ -71,8 +71,35 @@ class userDetails():
     def hasInventoryAccess(self):
         return self._hasInventoryAccess
 
-# Event Filter
+class ScrollArea(QScrollArea):
+    
+    def __init__(self,parent):
+        self.widget=QWidget()
+        super().__init__(parent)
+    
+    def addWidget(self,wid):
+        wid.setFixedSize(wid.size())
+        wid.setFocusPolicy(Qt.NoFocus)
+        wid.setParent(self.widget)
+        #wid.show()
+        #self.widget=wid
+        
+        self.widget.setFixedWidth(wid.width())
+        self.widget.setFixedHeight(1000)
+        self.widget.setFocusPolicy(Qt.NoFocus)
+        
+        self.setWidget(self.widget)
+        self.setFocusPolicy(Qt.NoFocus)
+        self.setFrameShape(QFrame.Box)
+        self.setWidgetResizable(True)
+        self.setLineWidth(0)
+        self.setAlignment(Qt.AlignHCenter|Qt.AlignVCenter)
+        
+        self.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
+        
+        
 
+# Event Filter
 def clickable(widget):
     class Filter(QObject):
         clicked = pyqtSignal()
@@ -91,6 +118,7 @@ def clickable(widget):
 # The mainWindow class handles all the GUI widgets and logic
 
 class mainWindow(QWidget):
+        
     userIdSignal = pyqtSignal(int)
     userListChanged = pyqtSignal()
     fingerScanning=False
@@ -124,7 +152,7 @@ class mainWindow(QWidget):
         self.resetPin = QWidget()
         self.fingerprint = QDialog()
         self.requestItem = QWidget()
-        self.requestItemScroller = QScrollArea()
+        self.requestItemScroller = ScrollArea(self.windowWidget)
         self.editDetails = QWidget()
         self.inventory = QMainWindow()
         self.arcHeader = QWidget()
@@ -197,7 +225,12 @@ class mainWindow(QWidget):
        
         comboBox = self.arcHeader.findChild(QPushButton,'comboBox')
         comboBox.setFocusPolicy(Qt.NoFocus)
-        comboBox.setText(self.user.getName())
+        for i in self.user.getName().split(' '):
+            if len(i)>3:
+                username=i
+                break
+                
+        comboBox.setText(username)
         
         if not self.HeaderWidgetCreated:
             backButton.clicked.connect(self.goBack)
@@ -369,8 +402,12 @@ class mainWindow(QWidget):
             cartButton.clicked.connect(lambda: self.launchWindow(6))
             logoutButton.clicked.connect(lambda:self.logoutUser())
             self.UserProfileCreated=True
-
-        welcomeLabel.setText("Welcome, " + self.user.getName())
+        
+        for i in self.user.getName().split(' '):
+            if len(i)>3:
+                username=i
+                break
+        welcomeLabel.setText("Welcome, " + username)
         #profilePic.setPixmap(QPixmap(self.userImagePath + self.userImagesPrefix + \
                                     #str(self.user.getUserId()) + '.jpg'))
         userImagePath = self.userImagePath + self.userImagesPrefix + \
@@ -471,21 +508,21 @@ class mainWindow(QWidget):
         requestItemButton = self.requestItem.findChild(QPushButton, "requestItemButton")
         buttonBox = self.requestItem.findChild(QDialogButtonBox, "buttonBox")
         
-        self.requestItem.setFixedSize(1119,629)
+        self.requestItemScroller.addWidget(self.requestItem)
         
-        parent = QWidget()
-        self.requestItem.setParent(parent)
-        parent.setFixedSize(1119,1200)
+        #self.requestItem.setFixedSize(1119,629)
+        #parent = QWidget()
+        #self.requestItem.setParent(parent)
+        #parent.setFixedSize(1119,1200)
         #self.RequestItemScroller = QScrollArea()
-        parent.setFocusPolicy(Qt.NoFocus)
-        
-        self.requestItemScroller.setFocusPolicy(Qt.NoFocus)
-        self.requestItemScroller.setWidget(parent)
-        self.requestItemScroller.setAlignment(Qt.AlignHCenter|Qt.AlignVCenter)
-        self.requestItemScroller.setWidgetResizable(True)
-        self.requestItemScroller.setFrameShape(QFrame.Box)
-        self.requestItemScroller.setLineWidth(0)
-        self.requestItemScroller.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
+        #parent.setFocusPolicy(Qt.NoFocus)
+        #self.requestItemScroller.setFocusPolicy(Qt.NoFocus)
+        #self.requestItemScroller.setWidget(parent)
+        #self.requestItemScroller.setAlignment(Qt.AlignHCenter|Qt.AlignVCenter)
+        #self.requestItemScroller.setWidgetResizable(True)
+        #self.requestItemScroller.setFrameShape(QFrame.Box)
+        #self.requestItemScroller.setLineWidth(0)
+        #self.requestItemScroller.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
         
         purchaseRequest = purchaseRequests(self.databasePath)
         if not self.RequestItemCreated:
