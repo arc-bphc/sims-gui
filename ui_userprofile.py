@@ -2,7 +2,8 @@
 
 # Form implementation generated from reading ui file 'userprofile.ui'
 #
-# Created by: PyQt5 UI code generator 5.8.2
+# Created: Sun Sep 10 09:39:23 2017
+#      by: PyQt5 UI code generator 5.3.2
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -25,6 +26,7 @@ class Ui_userWindow(object):
         self.resetPinButton = QtWidgets.QPushButton(userWindow)
         self.resetPinButton.setMinimumSize(QtCore.QSize(400, 0))
         self.resetPinButton.setMaximumSize(QtCore.QSize(400, 16777215))
+        self.resetPinButton.setFocusPolicy(QtCore.Qt.NoFocus)
         self.resetPinButton.setObjectName("resetPinButton")
         self.gridLayout.addWidget(self.resetPinButton, 8, 1, 1, 1)
         self.welcomeLabel = QtWidgets.QLabel(userWindow)
@@ -41,11 +43,13 @@ class Ui_userWindow(object):
         self.inventoryButton = QtWidgets.QPushButton(userWindow)
         self.inventoryButton.setMinimumSize(QtCore.QSize(400, 0))
         self.inventoryButton.setMaximumSize(QtCore.QSize(400, 16777215))
+        self.inventoryButton.setFocusPolicy(QtCore.Qt.NoFocus)
         self.inventoryButton.setObjectName("inventoryButton")
         self.gridLayout.addWidget(self.inventoryButton, 4, 1, 1, 1)
         self.requestButton = QtWidgets.QPushButton(userWindow)
         self.requestButton.setMinimumSize(QtCore.QSize(400, 0))
         self.requestButton.setMaximumSize(QtCore.QSize(400, 16777215))
+        self.requestButton.setFocusPolicy(QtCore.Qt.NoFocus)
         icon = QtGui.QIcon.fromTheme("save")
         self.requestButton.setIcon(icon)
         self.requestButton.setObjectName("requestButton")
@@ -53,6 +57,7 @@ class Ui_userWindow(object):
         self.editDetailsButton = QtWidgets.QPushButton(userWindow)
         self.editDetailsButton.setMinimumSize(QtCore.QSize(400, 0))
         self.editDetailsButton.setMaximumSize(QtCore.QSize(400, 16777215))
+        self.editDetailsButton.setFocusPolicy(QtCore.Qt.NoFocus)
         self.editDetailsButton.setObjectName("editDetailsButton")
         self.gridLayout.addWidget(self.editDetailsButton, 7, 1, 1, 1)
         spacerItem2 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
@@ -60,6 +65,7 @@ class Ui_userWindow(object):
         self.cartButton = QtWidgets.QPushButton(userWindow)
         self.cartButton.setMinimumSize(QtCore.QSize(400, 0))
         self.cartButton.setMaximumSize(QtCore.QSize(400, 16777215))
+        self.cartButton.setFocusPolicy(QtCore.Qt.NoFocus)
         self.cartButton.setObjectName("cartButton")
         self.gridLayout.addWidget(self.cartButton, 5, 1, 1, 1)
         spacerItem3 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
@@ -73,6 +79,7 @@ class Ui_userWindow(object):
         self.profilePic.setObjectName("profilePic")
         self.gridLayout.addWidget(self.profilePic, 2, 1, 1, 1, QtCore.Qt.AlignHCenter)
         self.logoutButton = QtWidgets.QPushButton(userWindow)
+        self.logoutButton.setFocusPolicy(QtCore.Qt.NoFocus)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("images/back.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.logoutButton.setIcon(icon)

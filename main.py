@@ -221,7 +221,7 @@ class mainWindow(QWidget):
         if QFile.exists(userImagePath):
             userIcon.setPixmap(QPixmap(userImagePath))
         else:
-            userIcon.setPixmap(QPixmap(userImagePath + self.userImagesPrefix + 'default.png'))
+            userIcon.setPixmap(QPixmap('images/default_user.png'))
        
         comboBox = self.arcHeader.findChild(QPushButton,'comboBox')
         comboBox.setFocusPolicy(Qt.NoFocus)
@@ -434,6 +434,8 @@ class mainWindow(QWidget):
             Ui_loginWindow().setupUi(self.finger)
             self.FingerCreated=True
         fingerLabel = self.finger.findChild(QLabel, "fingerLabel")
+        layout = self.finger.findChild(QVBoxLayout,'verticalLayout')
+        layout.setAlignment(fingerLabel, Qt.AlignHCenter|Qt.AlignVCenter)
         # fingerData = None
         self.scanFingerprint = QMovie("images/finger-scan.gif")
         self.scanFingerprint.setScaledSize(QSize(320, 240))
@@ -615,9 +617,20 @@ class mainWindow(QWidget):
             
         enrolUserButton = self.admin.findChild(QPushButton, "enrolUserButton")
         editUsersButton = self.admin.findChild(QPushButton, "editUsersButton")
+        restartButton = self.admin.findChild(QPushButton, "pushButton_2")
+        exitButton = self.admin.findChild(QPushButton, "pushButton_3")
+        shutDownButton = self.admin.findChild(QPushButton, "pushButton_4")
+
+        for i in [restartButton,exitButton,shutDownButton]:
+            i.setFixedWidth(150)
+            print(i.size())
+            
         if not self.AdminCreated:
             enrolUserButton.clicked.connect(lambda: self.launchWindow(8))
             editUsersButton.clicked.connect(lambda: self.launchWindow(9))
+            restartButton.clicked.connect(lambda: powerDown(True))
+            exitButton.clicked.connect(lambda: app.exit())
+            shutDownButton.clicked.connect(lambda: powerDown(False))
             self.AdminCreated=True
  
 
@@ -706,11 +719,17 @@ class mainWindow(QWidget):
         biometricButton = self.editUsers.findChild(QPushButton, "biometricButton")
         saveButton = self.editUsers.findChild(QPushButton, "saveButton")
         deleteButton = self.editUsers.findChild(QPushButton, "deleteButton")
-
+        
+        userImage = self.editUsers.findChild(QLabel, "userImage")
+        
         userView = self.editUsers.findChild(QListView, "userView")
         self.userList = self.editUsersObject.listUser()
         self.userModel = QStandardItemModel()
         userView.setModel(self.userModel)
+        
+        
+        userImage.setPixmap(QPixmap('images/default_user.png'))
+        
         for item in self.userList:
             self.userModel.appendRow(QStandardItem(item[1]))
 
@@ -783,7 +802,7 @@ class mainWindow(QWidget):
         #this part resets all the selected user's details in editusers after deleteUser
         if nameId==None:
             print("resetting list")
-            username.setText("")
+            username.setText("UserID")
             name.setText("")
             email.setText("")
             phoneCall.setText("")
@@ -800,14 +819,20 @@ class mainWindow(QWidget):
         self.selectedUserId = self.userList[nameId.row()][0]
         res = self.userInfoObject.get_user_info(self.selectedUserId)
 
-        username.setText(res[0])
+        username.setText('User:'+str(self.selectedUserId))
         name.setText(res[0])
         email.setText(res[4])
         phoneCall.setText(res[1])
         phoneWhatsApp.setText(res[2])
         roomNumber.setText(res[3])
-        userImage.setPixmap(QPixmap(self.userImagePath + self.userImagesPrefix + \
-                                    str(self.selectedUserId) + '.jpg'))
+        userImagePath = self.userImagePath + self.userImagesPrefix + \
+                                    str(self.selectedUserId) + '.jpg'
+        if QFile.exists(userImagePath):
+            userImage.setPixmap(QPixmap(userImagePath))
+        else:
+            userImage.setPixmap(QPixmap('images/default_user.png'))
+        #userImage.setPixmap(QPixmap(self.userImagePath + self.userImagesPrefix + \
+                                    #str(self.selectedUserId) + '.jpg'))
         #userImagePath = self.userImagePath + self.userImagesPrefix + \
                                     #str(self.selectedUserId) + '.jpg'
         #if QFile.exists(userImagePath):
@@ -1075,7 +1100,20 @@ class mainWindow(QWidget):
         self.previousPage=[]
         self.currentPage=0
         self.setupFinger()
-
+        
+def powerDown(restart):
+    msg = QMessageBox()
+    msg.setIcon(QMessageBox.Information)
+    msg.setText('Are you sure you want to '+('restart' if restart else 'shut down')+('?'))
+    msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+    ret = msg.exec_()
+    if ret == QMessageBox.Ok:
+        if restart:
+            os.system('sudo reboot')
+        else:
+            os.system('sudo halt')
+    else:
+        pass
 def handleFocus(old,new):
     if type(new)==QLineEdit:
         os.system('florence show')
