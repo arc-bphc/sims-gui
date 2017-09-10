@@ -69,48 +69,117 @@ QWidget {background-color: white}
        <property name="sizeConstraint">
         <enum>QLayout::SetFixedSize</enum>
        </property>
-       <item row="3" column="1">
+       <item row="4" column="1">
         <widget class="QLineEdit" name="email"/>
        </item>
-       <item row="5" column="0">
+       <item row="6" column="0">
         <widget class="QLabel" name="label_9">
          <property name="text">
           <string>Phone (WhatsApp)</string>
          </property>
         </widget>
        </item>
-       <item row="4" column="0">
+       <item row="5" column="0">
         <widget class="QLabel" name="label_8">
          <property name="text">
           <string>Phone (Calling)</string>
          </property>
         </widget>
        </item>
-       <item row="2" column="0">
+       <item row="3" column="0">
         <widget class="QLabel" name="label_5">
          <property name="text">
           <string>Name</string>
          </property>
         </widget>
        </item>
-       <item row="6" column="0">
+       <item row="7" column="0">
         <widget class="QLabel" name="label_11">
          <property name="text">
           <string>Room Number</string>
          </property>
         </widget>
        </item>
-       <item row="6" column="1">
+       <item row="7" column="1">
         <widget class="QLineEdit" name="roomNumber"/>
        </item>
-       <item row="10" column="0" colspan="2">
+       <item row="6" column="1">
+        <widget class="QLineEdit" name="phoneWhatsApp"/>
+       </item>
+       <item row="12" column="0">
         <widget class="QPushButton" name="biometricButton">
          <property name="text">
           <string>Biometrics</string>
          </property>
         </widget>
        </item>
-       <item row="0" column="0" colspan="2" alignment="Qt::AlignHCenter">
+       <item row="12" column="1">
+        <widget class="QPushButton" name="deleteButton">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>35</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(170, 0, 0);
+font: 10pt &quot;Noto Sans&quot;;
+color: rgb(255, 255, 255);</string>
+         </property>
+         <property name="text">
+          <string>Remove User</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0">
+        <widget class="QLabel" name="label_10">
+         <property name="text">
+          <string>Email</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="1">
+        <widget class="QLineEdit" name="phoneCall"/>
+       </item>
+       <item row="8" column="1">
+        <widget class="QCheckBox" name="labCheckBox">
+         <property name="text">
+          <string>ARC Lab Access</string>
+         </property>
+        </widget>
+       </item>
+       <item row="10" column="0" colspan="2">
+        <widget class="QCheckBox" name="inventoryCheckBox">
+         <property name="text">
+          <string>Inventory Access</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="QLineEdit" name="name">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="8" column="0">
+        <widget class="QCheckBox" name="adminCheckBox">
+         <property name="text">
+          <string>Administrator</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="username">
+         <property name="styleSheet">
+          <string notr="true">font: 20pt &quot;Noto Sans&quot;;</string>
+         </property>
+         <property name="text">
+          <string>User ID</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
         <widget class="QLabel" name="userImage">
          <property name="minimumSize">
           <size>
@@ -132,75 +201,6 @@ QWidget {background-color: white}
          </property>
          <property name="scaledContents">
           <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="1">
-        <widget class="QLineEdit" name="phoneWhatsApp"/>
-       </item>
-       <item row="3" column="0">
-        <widget class="QLabel" name="label_10">
-         <property name="text">
-          <string>Email</string>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="1">
-        <widget class="QLineEdit" name="phoneCall"/>
-       </item>
-       <item row="7" column="1">
-        <widget class="QCheckBox" name="labCheckBox">
-         <property name="text">
-          <string>ARC Lab Access</string>
-         </property>
-        </widget>
-       </item>
-       <item row="9" column="0" colspan="2">
-        <widget class="QCheckBox" name="inventoryCheckBox">
-         <property name="text">
-          <string>Inventory Access</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="1">
-        <widget class="QLineEdit" name="name">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="7" column="0">
-        <widget class="QCheckBox" name="adminCheckBox">
-         <property name="text">
-          <string>Administrator</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="username">
-         <property name="styleSheet">
-          <string notr="true">font: 20pt &quot;Noto Sans&quot;;</string>
-         </property>
-         <property name="text">
-          <string>User ID</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="QPushButton" name="deleteButton">
-         <property name="maximumSize">
-          <size>
-           <width>16777215</width>
-           <height>35</height>
-          </size>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">background-color: rgb(170, 0, 0);
-font: 10pt &quot;Noto Sans&quot;;
-color: rgb(255, 255, 255);</string>
-         </property>
-         <property name="text">
-          <string>Remove User</string>
          </property>
         </widget>
        </item>
