@@ -54,7 +54,7 @@ QWidget {background-color: white}
    </item>
    <item row="0" column="1">
     <layout class="QGridLayout" name="gridLayout">
-     <item row="1" column="0" colspan="5" alignment="Qt::AlignHCenter">
+     <item row="1" column="1" colspan="4" alignment="Qt::AlignHCenter">
       <widget class="QLabel" name="label">
        <property name="styleSheet">
         <string notr="true">font: 24pt &quot;Noto Sans&quot;;</string>
@@ -69,48 +69,48 @@ QWidget {background-color: white}
        <property name="sizeConstraint">
         <enum>QLayout::SetFixedSize</enum>
        </property>
-       <item row="4" column="1">
+       <item row="3" column="1">
         <widget class="QLineEdit" name="email"/>
        </item>
-       <item row="6" column="0">
+       <item row="5" column="0">
         <widget class="QLabel" name="label_9">
          <property name="text">
           <string>Phone (WhatsApp)</string>
          </property>
         </widget>
        </item>
-       <item row="5" column="0">
+       <item row="4" column="0">
         <widget class="QLabel" name="label_8">
          <property name="text">
           <string>Phone (Calling)</string>
          </property>
         </widget>
        </item>
-       <item row="3" column="0">
+       <item row="2" column="0">
         <widget class="QLabel" name="label_5">
          <property name="text">
           <string>Name</string>
          </property>
         </widget>
        </item>
-       <item row="7" column="0">
+       <item row="6" column="0">
         <widget class="QLabel" name="label_11">
          <property name="text">
           <string>Room Number</string>
          </property>
         </widget>
        </item>
-       <item row="7" column="1">
+       <item row="6" column="1">
         <widget class="QLineEdit" name="roomNumber"/>
        </item>
-       <item row="11" column="0" colspan="2">
+       <item row="10" column="0" colspan="2">
         <widget class="QPushButton" name="biometricButton">
          <property name="text">
           <string>Biometrics</string>
          </property>
         </widget>
        </item>
-       <item row="1" column="0" colspan="2" alignment="Qt::AlignHCenter">
+       <item row="0" column="0" colspan="2" alignment="Qt::AlignHCenter">
         <widget class="QLabel" name="userImage">
          <property name="minimumSize">
           <size>
@@ -135,48 +135,58 @@ QWidget {background-color: white}
          </property>
         </widget>
        </item>
-       <item row="6" column="1">
+       <item row="5" column="1">
         <widget class="QLineEdit" name="phoneWhatsApp"/>
        </item>
-       <item row="4" column="0">
+       <item row="3" column="0">
         <widget class="QLabel" name="label_10">
          <property name="text">
           <string>Email</string>
          </property>
         </widget>
        </item>
-       <item row="5" column="1">
+       <item row="4" column="1">
         <widget class="QLineEdit" name="phoneCall"/>
        </item>
-       <item row="8" column="1">
+       <item row="7" column="1">
         <widget class="QCheckBox" name="labCheckBox">
          <property name="text">
           <string>ARC Lab Access</string>
          </property>
         </widget>
        </item>
-       <item row="10" column="0" colspan="2">
+       <item row="9" column="0" colspan="2">
         <widget class="QCheckBox" name="inventoryCheckBox">
          <property name="text">
           <string>Inventory Access</string>
          </property>
         </widget>
        </item>
-       <item row="3" column="1">
+       <item row="2" column="1">
         <widget class="QLineEdit" name="name">
          <property name="enabled">
           <bool>false</bool>
          </property>
         </widget>
        </item>
-       <item row="8" column="0">
+       <item row="7" column="0">
         <widget class="QCheckBox" name="adminCheckBox">
          <property name="text">
           <string>Administrator</string>
          </property>
         </widget>
        </item>
-       <item row="2" column="1">
+       <item row="1" column="0">
+        <widget class="QLabel" name="username">
+         <property name="styleSheet">
+          <string notr="true">font: 20pt &quot;Noto Sans&quot;;</string>
+         </property>
+         <property name="text">
+          <string>User ID</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
         <widget class="QPushButton" name="deleteButton">
          <property name="maximumSize">
           <size>
@@ -194,19 +204,9 @@ color: rgb(255, 255, 255);</string>
          </property>
         </widget>
        </item>
-       <item row="2" column="0">
-        <widget class="QLabel" name="username">
-         <property name="styleSheet">
-          <string notr="true">font: 20pt &quot;Noto Sans&quot;;</string>
-         </property>
-         <property name="text">
-          <string>User ID</string>
-         </property>
-        </widget>
-       </item>
       </layout>
      </item>
-     <item row="3" column="0" rowspan="2" colspan="2">
+     <item row="3" column="1" rowspan="2" colspan="2">
       <widget class="QListView" name="userView">
        <property name="minimumSize">
         <size>
@@ -222,7 +222,7 @@ color: rgb(255, 255, 255);</string>
        </property>
       </widget>
      </item>
-     <item row="2" column="0" colspan="5">
+     <item row="2" column="1" colspan="4">
       <spacer name="verticalSpacer">
        <property name="orientation">
         <enum>Qt::Vertical</enum>
@@ -235,8 +235,21 @@ color: rgb(255, 255, 255);</string>
        </property>
       </spacer>
      </item>
-     <item row="3" column="2" rowspan="2">
-      <spacer name="horizontalSpacer">
+     <item row="3" column="5">
+      <spacer name="horizontalSpacer_7">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item row="3" column="0">
+      <spacer name="horizontalSpacer_4">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
@@ -250,8 +263,8 @@ color: rgb(255, 255, 255);</string>
      </item>
     </layout>
    </item>
-   <item row="3" column="1">
-    <spacer name="verticalSpacer_4">
+   <item row="1" column="1">
+    <spacer name="verticalSpacer_2">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>
@@ -263,8 +276,8 @@ color: rgb(255, 255, 255);</string>
      </property>
     </spacer>
    </item>
-   <item row="1" column="1">
-    <spacer name="verticalSpacer_2">
+   <item row="3" column="1">
+    <spacer name="verticalSpacer_4">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>
