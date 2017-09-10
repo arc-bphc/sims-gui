@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'about.ui'
 #
-# Created: Sun Sep 10 09:39:25 2017
+# Created: Sun Sep 10 11:23:31 2017
 #      by: PyQt5 UI code generator 5.3.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -12,7 +12,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_aboutWindow(object):
     def setupUi(self, aboutWindow):
         aboutWindow.setObjectName("aboutWindow")
-        aboutWindow.resize(1174, 638)
+        aboutWindow.resize(1205, 638)
         aboutWindow.setStyleSheet("QPushButton {padding: 10px}\n"
 "QWidget {background-color: white}\n"
 "")
@@ -52,6 +52,7 @@ class Ui_aboutWindow(object):
         spacerItem1 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.gridLayout.addItem(spacerItem1, 9, 1, 1, 1)
         self.closeButton = QtWidgets.QPushButton(aboutWindow)
+        self.closeButton.setFocusPolicy(QtCore.Qt.NoFocus)
         self.closeButton.setObjectName("closeButton")
         self.gridLayout.addWidget(self.closeButton, 8, 1, 1, 1)
         self.label_2 = QtWidgets.QLabel(aboutWindow)
@@ -73,10 +74,10 @@ class Ui_aboutWindow(object):
         _translate = QtCore.QCoreApplication.translate
         aboutWindow.setWindowTitle(_translate("aboutWindow", "Form"))
         self.label_4.setText(_translate("aboutWindow", "Written in Python3 using PyQt5 and SQLite"))
-        self.label_3.setText(_translate("aboutWindow", "Developed by Arnav Dhamija, Yashdeep Thorat, Ebin Philip"))
+        self.label_3.setText(_translate("aboutWindow", "<html><head/><body><p>Developed by Ebin Philip, Arnav Dhamija, Yashdeep Thorat</p></body></html>"))
         self.label.setText(_translate("aboutWindow", "SIMS Alpha"))
         self.label_7.setText(_translate("aboutWindow", "Automation & Robotics Club, BITS Pilani, Hyderabad Campus"))
-        self.label_5.setText(_translate("aboutWindow", "v0.1.2a"))
+        self.label_5.setText(_translate("aboutWindow", "v1.0"))
         self.closeButton.setText(_translate("aboutWindow", "Close"))
         self.label_2.setText(_translate("aboutWindow", "Smart Inventory Management System"))
 

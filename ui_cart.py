@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'cart.ui'
 #
-# Created: Sun Sep 10 09:39:24 2017
+# Created: Sun Sep 10 11:23:30 2017
 #      by: PyQt5 UI code generator 5.3.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -41,6 +41,7 @@ class Ui_cartWindow(object):
         self.label_12.setObjectName("label_12")
         self.gridLayout.addWidget(self.label_12, 8, 0, 1, 1)
         self.removeCartButton = QtWidgets.QPushButton(cartWindow)
+        self.removeCartButton.setFocusPolicy(QtCore.Qt.NoFocus)
         self.removeCartButton.setObjectName("removeCartButton")
         self.gridLayout.addWidget(self.removeCartButton, 9, 0, 1, 2)
         self.label_3 = QtWidgets.QLabel(cartWindow)
@@ -110,6 +111,7 @@ class Ui_cartWindow(object):
         self.partImage.setObjectName("partImage")
         self.gridLayout.addWidget(self.partImage, 3, 0, 1, 2, QtCore.Qt.AlignHCenter)
         self.openInventory = QtWidgets.QPushButton(cartWindow)
+        self.openInventory.setFocusPolicy(QtCore.Qt.NoFocus)
         self.openInventory.setObjectName("openInventory")
         self.gridLayout.addWidget(self.openInventory, 10, 0, 1, 2)
         self.label = QtWidgets.QLabel(cartWindow)

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'enrol.ui'
 #
-# Created: Sun Sep 10 09:39:25 2017
+# Created: Sun Sep 10 11:23:31 2017
 #      by: PyQt5 UI code generator 5.3.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -99,6 +99,7 @@ class Ui_enrolWindow(object):
         spacerItem4 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.gridLayout.addItem(spacerItem4, 9, 0, 1, 1)
         self.biometricButton = QtWidgets.QPushButton(enrolWindow)
+        self.biometricButton.setFocusPolicy(QtCore.Qt.NoFocus)
         self.biometricButton.setObjectName("biometricButton")
         self.gridLayout.addWidget(self.biometricButton, 4, 0, 1, 1, QtCore.Qt.AlignHCenter)
         spacerItem5 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)

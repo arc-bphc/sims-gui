@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'finger.ui'
 #
-# Created: Sun Sep 10 09:39:22 2017
+# Created: Sun Sep 10 11:23:28 2017
 #      by: PyQt5 UI code generator 5.3.2
 #
 # WARNING! All changes made in this file will be lost!

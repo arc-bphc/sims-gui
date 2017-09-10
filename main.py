@@ -225,12 +225,12 @@ class mainWindow(QWidget):
        
         comboBox = self.arcHeader.findChild(QPushButton,'comboBox')
         comboBox.setFocusPolicy(Qt.NoFocus)
-        for i in self.user.getName().split(' '):
-            if len(i)>3:
-                username=i
-                break
+        #for i in self.user.getName().split(' '):
+            #if len(i)>3:
+                #username=i
+                #break
                 
-        comboBox.setText(username)
+        comboBox.setText('USER:'+str(self.user.getUserId()))
         
         if not self.HeaderWidgetCreated:
             backButton.clicked.connect(self.goBack)
@@ -685,6 +685,8 @@ class mainWindow(QWidget):
             else:
                 print('fingerprint not stored')
             self.showMsgBox('Database successfully updated!')
+            #clear the stored template from memory
+            self.ftemplate=None
             self.userListChanged.emit()
             self.launchWindow(0)
         else:
@@ -719,7 +721,7 @@ class mainWindow(QWidget):
         biometricButton = self.editUsers.findChild(QPushButton, "biometricButton")
         saveButton = self.editUsers.findChild(QPushButton, "saveButton")
         deleteButton = self.editUsers.findChild(QPushButton, "deleteButton")
-        
+        deleteButton.setStyleSheet('QPushButton {background-color:#aa0000;color:white;border-width: 1px;border-color: #339;border-style: solid;border-radius: 8;padding: 10px}\nQPushButton:pressed{background:royalblue;border-color:royalblue;border-width:2px}')
         userImage = self.editUsers.findChild(QLabel, "userImage")
         
         userView = self.editUsers.findChild(QListView, "userView")
@@ -755,15 +757,14 @@ class mainWindow(QWidget):
                         self.enrollUserObject.storeFingerprint(userId, self.ftemplate[0], self.ftemplate[1])
                     else:
                         print("enroll to sensor failed")
-
                 else:
                     print('modifying fingerprint '+str(self.userInfoObject.getFingerID(userId)))
-
                     self.fingerprintObject.DeleteID(self.userInfoObject.getFingerID(userId))
                     if self.fingerprintObject.SetTemplate(self.ftemplate[1],self.userInfoObject.getFingerID(userId))==True:
                         self.editUsersObject.modifyFingerprint(userId, self.ftemplate[1])
                     else:
                         print("enroll to sensor failed")
+                self.ftemplate=None
             self.showMsgBox('Database successfully updated!')
         else:
             self.showMsgBox('Database update Failed!/n Invalid Data Entered')
@@ -842,6 +843,7 @@ class mainWindow(QWidget):
         adminCheckBox.setChecked(res[5])
         labCheckBox.setChecked(res[6])
         inventoryCheckBox.setChecked(res[7])
+        self.ftemplate=None
 
     def setupEnrolFingerprint(self):
         if not self.EnrolFingerprintCreated:
@@ -853,10 +855,13 @@ class mainWindow(QWidget):
         fingerprintWidgets.append(self.enrolFingerprint.findChild(QLabel, "fprint3"))
         exitButton = self.enrolFingerprint.findChild(QPushButton, "exitButton")
         fingerprintButton = self.enrolFingerprint.findChild(QPushButton, "fingerprintButton")
+        exitButton.setText('Cancel')
+        fingerprintText = self.enrolFingerprint.findChild(QLabel,'label_5')
         
         if not self.EnrolFingerprintCreated:        
             exitButton.clicked.connect(lambda: self.exitFingerEnroll())
             self.EnrolFingerprintCreated=True
+            
         for fprint in fingerprintWidgets:
             # fprint.setMovie(scanFingerprint)
             fprint.setPixmap(QPixmap("images/fingerprint-icon.jpg"))
@@ -874,15 +879,18 @@ class mainWindow(QWidget):
 
         threads=[]
         self.fingerprintObject.stop=False
-        t=Thread(target=self.setFingerprintStates,args=(fingerprintWidgets,index,scanFingerprint,threads,))
+        self.ftemplate=None
+        t=Thread(target=self.setFingerprintStates,args=(fingerprintWidgets,index,scanFingerprint,threads,fingerprintText,))
         threads.append(t)
         # fingerprintWidgets[0].setMovie(scanFingerprint)
         self.fingerScanning=True
         t.start()
-
-    def setFingerprintStates(self, fingerprintWidgets,index,scanFingerprint,threads):
+    
+    #textbox has to be passed to the new threads,spawned wth setFingerStates()
+    def setFingerprintStates(self, fingerprintWidgets,index,scanFingerprint,threads,textBox):
         curr_enroll=self.fingerprintObject.getCurrentEnrollIndex()
-
+        
+        textBox.setText('Place your finger on the sensor (%s/3)'%(curr_enroll+1))
         fingerprintWidgets[curr_enroll].setMovie(scanFingerprint)
         scanFingerprint.start()
 
@@ -901,7 +909,7 @@ class mainWindow(QWidget):
             if curr_enroll<2:
                 fingerprintWidgets[self.fingerprintObject.getCurrentEnrollIndex()].setMovie(scanFingerprint)
                 scanFingerprint.start()
-                t=Thread(target=self.setFingerprintStates,args=(fingerprintWidgets,index,scanFingerprint,threads,))
+                t=Thread(target=self.setFingerprintStates,args=(fingerprintWidgets,index,scanFingerprint,threads,textBox,))
                 threads.append(t)
                 t.start()
                 return
@@ -914,7 +922,7 @@ class mainWindow(QWidget):
                 pass
         else:
             print("sensor response"+str(ret))
-            self.fingerScanning=False
+            self.exitFingerEnroll()
             if curr_enroll==2:
                 for i in fingerprintWidgets:
                     i.setPixmap(wrongFingerprint)
@@ -948,6 +956,11 @@ class mainWindow(QWidget):
         #             self.showMsgBox('Try Again')
 
     def exitFingerEnroll(self):
+        #if not self.fingerScanning:
+            #self.setupEnrolFingerprint()
+            
+        #else:
+            #button.setText('Retry')
         self.fingerprintObject.stop=True
         self.fingerScanning=False
         print("stopping enrollment")

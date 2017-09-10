@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'inventory.ui'
 #
-# Created: Sun Sep 10 09:39:22 2017
+# Created: Sun Sep 10 11:23:28 2017
 #      by: PyQt5 UI code generator 5.3.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -58,6 +58,7 @@ class Ui_inventoryWindow(object):
         self.partCategory.setObjectName("partCategory")
         self.gridLayout.addWidget(self.partCategory, 1, 0, 1, 2, QtCore.Qt.AlignHCenter)
         self.addToCartButton = QtWidgets.QPushButton(self.centralwidget)
+        self.addToCartButton.setFocusPolicy(QtCore.Qt.NoFocus)
         self.addToCartButton.setObjectName("addToCartButton")
         self.gridLayout.addWidget(self.addToCartButton, 9, 0, 1, 1)
         self.partBox = QtWidgets.QLabel(self.centralwidget)
@@ -81,6 +82,7 @@ class Ui_inventoryWindow(object):
         self.partShelf.setObjectName("partShelf")
         self.gridLayout.addWidget(self.partShelf, 6, 1, 1, 1)
         self.cartButton = QtWidgets.QPushButton(self.centralwidget)
+        self.cartButton.setFocusPolicy(QtCore.Qt.NoFocus)
         self.cartButton.setObjectName("cartButton")
         self.gridLayout.addWidget(self.cartButton, 10, 0, 1, 2)
         self.qtySpinBox = QtWidgets.QSpinBox(self.centralwidget)

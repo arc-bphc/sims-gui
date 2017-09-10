@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'editusers.ui'
 #
-# Created: Sun Sep 10 09:39:26 2017
+# Created: Sun Sep 10 11:23:32 2017
 #      by: PyQt5 UI code generator 5.3.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -23,6 +23,7 @@ class Ui_editUsersWindow(object):
         spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout_3.addItem(spacerItem1, 0, 2, 1, 1)
         self.saveButton = QtWidgets.QPushButton(editUsersWindow)
+        self.saveButton.setFocusPolicy(QtCore.Qt.NoFocus)
         self.saveButton.setObjectName("saveButton")
         self.gridLayout_3.addWidget(self.saveButton, 2, 1, 1, 1, QtCore.Qt.AlignHCenter)
         self.gridLayout = QtWidgets.QGridLayout()
@@ -56,15 +57,12 @@ class Ui_editUsersWindow(object):
         self.phoneWhatsApp.setObjectName("phoneWhatsApp")
         self.gridLayout_2.addWidget(self.phoneWhatsApp, 6, 1, 1, 1)
         self.biometricButton = QtWidgets.QPushButton(editUsersWindow)
+        font = QtGui.QFont()
+        font.setFamily("MS Shell Dlg 2")
+        self.biometricButton.setFont(font)
+        self.biometricButton.setFocusPolicy(QtCore.Qt.NoFocus)
         self.biometricButton.setObjectName("biometricButton")
         self.gridLayout_2.addWidget(self.biometricButton, 12, 0, 1, 1)
-        self.deleteButton = QtWidgets.QPushButton(editUsersWindow)
-        self.deleteButton.setMaximumSize(QtCore.QSize(16777215, 35))
-        self.deleteButton.setStyleSheet("background-color: rgb(170, 0, 0);\n"
-"font: 10pt \"Noto Sans\";\n"
-"color: rgb(255, 255, 255);")
-        self.deleteButton.setObjectName("deleteButton")
-        self.gridLayout_2.addWidget(self.deleteButton, 12, 1, 1, 1)
         self.label_10 = QtWidgets.QLabel(editUsersWindow)
         self.label_10.setObjectName("label_10")
         self.gridLayout_2.addWidget(self.label_10, 4, 0, 1, 1)
@@ -96,6 +94,11 @@ class Ui_editUsersWindow(object):
         self.userImage.setScaledContents(True)
         self.userImage.setObjectName("userImage")
         self.gridLayout_2.addWidget(self.userImage, 1, 1, 1, 1)
+        self.deleteButton = QtWidgets.QPushButton(editUsersWindow)
+        self.deleteButton.setFocusPolicy(QtCore.Qt.NoFocus)
+        self.deleteButton.setAutoFillBackground(True)
+        self.deleteButton.setObjectName("deleteButton")
+        self.gridLayout_2.addWidget(self.deleteButton, 12, 1, 1, 1)
         self.gridLayout.addLayout(self.gridLayout_2, 3, 3, 1, 2)
         self.userView = QtWidgets.QListView(editUsersWindow)
         self.userView.setMinimumSize(QtCore.QSize(350, 0))
@@ -128,12 +131,12 @@ class Ui_editUsersWindow(object):
         self.label_5.setText(_translate("editUsersWindow", "Name"))
         self.label_11.setText(_translate("editUsersWindow", "Room Number"))
         self.biometricButton.setText(_translate("editUsersWindow", "Biometrics"))
-        self.deleteButton.setText(_translate("editUsersWindow", "Remove User"))
         self.label_10.setText(_translate("editUsersWindow", "Email"))
         self.labCheckBox.setText(_translate("editUsersWindow", "ARC Lab Access"))
         self.inventoryCheckBox.setText(_translate("editUsersWindow", "Inventory Access"))
         self.adminCheckBox.setText(_translate("editUsersWindow", "Administrator"))
         self.username.setText(_translate("editUsersWindow", "User ID"))
+        self.deleteButton.setText(_translate("editUsersWindow", "Delete"))
 
 
 if __name__ == "__main__":

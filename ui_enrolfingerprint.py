@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'enrolfingerprint.ui'
 #
-# Created: Sun Sep 10 09:39:26 2017
+# Created: Sun Sep 10 11:23:32 2017
 #      by: PyQt5 UI code generator 5.3.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -64,6 +64,7 @@ class Ui_enrolFingerWindow(object):
         spacerItem8 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.gridLayout.addItem(spacerItem8, 6, 2, 1, 1)
         self.exitButton = QtWidgets.QPushButton(enrolFingerWindow)
+        self.exitButton.setFocusPolicy(QtCore.Qt.NoFocus)
         self.exitButton.setObjectName("exitButton")
         self.gridLayout.addWidget(self.exitButton, 5, 2, 1, 1)
         self.gridLayout_2.addLayout(self.gridLayout, 1, 1, 1, 1)
