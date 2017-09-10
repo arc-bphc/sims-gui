@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>432</width>
-    <height>515</height>
+    <width>438</width>
+    <height>545</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -66,6 +66,9 @@ QWidget {background-color: rgb(255, 255, 255)}
      </item>
      <item row="8" column="0">
       <widget class="QPushButton" name="addToCartButton">
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
+       </property>
        <property name="text">
         <string>Add to Cart</string>
        </property>

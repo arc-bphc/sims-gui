@@ -111,6 +111,9 @@ QWidget {background-color: white}
         </item>
         <item row="9" column="0">
          <widget class="QPushButton" name="addToCartButton">
+          <property name="focusPolicy">
+           <enum>Qt::NoFocus</enum>
+          </property>
           <property name="text">
            <string>Add to Cart</string>
           </property>
@@ -156,6 +159,9 @@ QWidget {background-color: white}
         </item>
         <item row="10" column="0" colspan="2">
          <widget class="QPushButton" name="cartButton">
+          <property name="focusPolicy">
+           <enum>Qt::NoFocus</enum>
+          </property>
           <property name="text">
            <string>View Cart</string>
           </property>

@@ -216,6 +216,9 @@ QWidget {background-color: white}
      </item>
      <item row="4" column="0" alignment="Qt::AlignHCenter">
       <widget class="QPushButton" name="biometricButton">
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
+       </property>
        <property name="text">
         <string>Biometrics</string>
        </property>
