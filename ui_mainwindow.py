@@ -2,7 +2,8 @@
 
 # Form implementation generated from reading ui file 'mainwindow.ui'
 #
-# Created by: PyQt5 UI code generator 5.8.2
+# Created: Sun Sep 10 09:39:21 2017
+#      by: PyQt5 UI code generator 5.3.2
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -11,7 +12,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_splashScreen(object):
     def setupUi(self, splashScreen):
         splashScreen.setObjectName("splashScreen")
-        splashScreen.resize(977, 696)
+        splashScreen.resize(977, 708)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -23,12 +24,8 @@ class Ui_splashScreen(object):
         self.centralWidget = QtWidgets.QWidget(splashScreen)
         self.centralWidget.setObjectName("centralWidget")
         self.gridLayout_2 = QtWidgets.QGridLayout(self.centralWidget)
-        self.gridLayout_2.setContentsMargins(11, 11, 11, 11)
-        self.gridLayout_2.setSpacing(6)
         self.gridLayout_2.setObjectName("gridLayout_2")
         self.gridLayout = QtWidgets.QGridLayout()
-        self.gridLayout.setContentsMargins(11, 11, 11, 11)
-        self.gridLayout.setSpacing(6)
         self.gridLayout.setObjectName("gridLayout")
         self.label = QtWidgets.QLabel(self.centralWidget)
         self.label.setMaximumSize(QtCore.QSize(400, 160))
@@ -36,7 +33,7 @@ class Ui_splashScreen(object):
         self.label.setPixmap(QtGui.QPixmap("images/12967978_719298328212453_6846422403842474807_o.jpg"))
         self.label.setScaledContents(True)
         self.label.setObjectName("label")
-        self.gridLayout.addWidget(self.label, 0, 0, 1, 1)
+        self.gridLayout.addWidget(self.label, 0, 0, 1, 1, QtCore.Qt.AlignHCenter)
         self.label_4 = QtWidgets.QLabel(self.centralWidget)
         self.label_4.setStyleSheet("font: 75 22pt \"Noto Sans\";")
         self.label_4.setObjectName("label_4")

@@ -2,7 +2,8 @@
 
 # Form implementation generated from reading ui file 'finger.ui'
 #
-# Created by: PyQt5 UI code generator 5.8.2
+# Created: Sun Sep 10 09:39:22 2017
+#      by: PyQt5 UI code generator 5.3.2
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -12,14 +13,12 @@ class Ui_loginWindow(object):
     def setupUi(self, loginWindow):
         loginWindow.setObjectName("loginWindow")
         loginWindow.setEnabled(True)
-        loginWindow.resize(960, 669)
+        loginWindow.resize(977, 708)
         loginWindow.setStyleSheet("QPushButton {padding: 10px}\n"
 "QWidget {background-color: rgb(255, 255, 255)}\n"
 "")
         self.gridLayout = QtWidgets.QGridLayout(loginWindow)
         self.gridLayout.setObjectName("gridLayout")
-        spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.gridLayout.addItem(spacerItem, 0, 0, 1, 1)
         self.verticalLayout = QtWidgets.QVBoxLayout()
         self.verticalLayout.setObjectName("verticalLayout")
         self.label_2 = QtWidgets.QLabel(loginWindow)
@@ -28,25 +27,33 @@ class Ui_loginWindow(object):
         self.label_2.setPixmap(QtGui.QPixmap("images/12967978_719298328212453_6846422403842474807_o.jpg"))
         self.label_2.setScaledContents(True)
         self.label_2.setObjectName("label_2")
-        self.verticalLayout.addWidget(self.label_2, 0, QtCore.Qt.AlignHCenter)
+        self.verticalLayout.addWidget(self.label_2, QtCore.Qt.AlignHCenter)
+        spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout.addItem(spacerItem)
+        spacerItem1 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout.addItem(spacerItem1)
         self.fingerLabel = QtWidgets.QLabel(loginWindow)
         self.fingerLabel.setMaximumSize(QtCore.QSize(320, 240))
         self.fingerLabel.setText("")
         self.fingerLabel.setPixmap(QtGui.QPixmap("images/finger-scan.gif"))
         self.fingerLabel.setScaledContents(True)
         self.fingerLabel.setObjectName("fingerLabel")
-        self.verticalLayout.addWidget(self.fingerLabel, 0, QtCore.Qt.AlignHCenter)
-        spacerItem1 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.verticalLayout.addItem(spacerItem1)
+        self.verticalLayout.addWidget(self.fingerLabel, QtCore.Qt.AlignHCenter)
+        spacerItem2 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout.addItem(spacerItem2)
+        spacerItem3 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout.addItem(spacerItem3)
         self.label_3 = QtWidgets.QLabel(loginWindow)
         self.label_3.setStyleSheet("font: 75 18pt \"Noto Sans\";")
         self.label_3.setObjectName("label_3")
-        self.verticalLayout.addWidget(self.label_3, 0, QtCore.Qt.AlignHCenter)
-        spacerItem2 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.verticalLayout.addItem(spacerItem2)
+        self.verticalLayout.addWidget(self.label_3, QtCore.Qt.AlignHCenter)
+        spacerItem4 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout.addItem(spacerItem4)
         self.gridLayout.addLayout(self.verticalLayout, 0, 1, 1, 1)
-        spacerItem3 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.gridLayout.addItem(spacerItem3, 0, 2, 1, 1)
+        spacerItem5 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.gridLayout.addItem(spacerItem5, 0, 0, 1, 1)
+        spacerItem6 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.gridLayout.addItem(spacerItem6, 0, 2, 1, 1)
 
         self.retranslateUi(loginWindow)
         QtCore.QMetaObject.connectSlotsByName(loginWindow)
