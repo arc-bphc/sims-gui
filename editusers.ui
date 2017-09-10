@@ -19,19 +19,6 @@ QWidget {background-color: white}
 </string>
   </property>
   <layout class="QGridLayout" name="gridLayout_3">
-   <item row="0" column="2">
-    <spacer name="horizontalSpacer_3">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>40</width>
-       <height>20</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
    <item row="0" column="0">
     <spacer name="horizontalSpacer_2">
      <property name="orientation">
@@ -45,50 +32,28 @@ QWidget {background-color: white}
      </property>
     </spacer>
    </item>
+   <item row="0" column="2">
+    <spacer name="horizontalSpacer_3">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>40</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="2" column="1" alignment="Qt::AlignHCenter">
+    <widget class="QPushButton" name="saveButton">
+     <property name="text">
+      <string>Save Details</string>
+     </property>
+    </widget>
+   </item>
    <item row="0" column="1">
     <layout class="QGridLayout" name="gridLayout">
-     <item row="2" column="0" colspan="5">
-      <spacer name="verticalSpacer">
-       <property name="orientation">
-        <enum>Qt::Vertical</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>20</width>
-         <height>40</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item row="4" column="2" rowspan="2">
-      <spacer name="horizontalSpacer">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item row="4" column="0" rowspan="2" colspan="2">
-      <widget class="QListView" name="userView">
-       <property name="minimumSize">
-        <size>
-         <width>350</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="editTriggers">
-        <set>QAbstractItemView::NoEditTriggers</set>
-       </property>
-       <property name="alternatingRowColors">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
      <item row="1" column="0" colspan="5" alignment="Qt::AlignHCenter">
       <widget class="QLabel" name="label">
        <property name="styleSheet">
@@ -99,116 +64,32 @@ QWidget {background-color: white}
        </property>
       </widget>
      </item>
-     <item row="3" column="0" colspan="2" alignment="Qt::AlignHCenter">
-      <widget class="QLabel" name="label_6">
-       <property name="styleSheet">
-        <string notr="true">font: 16pt &quot;Noto Sans&quot;;</string>
-       </property>
-       <property name="text">
-        <string>Users</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="4" alignment="Qt::AlignRight">
-      <widget class="QPushButton" name="deleteButton">
-       <property name="maximumSize">
-        <size>
-         <width>16777215</width>
-         <height>35</height>
-        </size>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: rgb(170, 0, 0);
-font: 10pt &quot;Noto Sans&quot;;
-color: rgb(255, 255, 255);</string>
-       </property>
-       <property name="text">
-        <string>Remove User</string>
-       </property>
-      </widget>
-     </item>
      <item row="4" column="3" colspan="2">
       <layout class="QGridLayout" name="gridLayout_2">
-       <item row="7" column="0">
-        <widget class="QCheckBox" name="adminCheckBox">
-         <property name="text">
-          <string>Administrator</string>
-         </property>
-        </widget>
-       </item>
-       <item row="9" column="0" colspan="2">
-        <widget class="QCheckBox" name="inventoryCheckBox">
-         <property name="text">
-          <string>Inventory Access</string>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="0">
-        <widget class="QLabel" name="label_8">
-         <property name="text">
-          <string>Phone (Calling)</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="0">
-        <widget class="QLabel" name="label_10">
-         <property name="text">
-          <string>Email</string>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="0">
-        <widget class="QLabel" name="label_9">
-         <property name="text">
-          <string>Phone (WhatsApp)</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="1">
-        <widget class="QLineEdit" name="email"/>
-       </item>
-       <item row="4" column="1">
-        <widget class="QLineEdit" name="phoneCall"/>
-       </item>
-       <item row="5" column="1">
+       <property name="sizeConstraint">
+        <enum>QLayout::SetFixedSize</enum>
+       </property>
+       <item row="6" column="1">
         <widget class="QLineEdit" name="phoneWhatsApp"/>
        </item>
-       <item row="2" column="1">
-        <widget class="QLineEdit" name="name">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="0">
-        <widget class="QLabel" name="label_5">
-         <property name="text">
-          <string>Name</string>
-         </property>
-        </widget>
-       </item>
-       <item row="6" column="1">
+       <item row="7" column="1">
         <widget class="QLineEdit" name="roomNumber"/>
        </item>
-       <item row="6" column="0">
-        <widget class="QLabel" name="label_11">
+       <item row="11" column="0" colspan="2">
+        <widget class="QPushButton" name="biometricButton">
          <property name="text">
-          <string>Room Number</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="0" colspan="2" alignment="Qt::AlignHCenter">
-        <widget class="QLabel" name="username">
-         <property name="styleSheet">
-          <string notr="true">font: 20pt &quot;Noto Sans&quot;;</string>
-         </property>
-         <property name="text">
-          <string>UserName</string>
+          <string>Biometrics</string>
          </property>
         </widget>
        </item>
        <item row="1" column="0" colspan="2" alignment="Qt::AlignHCenter">
         <widget class="QLabel" name="userImage">
+         <property name="minimumSize">
+          <size>
+           <width>75</width>
+           <height>75</height>
+          </size>
+         </property>
          <property name="maximumSize">
           <size>
            <width>130</width>
@@ -226,25 +107,160 @@ color: rgb(255, 255, 255);</string>
          </property>
         </widget>
        </item>
-       <item row="7" column="1">
+       <item row="7" column="0">
+        <widget class="QLabel" name="label_11">
+         <property name="text">
+          <string>Room Number</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1">
+        <widget class="QLineEdit" name="email"/>
+       </item>
+       <item row="6" column="0">
+        <widget class="QLabel" name="label_9">
+         <property name="text">
+          <string>Phone (WhatsApp)</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="0">
+        <widget class="QLabel" name="label_8">
+         <property name="text">
+          <string>Phone (Calling)</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="label_5">
+         <property name="text">
+          <string>Name</string>
+         </property>
+        </widget>
+       </item>
+       <item row="8" column="1">
         <widget class="QCheckBox" name="labCheckBox">
          <property name="text">
           <string>ARC Lab Access</string>
          </property>
         </widget>
        </item>
-       <item row="10" column="0" colspan="2">
-        <widget class="QPushButton" name="biometricButton">
+       <item row="8" column="0">
+        <widget class="QCheckBox" name="adminCheckBox">
          <property name="text">
-          <string>Biometrics</string>
+          <string>Administrator</string>
          </property>
         </widget>
        </item>
+       <item row="4" column="0">
+        <widget class="QLabel" name="label_10">
+         <property name="text">
+          <string>Email</string>
+         </property>
+        </widget>
+       </item>
+       <item row="10" column="0" colspan="2">
+        <widget class="QCheckBox" name="inventoryCheckBox">
+         <property name="text">
+          <string>Inventory Access</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="QLineEdit" name="name">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="1">
+        <widget class="QLineEdit" name="phoneCall"/>
+       </item>
       </layout>
+     </item>
+     <item row="4" column="0" rowspan="2" colspan="2">
+      <widget class="QListView" name="userView">
+       <property name="minimumSize">
+        <size>
+         <width>350</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="editTriggers">
+        <set>QAbstractItemView::NoEditTriggers</set>
+       </property>
+       <property name="alternatingRowColors">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0" colspan="2" alignment="Qt::AlignHCenter">
+      <widget class="QLabel" name="label_6">
+       <property name="styleSheet">
+        <string notr="true">font: 16pt &quot;Noto Sans&quot;;</string>
+       </property>
+       <property name="text">
+        <string>Users</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="2" rowspan="2">
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item row="2" column="0" colspan="5">
+      <spacer name="verticalSpacer">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item row="3" column="3">
+      <widget class="QLabel" name="username">
+       <property name="styleSheet">
+        <string notr="true">font: 20pt &quot;Noto Sans&quot;;</string>
+       </property>
+       <property name="text">
+        <string>User ID</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="4">
+      <widget class="QPushButton" name="deleteButton">
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
+         <height>35</height>
+        </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(170, 0, 0);
+font: 10pt &quot;Noto Sans&quot;;
+color: rgb(255, 255, 255);</string>
+       </property>
+       <property name="text">
+        <string>Remove User</string>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>
-   <item row="2" column="1">
+   <item row="3" column="1">
     <spacer name="verticalSpacer_4">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
@@ -257,12 +273,18 @@ color: rgb(255, 255, 255);</string>
      </property>
     </spacer>
    </item>
-   <item row="1" column="1" alignment="Qt::AlignHCenter">
-    <widget class="QPushButton" name="saveButton">
-     <property name="text">
-      <string>Save Details</string>
+   <item row="1" column="1">
+    <spacer name="verticalSpacer_2">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
      </property>
-    </widget>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
    </item>
   </layout>
  </widget>
