@@ -37,6 +37,7 @@ from sql.purchase import purchaseRequests
 from sql.enrollUser import enrollUser
 from sql.editUsers import editUsers
 from sql.insert_data_users import db
+from sql.sessions import manageSession
 
 from fingerprint_sensor.finger_download import *
 from fingerprint_sensor.FPS import *
@@ -47,7 +48,6 @@ dbs=db(database_path+'SIMS.db')
 # Objects from this class are used for the active user in the application
 # At a time, only one user can be logged in.
 # NOTE: Make this a singleton in the future?
-
 class userDetails():
     def __init__(self, _name = "ARC-User-X", _userId = 1, _isAdmin = True, labAccess = True, inventoryAccess = True):
         self._name = _name
@@ -183,6 +183,7 @@ class mainWindow(QWidget):
         self.currentPage = 0
         self.previousPage = []
         
+        self.session=manageSession(self.databasePath)
 
         self.StackWidget = QStackedWidget(self)
         self.HomeWidget = QStackedWidget(self)
@@ -459,8 +460,6 @@ class mainWindow(QWidget):
         self.scanFingerprint.setScaledSize(QSize(320, 240))
         fingerLabel.setMovie(self.scanFingerprint)
 
-        
-
     def gotResult(self, myresult):
         print(myresult)
         print(threading.current_thread())
@@ -474,11 +473,12 @@ class mainWindow(QWidget):
             userInfo = user_info(self.databasePath)
             userData = userInfo.get_user_info(myresult)
             self.user = userDetails(userData[0], myresult, userData[5], userData[6], userData[7])
+            self.session.login(myresult)
             self.setupWindows()
             self.HomeWidget.setCurrentIndex(1)
         else:
             # self.finger = QWidget()
-            self.logoutUser()
+            self.lock()
 
     # Fingerprint login is supported here. We only take the sensor's word
     # for whether the fingerprint provided is valid.
@@ -1122,7 +1122,7 @@ class mainWindow(QWidget):
             self.StackWidget.setCurrentIndex(self.previousPage[-1])
             self.previousPage.pop(-1)
         else:
-            pass
+            self.lock()
     def setupWindows(self):
         self.setupHeaderWidget(self.arcHeader)
         self.setupUserProfile()
@@ -1154,12 +1154,22 @@ class mainWindow(QWidget):
         else:
             print("To be implemented soon")
             
-    def logoutUser(self):
+    def lock(self):
         self.HomeWidget.setCurrentIndex(0)
         self.user=None
         self.previousPage=[]
         self.currentPage=0
         self.setupFinger()
+        
+    def logoutUser(self):
+        self.session.logout(self.user.getUserId())
+        msg = QMessageBox()
+        msg.setIcon(QMessageBox.Information)
+        msg.setText('Are you sure you want to Logout?')
+        msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+        ret = msg.exec_()
+        if ret == QMessageBox.Ok:
+            self.lock()
         
 def powerDown(restart):
     msg = QMessageBox()

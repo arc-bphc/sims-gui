@@ -16,6 +16,7 @@ class db:
         try:
             self.conn = sqlite3.connect(self.databaseName)
             self.cursor = self.conn.cursor()
+            print(self.cursor)
 
         except:
             print ('Error in connecting to database')
@@ -46,7 +47,6 @@ class db:
         else:
             whereClause = ' AND '.join(whereClause)
             query = 'select ' + placeholder + ' from ' + table + ' where ' + whereClause
-        # print(query)
         self.cursor.execute(query)
         return self.cursor.fetchall()
 
