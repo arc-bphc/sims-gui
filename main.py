@@ -73,29 +73,40 @@ class userDetails():
 
 class ScrollArea(QScrollArea):
     
-    def __init__(self,parent):
+    def __init__(self,parent=None):
         self.widget=QWidget()
         super().__init__(parent)
     
     def addWidget(self,wid):
-        wid.setFixedSize(wid.size())
+        wid.setFixedSize(1119,629)
+        self.normalHeight=wid.height()
         wid.setFocusPolicy(Qt.NoFocus)
         wid.setParent(self.widget)
         #wid.show()
         #self.widget=wid
         
         self.widget.setFixedWidth(wid.width())
-        self.widget.setFixedHeight(1000)
+        self.widget.setFixedHeight(wid.height())
         self.widget.setFocusPolicy(Qt.NoFocus)
+        self.setFocus()
         
         self.setWidget(self.widget)
-        self.setFocusPolicy(Qt.NoFocus)
+        #self.setFocusPolicy(Qt.NoFocus)
         self.setFrameShape(QFrame.Box)
         self.setWidgetResizable(True)
         self.setLineWidth(0)
         self.setAlignment(Qt.AlignHCenter|Qt.AlignVCenter)
         
         self.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
+        self.verticalScrollBar().setFixedWidth(0)
+        QScroller.grabGesture(self.viewport(), QScroller.LeftMouseButtonGesture)
+        
+    def focusInEvent(self,event):
+        self.widget.setFixedHeight(self.normalHeight)
+        super().focusInEvent(event)
+    def focusOutEvent(self,event):
+        self.widget.setFixedHeight(1000)
+        super().focusOutEvent(event)
         
         
 
@@ -150,10 +161,12 @@ class mainWindow(QWidget):
         self.splashScreen = QMainWindow()
         self.userProfile = QDialog()
         self.resetPin = QWidget()
+        self.resetPinScroller = ScrollArea()
         self.fingerprint = QDialog()
         self.requestItem = QWidget()
-        self.requestItemScroller = ScrollArea(self.windowWidget)
+        self.requestItemScroller = ScrollArea()
         self.editDetails = QWidget()
+        self.editDetailsScroller = ScrollArea()
         self.inventory = QMainWindow()
         self.arcHeader = QWidget()
         self.cart = QWidget()
@@ -161,7 +174,9 @@ class mainWindow(QWidget):
         self.about = QWidget()
         self.admin = QWidget()
         self.enrol = QWidget()
+        self.enrolScroller = ScrollArea()
         self.editUsers = QWidget()
+        self.editUsersScroller = ScrollArea()
         self.enrolFingerprint = QWidget()
 
         self.currentPage = 0
@@ -342,15 +357,15 @@ class mainWindow(QWidget):
     # top of one another in the order in which they are added to the StackWidget
     def createStackedPages(self):
         self.StackWidget.addWidget(self.userProfile)
-        self.StackWidget.addWidget(self.resetPin)
+        self.StackWidget.addWidget(self.resetPinScroller)
         self.StackWidget.addWidget(self.fingerprint)
         self.StackWidget.addWidget(self.requestItemScroller)
-        self.StackWidget.addWidget(self.editDetails)
+        self.StackWidget.addWidget(self.editDetailsScroller)
         self.StackWidget.addWidget(self.inventory)
         self.StackWidget.addWidget(self.cart)
         self.StackWidget.addWidget(self.admin)
-        self.StackWidget.addWidget(self.enrol)
-        self.StackWidget.addWidget(self.editUsers)
+        self.StackWidget.addWidget(self.enrolScroller)
+        self.StackWidget.addWidget(self.editUsersScroller)
         self.StackWidget.addWidget(self.enrolFingerprint)
        
     # Each widget has a setup function which modifies the QWidget defined
@@ -424,6 +439,7 @@ class mainWindow(QWidget):
         buttonBox = self.resetPin.findChild(QDialogButtonBox, "buttonBox")
         currentPwd = self.resetPin.findChild(QLineEdit, "currentPwd")
         newPwd = self.resetPin.findChild(QLineEdit, "newPwd")
+        self.resetPinScroller.addWidget(self.resetPin)
         if not self.ResetPinCreated:
             buttonBox.accepted.connect(lambda: self.execResetPin(currentPwd.text(), newPwd.text()))
             buttonBox.rejected.connect(lambda: self.launchWindow(0))
@@ -560,7 +576,7 @@ class mainWindow(QWidget):
         phoneWhatsApp.setText(userData[2])
         roomNumber.setText(userData[3])
         email.setText(userData[4])
-
+        self.editDetailsScroller.addWidget(self.editDetails)
     def setupInventory(self):
         if not self.InventoryCreated:
             Ui_inventoryWindow().setupUi(self.inventory)
@@ -659,9 +675,10 @@ class mainWindow(QWidget):
         biometricButton = self.enrol.findChild(QPushButton, "biometricButton")
         # buttonBox.accepted.connect()
         self.ftemplate=None
-        biometricButton.clicked.connect(lambda: self.launchEnrolFingerprint())
-        buttonBox.rejected.connect(lambda: self.launchWindow(0))
+        self.enrolScroller.addWidget(self.enrol)
         if not self.EnrolCreated:
+            biometricButton.clicked.connect(lambda: self.launchEnrolFingerprint())
+            buttonBox.rejected.connect(lambda: self.launchWindow(0))
             if self.user.isAdmin() == True:
                 buttonBox.rejected.connect(lambda: self.launchWindow(0))
                 buttonBox.accepted.connect(lambda: self.saveEnrolUser(str(name.text()),str(email.text()), str(phoneCall.text()), \
@@ -736,6 +753,9 @@ class mainWindow(QWidget):
             self.userModel.appendRow(QStandardItem(item[1]))
 
         self.ftemplate = None
+        self.updateUserList()
+        
+        self.editUsersScroller.addWidget(self.editUsers)
         
         if not self.EditUsersCreated:
             biometricButton.clicked.connect(lambda: self.launchEnrolFingerprint())
@@ -1130,8 +1150,10 @@ def powerDown(restart):
 def handleFocus(old,new):
     if type(new)==QLineEdit:
         os.system('florence show')
+        ScrollArea.setScrolling(True)
     elif (not type(new)==QLineEdit) and type(old)==QLineEdit:
         os.system('florence hide')
+        ScrollArea.setScrolling(False)
     else:
         pass
 
