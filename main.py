@@ -442,6 +442,8 @@ class mainWindow(QWidget):
         buttonBox = self.resetPin.findChild(QDialogButtonBox, "buttonBox")
         currentPwd = self.resetPin.findChild(QLineEdit, "currentPwd")
         newPwd = self.resetPin.findChild(QLineEdit, "newPwd")
+        currentPwd.setText("")
+        newPwd.setText("")
         self.resetPinScroller.addWidget(self.resetPin)
         if not self.ResetPinCreated:
             buttonBox.accepted.connect(lambda: self.execResetPin(currentPwd.text(), newPwd.text()))
@@ -523,8 +525,11 @@ class mainWindow(QWidget):
             Ui_requestItemWindow().setupUi(self.requestItem)
             
         project = self.requestItem.findChild(QLineEdit, "project")
+        project.setText("")
         item = self.requestItem.findChild(QLineEdit, "item")
+        item.setText("")
         price = self.requestItem.findChild(QLineEdit, "price")
+        price.setText("")
         requestItemButton = self.requestItem.findChild(QPushButton, "requestItemButton")
         buttonBox = self.requestItem.findChild(QDialogButtonBox, "buttonBox")
         
@@ -659,30 +664,37 @@ class mainWindow(QWidget):
     def setupEnrol(self):
         if not self.EnrolCreated:
             Ui_enrolWindow().setupUi(self.enrol)
-            
-        self.enrollUserObject = enrollUser(self.databasePath)
+            self.enrollUserObject = enrollUser(self.databasePath)
+        
         userInfoObject = user_info(self.databasePath)
 
         buttonBox = self.enrol.findChild(QDialogButtonBox, "buttonBox")
+        buttonBox.button(QDialogButtonBox.Cancel).setText('Clear')
         name = self.enrol.findChild(QLineEdit, "name")
+        name.setText("")
         userID = self.enrol.findChild(QLineEdit, "userID")
         email = self.enrol.findChild(QLineEdit, "email")
+        email.setText("")
         phoneCall = self.enrol.findChild(QLineEdit, "phoneCall")
+        phoneCall.setText("")
         phoneWhatsApp = self.enrol.findChild(QLineEdit, "phoneWhatsApp")
+        phoneWhatsApp.setText("")
         roomNumber = self.enrol.findChild(QLineEdit, "roomNumber")
+        roomNumber.setText("")
         pin = self.enrol.findChild(QLineEdit, "pin")
+        pin.setText("")
         inventoryAccess = self.enrol.findChild(QCheckBox, "inventoryAccess")
         labAccess = self.enrol.findChild(QCheckBox, "labAccess")
         adminPriv = self.enrol.findChild(QCheckBox, "adminPriv")
         biometricButton = self.enrol.findChild(QPushButton, "biometricButton")
         # buttonBox.accepted.connect()
         self.ftemplate=None
-        self.enrolScroller.addWidget(self.enrol)
+        
         if not self.EnrolCreated:
+            self.enrolScroller.addWidget(self.enrol)
             biometricButton.clicked.connect(lambda: self.launchEnrolFingerprint())
-            buttonBox.rejected.connect(lambda: self.launchWindow(0))
+            buttonBox.rejected.connect(lambda: self.setupEnrol())
             if self.user.isAdmin() == True:
-                buttonBox.rejected.connect(lambda: self.launchWindow(0))
                 buttonBox.accepted.connect(lambda: self.saveEnrolUser(str(name.text()),str(email.text()), str(phoneCall.text()), \
                                                                 str(phoneWhatsApp.text()), str(roomNumber.text()), \
                                                                 str(pin.text()),  adminPriv.isChecked(), \
@@ -1164,7 +1176,11 @@ class mainWindow(QWidget):
     def logoutUser(self):
         self.session.logout(self.user.getUserId())
         msg = QMessageBox()
-        msg.setIcon(QMessageBox.Information)
+        #msg.setWindowFlags(Qt.FramelessWindowHint)
+        msg.setFixedSize(800,600)
+        #msg.setStyleSheet("QWidget{background-color:white}\nQLabel{min-width: 400px;min-height:50}");
+
+        
         msg.setText('Are you sure you want to Logout?')
         msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
         ret = msg.exec_()
