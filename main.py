@@ -132,6 +132,7 @@ class mainWindow(QWidget):
         
     userIdSignal = pyqtSignal(int)
     userListChanged = pyqtSignal()
+    enrolFingerResult=pyqtSignal(bool)
     fingerScanning=False
     HeaderWidgetCreated=False
     UserProfileCreated=False
@@ -215,6 +216,7 @@ class mainWindow(QWidget):
         self.StackWidget.setCurrentIndex(0)
         self.userListChanged.connect(self.updateUserList)
         self.userIdSignal.connect(self.handleAction)
+        self.enrolFingerResult.connect(self.handleEnrolResult)
 
     # The widget on top with the back button, ARC logo, and user options
     def setupHeaderWidget(self, widget):
@@ -874,9 +876,14 @@ class mainWindow(QWidget):
         fingerprintWidgets.append(self.enrolFingerprint.findChild(QLabel, "fprint2"))
         fingerprintWidgets.append(self.enrolFingerprint.findChild(QLabel, "fprint3"))
         exitButton = self.enrolFingerprint.findChild(QPushButton, "exitButton")
-        fingerprintButton = self.enrolFingerprint.findChild(QPushButton, "fingerprintButton")
+        exitButton.setStyleSheet('QPushButton {background-color:#aa0000;color:white;border-width: 1px;border-color: #339;border-style: solid;border-radius: 8;padding: 10px}\nQPushButton:pressed{background:royalblue;border-color:royalblue;border-width:2px}')
         exitButton.setText('Cancel')
         fingerprintText = self.enrolFingerprint.findChild(QLabel,'label_5')
+        
+        backButton = self.arcHeader.findChild(QPushButton,'backButton')
+        homeButton = self.arcHeader.findChild(QPushButton,'comboBox')
+        backButton.setDisabled(True)
+        homeButton.setDisabled(True)
         
         if not self.EnrolFingerprintCreated:        
             exitButton.clicked.connect(lambda: self.exitFingerEnroll())
@@ -900,12 +907,14 @@ class mainWindow(QWidget):
         threads=[]
         self.fingerprintObject.stop=False
         self.ftemplate=None
+        
+        #self.scanThread.apply_async(self.enrolFinger, callback=self.gotResult)
         t=Thread(target=self.setFingerprintStates,args=(fingerprintWidgets,index,scanFingerprint,threads,fingerprintText,))
         threads.append(t)
-        # fingerprintWidgets[0].setMovie(scanFingerprint)
+        fingerprintWidgets[0].setMovie(scanFingerprint)
         self.fingerScanning=True
         t.start()
-    
+        
     #textbox has to be passed to the new threads,spawned wth setFingerStates()
     def setFingerprintStates(self, fingerprintWidgets,index,scanFingerprint,threads,textBox):
         curr_enroll=self.fingerprintObject.getCurrentEnrollIndex()
@@ -938,14 +947,19 @@ class mainWindow(QWidget):
                 template=self.fingerprintObject.GetTemplate(index)[1]
                 self.fingerprintObject.DeleteID(index)
                 self.ftemplate=[index,template]
+                self.enrolFingerResult.emit(True)
+                return
+                
             else:
                 pass
         else:
             print("sensor response"+str(ret))
-            self.exitFingerEnroll()
+            self.fingerScanning=False
+            self.enrolFingerResult.emit(False)
             if curr_enroll==2:
                 for i in fingerprintWidgets:
                     i.setPixmap(wrongFingerprint)
+                
             else:
                 fingerprintWidgets[curr_enroll].setPixmap(wrongFingerprint)
             return
@@ -974,16 +988,31 @@ class mainWindow(QWidget):
         #                 return False
         #         else:
         #             self.showMsgBox('Try Again')
+    def handleEnrolResult(self,result):
+        textBox = self.enrolFingerprint.findChild(QLabel,'label_5')
+        exitButton = self.enrolFingerprint.findChild(QPushButton, "exitButton")
+        if result==True:
+            exitButton.setStyleSheet('QPushButton {background-color:#aa0000;color:white;border-width: 1px;border-color: #339;border-style: solid;border-radius: 8;padding: 10px}\nQPushButton:pressed{background:royalblue;border-color:royalblue;border-width:2px}')
+            exitButton.setText('Cancel')
+            self.goBack()
+        else:
+            exitButton.setStyleSheet("QPushButton {border-width: 1px;border-color: #339;border-style: solid;border-radius: 8;padding: 10px}\nQPushButton:pressed{background:white;border-color:royalblue;border-width:2px}")
+            exitButton.setText('Retry')
+            textBox.setText('Enrol Failed!')
+            backButton = self.arcHeader.findChild(QPushButton,'backButton')
+            homeButton = self.arcHeader.findChild(QPushButton,'comboBox')
+            backButton.setDisabled(False)
+            homeButton.setDisabled(False)
 
     def exitFingerEnroll(self):
-        #if not self.fingerScanning:
-            #self.setupEnrolFingerprint()
+        if not self.fingerScanning:
+            self.setupEnrolFingerprint()
             
-        #else:
-            #button.setText('Retry')
-        self.fingerprintObject.stop=True
-        self.fingerScanning=False
-        print("stopping enrollment")
+        else:
+            self.fingerprintObject.stop=True
+            self.fingerScanning=False
+            print("stopping enrollment")
+            
         
 
     def removeFromCartAction(self, listView, partID):
@@ -1089,8 +1118,6 @@ class mainWindow(QWidget):
         self.updateViewCart()
 
     def goBack(self):
-        if (self.StackWidget.currentIndex()==10) and self.fingerScanning:
-            return
         if len(self.previousPage):
             self.StackWidget.setCurrentIndex(self.previousPage[-1])
             self.previousPage.pop(-1)
