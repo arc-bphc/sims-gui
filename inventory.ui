@@ -194,6 +194,9 @@ QWidget {background-color: white}
          <layout class="QHBoxLayout" name="horizontalLayout_2">
           <item>
            <widget class="QPushButton" name="pushButton_2">
+            <property name="focusPolicy">
+             <enum>Qt::NoFocus</enum>
+            </property>
             <property name="text">
              <string/>
             </property>
@@ -216,6 +219,9 @@ QWidget {background-color: white}
               <pointsize>10</pointsize>
              </font>
             </property>
+            <property name="focusPolicy">
+             <enum>Qt::NoFocus</enum>
+            </property>
             <property name="layoutDirection">
              <enum>Qt::LeftToRight</enum>
             </property>
@@ -235,6 +241,9 @@ QWidget {background-color: white}
           </item>
           <item>
            <widget class="QPushButton" name="pushButton">
+            <property name="focusPolicy">
+             <enum>Qt::NoFocus</enum>
+            </property>
             <property name="text">
              <string/>
             </property>
