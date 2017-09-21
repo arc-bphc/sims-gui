@@ -103,11 +103,21 @@ class ScrollArea(QScrollArea):
         
     def focusInEvent(self,event):
         self.widget.setFixedHeight(self.normalHeight)
+        #self.scroll(0,-self.verticalScrollBar().sliderPosition())
         super().focusInEvent(event)
+        
     def focusOutEvent(self,event):
         self.widget.setFixedHeight(1000)
         super().focusOutEvent(event)
-        
+    
+    def eventFilter(self,obj,event):
+        #if event.type() == QEvent.MouseButtonRelease and type(obj)==QLineEdit:
+            #print('maximum')
+            #print(self.verticalScrollBar().maximum())
+            #print('minimum')
+            #print(self.verticalScrollBar().minimum())
+            #self.verticalScrollBar().setValue(-obj.pos().y()+80)
+        return super().eventFilter(obj,event)
         
 
 # Event Filter
@@ -526,15 +536,17 @@ class mainWindow(QWidget):
             
         project = self.requestItem.findChild(QLineEdit, "project")
         project.setText("")
+        
+            
         item = self.requestItem.findChild(QLineEdit, "item")
         item.setText("")
+        
         price = self.requestItem.findChild(QLineEdit, "price")
         price.setText("")
         requestItemButton = self.requestItem.findChild(QPushButton, "requestItemButton")
         buttonBox = self.requestItem.findChild(QDialogButtonBox, "buttonBox")
         
         self.requestItemScroller.addWidget(self.requestItem)
-        
         #self.requestItem.setFixedSize(1119,629)
         #parent = QWidget()
         #self.requestItem.setParent(parent)
@@ -551,6 +563,9 @@ class mainWindow(QWidget):
         
         purchaseRequest = purchaseRequests(self.databasePath)
         if not self.RequestItemCreated:
+            project.installEventFilter(self.requestItemScroller)
+            item.installEventFilter(self.requestItemScroller)
+            price.installEventFilter(self.requestItemScroller)
             buttonBox.accepted.connect(lambda: (purchaseRequest.addToTable(self.user.getUserId(), \
                                         str(project.text()), str(price.text()), \
                                         str(item.text()), 1000),
@@ -1203,10 +1218,10 @@ def powerDown(restart):
 def handleFocus(old,new):
     if type(new)==QLineEdit:
         os.system('florence show')
-        ScrollArea.setScrolling(True)
+        
     elif (not type(new)==QLineEdit) and type(old)==QLineEdit:
         os.system('florence hide')
-        ScrollArea.setScrolling(False)
+        
     else:
         pass
 
