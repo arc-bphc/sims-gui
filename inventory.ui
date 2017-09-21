@@ -96,7 +96,10 @@ QWidget {background-color: white}
            </font>
           </property>
           <property name="text">
-           <string>Available Quantity</string>
+           <string>Available:</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
           </property>
          </widget>
         </item>
@@ -110,7 +113,10 @@ QWidget {background-color: white}
            </font>
           </property>
           <property name="text">
-           <string>Box</string>
+           <string>Box:</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
           </property>
          </widget>
         </item>
@@ -124,7 +130,10 @@ QWidget {background-color: white}
            </font>
           </property>
           <property name="text">
-           <string>Shelf</string>
+           <string>Shelf:</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
           </property>
          </widget>
         </item>
@@ -162,7 +171,10 @@ QWidget {background-color: white}
            </font>
           </property>
           <property name="text">
-           <string>ID</string>
+           <string>ID:</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
           </property>
          </widget>
         </item>
@@ -193,16 +205,28 @@ QWidget {background-color: white}
           </item>
           <item>
            <widget class="QLineEdit" name="lineEdit">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
             <property name="font">
              <font>
               <pointsize>10</pointsize>
              </font>
+            </property>
+            <property name="layoutDirection">
+             <enum>Qt::LeftToRight</enum>
             </property>
             <property name="inputMethodHints">
              <set>Qt::ImhPreferNumbers|Qt::ImhSensitiveData</set>
             </property>
             <property name="text">
              <string>1</string>
+            </property>
+            <property name="frame">
+             <bool>false</bool>
             </property>
             <property name="alignment">
              <set>Qt::AlignCenter</set>
