@@ -33,6 +33,32 @@ QWidget {background-color: white}
       </property>
      </spacer>
     </item>
+    <item row="1" column="1">
+     <spacer name="verticalSpacer_2">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="0" column="2">
+     <spacer name="horizontalSpacer_2">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>107</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
     <item row="0" column="1">
      <layout class="QGridLayout" name="gridLayout_2">
       <item row="3" column="3">
@@ -49,7 +75,17 @@ QWidget {background-color: white}
         <property name="verticalSpacing">
          <number>6</number>
         </property>
-        <item row="3" column="0" colspan="2" alignment="Qt::AlignHCenter">
+        <item row="10" column="0" colspan="2">
+         <widget class="QPushButton" name="cartButton">
+          <property name="focusPolicy">
+           <enum>Qt::NoFocus</enum>
+          </property>
+          <property name="text">
+           <string>View Cart</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0" colspan="2" alignment="Qt::AlignHCenter">
          <widget class="QLabel" name="partImage">
           <property name="maximumSize">
            <size>
@@ -61,32 +97,22 @@ QWidget {background-color: white}
            <string/>
           </property>
           <property name="pixmap">
-           <pixmap>images/atmega328.jpg</pixmap>
+           <pixmap>images/default_item.png</pixmap>
           </property>
           <property name="scaledContents">
            <bool>true</bool>
           </property>
          </widget>
         </item>
-        <item row="0" column="0" colspan="2" alignment="Qt::AlignHCenter">
-         <widget class="QLabel" name="partName">
-          <property name="styleSheet">
-           <string notr="true">font: 20pt &quot;Noto Sans&quot;;</string>
-          </property>
-          <property name="text">
-           <string>ATMega328</string>
-          </property>
-         </widget>
-        </item>
-        <item row="8" column="1">
-         <widget class="QLabel" name="partQty">
+        <item row="3" column="1">
+         <widget class="QLabel" name="partID">
           <property name="font">
            <font>
             <pointsize>14</pointsize>
            </font>
           </property>
           <property name="text">
-           <string>5</string>
+           <string/>
           </property>
          </widget>
         </item>
@@ -105,33 +131,11 @@ QWidget {background-color: white}
            <string notr="true">font: italic 16pt &quot;Noto Sans&quot;;</string>
           </property>
           <property name="text">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Microcontroller&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           <string/>
           </property>
          </widget>
         </item>
-        <item row="9" column="0">
-         <widget class="QPushButton" name="addToCartButton">
-          <property name="focusPolicy">
-           <enum>Qt::NoFocus</enum>
-          </property>
-          <property name="text">
-           <string>Add to Cart</string>
-          </property>
-         </widget>
-        </item>
-        <item row="7" column="1">
-         <widget class="QLabel" name="partBox">
-          <property name="font">
-           <font>
-            <pointsize>14</pointsize>
-           </font>
-          </property>
-          <property name="text">
-           <string>5</string>
-          </property>
-         </widget>
-        </item>
-        <item row="8" column="0">
+        <item row="6" column="0">
          <widget class="QLabel" name="label_12">
           <property name="font">
            <font>
@@ -145,7 +149,35 @@ QWidget {background-color: white}
           </property>
          </widget>
         </item>
-        <item row="6" column="1">
+        <item row="5" column="0">
+         <widget class="QLabel" name="label_5">
+          <property name="font">
+           <font>
+            <pointsize>12</pointsize>
+            <weight>50</weight>
+            <bold>false</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>Box</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0">
+         <widget class="QLabel" name="label_4">
+          <property name="font">
+           <font>
+            <pointsize>12</pointsize>
+            <weight>50</weight>
+            <bold>false</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>Shelf</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1">
          <widget class="QLabel" name="partShelf">
           <property name="font">
            <font>
@@ -153,21 +185,49 @@ QWidget {background-color: white}
            </font>
           </property>
           <property name="text">
-           <string>3</string>
+           <string/>
           </property>
          </widget>
         </item>
-        <item row="10" column="0" colspan="2">
-         <widget class="QPushButton" name="cartButton">
-          <property name="focusPolicy">
-           <enum>Qt::NoFocus</enum>
+        <item row="5" column="1">
+         <widget class="QLabel" name="partBox">
+          <property name="font">
+           <font>
+            <pointsize>14</pointsize>
+           </font>
           </property>
           <property name="text">
-           <string>View Cart</string>
+           <string/>
           </property>
          </widget>
         </item>
-        <item row="9" column="1">
+        <item row="3" column="0">
+         <widget class="QLabel" name="label_3">
+          <property name="font">
+           <font>
+            <pointsize>12</pointsize>
+            <weight>50</weight>
+            <bold>false</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>ID</string>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="1">
+         <widget class="QLabel" name="partQty">
+          <property name="font">
+           <font>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="8" column="0">
          <widget class="QSpinBox" name="qtySpinBox">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -192,89 +252,38 @@ QWidget {background-color: white}
           </property>
          </widget>
         </item>
-        <item row="5" column="1">
-         <widget class="QLabel" name="partID">
-          <property name="font">
-           <font>
-            <pointsize>14</pointsize>
-           </font>
+        <item row="9" column="0" colspan="2">
+         <widget class="QPushButton" name="addToCartButton">
+          <property name="focusPolicy">
+           <enum>Qt::NoFocus</enum>
           </property>
           <property name="text">
-           <string>035</string>
+           <string>Add to Cart</string>
           </property>
          </widget>
         </item>
-        <item row="6" column="0">
-         <widget class="QLabel" name="label_4">
-          <property name="font">
-           <font>
-            <pointsize>12</pointsize>
-            <weight>50</weight>
-            <bold>false</bold>
-           </font>
-          </property>
-          <property name="text">
-           <string>Shelf</string>
-          </property>
-         </widget>
-        </item>
-        <item row="7" column="0">
-         <widget class="QLabel" name="label_5">
-          <property name="font">
-           <font>
-            <pointsize>12</pointsize>
-            <weight>50</weight>
-            <bold>false</bold>
-           </font>
-          </property>
-          <property name="text">
-           <string>Box</string>
-          </property>
-         </widget>
-        </item>
-        <item row="5" column="0">
-         <widget class="QLabel" name="label_3">
-          <property name="font">
-           <font>
-            <pointsize>12</pointsize>
-            <weight>50</weight>
-            <bold>false</bold>
-           </font>
-          </property>
-          <property name="text">
-           <string>ID</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0" colspan="2">
-         <spacer name="verticalSpacer_3">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>40</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item row="4" column="0" colspan="2">
-         <widget class="QLabel" name="descriptionLabel">
-          <property name="text">
-           <string>Description</string>
-          </property>
-         </widget>
+        <item row="8" column="1">
+         <widget class="QDial" name="dial"/>
         </item>
        </layout>
       </item>
-      <item row="2" column="0" alignment="Qt::AlignHCenter">
-       <widget class="QLabel" name="label_6">
+      <item row="0" column="0" colspan="4" alignment="Qt::AlignHCenter">
+       <widget class="QLabel" name="label_2">
+        <property name="styleSheet">
+         <string notr="true">font: 24pt &quot;Noto Sans&quot;;</string>
+        </property>
+        <property name="text">
+         <string>Inventory Browser</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1" alignment="Qt::AlignHCenter">
+       <widget class="QLabel" name="label_7">
         <property name="styleSheet">
          <string notr="true">font: 16pt &quot;Noto Sans&quot;;</string>
         </property>
         <property name="text">
-         <string>Category</string>
+         <string>Item</string>
         </property>
        </widget>
       </item>
@@ -294,13 +303,62 @@ QWidget {background-color: white}
         </property>
        </widget>
       </item>
-      <item row="0" column="0" colspan="4" alignment="Qt::AlignHCenter">
-       <widget class="QLabel" name="label_2">
+      <item row="1" column="0" colspan="4">
+       <spacer name="verticalSpacer">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="2" column="0" alignment="Qt::AlignHCenter">
+       <widget class="QLabel" name="label_6">
         <property name="styleSheet">
-         <string notr="true">font: 24pt &quot;Noto Sans&quot;;</string>
+         <string notr="true">font: 16pt &quot;Noto Sans&quot;;</string>
         </property>
         <property name="text">
-         <string>Inventory Browser</string>
+         <string>Category</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="2">
+       <spacer name="horizontalSpacer_3">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="3" column="4">
+       <spacer name="horizontalSpacer_4">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="2" column="3">
+       <widget class="QLabel" name="partName">
+        <property name="styleSheet">
+         <string notr="true">font: 20pt &quot;Noto Sans&quot;;</string>
+        </property>
+        <property name="text">
+         <string/>
         </property>
        </widget>
       </item>
@@ -326,69 +384,7 @@ QWidget {background-color: white}
         </property>
        </widget>
       </item>
-      <item row="1" column="0" colspan="4">
-       <spacer name="verticalSpacer">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>40</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="2" column="1" alignment="Qt::AlignHCenter">
-       <widget class="QLabel" name="label_7">
-        <property name="styleSheet">
-         <string notr="true">font: 16pt &quot;Noto Sans&quot;;</string>
-        </property>
-        <property name="text">
-         <string>Item</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="2">
-       <spacer name="horizontalSpacer_3">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
      </layout>
-    </item>
-    <item row="0" column="2">
-     <spacer name="horizontalSpacer_2">
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>107</width>
-        <height>20</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item row="1" column="1">
-     <spacer name="verticalSpacer_2">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>20</width>
-        <height>40</height>
-       </size>
-      </property>
-     </spacer>
     </item>
    </layout>
   </widget>
@@ -398,7 +394,6 @@ QWidget {background-color: white}
   <tabstop>itemListView</tabstop>
   <tabstop>addToCartButton</tabstop>
   <tabstop>cartButton</tabstop>
-  <tabstop>qtySpinBox</tabstop>
  </tabstops>
  <resources/>
  <connections/>
