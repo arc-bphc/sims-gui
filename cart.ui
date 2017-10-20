@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>inventoryWindow</class>
- <widget class="QMainWindow" name="inventoryWindow">
+ <class>cartWindow</class>
+ <widget class="QMainWindow" name="cartWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -63,7 +63,7 @@ QWidget {background-color: white}
     <item row="0" column="1">
      <layout class="QGridLayout" name="gridLayout_2">
       <item row="3" column="0">
-       <widget class="QListView" name="categoryView">
+       <widget class="QListView" name="listView">
         <property name="minimumSize">
          <size>
           <width>350</width>
@@ -430,7 +430,7 @@ QWidget {background-color: white}
   </widget>
  </widget>
  <tabstops>
-  <tabstop>categoryView</tabstop>
+  <tabstop>listView</tabstop>
  </tabstops>
  <resources/>
  <connections/>
