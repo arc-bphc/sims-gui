@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'adminpanel.ui'
 #
-# Created: Sun Sep 10 11:23:31 2017
+# Created: Fri Oct 20 15:54:51 2017
 #      by: PyQt5 UI code generator 5.3.2
 #
 # WARNING! All changes made in this file will be lost!

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'editusers.ui'
 #
-# Created: Sun Sep 10 11:23:32 2017
+# Created: Fri Oct 20 15:54:53 2017
 #      by: PyQt5 UI code generator 5.3.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -18,20 +18,18 @@ class Ui_editUsersWindow(object):
 "")
         self.gridLayout_3 = QtWidgets.QGridLayout(editUsersWindow)
         self.gridLayout_3.setObjectName("gridLayout_3")
-        spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.gridLayout_3.addItem(spacerItem, 0, 0, 1, 1)
-        spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.gridLayout_3.addItem(spacerItem1, 0, 2, 1, 1)
         self.saveButton = QtWidgets.QPushButton(editUsersWindow)
         self.saveButton.setFocusPolicy(QtCore.Qt.NoFocus)
         self.saveButton.setObjectName("saveButton")
         self.gridLayout_3.addWidget(self.saveButton, 2, 1, 1, 1, QtCore.Qt.AlignHCenter)
+        spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.gridLayout_3.addItem(spacerItem, 3, 1, 1, 1)
+        spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.gridLayout_3.addItem(spacerItem1, 0, 2, 1, 1)
+        spacerItem2 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.gridLayout_3.addItem(spacerItem2, 0, 0, 1, 1)
         self.gridLayout = QtWidgets.QGridLayout()
         self.gridLayout.setObjectName("gridLayout")
-        self.label = QtWidgets.QLabel(editUsersWindow)
-        self.label.setStyleSheet("font: 24pt \"Noto Sans\";")
-        self.label.setObjectName("label")
-        self.gridLayout.addWidget(self.label, 1, 1, 1, 4, QtCore.Qt.AlignHCenter)
         self.gridLayout_2 = QtWidgets.QGridLayout()
         self.gridLayout_2.setSizeConstraint(QtWidgets.QLayout.SetFixedSize)
         self.gridLayout_2.setObjectName("gridLayout_2")
@@ -96,27 +94,29 @@ class Ui_editUsersWindow(object):
         self.gridLayout_2.addWidget(self.userImage, 1, 1, 1, 1)
         self.deleteButton = QtWidgets.QPushButton(editUsersWindow)
         self.deleteButton.setFocusPolicy(QtCore.Qt.NoFocus)
-        self.deleteButton.setAutoFillBackground(True)
+        self.deleteButton.setAutoFillBackground(False)
         self.deleteButton.setObjectName("deleteButton")
         self.gridLayout_2.addWidget(self.deleteButton, 12, 1, 1, 1)
         self.gridLayout.addLayout(self.gridLayout_2, 3, 3, 1, 2)
+        self.label = QtWidgets.QLabel(editUsersWindow)
+        self.label.setStyleSheet("font: 24pt \"Noto Sans\";")
+        self.label.setObjectName("label")
+        self.gridLayout.addWidget(self.label, 1, 1, 1, 4, QtCore.Qt.AlignHCenter)
+        spacerItem3 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.gridLayout.addItem(spacerItem3, 3, 5, 1, 1)
         self.userView = QtWidgets.QListView(editUsersWindow)
         self.userView.setMinimumSize(QtCore.QSize(350, 0))
         self.userView.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
         self.userView.setAlternatingRowColors(True)
         self.userView.setObjectName("userView")
         self.gridLayout.addWidget(self.userView, 3, 1, 2, 2)
-        spacerItem2 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.gridLayout.addItem(spacerItem2, 2, 1, 1, 4)
-        spacerItem3 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.gridLayout.addItem(spacerItem3, 3, 5, 1, 1)
         spacerItem4 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout.addItem(spacerItem4, 3, 0, 1, 1)
-        self.gridLayout_3.addLayout(self.gridLayout, 0, 1, 1, 1)
         spacerItem5 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.gridLayout_3.addItem(spacerItem5, 1, 1, 1, 1)
+        self.gridLayout.addItem(spacerItem5, 2, 1, 1, 4)
+        self.gridLayout_3.addLayout(self.gridLayout, 0, 1, 1, 1)
         spacerItem6 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.gridLayout_3.addItem(spacerItem6, 3, 1, 1, 1)
+        self.gridLayout_3.addItem(spacerItem6, 1, 1, 1, 1)
 
         self.retranslateUi(editUsersWindow)
         QtCore.QMetaObject.connectSlotsByName(editUsersWindow)
@@ -125,7 +125,6 @@ class Ui_editUsersWindow(object):
         _translate = QtCore.QCoreApplication.translate
         editUsersWindow.setWindowTitle(_translate("editUsersWindow", "Form"))
         self.saveButton.setText(_translate("editUsersWindow", "Save Details"))
-        self.label.setText(_translate("editUsersWindow", "Edit Users"))
         self.label_9.setText(_translate("editUsersWindow", "Phone (WhatsApp)"))
         self.label_8.setText(_translate("editUsersWindow", "Phone (Calling)"))
         self.label_5.setText(_translate("editUsersWindow", "Name"))
@@ -137,6 +136,7 @@ class Ui_editUsersWindow(object):
         self.adminCheckBox.setText(_translate("editUsersWindow", "Administrator"))
         self.username.setText(_translate("editUsersWindow", "User ID"))
         self.deleteButton.setText(_translate("editUsersWindow", "Delete"))
+        self.label.setText(_translate("editUsersWindow", "Edit Users"))
 
 
 if __name__ == "__main__":

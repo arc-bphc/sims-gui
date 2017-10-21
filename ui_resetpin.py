@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'resetpin.ui'
 #
-# Created: Sun Sep 10 11:23:29 2017
+# Created: Fri Oct 20 15:54:48 2017
 #      by: PyQt5 UI code generator 5.3.2
 #
 # WARNING! All changes made in this file will be lost!

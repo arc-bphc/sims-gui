@@ -4,6 +4,7 @@ import sys
 import json
 import os
 import subprocess
+import time
 
 import threading
 from threading import Thread
@@ -107,7 +108,8 @@ class ScrollArea(QScrollArea):
         super().focusInEvent(event)
         
     def focusOutEvent(self,event):
-        self.widget.setFixedHeight(1000)
+        if type(self.focusWidget())==QLineEdit:
+            self.widget.setFixedHeight(1000)
         super().focusOutEvent(event)
     
     def eventFilter(self,obj,event):
@@ -180,7 +182,7 @@ class mainWindow(QWidget):
         self.editDetailsScroller = ScrollArea()
         self.inventory = QMainWindow()
         self.arcHeader = QWidget()
-        self.cart = QWidget()
+        self.cart = QMainWindow()
         self.finger = QDialog()
         self.about = QWidget()
         self.admin = QWidget()
@@ -599,34 +601,60 @@ class mainWindow(QWidget):
         roomNumber.setText(userData[3])
         email.setText(userData[4])
         self.editDetailsScroller.addWidget(self.editDetails)
+        
     def setupInventory(self):
         if not self.InventoryCreated:
             Ui_inventoryWindow().setupUi(self.inventory)
-
-        self.inventoryDb = selectFromInventory(self.databasePath)
+            self.inventoryDb = selectFromInventory(self.databasePath)
+            self.categoryModel = QStandardItemModel()
+            self.itemListModel = QStandardItemModel()
+        
         self.categoryList = self.inventoryDb.getCatagories()
-        self.categoryModel = QStandardItemModel()
-        self.itemListModel = QStandardItemModel()
-
         cartButton = self.inventory.findChild(QPushButton, "cartButton")
         categoryView = self.inventory.findChild(QListView, "categoryView")
         itemView = self.inventory.findChild(QListView, "itemListView")
         addToCartButton = self.inventory.findChild(QPushButton, "addToCartButton")
-        qtySpinBox = self.inventory.findChild(QSpinBox, "qtySpinBox")
+        plusButton = self.inventory.findChild(QPushButton, "plus")
+        minusButton = self.inventory.findChild(QPushButton, "minus")
+        quantity = self.inventory.findChild(QLabel, "quantity")
         partQty = self.inventory.findChild(QLabel, "partQty")
 
         categoryView.setModel(self.categoryModel)
         itemView.setModel(self.itemListModel)
-
+        self.categoryModel.clear()
+        
         for item in self.categoryList:
             self.categoryModel.appendRow(QStandardItem(item))
+        
+        self.updateInventoryItemInfo(None)
+            
         if not self.InventoryCreated:
-            categoryView.clicked.connect(self.updateInventoryItemList)
-            itemView.clicked.connect(self.updateInventoryItemInfo)
+            #currentChanged signal is available for selection model of qlistview
+            categoryView.selectionModel().currentChanged.connect(self.updateInventoryItemList)
+            itemView.selectionModel().currentChanged.connect(self.updateInventoryItemInfo)
+            categoryView.selectionModel().currentChanged.connect(lambda:itemView.setCurrentIndex(self.itemListModel.index(0,0)))
             cartButton.clicked.connect(lambda: self.launchWindow(6))
-            addToCartButton.clicked.connect(lambda: self.addToCartAction(itemView, qtySpinBox, partQty))
+            addToCartButton.clicked.connect(lambda: self.addToCartAction(itemView, quantity, partQty))
             self.InventoryCreated=True
-
+        categoryView.setCurrentIndex(self.categoryModel.index(0,0))
+                
+    
+    def updateQuantity(self,label, increase):
+        categoryView = self.inventory.findChild(QListView, "categoryView")
+        itemView = self.inventory.findChild(QListView, "itemListView")
+        if itemView.currentIndex().row()==None:
+            print(itemView.currentIndex().row())
+            return
+        self.inventoryDb.getItems(categoryView.currentIndex().row())
+        itemDetails = self.inventoryDb.getItemInfo(itemView.currentIndex().row())
+        maxquantity=int(itemDetails[7])
+        if increase:
+            label.setText(" "+str(min((int(label.text())+1),maxquantity))+" ")
+            label.update()
+        else:
+            label.setText(" "+str(max((int(label.text())-1),0))+" ")
+            label.update()
+            
     def setupCart(self):
         if not self.CartCreated:
             Ui_cartWindow().setupUi(self.cart)
@@ -636,17 +664,17 @@ class mainWindow(QWidget):
 
         listView = self.cart.findChild(QListView, "listView")
         buttonBox = self.cart.findChild(QDialogButtonBox, "buttonBox")
-        openInventory = self.cart.findChild(QPushButton, "openInventory")
+        #openInventory = self.cart.findChild(QPushButton, "openInventory")
         removeCartButton = self.cart.findChild(QPushButton, "removeCartButton")
         partID = self.cart.findChild(QLabel, "partID")
-        partQty = self.cart.findChild(QLabel, "partQty")
+        partQty = self.cart.findChild(QLabel, "quantity")
 
         listView.setModel(self.model)
         self.updateViewCart()
         if not self.CartCreated:
             removeCartButton.clicked.connect(lambda: self.removeFromCartAction(listView, int(str(partID.text()))))
             listView.clicked.connect(self.displayCartItem)
-            openInventory.clicked.connect(lambda: self.launchWindow(5))
+            #openInventory.clicked.connect(lambda: self.launchWindow(5))
             self.CartCreated=True
 
     def setupAdmin(self):
@@ -1063,20 +1091,22 @@ class mainWindow(QWidget):
     def addToCartAction(self, itemView, qtySpinBox, partQty):
         if len(itemView.selectedIndexes()) != 0:
             itemName = '\'' + itemView.selectedIndexes()[0].data() + '\''
-            itemId = self.inventoryDb.getItemId(itemName)
-            self.inventoryDb.addToCart(self.user.getUserId(), self.user.getName(), itemId, qtySpinBox.value(), '123')
-            qty = int(str(partQty.text()))-qtySpinBox.value()
-            if qty < 0:
-                qty = 0
-            partQty.setText(str(qty))
+            itemId = self.inventoryDb.itemList[itemView.currentIndex().row()][0]
+            self.inventoryDb.addToCart(self.user.getUserId(), self.user.getName(), itemId, int(qtySpinBox.text()), "")
+            
+            self.updateInventoryItemInfo(itemView.currentIndex())
+            #qty = int(partQty.text())-int(qtySpinBox.text())
+            #if qty < 0:
+                #qty = 0
+            #partQty.setText(str(qty))
 
-    def updateInventoryItemList(self, id):
+    def updateInventoryItemList(self, id,previous_id=None):
         self.itemListModel.clear()
         itemList = self.inventoryDb.getItems(id.row())
         for item in itemList:
             self.itemListModel.appendRow(QStandardItem(item))
 
-    def updateInventoryItemInfo(self, id):
+    def updateInventoryItemInfo(self, id,previous_id=None):
         partName = self.inventory.findChild(QLabel, "partName")
         partCategory = self.inventory.findChild(QLabel, "partCategory")
         partID = self.inventory.findChild(QLabel, "partID")
@@ -1084,16 +1114,44 @@ class mainWindow(QWidget):
         partBox = self.inventory.findChild(QLabel, "partBox")
         partQty = self.inventory.findChild(QLabel, "partQty")
         partImage = self.inventory.findChild(QLabel, "partImage")
-
+        plusButton = self.inventory.findChild(QPushButton, "plus")
+        minusButton = self.inventory.findChild(QPushButton, "minus")
+        quantity = self.inventory.findChild(QLabel, "quantity")
+        categoryView = self.inventory.findChild(QListView, "categoryView")
+        
+        if not self.InventoryCreated:
+            plusButton.clicked.connect(lambda: self.updateQuantity(quantity,True))
+            minusButton.clicked.connect(lambda: self.updateQuantity(quantity,False))
+        
+        if id==None:
+            partName.setText("")
+            partCategory.setText("")
+            partID.setText("")
+            partShelf.setText("")
+            partBox.setText("")
+            partQty.setText("")
+            quantity.setText(" 1 ")
+            partImage.setPixmap(QPixmap(self.inventoryImagesPath+self.inventoryImagesPrefix +'./../default_item.png'))
+            return
+        
+        self.inventoryDb.getItems(categoryView.currentIndex().row())
         itemDetails = self.inventoryDb.getItemInfo(id.row())
         partName.setText(itemDetails[1])
         partCategory.setText(itemDetails[5])
         partID.setText(str(itemDetails[0]))
         partShelf.setText(str(itemDetails[3]))
         partBox.setText(str(itemDetails[4]))
-        partQty.setText(str(itemDetails[6]))
-        partImage.setPixmap(QPixmap(self.inventoryImagesPath+self.inventoryImagesPrefix + \
-                                    str(itemDetails[0])+'.png'))
+        partQty.setText(str(itemDetails[7]))
+        partQty.update()
+        quantity.setText(" 1 ")
+        
+        itemImage=self.inventoryImagesPath+self.inventoryImagesPrefix + \
+                                    str(itemDetails[0])+'.png'
+        if QFile.exists(itemImage):
+            partImage.setPixmap(QPixmap(itemImage))
+        else:
+            partImage.setPixmap(QPixmap(self.inventoryImagesPath+self.inventoryImagesPrefix +'./../default_item.png'))
+        
 
     def execResetPin(self, currentPwd, newPwd):
         resetPinObject = resetPin(self.databasePath)
@@ -1119,7 +1177,7 @@ class mainWindow(QWidget):
         partID = self.cart.findChild(QLabel, "partID")
         partShelf = self.cart.findChild(QLabel, "partShelf")
         partBox = self.cart.findChild(QLabel, "partBox")
-        partQty = self.cart.findChild(QLabel, "partQty")
+        partQty = self.cart.findChild(QLabel, "quantity")
         partImage = self.cart.findChild(QLabel, "partImage")
 
         itemName = '\'' + itemId.data() + '\''
@@ -1131,9 +1189,16 @@ class mainWindow(QWidget):
         partID.setText(str(itemDetails[0]))
         partShelf.setText(str(itemDetails[3]))
         partBox.setText(str(itemDetails[4]))
-        partQty.setText(str(itemDetails[6]))
-        partImage.setPixmap(QPixmap(self.inventoryImagesPath+self.inventoryImagesPrefix + \
-                                    str(itemDetails[0])+'.png'))
+        partQty.setText(" "+str(itemDetails[7])+" ")
+        #partImage.setPixmap(QPixmap(self.inventoryImagesPath+self.inventoryImagesPrefix + \
+                                    #str(itemDetails[0])+'.png'))
+        itemImage=self.inventoryImagesPath+self.inventoryImagesPrefix + \
+                                    str(itemDetails[0])+'.png'
+        if QFile.exists(itemImage):
+            partImage.setPixmap(QPixmap(itemImage))
+        else:
+            partImage.setPixmap(QPixmap(self.inventoryImagesPath+self.inventoryImagesPrefix +'./../default_item.png'))
+        
 
     def launchWindow(self, value):
         if len(self.previousPage) and value==self.previousPage[-1]:
@@ -1189,17 +1254,15 @@ class mainWindow(QWidget):
         self.setupFinger()
         
     def logoutUser(self):
-        self.session.logout(self.user.getUserId())
         msg = QMessageBox()
         #msg.setWindowFlags(Qt.FramelessWindowHint)
         msg.setFixedSize(800,600)
-        #msg.setStyleSheet("QWidget{background-color:white}\nQLabel{min-width: 400px;min-height:50}");
-
-        
+        #msg.setStyleSheet("QWidget{background-color:white}\nQLabel{min-width: 400px;min-height:50}")        
         msg.setText('Are you sure you want to Logout?')
         msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
         ret = msg.exec_()
         if ret == QMessageBox.Ok:
+            self.session.logout(self.user.getUserId())
             self.lock()
         
 def powerDown(restart):

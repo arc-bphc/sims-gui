@@ -20,7 +20,7 @@ class view_cart:
 
 	def getItemList(self, userId): #this has a very big problem! It copies the list repeatedly
 		item_list = self.user.selectQuery('transactions',['*'],['ID = ' + str(userId)])
-		print(item_list)
+		#print(item_list)
 		items_issued = []
 		itemID_issued = []
 		for i in range(len(item_list)):
@@ -42,16 +42,17 @@ class view_cart:
 		final_list = list(final_list)
 		# print quantity
 		final_list[6] = quantity
+		final_list[7] = quantity
 		return final_list
 
 	def removeFromCart(self, userId, itemId):
 		itemInfo = self.user.viewItemInfo(itemId)
-		preQuantity = itemInfo[0][6]
+		preQuantity = itemInfo[0][7]
 		transactionQuantity = self.user.selectQuery('transactions',['QUANTITY'],['ID = ' + str(userId), 'ITEM_ID = ' + str(itemId)])
 		transQuantity = transactionQuantity[0][0]
 		# print transQuantity
 		self.user.deleteQuery('transactions', ['ID = ' + str(userId), 'ITEM_ID = ' + str(itemId)])
-		self.user.updateQuery('inventory',['QUANTITY = ' + str(transQuantity + preQuantity)],['ITEM_ID = ' + str(itemId)])
+		self.user.updateQuery('inventory',['QUANTITY_AVBL = ' + str(transQuantity + preQuantity)],['ITEM_ID = ' + str(itemId)])
 
 
 def main():
