@@ -638,10 +638,26 @@ class mainWindow(QWidget):
             self.InventoryCreated=True
         categoryView.setCurrentIndex(self.categoryModel.index(0,0))
                 
+    def updateQuantityCart(self,label, increase):
+        saveButton = self.cart.findChild(QPushButton, "cartButton")
+        listView = self.cart.findChild(QListView, "listView")
+        if listView.currentIndex().row()==None:
+            print(listView.currentIndex().row())
+            return
+        self.viewCart.getItemList(self.user.getUserId())
+        saveButton.setDisabled(False)
+        maxquantity=int(self.viewCart.item_list[listView.currentIndex().row()][4])
+        if increase:
+            label.setText(" "+str(min((int(label.text())+1),maxquantity))+" ")
+            label.update()
+        else:
+            label.setText(" "+str(max((int(label.text())-1),1))+" ")
+            label.update()
     
     def updateQuantity(self,label, increase):
         categoryView = self.inventory.findChild(QListView, "categoryView")
         itemView = self.inventory.findChild(QListView, "itemListView")
+        
         if itemView.currentIndex().row()==None:
             print(itemView.currentIndex().row())
             return
@@ -663,20 +679,47 @@ class mainWindow(QWidget):
         self.model = QStandardItemModel()
 
         listView = self.cart.findChild(QListView, "listView")
-        buttonBox = self.cart.findChild(QDialogButtonBox, "buttonBox")
+        #buttonBox = self.cart.findChild(QDialogButtonBox, "buttonBox")
         #openInventory = self.cart.findChild(QPushButton, "openInventory")
         removeCartButton = self.cart.findChild(QPushButton, "removeCartButton")
         partID = self.cart.findChild(QLabel, "partID")
-        partQty = self.cart.findChild(QLabel, "quantity")
-
+        quantity = self.cart.findChild(QLabel, "quantity")
+        plusButton = self.cart.findChild(QPushButton, "plus")
+        minusButton = self.cart.findChild(QPushButton, "minus")
+        saveButton = self.cart.findChild(QPushButton, "cartButton")
+        
         listView.setModel(self.model)
         self.updateViewCart()
+        self.displayCartItem(None)
+        removeCartButton.setDisabled(True)
+        plusButton.setDisabled(True)
+        minusButton.setDisabled(True)
+        saveButton.setDisabled(True)
+        
         if not self.CartCreated:
             removeCartButton.clicked.connect(lambda: self.removeFromCartAction(listView, int(str(partID.text()))))
             listView.clicked.connect(self.displayCartItem)
+            plusButton.clicked.connect(lambda: self.updateQuantityCart(quantity,True))
+            minusButton.clicked.connect(lambda: self.updateQuantityCart(quantity,False))
+            saveButton.clicked.connect(lambda: self.modifyCartQuantity(quantity))
             #openInventory.clicked.connect(lambda: self.launchWindow(5))
             self.CartCreated=True
-
+       
+    def modifyCartQuantity(self,label):
+        status=self.cart.findChild(QLabel, "status")
+        partName = self.cart.findChild(QLabel, "partName")
+        listView = self.cart.findChild(QListView, "listView")
+        if listView.currentIndex().row()==None:
+            print(listView.currentIndex().row())
+            return
+        self.viewCart.getItemList(self.user.getUserId())
+        itemId=int(self.viewCart.item_list[listView.currentIndex().row()][3])
+        quantity=int(label.text())  
+        issued_quantity= int(self.viewCart.item_list[listView.currentIndex().row()][4]) 
+        returned_quantity=issued_quantity-quantity
+        if self.viewCart.changeQuantity(self.user.getUserId(),itemId,quantity):
+            status.setText('<font color=\'green\'>'+str(returned_quantity)+' '+partName.text()+' returned</font>')
+            Thread(target=self.clearStatus,args=(status,)).start()
     def setupAdmin(self):
         if not self.AdminCreated:
             Ui_adminWindow().setupUi(self.admin)
@@ -1071,9 +1114,13 @@ class mainWindow(QWidget):
         
 
     def removeFromCartAction(self, listView, partID):
+        status=self.cart.findChild(QLabel, "status")
         if len(listView.selectedIndexes()) != 0:
             self.viewCart.removeFromCart(self.user.getUserId(), partID)
             self.updateViewCart()
+            status.setText('<font color=\'green\'>Item removed from cart</font>')
+            Thread(target=self.clearStatus,args=(status,)).start()
+            self.displayCartItem(None)
 
 
     def saveUserDetails(self, userId):
@@ -1105,6 +1152,7 @@ class mainWindow(QWidget):
                 status.setText('<font color=\'red\'>Error!</font>')
             Thread(target=self.clearStatus,args=(status,)).start()
             self.updateInventoryItemInfo(itemView.currentIndex())
+            #self.updateViewCart()
             #qty = int(partQty.text())-int(qtySpinBox.text())
             #if qty < 0:
                 #qty = 0
@@ -1181,18 +1229,45 @@ class mainWindow(QWidget):
         for item in itemList:
             self.model.appendRow(QStandardItem(item))
 
-    def displayCartItem(self, itemId):
+    def displayCartItem(self, itemId,previous_id=None):
+        listView = self.cart.findChild(QListView, "listView")
         partName = self.cart.findChild(QLabel, "partName")
         partCategory = self.cart.findChild(QLabel, "partCategory")
         partID = self.cart.findChild(QLabel, "partID")
         partShelf = self.cart.findChild(QLabel, "partShelf")
         partBox = self.cart.findChild(QLabel, "partBox")
         partQty = self.cart.findChild(QLabel, "quantity")
+        issueStatus = self.cart.findChild(QLabel, "issueStatus")
         partImage = self.cart.findChild(QLabel, "partImage")
-
+        removeCartButton = self.cart.findChild(QPushButton, "removeCartButton")
+        plusButton = self.cart.findChild(QPushButton, "plus")
+        minusButton = self.cart.findChild(QPushButton, "minus")
+        
+        if itemId==None:
+            partName.setText("")
+            partCategory.setText(" ")
+            partID.setText("")
+            partShelf.setText("")
+            partBox.setText("")
+            partQty.setText("  ")
+            issueStatus.setText("")
+            partImage.setPixmap(QPixmap(self.inventoryImagesPath+self.inventoryImagesPrefix +'./../default_item.png'))
+            return
+        
+        self.viewCart.getItemList(self.user.getUserId())
         itemName = '\'' + itemId.data() + '\''
-        itemId = self.inventoryDb.getItemId(itemName)
-
+        itemId = self.viewCart.item_list[listView.currentIndex().row()][3]
+        if self.viewCart.item_list[listView.currentIndex().row()][6]=='':
+            issueStatus.setText('<font color=\'red\'>Withdrawn</font>')
+            removeCartButton.setDisabled(True)
+            plusButton.setDisabled(True)
+            minusButton.setDisabled(True)
+        else:
+            issueStatus.setText('<font color=\'green\'>Issued</font>')
+            removeCartButton.setDisabled(False)
+            plusButton.setDisabled(False)
+            minusButton.setDisabled(False)
+            
         itemDetails = self.viewCart.getItemInfo(self.user.getUserId(), itemId)
         partName.setText(itemDetails[1])
         partCategory.setText(itemDetails[5])

@@ -19,12 +19,12 @@ class view_cart:
 		self.user = db(dbname)
 
 	def getItemList(self, userId): #this has a very big problem! It copies the list repeatedly
-		item_list = self.user.selectQuery('transactions',['*'],['ID = ' + str(userId)])
+		self.item_list = self.user.selectQuery('transactions',['*'],['ID = ' + str(userId)])
 		#print(item_list)
 		items_issued = []
 		itemID_issued = []
-		for i in range(len(item_list)):
-			itemID_issued.append(item_list[i][3])
+		for i in range(len(self.item_list)):
+			itemID_issued.append(self.item_list[i][3])
 		# print itemID_issued
 		self.itemInfoList = []
 		for j in range(len(itemID_issued)):
@@ -44,7 +44,25 @@ class view_cart:
 		final_list[6] = quantity
 		final_list[7] = quantity
 		return final_list
-
+		
+	def changeQuantity(self,userID,itemID,quantity):
+		if quantity <= 0:
+			return 0
+		itemAlreadyPresent = []
+		itemAlreadyPresent = self.user.selectQuery('transactions',['*'],['ID = ' + str(userID), 'ITEM_ID = ' + str(itemID)])
+		quantity_issued=itemAlreadyPresent[0][4]
+		quantity_returned=quantity_issued-quantity
+		if quantity_returned==0:
+		    return 0
+		# print itemAlreadyPresent
+		item = []
+		item = self.user.selectQuery('inventory',['*'],["ITEM_ID = " + str(itemID)])
+		preQuantity = item[0][7]
+		# print preQuantity
+		postQuantity = preQuantity + quantity_returned
+		self.user.updateQuery('inventory',['QUANTITY_AVBL= ' + str(postQuantity)],['ITEM_ID = ' + str(itemID)])
+		self.user.updateQuery('transactions',['QUANTITY = ' + str(quantity)], ['ID = ' + str(userID), 'ITEM_ID = ' + str(itemID)])
+		return 1
 	def removeFromCart(self, userId, itemId):
 		itemInfo = self.user.viewItemInfo(itemId)
 		preQuantity = itemInfo[0][7]
