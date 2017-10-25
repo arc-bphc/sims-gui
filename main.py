@@ -1087,13 +1087,23 @@ class mainWindow(QWidget):
         userInfo.update_user_info([str(name.text()), str(phoneCall.text()), \
                                 str(phoneWhatsApp.text()), str(roomNumber.text()), \
                                 str(email.text())], userId)
+    
+    def clearStatus(self,label):
+        text=label.text()
+        time.sleep(3)
+        if text==label.text():
+            label.setText('')
 
     def addToCartAction(self, itemView, qtySpinBox, partQty):
+        status=self.inventory.findChild(QLabel, "status")
         if len(itemView.selectedIndexes()) != 0:
-            itemName = '\'' + itemView.selectedIndexes()[0].data() + '\''
+            itemName = itemView.selectedIndexes()[0].data()
             itemId = self.inventoryDb.itemList[itemView.currentIndex().row()][0]
-            self.inventoryDb.addToCart(self.user.getUserId(), self.user.getName(), itemId, int(qtySpinBox.text()), "")
-            
+            if self.inventoryDb.addToCart(self.user.getUserId(), self.user.getName(), itemId, int(qtySpinBox.text()), ""):
+                status.setText('<font color=\'green\'>'+qtySpinBox.text()+ ' '+itemName+' added to cart'+'</font>')
+            else:
+                status.setText('<font color=\'red\'>Error!</font>')
+            Thread(target=self.clearStatus,args=(status,)).start()
             self.updateInventoryItemInfo(itemView.currentIndex())
             #qty = int(partQty.text())-int(qtySpinBox.text())
             #if qty < 0:
@@ -1275,7 +1285,7 @@ def powerDown(restart):
         if restart:
             os.system('sudo reboot')
         else:
-            os.system('sudo halt')
+            os.system('sudo shutdown -h now')
     else:
         pass
 def handleFocus(old,new):

@@ -57,7 +57,7 @@ class selectFromInventory:
 				self.user.insertTuple('transactions', [userID,userName,itemID,quantity,issueTime], ['ID','NAME','ITEM_ID','QUANTITY','ISSUE_DATETIME'])
 			else:	
 				total_quantity=quantity+itemAlreadyPresent[0][4]
-				print('item already present\nprevious quantity: %d\new quanity:%d'%(quantity,total_quantity))
+				#print('item already present\nprevious quantity: %d\new quanity:%d'%(quantity,total_quantity))
 				self.user.updateQuery('transactions',['QUANTITY = ' + str(total_quantity)], ['ID = ' + str(userID), 'ITEM_ID = ' + str(itemID)])
 			self.user.updateQuery('inventory',['QUANTITY_AVBL= ' + str(postQuantity)],['ITEM_ID = ' + str(itemID)])
 			return 1
