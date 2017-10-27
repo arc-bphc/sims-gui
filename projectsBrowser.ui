@@ -66,7 +66,7 @@ QWidget {background-color: white}
        </property>
       </spacer>
      </item>
-     <item row="1" column="1" colspan="5" alignment="Qt::AlignHCenter">
+     <item row="1" column="1" colspan="4" alignment="Qt::AlignHCenter">
       <widget class="QLabel" name="label">
        <property name="styleSheet">
         <string notr="true">font: 24pt &quot;Noto Sans&quot;;</string>
@@ -76,11 +76,24 @@ QWidget {background-color: white}
        </property>
       </widget>
      </item>
-     <item row="3" column="4" colspan="2">
+     <item row="3" column="3" colspan="2">
       <layout class="QGridLayout" name="gridLayout_2">
        <property name="sizeConstraint">
         <enum>QLayout::SetFixedSize</enum>
        </property>
+       <item row="1" column="1">
+        <spacer name="verticalSpacer_3">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
        <item row="3" column="0">
         <widget class="QLabel" name="label_10">
          <property name="font">
@@ -231,8 +244,8 @@ QWidget {background-color: white}
          </property>
         </spacer>
        </item>
-       <item row="1" column="1">
-        <spacer name="verticalSpacer_3">
+       <item row="7" column="0">
+        <spacer name="verticalSpacer_5">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
@@ -246,27 +259,7 @@ QWidget {background-color: white}
        </item>
       </layout>
      </item>
-     <item row="3" column="6">
-      <widget class="QPushButton" name="pushButton">
-       <property name="focusPolicy">
-        <enum>Qt::NoFocus</enum>
-       </property>
-       <property name="contextMenuPolicy">
-        <enum>Qt::NoContextMenu</enum>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="icon">
-        <iconset>
-         <normaloff>images/usernew.png</normaloff>images/usernew.png</iconset>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="1" colspan="5">
+     <item row="2" column="1" colspan="4">
       <spacer name="verticalSpacer">
        <property name="orientation">
         <enum>Qt::Vertical</enum>
@@ -295,8 +288,8 @@ QWidget {background-color: white}
        </property>
       </widget>
      </item>
-     <item row="3" column="3">
-      <spacer name="horizontalSpacer_5">
+     <item row="3" column="6">
+      <spacer name="horizontalSpacer_6">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
@@ -307,6 +300,26 @@ QWidget {background-color: white}
         </size>
        </property>
       </spacer>
+     </item>
+     <item row="3" column="5">
+      <widget class="QPushButton" name="pushButton">
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
+       </property>
+       <property name="contextMenuPolicy">
+        <enum>Qt::NoContextMenu</enum>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset>
+         <normaloff>images/usernew.png</normaloff>images/usernew.png</iconset>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>
