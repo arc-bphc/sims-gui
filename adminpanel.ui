@@ -23,8 +23,44 @@ QWidget {background-color: rgb(255, 255, 255)}
     <layout class="QGridLayout" name="gridLayout_2">
      <item row="0" column="1">
       <layout class="QGridLayout" name="gridLayout">
-       <item row="1" column="0">
-        <spacer name="verticalSpacer_2">
+       <item row="0" column="0" alignment="Qt::AlignHCenter">
+        <widget class="QLabel" name="label_5">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">font: 24pt &quot;Noto Sans&quot;;</string>
+         </property>
+         <property name="text">
+          <string>Administration Panel</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0">
+        <widget class="QPushButton" name="pushButton">
+         <property name="focusPolicy">
+          <enum>Qt::NoFocus</enum>
+         </property>
+         <property name="text">
+          <string>Edit Inventory</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QPushButton" name="enrolUserButton">
+         <property name="focusPolicy">
+          <enum>Qt::NoFocus</enum>
+         </property>
+         <property name="text">
+          <string>Enrol User</string>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="0">
+        <spacer name="verticalSpacer">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
@@ -46,44 +82,8 @@ QWidget {background-color: rgb(255, 255, 255)}
          </property>
         </widget>
        </item>
-       <item row="0" column="0" alignment="Qt::AlignHCenter">
-        <widget class="QLabel" name="label_5">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">font: 24pt &quot;Noto Sans&quot;;</string>
-         </property>
-         <property name="text">
-          <string>Administration Panel</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="0">
-        <widget class="QPushButton" name="enrolUserButton">
-         <property name="focusPolicy">
-          <enum>Qt::NoFocus</enum>
-         </property>
-         <property name="text">
-          <string>Enrol User</string>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="0">
-        <widget class="QPushButton" name="pushButton">
-         <property name="focusPolicy">
-          <enum>Qt::NoFocus</enum>
-         </property>
-         <property name="text">
-          <string>Edit Inventory</string>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="0">
-        <spacer name="verticalSpacer">
+       <item row="1" column="0">
+        <spacer name="verticalSpacer_2">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
@@ -94,6 +94,16 @@ QWidget {background-color: rgb(255, 255, 255)}
           </size>
          </property>
         </spacer>
+       </item>
+       <item row="5" column="0">
+        <widget class="QPushButton" name="Projects">
+         <property name="focusPolicy">
+          <enum>Qt::NoFocus</enum>
+         </property>
+         <property name="text">
+          <string>Projects</string>
+         </property>
+        </widget>
        </item>
       </layout>
      </item>
