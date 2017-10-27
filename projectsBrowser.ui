@@ -53,7 +53,7 @@ QWidget {background-color: white}
           </font>
          </property>
          <property name="text">
-          <string>Project Lead</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Team Leader&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
         </widget>
        </item>
@@ -158,14 +158,14 @@ QWidget {background-color: white}
           <enum>Qt::NoFocus</enum>
          </property>
          <property name="text">
-          <string>Save Details</string>
+          <string>Save</string>
          </property>
         </widget>
        </item>
        <item row="3" column="1">
         <layout class="QVBoxLayout" name="verticalLayout">
          <item>
-          <widget class="QLabel" name="label_3">
+          <widget class="QLabel" name="lead">
            <property name="font">
             <font>
              <pointsize>8</pointsize>
@@ -260,7 +260,7 @@ QWidget {background-color: white}
      </property>
     </spacer>
    </item>
-   <item row="4" column="1">
+   <item row="6" column="1">
     <spacer name="verticalSpacer_4">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
@@ -286,7 +286,7 @@ QWidget {background-color: white}
      </property>
     </spacer>
    </item>
-   <item row="2" column="1">
+   <item row="3" column="1">
     <widget class="QLabel" name="status">
      <property name="text">
       <string/>
@@ -296,8 +296,34 @@ QWidget {background-color: white}
      </property>
     </widget>
    </item>
+   <item row="2" column="1">
+    <spacer name="verticalSpacer_6">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="5" column="1">
+    <spacer name="verticalSpacer_7">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
    <item row="1" column="2">
-    <widget class="QPushButton" name="pushButton">
+    <widget class="QPushButton" name="changeLeadUser">
      <property name="focusPolicy">
       <enum>Qt::NoFocus</enum>
      </property>
@@ -328,6 +354,19 @@ QWidget {background-color: white}
       <set>Qt::AlignCenter</set>
      </property>
     </widget>
+   </item>
+   <item row="4" column="1">
+    <spacer name="verticalSpacer_8">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
    </item>
   </layout>
  </widget>
