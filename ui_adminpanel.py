@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'adminpanel.ui'
 #
-# Created: Wed Oct 25 16:20:23 2017
+# Created: Fri Oct 27 13:31:52 2017
 #      by: PyQt5 UI code generator 5.3.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -22,12 +22,6 @@ class Ui_adminWindow(object):
         self.gridLayout_2.setObjectName("gridLayout_2")
         self.gridLayout = QtWidgets.QGridLayout()
         self.gridLayout.setObjectName("gridLayout")
-        spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.gridLayout.addItem(spacerItem, 1, 0, 1, 1)
-        self.editUsersButton = QtWidgets.QPushButton(adminWindow)
-        self.editUsersButton.setFocusPolicy(QtCore.Qt.NoFocus)
-        self.editUsersButton.setObjectName("editUsersButton")
-        self.gridLayout.addWidget(self.editUsersButton, 3, 0, 1, 1)
         self.label_5 = QtWidgets.QLabel(adminWindow)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -37,16 +31,26 @@ class Ui_adminWindow(object):
         self.label_5.setStyleSheet("font: 24pt \"Noto Sans\";")
         self.label_5.setObjectName("label_5")
         self.gridLayout.addWidget(self.label_5, 0, 0, 1, 1, QtCore.Qt.AlignHCenter)
-        self.enrolUserButton = QtWidgets.QPushButton(adminWindow)
-        self.enrolUserButton.setFocusPolicy(QtCore.Qt.NoFocus)
-        self.enrolUserButton.setObjectName("enrolUserButton")
-        self.gridLayout.addWidget(self.enrolUserButton, 2, 0, 1, 1)
         self.pushButton = QtWidgets.QPushButton(adminWindow)
         self.pushButton.setFocusPolicy(QtCore.Qt.NoFocus)
         self.pushButton.setObjectName("pushButton")
         self.gridLayout.addWidget(self.pushButton, 4, 0, 1, 1)
+        self.enrolUserButton = QtWidgets.QPushButton(adminWindow)
+        self.enrolUserButton.setFocusPolicy(QtCore.Qt.NoFocus)
+        self.enrolUserButton.setObjectName("enrolUserButton")
+        self.gridLayout.addWidget(self.enrolUserButton, 2, 0, 1, 1)
+        spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.gridLayout.addItem(spacerItem, 6, 0, 1, 1)
+        self.editUsersButton = QtWidgets.QPushButton(adminWindow)
+        self.editUsersButton.setFocusPolicy(QtCore.Qt.NoFocus)
+        self.editUsersButton.setObjectName("editUsersButton")
+        self.gridLayout.addWidget(self.editUsersButton, 3, 0, 1, 1)
         spacerItem1 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.gridLayout.addItem(spacerItem1, 5, 0, 1, 1)
+        self.gridLayout.addItem(spacerItem1, 1, 0, 1, 1)
+        self.Projects = QtWidgets.QPushButton(adminWindow)
+        self.Projects.setFocusPolicy(QtCore.Qt.NoFocus)
+        self.Projects.setObjectName("Projects")
+        self.gridLayout.addWidget(self.Projects, 5, 0, 1, 1)
         self.gridLayout_2.addLayout(self.gridLayout, 0, 1, 1, 1)
         spacerItem2 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout_2.addItem(spacerItem2, 0, 0, 1, 1)
@@ -81,10 +85,11 @@ class Ui_adminWindow(object):
     def retranslateUi(self, adminWindow):
         _translate = QtCore.QCoreApplication.translate
         adminWindow.setWindowTitle(_translate("adminWindow", "Form"))
-        self.editUsersButton.setText(_translate("adminWindow", "Edit Users"))
         self.label_5.setText(_translate("adminWindow", "Administration Panel"))
-        self.enrolUserButton.setText(_translate("adminWindow", "Enrol User"))
         self.pushButton.setText(_translate("adminWindow", "Edit Inventory"))
+        self.enrolUserButton.setText(_translate("adminWindow", "Enrol User"))
+        self.editUsersButton.setText(_translate("adminWindow", "Edit Users"))
+        self.Projects.setText(_translate("adminWindow", "Projects"))
         self.pushButton_4.setText(_translate("adminWindow", "Shut Down"))
         self.pushButton_3.setText(_translate("adminWindow", "EXIT"))
         self.pushButton_2.setText(_translate("adminWindow", "Restart"))
