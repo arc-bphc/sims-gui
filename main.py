@@ -634,7 +634,7 @@ class mainWindow(QWidget):
     def updateProjectInfo(self):
         projectsView = self.projectsBrowser.findChild(QListView, "userView")
         name = self.projectsBrowser.findChild(QLineEdit, "name")
-        lead = self.projectsBrowser.findChild(QLabel, "label_3")
+        lead = self.projectsBrowser.findChild(QLabel, "lead")
         self.current_project = self.projectDb.project_list[projectsView.currentIndex().row()][0]
         project_name = self.projectDb.project_list[projectsView.currentIndex().row()][1]
         self.curent_project_lead_id = self.projectDb.project_list[projectsView.currentIndex().row()][2]
@@ -660,7 +660,7 @@ class mainWindow(QWidget):
         
     def newProject(self):
         name = self.projectsBrowser.findChild(QLineEdit, "name")
-        lead = self.projectsBrowser.findChild(QLabel, "label_3")
+        lead = self.projectsBrowser.findChild(QLabel, "lead")
         status = self.projectsBrowser.findChild(QLabel, "status")
         self.current_project = None
         self.curent_project_lead_id = None
