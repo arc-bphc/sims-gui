@@ -316,7 +316,7 @@ QWidget {background-color: white}
       <string notr="true">font: 24pt &quot;Noto Sans&quot;;</string>
      </property>
      <property name="text">
-      <string>    Projects List</string>
+      <string>      Projects List</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
