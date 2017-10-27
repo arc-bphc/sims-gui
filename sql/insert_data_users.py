@@ -78,6 +78,7 @@ class db:
             else:
                 whereClause = ' AND '.join(whereClause)
                 query = 'update ' + table + ' set ' + values + ' where ' + whereClause
+                print(query)
             self.conn.execute(query)
             self.conn.commit()
 
