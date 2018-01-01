@@ -731,6 +731,13 @@ class mainWindow(QWidget):
         partImage.setPixmap(QPixmap(self.inventoryImagesPath+self.inventoryImagesPrefix +'./../default_item.png'))
         
     def saveItem(self):
+        msg = QMessageBox()
+        msg.setIcon(QMessageBox.Information)
+        msg.setText('Save Changes to Item?')
+        msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+        ret = msg.exec_()
+        if not ret:
+            return
         categoryView = self.inventoryEditor.findChild(QListView, "categoryView")
         itemView = self.inventoryEditor.findChild(QListView, "itemListView")
         partName = self.inventoryEditor.findChild(QLineEdit, "partName")
@@ -753,6 +760,13 @@ class mainWindow(QWidget):
         self.updateInventoryEditorItemInfo(itemView.currentIndex())
     
     def deleteItem(self):
+        msg = QMessageBox()
+        msg.setIcon(QMessageBox.Information)
+        msg.setText('Are you sure you want to delete this Item?')
+        msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+        ret = msg.exec_()
+        if not ret:
+            return
         categoryView = self.inventoryEditor.findChild(QListView, "categoryView")
         itemView = self.inventoryEditor.findChild(QListView, "itemListView")
         partID = self.inventoryEditor.findChild(QLabel, "partID")
@@ -840,6 +854,9 @@ class mainWindow(QWidget):
         lead.setText(lead_name)
     
     def saveProjectInfo(self):
+        projectsView = self.projectsBrowser.findChild(QListView, "userView")
+        if projectsView.currentIndex().row()==None:
+            return
         name = self.projectsBrowser.findChild(QLineEdit, "name")
         status = self.projectsBrowser.findChild(QLabel, "status")
         if self.current_project==None:
@@ -867,6 +884,9 @@ class mainWindow(QWidget):
         Thread(target=self.clearStatus,args=(status,)).start()
     
     def deleteProject(self):
+        projectsView = self.projectsBrowser.findChild(QListView, "userView")
+        if projectsView.currentIndex().row()==None:
+            return
         name = self.projectsBrowser.findChild(QLineEdit, "name")
         lead = self.projectsBrowser.findChild(QLabel, "lead")
         status = self.projectsBrowser.findChild(QLabel, "status")
@@ -908,6 +928,7 @@ class mainWindow(QWidget):
             categoryView.selectionModel().currentChanged.connect(self.updateInventoryItemList)
             itemView.selectionModel().currentChanged.connect(self.updateProjectInventoryItemInfo)
             categoryView.selectionModel().currentChanged.connect(lambda:itemView.setCurrentIndex(self.itemListModel.index(0,0)))
+            #cartButton.clicked.connect(lambda: self.updateViewProjectCart())
             cartButton.clicked.connect(lambda: self.launchWindow(14))
             addToCartButton.clicked.connect(lambda: self.addToProjectCartAction(itemView, quantity, partQty))
             self.projectInventoryCreated=True
@@ -1008,8 +1029,8 @@ class mainWindow(QWidget):
         saveButton = self.projectCart.findChild(QPushButton, "cartButton")
         
         listView.setModel(self.project_cart_model)
-        if self.ProjectCartCreated:
-            self.updateViewProjectCart()
+        #if not self.ProjectCartCreated:
+            #self.updateViewProjectCart()
         self.displayProjectCartItem(None)
         removeCartButton.setDisabled(True)
         plusButton.setDisabled(True)
@@ -1069,7 +1090,7 @@ class mainWindow(QWidget):
             removeCartButton.setDisabled(False)
             plusButton.setDisabled(False)
             minusButton.setDisabled(False)
-        itemDetails = self.projectDb.getItemInfo(self.user.getUserId(), itemId)
+        itemDetails = self.projectDb.getItemInfo(self.current_project, itemId)
         partName.setText(itemDetails[1])
         partCategory.setText(itemDetails[5])
         partID.setText(str(itemDetails[0]))
@@ -1124,7 +1145,7 @@ class mainWindow(QWidget):
             self.updateViewProjectCart()
             status.setText('<font color=\'green\'>Item removed from cart</font>')
             Thread(target=self.clearStatus,args=(status,)).start()
-            self.displayCartItem(None)
+            self.displayProjectCartItem(None)
 
             
     def setupInventory(self):
