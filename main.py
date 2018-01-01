@@ -438,7 +438,7 @@ class mainWindow(QWidget):
             self.UserProfileCreated=True
         
         for i in self.user.getName().split(' '):
-            if len(i)>3:
+            if len(i)>=1:
                 username=i
                 break
         welcomeLabel.setText("Welcome, " + username)
@@ -947,6 +947,7 @@ class mainWindow(QWidget):
                 saveButton.clicked.connect(lambda: self.showMsgBox('You are not authorized to do this!'))
                 deleteButton.clicked.connect(lambda: self.showMsgBox('You are not authorized to do this!'))
             self.EditUsersCreated=True
+
     def saveEditUsers(self,userId,name,email,phoneCall,phoneWhatsapp,roomNumber,adminAccess,labAccess,inventoryAccess):
         if (self.editUsersObject.updateUser([name,email,phoneCall,phoneWhatsapp,roomNumber],userId)):
             self.editUsersObject.adminAccess(userId,adminAccess,labAccess,inventoryAccess)
@@ -1177,10 +1178,10 @@ class mainWindow(QWidget):
             exitButton.setStyleSheet("QPushButton {border-width: 1px;border-color: #339;border-style: solid;border-radius: 8;padding: 10px}\nQPushButton:pressed{background:white;border-color:royalblue;border-width:2px}")
             exitButton.setText('Retry')
             textBox.setText('Enrol Failed!')
-            backButton = self.arcHeader.findChild(QPushButton,'backButton')
-            homeButton = self.arcHeader.findChild(QPushButton,'comboBox')
-            backButton.setDisabled(False)
-            homeButton.setDisabled(False)
+        backButton = self.arcHeader.findChild(QPushButton,'backButton')
+        homeButton = self.arcHeader.findChild(QPushButton,'comboBox')
+        backButton.setDisabled(False)
+        homeButton.setDisabled(False)
 
     def exitFingerEnroll(self):
         if not self.fingerScanning:
