@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'projectsBrowser.ui'
 #
-# Created: Mon Jan  1 11:52:56 2018
+# Created: Mon Jan  1 12:34:17 2018
 #      by: PyQt5 UI code generator 5.3.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -35,7 +35,7 @@ class Ui_projectsBrowserWindow(object):
         spacerItem2 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.gridLayout_3.addItem(spacerItem2, 5, 1, 1, 1)
         spacerItem3 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.gridLayout_3.addItem(spacerItem3, 1, 2, 1, 1)
+        self.gridLayout_3.addItem(spacerItem3, 1, 3, 1, 1)
         spacerItem4 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.gridLayout_3.addItem(spacerItem4, 6, 1, 1, 1)
         self.gridLayout = QtWidgets.QGridLayout()
@@ -104,9 +104,13 @@ class Ui_projectsBrowserWindow(object):
         self.gridLayout_2.addWidget(self.saveButton, 5, 0, 1, 1)
         self.verticalLayout = QtWidgets.QVBoxLayout()
         self.verticalLayout.setObjectName("verticalLayout")
-        self.leader = QtWidgets.QLineEdit(projectsBrowserWindow)
-        self.leader.setObjectName("leader")
-        self.verticalLayout.addWidget(self.leader)
+        self.lead = QtWidgets.QLabel(projectsBrowserWindow)
+        font = QtGui.QFont()
+        font.setPointSize(8)
+        self.lead.setFont(font)
+        self.lead.setText("")
+        self.lead.setObjectName("lead")
+        self.verticalLayout.addWidget(self.lead)
         self.gridLayout_2.addLayout(self.verticalLayout, 3, 1, 1, 1)
         self.Inventory = QtWidgets.QPushButton(projectsBrowserWindow)
         self.Inventory.setFocusPolicy(QtCore.Qt.NoFocus)
@@ -133,6 +137,16 @@ class Ui_projectsBrowserWindow(object):
         self.label.setAlignment(QtCore.Qt.AlignCenter)
         self.label.setObjectName("label")
         self.gridLayout_3.addWidget(self.label, 0, 1, 1, 1)
+        self.changeLeadUser = QtWidgets.QPushButton(projectsBrowserWindow)
+        self.changeLeadUser.setFocusPolicy(QtCore.Qt.NoFocus)
+        self.changeLeadUser.setContextMenuPolicy(QtCore.Qt.NoContextMenu)
+        self.changeLeadUser.setText("")
+        icon1 = QtGui.QIcon()
+        icon1.addPixmap(QtGui.QPixmap("images/usernew.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.changeLeadUser.setIcon(icon1)
+        self.changeLeadUser.setCheckable(True)
+        self.changeLeadUser.setObjectName("changeLeadUser")
+        self.gridLayout_3.addWidget(self.changeLeadUser, 1, 2, 1, 1)
 
         self.retranslateUi(projectsBrowserWindow)
         QtCore.QMetaObject.connectSlotsByName(projectsBrowserWindow)
@@ -147,7 +161,7 @@ class Ui_projectsBrowserWindow(object):
         self.deleteButton.setText(_translate("projectsBrowserWindow", "Delete"))
         self.saveButton.setText(_translate("projectsBrowserWindow", "Save"))
         self.Inventory.setText(_translate("projectsBrowserWindow", "Inventory"))
-        self.label.setText(_translate("projectsBrowserWindow", "Projects List"))
+        self.label.setText(_translate("projectsBrowserWindow", "      Projects List"))
 
 
 if __name__ == "__main__":
