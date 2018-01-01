@@ -98,19 +98,24 @@ class selectFromInventory:
 		for i in values:
 			if i=="" or i==None or i==0:
 				return 0
-		#unnecessary!just to adjust the list size for assignment in the next line
-		values.append(rfid)
-		values[0] = "ITEM_ID = '" + str(itemID) + "'"
-		values[1] = "NAME = '" + name + "'"
-		values[2] = "RFID = '" + rfid + "'"
-		values[3] = "SHELF_NO = '" + str(shelf_no) + "'"
-		values[4] = "BOX_NO = '" + str(box_no) + "'"
-		values[5] = "CATEGORY = '" + str(category) + "'"
-		values[6] = "QUANTITY = '" + str(quantity) + "'"
 		if not self.user.selectQuery('inventory',['*'],["ITEM_ID = " + str(itemID)])==[]:
+			item = self.user.selectQuery('inventory',['*'],["ITEM_ID = " + str(itemID)])
+			#unnecessary!just to adjust the list size for assignment in the next line
+			values.append(rfid)
+			values.append(rfid)		
+			values[0] = "ITEM_ID = '" + str(itemID) + "'"
+			values[1] = "NAME = '" + name + "'"
+			values[2] = "RFID = '" + rfid + "'"
+			values[3] = "SHELF_NO = '" + str(shelf_no) + "'"
+			values[4] = "BOX_NO = '" + str(box_no) + "'"
+			values[5] = "CATEGORY = '" + str(category) + "'"
+			values[6] = "QUANTITY = '" + str(quantity) + "'"
+			avblQuantity = item[0][7]
+			preQuantity = item[0][6]
+			values[7] = "QUANTITY_AVBL= '" + str(int(quantity)-(preQuantity-avblQuantity)) + "'"
 			self.user.updateQuery('inventory',values, ['ITEM_ID = ' + str(itemID)])
 		else:	
-			self.user.insertTuple('inventory',values)
+			self.user.insertTuple('inventory',[itemID,name,rfid,shelf_no,box_no,category,quantity,quantity],['ITEM_ID','NAME','RFID','SHELF_NO','BOX_NO','CATEGORY','QUANTITY','QUANTITY_AVBL'])
 		return 1
 	
 	def deleteItem(self,itemID):
