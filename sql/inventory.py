@@ -63,6 +63,34 @@ class selectFromInventory:
 			return 1
 			#returns 1 if demanded quantity is valid and changes are made to the database.
 
+	def addToProjectCart(self,userID,userName,itemID,quantity,issueTime):
+		issueTime=datetime.datetime.now().strftime("%d-%m-%Y %H:%M:%S")
+		if quantity <= 0:
+			return 0
+		itemAlreadyPresent = []
+		itemAlreadyPresent = self.user.selectQuery('project_cart',['*'],['PROJECT_ID = ' + str(userID), 'ITEM_ID = ' + str(itemID)])
+		# print itemAlreadyPresent
+		item = []
+		item = self.user.selectQuery('inventory',['*'],["ITEM_ID = " + str(itemID)])
+		preQuantity = item[0][7]
+		# print preQuantity
+		postQuantity = preQuantity - quantity
+		# print postQuantity
+		if postQuantity < 0:
+			return 0
+			#returns 0 if quantity demanded is more than that in inventory.
+		else:
+			if len(itemAlreadyPresent) == 0:
+				self.user.insertTuple('project_cart', [userID,userName,itemID,quantity,issueTime], ['PROJECT_ID','NAME','ITEM_ID','QUANTITY','ISSUE_DATETIME'])
+			else:	
+				total_quantity=quantity+itemAlreadyPresent[0][4]
+				#print('item already present\nprevious quantity: %d\new quanity:%d'%(quantity,total_quantity))
+				self.user.updateQuery('project_cart',['QUANTITY = ' + str(total_quantity)], ['PROJECT_ID = ' + str(userID), 'ITEM_ID = ' + str(itemID)])
+			self.user.updateQuery('inventory',['QUANTITY_AVBL= ' + str(postQuantity)],['ITEM_ID = ' + str(itemID)])
+			return 1
+			#returns 1 if demanded quantity is valid and changes are made to the database.
+
+
 # def main():
 # 	obj = selectFromInventory('test.db')
 # 	# obj.getCatagories()
