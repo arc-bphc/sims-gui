@@ -51,34 +51,8 @@ QWidget {background-color: white}
      </property>
     </spacer>
    </item>
-   <item row="5" column="1">
-    <spacer name="verticalSpacer_4">
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>40</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
    <item row="1" column="1">
     <layout class="QVBoxLayout" name="verticalLayout">
-     <item>
-      <spacer name="verticalSpacer">
-       <property name="orientation">
-        <enum>Qt::Vertical</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>20</width>
-         <height>40</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
      <item>
       <widget class="QListView" name="userView">
        <property name="minimumSize">
@@ -117,6 +91,9 @@ QWidget {background-color: white}
            <pointsize>10</pointsize>
           </font>
          </property>
+         <property name="focusPolicy">
+          <enum>Qt::NoFocus</enum>
+         </property>
          <property name="text">
           <string>Select</string>
          </property>
@@ -151,19 +128,6 @@ QWidget {background-color: white}
       <set>Qt::AlignCenter</set>
      </property>
     </widget>
-   </item>
-   <item row="4" column="1">
-    <spacer name="verticalSpacer_7">
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>40</height>
-      </size>
-     </property>
-    </spacer>
    </item>
   </layout>
  </widget>
