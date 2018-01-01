@@ -616,6 +616,8 @@ class mainWindow(QWidget):
             self.projectsBrowserScroller.addWidget(self.projectsBrowser)
             self.projectDb = projectDB(self.databasePath)
         self.updateProjectsList()
+        self.current_project = None
+        self.curent_project_lead_id = None
         projectsView = self.projectsBrowser.findChild(QListView, "userView")
         saveButton = self.projectsBrowser.findChild(QPushButton, "saveButton")
         newButton = self.projectsBrowser.findChild(QPushButton, "new_2")
@@ -647,8 +649,8 @@ class mainWindow(QWidget):
             nameId = usersView.currentIndex().row()
         else:
             return
-        self.selectedUserId = self.userList[nameId][0]
-        res = self.userInfoObject.get_user_info(self.selectedUserId)
+        self.curent_project_lead_id = self.userList[nameId][0]
+        res = self.userInfoObject.get_user_info(self.curent_project_lead_id)
         lead = self.projectsBrowser.findChild(QLabel, "lead")
         lead.setText(res[0])
         self.launchWindow(11)
@@ -701,7 +703,7 @@ class mainWindow(QWidget):
     
     def deleteProject(self):
         name = self.projectsBrowser.findChild(QLineEdit, "name")
-        lead = self.projectsBrowser.findChild(QLabel, "label_3")
+        lead = self.projectsBrowser.findChild(QLabel, "lead")
         status = self.projectsBrowser.findChild(QLabel, "status")
         if self.projectDb.deleteProject(self.current_project,self.curent_project_lead_id):
             self.current_project = None

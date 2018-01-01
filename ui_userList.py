@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'userList.ui'
 #
-# Created: Mon Jan  1 12:34:18 2018
+# Created: Mon Jan  1 13:39:49 2018
 #      by: PyQt5 UI code generator 5.3.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -27,12 +27,8 @@ class Ui_userList(object):
         self.gridLayout_3.addItem(spacerItem, 1, 0, 1, 1)
         spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout_3.addItem(spacerItem1, 1, 2, 1, 1)
-        spacerItem2 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.gridLayout_3.addItem(spacerItem2, 5, 1, 1, 1)
         self.verticalLayout = QtWidgets.QVBoxLayout()
         self.verticalLayout.setObjectName("verticalLayout")
-        spacerItem3 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.verticalLayout.addItem(spacerItem3)
         self.userView = QtWidgets.QListView(userList)
         self.userView.setMinimumSize(QtCore.QSize(350, 0))
         self.userView.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
@@ -41,16 +37,17 @@ class Ui_userList(object):
         self.verticalLayout.addWidget(self.userView)
         self.horizontalLayout = QtWidgets.QHBoxLayout()
         self.horizontalLayout.setObjectName("horizontalLayout")
-        spacerItem4 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout.addItem(spacerItem4)
+        spacerItem2 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout.addItem(spacerItem2)
         self.Select = QtWidgets.QPushButton(userList)
         font = QtGui.QFont()
         font.setPointSize(10)
         self.Select.setFont(font)
+        self.Select.setFocusPolicy(QtCore.Qt.NoFocus)
         self.Select.setObjectName("Select")
         self.horizontalLayout.addWidget(self.Select)
-        spacerItem5 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout.addItem(spacerItem5)
+        spacerItem3 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout.addItem(spacerItem3)
         self.verticalLayout.addLayout(self.horizontalLayout)
         self.gridLayout_3.addLayout(self.verticalLayout, 1, 1, 1, 1)
         self.label = QtWidgets.QLabel(userList)
@@ -58,8 +55,6 @@ class Ui_userList(object):
         self.label.setAlignment(QtCore.Qt.AlignCenter)
         self.label.setObjectName("label")
         self.gridLayout_3.addWidget(self.label, 0, 1, 1, 1)
-        spacerItem6 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.gridLayout_3.addItem(spacerItem6, 4, 1, 1, 1)
 
         self.retranslateUi(userList)
         QtCore.QMetaObject.connectSlotsByName(userList)

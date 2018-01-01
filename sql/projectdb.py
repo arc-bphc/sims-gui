@@ -16,7 +16,8 @@ class projectDB:
 		if name=='' or lead_id==None:
 			return 0
 		try:
-			project_id=max(self.projects_list)[0]+1
+			id_list = [i[0] for i in self.project_list]
+			project_id=max(id_list)+1
 		except:
 			project_id=1
 		self.user.insertTuple('Projects',[project_id,name,lead_id],['Project_ID','Name','Lead_ID'])
