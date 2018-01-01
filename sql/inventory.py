@@ -8,6 +8,9 @@ itemInfo = []
 class selectFromInventory:
 	def __init__(self,dbname):
 		self.user = db(dbname)
+	
+	def maxID(self):
+	    return self.user.selectQuery('inventory',['max(ITEM_ID)'])[0][0]
 
 	def getCatagories(self):
 		catagoryList = self.user.selectDistinctQuery('inventory',['CATEGORY'])
@@ -89,7 +92,33 @@ class selectFromInventory:
 			self.user.updateQuery('inventory',['QUANTITY_AVBL= ' + str(postQuantity)],['ITEM_ID = ' + str(itemID)])
 			return 1
 			#returns 1 if demanded quantity is valid and changes are made to the database.
-
+	
+	def updateItem(self,itemID,name,rfid,shelf_no,box_no,category,quantity):
+		values=[itemID,name,shelf_no,box_no,category,quantity]
+		for i in values:
+			if i=="" or i==None or i==0:
+				return 0
+		#unnecessary!just to adjust the list size for assignment in the next line
+		values.append(rfid)
+		values[0] = "ITEM_ID = '" + str(itemID) + "'"
+		values[1] = "NAME = '" + name + "'"
+		values[2] = "RFID = '" + rfid + "'"
+		values[3] = "SHELF_NO = '" + str(shelf_no) + "'"
+		values[4] = "BOX_NO = '" + str(box_no) + "'"
+		values[5] = "CATEGORY = '" + str(category) + "'"
+		values[6] = "QUANTITY = '" + str(quantity) + "'"
+		if not self.user.selectQuery('inventory',['*'],["ITEM_ID = " + str(itemID)])==[]:
+			self.user.updateQuery('inventory',values, ['ITEM_ID = ' + str(itemID)])
+		else:	
+			self.user.insertTuple('inventory',values)
+		return 1
+	
+	def deleteItem(self,itemID):
+	    if self.user.selectQuery('transactions',['*'],["ITEM_ID = " + str(itemID)])==[] and self.user.selectQuery('project_cart',['*'],["ITEM_ID = " + str(itemID)])==[]:
+		    self.user.deleteQuery('inventory',['ITEM_ID = ' + str(itemID)])
+		    return 1
+	    else:
+		    return 0
 
 # def main():
 # 	obj = selectFromInventory('test.db')

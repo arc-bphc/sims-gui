@@ -13,4 +13,5 @@ pyuic5 editusers.ui -o ui_editusers.py -x
 pyuic5 enrolfingerprint.ui -o ui_enrolfingerprint.py -x
 pyuic5 projectsBrowser.ui -o ui_projectsBrowser.py -x
 pyuic5 userList.ui -o ui_userList.py -x
+pyuic5 inventory_editor.ui -o ui_inventory_editor.py -x
 #pyuic5 arc-header.ui -o ui_archeader.py

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'inventory.ui'
 #
-# Created: Mon Jan  1 13:39:44 2018
+# Created: Mon Jan  1 14:43:29 2018
 #      by: PyQt5 UI code generator 5.3.2
 #
 # WARNING! All changes made in this file will be lost!
