@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'enrolfingerprint.ui'
 #
-# Created: Fri Oct 27 21:04:19 2017
+# Created: Mon Jan  1 11:52:55 2018
 #      by: PyQt5 UI code generator 5.3.2
 #
 # WARNING! All changes made in this file will be lost!

@@ -616,6 +616,9 @@ class mainWindow(QWidget):
         saveButton = self.projectsBrowser.findChild(QPushButton, "saveButton")
         newButton = self.projectsBrowser.findChild(QPushButton, "new_2")
         deleteButton = self.projectsBrowser.findChild(QPushButton, "deleteButton")
+        leader = self.projectsBrowser.findChild(QLineEdit, "leader")
+        self.updateUserList()
+        leader.setCompleter(QCompleter(['Ebin','Philip']))
         if not self.ProjectsBrowserCreated:
             projectsView.clicked.connect(lambda:self.updateProjectInfo())
             saveButton.clicked.connect(lambda:self.saveProjectInfo())
