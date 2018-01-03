@@ -89,10 +89,24 @@ QWidget {background-color: white}
     <item row="0" column="1">
      <layout class="QGridLayout" name="gridLayout_2">
       <item row="4" column="3">
-       <widget class="QLineEdit" name="partCategory"/>
+       <widget class="QLineEdit" name="partCategory">
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+        <property name="placeholderText">
+         <string>Category</string>
+        </property>
+       </widget>
       </item>
       <item row="3" column="3">
-       <widget class="QLineEdit" name="partName"/>
+       <widget class="QLineEdit" name="partName">
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+        <property name="placeholderText">
+         <string>Item Name</string>
+        </property>
+       </widget>
       </item>
       <item row="1" column="0" colspan="4">
        <spacer name="verticalSpacer">
@@ -200,10 +214,17 @@ QWidget {background-color: white}
           <property name="text">
            <string/>
           </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
          </widget>
         </item>
         <item row="3" column="1">
-         <widget class="QLineEdit" name="partShelf"/>
+         <widget class="QLineEdit" name="partShelf">
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
         </item>
         <item row="1" column="0" colspan="2" alignment="Qt::AlignHCenter">
          <widget class="QLabel" name="partImage">
@@ -370,7 +391,11 @@ QWidget {background-color: white}
          </widget>
         </item>
         <item row="4" column="1">
-         <widget class="QLineEdit" name="partBox"/>
+         <widget class="QLineEdit" name="partBox">
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
         </item>
        </layout>
       </item>
