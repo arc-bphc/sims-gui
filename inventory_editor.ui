@@ -481,6 +481,9 @@ QWidget {background-color: white}
         </item>
         <item row="5" column="0">
          <widget class="QPushButton" name="rfidButton">
+          <property name="focusPolicy">
+           <enum>Qt::NoFocus</enum>
+          </property>
           <property name="text">
            <string>RFID</string>
           </property>
